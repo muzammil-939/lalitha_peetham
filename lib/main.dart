@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lalitha_peetham/screens/login.dart';
+
+import 'screens/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: ,
+      home: PhoneOtpLoginDialog(),
     );
   }
 }
