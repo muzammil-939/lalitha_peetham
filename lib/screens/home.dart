@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/home_header.dart';
+import '../widgets/home_hero.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -13,9 +14,11 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [HomeHeader()],
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [HomeHeader(), HomeHero()],
+        ),
       ),
     );
   }
