@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/appointment_form.dart';
+import '../widgets/fotter.dart';
 import '../widgets/home_header.dart';
 import '../widgets/home_hero.dart';
+import '../widgets/sucess_journey.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
-
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
+class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [HomeHeader(), HomeHero()],
+          children: [
+            // Header at the top
+            HomeHeader(),
+            HomeHero(),
+            SuccessJourneyWidget(),
+            AppointmentBookingWidget(),
+            FooterWidget(),
+
+
+          ],
         ),
       ),
     );

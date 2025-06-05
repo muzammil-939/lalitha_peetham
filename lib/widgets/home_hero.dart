@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'menu.dart';
 
 class HomeHero extends StatelessWidget {
   const HomeHero({super.key});
@@ -10,18 +11,14 @@ class HomeHero extends StatelessWidget {
 
     return Container(
       width: screenWidth,
-
       child: Stack(
         children: [
           // Background image
           Image.asset(
             'assets/images/hero_image.png',
             width: screenWidth,
-
             fit: BoxFit.cover,
           ),
-
-          // Top menu bar
 
           // Main content - centered
           Positioned.fill(
@@ -32,23 +29,46 @@ class HomeHero extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      width: 300,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.menu, color: Colors.white, size: 30),
-                          SizedBox(width: 12),
-                          Text(
-                            'MENU',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: 2,
-                            ),
+                    // Updated GestureDetector section in your HomeHero widget
+                    GestureDetector(
+                      onTap: () {
+                        // Option 1: Using Navigator (Full screen overlay)
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (context, animation, secondaryAnimation) => DropdownGridMenu(),
+                            transitionDuration: Duration(milliseconds: 300),
+                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              );
+                            },
+                            opaque: false, // This makes the background semi-transparent
                           ),
-                        ],
+                        );
+
+                        // Option 2: Using Overlay (Recommended for dropdown effect)
+                        // OverlayDropdownMenu.show(context);
+                      },
+                      child: Container(
+                        width: 300,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.menu, color: Colors.white, size: 30),
+                            SizedBox(width: 12),
+                            Text(
+                              'MENU',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 2,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(height: 200),
@@ -103,7 +123,6 @@ class HomeHero extends StatelessWidget {
                           'DISCOVER MORE',
                           style: TextStyle(
                             color: Colors.white,
-
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                             letterSpacing: 0.5,
