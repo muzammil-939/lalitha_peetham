@@ -1,50 +1,16 @@
 import 'package:flutter/material.dart';
 
-class SuccessJourneyWidget extends StatelessWidget {
-  const SuccessJourneyWidget({Key? key}) : super(key: key);
+class HomeServices extends StatelessWidget {
+  const HomeServices({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 100.0),
+      padding: const EdgeInsets.only(left: 100.0, right: 100.0, top: 300),
       color: const Color(0xFFF5F5F5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Title
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Header text
-              Text(
-                'JOURNEY  OF FAITH AND FULFILLMENT',
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey[600],
-                  letterSpacing: 1.2,
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              // Main title
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 300),
-                child: const Text(
-                  textAlign: TextAlign.center,
-                  'share your success journey with # sree lalitha peetham',
-                  style: TextStyle(
-                    fontSize: 60,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF2D2D2D),
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 80),
-
           // Services Grid
           GridView.count(
             shrinkWrap: true,
@@ -79,6 +45,20 @@ class SuccessJourneyWidget extends StatelessWidget {
           ),
 
           const SizedBox(height: 30),
+
+          // Navigation Dots
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildDot(isActive: true),
+              const SizedBox(width: 8),
+              _buildDot(isActive: false),
+              const SizedBox(width: 8),
+              _buildDot(isActive: false),
+              const SizedBox(width: 8),
+              _buildDot(isActive: false),
+            ],
+          ),
         ],
       ),
     );
@@ -130,6 +110,17 @@ class SuccessJourneyWidget extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildDot({required bool isActive}) {
+    return Container(
+      width: 12,
+      height: 12,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: isActive ? const Color(0xFFD4AF37) : const Color(0xFFBBBBBB),
+      ),
     );
   }
 }

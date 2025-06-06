@@ -24,7 +24,7 @@ class HomeHero extends StatelessWidget {
           Positioned.fill(
             child: Center(
               child: SizedBox(
-                height: screenHeight * 1.25,
+                height: screenHeight * 1.3,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,15 +36,23 @@ class HomeHero extends StatelessWidget {
                         Navigator.push(
                           context,
                           PageRouteBuilder(
-                            pageBuilder: (context, animation, secondaryAnimation) => DropdownGridMenu(),
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    DropdownGridMenu(),
                             transitionDuration: Duration(milliseconds: 300),
-                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                            transitionsBuilder: (
+                              context,
+                              animation,
+                              secondaryAnimation,
+                              child,
+                            ) {
                               return FadeTransition(
                                 opacity: animation,
                                 child: child,
                               );
                             },
-                            opaque: false, // This makes the background semi-transparent
+                            opaque:
+                                false, // This makes the background semi-transparent
                           ),
                         );
 
@@ -106,7 +114,7 @@ class HomeHero extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 100),
+                    SizedBox(height: 80),
                     GestureDetector(
                       onTap: () => (),
                       child: Container(

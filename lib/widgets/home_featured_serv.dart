@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SuccessJourneyWidget extends StatelessWidget {
-  const SuccessJourneyWidget({Key? key}) : super(key: key);
+class HomeFeaturedServ extends StatelessWidget {
+  const HomeFeaturedServ({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class SuccessJourneyWidget extends StatelessWidget {
             children: [
               // Header text
               Text(
-                'JOURNEY  OF FAITH AND FULFILLMENT',
+                'FEATURED SERVICES',
                 style: TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.w500,
@@ -28,30 +28,42 @@ class SuccessJourneyWidget extends StatelessWidget {
               const SizedBox(height: 20),
 
               // Main title
+              const Text(
+                'Traditional & Elegant:',
+                style: TextStyle(
+                  fontSize: 60,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF2D2D2D),
+                  letterSpacing: 0.5,
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              // Description text
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 300),
-                child: const Text(
-                  textAlign: TextAlign.center,
-                  'share your success journey with # sree lalitha peetham',
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  textAlign: TextAlign.left,
+                  "Lalitha Peetham brings you all-in-one spiritual and traditional services — from astrology, poojas, matrimony, and vastu to event management and wellness. Experience trusted guidance, authentic rituals, and seamless service for every sacred occasion.",
                   style: TextStyle(
-                    fontSize: 60,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF2D2D2D),
-                    letterSpacing: 0.5,
+                    fontSize: 30,
+                    height: 1.6,
+                    color: Colors.grey[700],
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 80),
+          const SizedBox(height: 125),
 
           // Services Grid
           GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             crossAxisCount: 3,
-            crossAxisSpacing: 4.0,
-            mainAxisSpacing: 6.0,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 50,
             childAspectRatio: 0.68,
             children: [
               _buildServiceCard(
@@ -59,26 +71,37 @@ class SuccessJourneyWidget extends StatelessWidget {
                 title: 'Astrology',
                 onPressed: () {},
                 context: context,
-                imgpath: 'assets/images/marriage_card.png',
               ),
               _buildServiceCard(
                 icon: Icons.favorite_outline,
                 title: 'Matrimony',
                 onPressed: () {},
                 context: context,
-                imgpath: 'assets/images/astrology_card.png',
               ),
               _buildServiceCard(
                 icon: Icons.business_outlined,
                 title: 'Property Sell & Rent',
                 onPressed: () {},
                 context: context,
-                imgpath: 'assets/images/flower_decoration_card.png',
               ),
             ],
           ),
 
           const SizedBox(height: 30),
+
+          // Navigation Dots
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildDot(isActive: true),
+              const SizedBox(width: 8),
+              _buildDot(isActive: false),
+              const SizedBox(width: 8),
+              _buildDot(isActive: false),
+              const SizedBox(width: 8),
+              _buildDot(isActive: false),
+            ],
+          ),
         ],
       ),
     );
@@ -89,7 +112,6 @@ class SuccessJourneyWidget extends StatelessWidget {
     required IconData icon,
     required String title,
     required VoidCallback onPressed,
-    required String imgpath,
   }) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
@@ -97,9 +119,45 @@ class SuccessJourneyWidget extends StatelessWidget {
       children: [
         // Golden container with icon and title
         Container(
+          width: screenWidth * 0.27,
           height: screenHeight * 0.75,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-          child: Image.asset(imgpath, fit: BoxFit.cover),
+          decoration: BoxDecoration(
+            color: Color(0xffC0B020),
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 5,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Icon
+              Icon(icon, size: 80, color: Colors.white, weight: 1.5),
+
+              const SizedBox(height: 25),
+
+              // Title
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF2C2C2C),
+                    letterSpacing: 2,
+                    height: 1.2,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
 
         const SizedBox(height: 30),
@@ -119,7 +177,7 @@ class SuccessJourneyWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             ),
             child: const Text(
-              'READ',
+              'VISIT',
               style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
@@ -130,6 +188,17 @@ class SuccessJourneyWidget extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildDot({required bool isActive}) {
+    return Container(
+      width: 12,
+      height: 12,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: isActive ? const Color(0xFFD4AF37) : const Color(0xFFBBBBBB),
+      ),
     );
   }
 }
