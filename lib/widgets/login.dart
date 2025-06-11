@@ -1,96 +1,113 @@
+// login.dart
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/firebase_phone_auth.dart';
 
-class PhoneOtpLoginDialog extends StatefulWidget {
+class PhoneOtpLoginDialog extends ConsumerStatefulWidget {
+  const PhoneOtpLoginDialog({super.key});
+
   @override
-  _PhoneOtpLoginDialogState createState() => _PhoneOtpLoginDialogState();
+  ConsumerState<PhoneOtpLoginDialog> createState() =>
+      _PhoneOtpLoginDialogState();
 }
 
-class _PhoneOtpLoginDialogState extends State<PhoneOtpLoginDialog> {
-  final TextEditingController _phoneController = TextEditingController();
-  final List<TextEditingController> _otpControllers = List.generate(6, (index) => TextEditingController());
-  final List<FocusNode> _otpFocusNodes = List.generate(6, (index) => FocusNode());
+class _PhoneOtpLoginDialogState extends ConsumerState<PhoneOtpLoginDialog> {
+  final _phoneController = TextEditingController();
+  final _otpControllers = List.generate(6, (index) => TextEditingController());
+  final _otpFocusNodes = List.generate(6, (index) => FocusNode());
 
   bool _isOtpSent = false;
   bool _isLoading = false;
   bool _rememberMe = false;
   int _resendTimer = 0;
+  String? _verificationId;
 
   @override
   void dispose() {
     _phoneController.dispose();
-    for (var controller in _otpControllers) {
-      controller.dispose();
-    }
-    for (var node in _otpFocusNodes) {
-      node.dispose();
-    }
+    _otpControllers.forEach((c) => c.dispose());
+    _otpFocusNodes.forEach((n) => n.dispose());
     super.dispose();
   }
 
   void _sendOtp() async {
-    if (_phoneController.text.isEmpty || _phoneController.text.length < 10) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please enter a valid phone number')),
+    if (_phoneController.text.isEmpty || _phoneController.text.length != 10) {
+      _showSnackBar(
+        'Please enter a valid 10-digit phone number',
+        isError: true,
       );
       return;
     }
 
-    setState(() {
-      _isLoading = true;
-    });
+    setState(() => _isLoading = true);
 
-    // Simulate API call
-    await Future.delayed(Duration(seconds: 2));
+    final authNotifier = ref.read(authNotifierProvider.notifier);
 
-    setState(() {
-      _isLoading = false;
-      _isOtpSent = true;
-      _resendTimer = 30;
-    });
-
-    // Start countdown timer
-    _startResendTimer();
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('OTP sent to +91 ${_phoneController.text}')),
+    final result = await authNotifier.sendOTP(
+      phoneNumber: _phoneController.text,
+      onCodeSent: (verificationId) {
+        setState(() {
+          _isLoading = false;
+          _isOtpSent = true;
+          _verificationId = verificationId;
+          _resendTimer = 60;
+        });
+        _startResendTimer();
+        _showSnackBar('OTP sent to +91 ${_phoneController.text}');
+      },
+      onError: (error) {
+        setState(() => _isLoading = false);
+        _showSnackBar(error, isError: true);
+      },
     );
+
+    if (!result.isSuccess && result.error != null) {
+      setState(() => _isLoading = false);
+      _showSnackBar(result.error!, isError: true);
+    }
   }
 
   void _startResendTimer() {
-    Future.delayed(Duration(seconds: 1), () {
-      if (_resendTimer > 0 && mounted) {
-        setState(() {
-          _resendTimer--;
-        });
-        _startResendTimer();
-      }
-    });
+    if (_resendTimer > 0) {
+      Future.delayed(Duration(seconds: 1), () {
+        if (mounted && _resendTimer > 0) {
+          setState(() => _resendTimer--);
+          _startResendTimer();
+        }
+      });
+    }
   }
 
   void _verifyOtp() async {
-    String otp = _otpControllers.map((controller) => controller.text).join();
-
+    String otp = _otpControllers.map((c) => c.text).join();
     if (otp.length != 6) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please enter complete 6-digit OTP')),
-      );
+      _showSnackBar('Please enter complete 6-digit OTP', isError: true);
       return;
     }
 
-    setState(() {
-      _isLoading = true;
-    });
+    setState(() => _isLoading = true);
 
-    // Simulate API call
-    await Future.delayed(Duration(seconds: 2));
+    final authNotifier = ref.read(authNotifierProvider.notifier);
+    final result = await authNotifier.verifyOTP(otp);
 
-    setState(() {
-      _isLoading = false;
-    });
+    setState(() => _isLoading = false);
 
-    // Handle successful login
-    Navigator.of(context).pop(true); // Return true to indicate successful login
+    if (result.isSuccess) {
+      _showSnackBar('Login successful!');
+      // Close dialog and return success - user stays on homepage
+      if (mounted) {
+        Navigator.of(context).pop(true);
+      }
+    } else {
+      _showSnackBar(result.error ?? 'Verification failed', isError: true);
+      // Clear OTP fields on error
+      _otpControllers.forEach((controller) => controller.clear());
+      if (_otpFocusNodes.isNotEmpty) {
+        _otpFocusNodes[0].requestFocus();
+      }
+    }
   }
 
   void _resendOtp() {
@@ -99,11 +116,123 @@ class _PhoneOtpLoginDialogState extends State<PhoneOtpLoginDialog> {
     }
   }
 
+  void _showSnackBar(String message, {bool isError = false}) {
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: isError ? Colors.red : Colors.green,
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    String? hintText,
+    int? maxLength,
+    bool isPhone = false,
+    FocusNode? focusNode,
+    Function(String)? onChanged,
+  }) {
+    return TextField(
+      controller: controller,
+      focusNode: focusNode,
+      keyboardType: isPhone ? TextInputType.phone : TextInputType.number,
+      maxLength: maxLength,
+      textAlign: isPhone ? TextAlign.start : TextAlign.center,
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(color: Colors.grey.shade400),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6),
+          borderSide: BorderSide(color: Colors.grey.shade300),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6),
+          borderSide: BorderSide(color: Colors.amber.shade600),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6),
+          borderSide: BorderSide(color: Colors.red.shade400),
+        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+        counterText: '',
+      ),
+      onChanged: onChanged,
+    );
+  }
+
+  Widget _buildButton(String text, VoidCallback? onPressed) {
+    return Container(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: _isLoading ? null : onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.amber.shade600,
+          disabledBackgroundColor: Colors.grey.shade300,
+          padding: EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+        ),
+        child:
+            _isLoading
+                ? SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2,
+                  ),
+                )
+                : Text(
+                  text,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+      ),
+    );
+  }
+
+  Widget _buildSocialButton(
+    IconData icon,
+    Color color,
+    VoidCallback onPressed,
+  ) {
+    return Container(
+      width: 60,
+      height: 40,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.shade300),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: IconButton(
+        onPressed: onPressed,
+        icon:
+            icon == Icons.facebook
+                ? Icon(icon, color: color)
+                : icon == Icons.apple
+                ? Icon(icon, color: color)
+                : Text(
+                  'G',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
+                ),
+      ),
+    );
+  }
+
   Widget _buildPhoneNumberStep() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Header
         Text(
           'Login with Phone',
           style: TextStyle(
@@ -115,14 +244,9 @@ class _PhoneOtpLoginDialogState extends State<PhoneOtpLoginDialog> {
         SizedBox(height: 8),
         Text(
           'Enter your phone number to receive OTP',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey.shade600,
-          ),
+          style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
         ),
         SizedBox(height: 24),
-
-        // Phone Number Field
         Text(
           'Phone Number',
           style: TextStyle(
@@ -142,70 +266,22 @@ class _PhoneOtpLoginDialogState extends State<PhoneOtpLoginDialog> {
               ),
               child: Text(
                 '+91',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black87,
-                ),
+                style: TextStyle(fontSize: 16, color: Colors.black87),
               ),
             ),
             SizedBox(width: 8),
             Expanded(
-              child: TextField(
+              child: _buildTextField(
                 controller: _phoneController,
-                keyboardType: TextInputType.phone,
+                hintText: '9876543210',
                 maxLength: 10,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                decoration: InputDecoration(
-                  hintText: '9876543210',
-                  hintStyle: TextStyle(color: Colors.grey.shade400),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6),
-                    borderSide: BorderSide(color: Colors.grey.shade300),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6),
-                    borderSide: BorderSide(color: Colors.amber.shade600),
-                  ),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-                  counterText: '',
-                ),
+                isPhone: true,
               ),
             ),
           ],
         ),
         SizedBox(height: 24),
-
-        // Send OTP Button
-        Container(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: _isLoading ? null : _sendOtp,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.amber.shade600,
-              padding: EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
-              ),
-            ),
-            child: _isLoading
-                ? SizedBox(
-              height: 20,
-              width: 20,
-              child: CircularProgressIndicator(
-                color: Colors.white,
-                strokeWidth: 2,
-              ),
-            )
-                : Text(
-              'SEND OTP',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
-            ),
-          ),
-        ),
+        _buildButton('SEND OTP', _sendOtp),
       ],
     );
   }
@@ -214,7 +290,6 @@ class _PhoneOtpLoginDialogState extends State<PhoneOtpLoginDialog> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Header
         Text(
           'Verify OTP',
           style: TextStyle(
@@ -226,14 +301,9 @@ class _PhoneOtpLoginDialogState extends State<PhoneOtpLoginDialog> {
         SizedBox(height: 8),
         Text(
           'Enter the 6-digit OTP sent to +91 ${_phoneController.text}',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey.shade600,
-          ),
+          style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
         ),
         SizedBox(height: 24),
-
-        // OTP Input Fields
         Text(
           'Enter OTP',
           style: TextStyle(
@@ -245,42 +315,34 @@ class _PhoneOtpLoginDialogState extends State<PhoneOtpLoginDialog> {
         SizedBox(height: 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: List.generate(6, (index) {
-            return Container(
+          children: List.generate(
+            6,
+            (i) => Container(
               width: 45,
-              child: TextField(
-                controller: _otpControllers[index],
-                focusNode: _otpFocusNodes[index],
-                keyboardType: TextInputType.number,
-                textAlign: TextAlign.center,
+              child: _buildTextField(
+                controller: _otpControllers[i],
+                focusNode: _otpFocusNodes[i],
                 maxLength: 1,
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                decoration: InputDecoration(
-                  counterText: '',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6),
-                    borderSide: BorderSide(color: Colors.grey.shade300),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(6),
-                    borderSide: BorderSide(color: Colors.amber.shade600),
-                  ),
-                  contentPadding: EdgeInsets.symmetric(vertical: 14),
-                ),
                 onChanged: (value) {
-                  if (value.isNotEmpty && index < 5) {
-                    _otpFocusNodes[index + 1].requestFocus();
-                  } else if (value.isEmpty && index > 0) {
-                    _otpFocusNodes[index - 1].requestFocus();
+                  if (value.isNotEmpty && i < 5) {
+                    _otpFocusNodes[i + 1].requestFocus();
+                  } else if (value.isEmpty && i > 0) {
+                    _otpFocusNodes[i - 1].requestFocus();
+                  }
+
+                  // Auto-verify when all 6 digits are entered
+                  if (i == 5 && value.isNotEmpty) {
+                    String otp = _otpControllers.map((c) => c.text).join();
+                    if (otp.length == 6) {
+                      _verifyOtp();
+                    }
                   }
                 },
               ),
-            );
-          }),
+            ),
+          ),
         ),
         SizedBox(height: 16),
-
-        // Resend OTP
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -288,19 +350,13 @@ class _PhoneOtpLoginDialogState extends State<PhoneOtpLoginDialog> {
               children: [
                 Checkbox(
                   value: _rememberMe,
-                  onChanged: (value) {
-                    setState(() {
-                      _rememberMe = value ?? false;
-                    });
-                  },
+                  onChanged:
+                      (value) => setState(() => _rememberMe = value ?? false),
                   activeColor: Colors.amber.shade600,
                 ),
                 Text(
                   'Remember me',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black87,
-                  ),
+                  style: TextStyle(fontSize: 14, color: Colors.black87),
                 ),
               ],
             ),
@@ -317,57 +373,20 @@ class _PhoneOtpLoginDialogState extends State<PhoneOtpLoginDialog> {
           ],
         ),
         SizedBox(height: 20),
-
-        // Verify Button
-        Container(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: _isLoading ? null : _verifyOtp,
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.amber.shade600,
-              padding: EdgeInsets.symmetric(vertical: 14),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
-              ),
-            ),
-            child: _isLoading
-                ? SizedBox(
-              height: 20,
-              width: 20,
-              child: CircularProgressIndicator(
-                color: Colors.white,
-                strokeWidth: 2,
-              ),
-            )
-                : Text(
-              'VERIFY & LOGIN',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
-            ),
-          ),
-        ),
+        _buildButton('VERIFY & LOGIN', _verifyOtp),
         SizedBox(height: 16),
-
-        // Back to phone number
         Center(
           child: TextButton(
             onPressed: () {
               setState(() {
                 _isOtpSent = false;
-                for (var controller in _otpControllers) {
-                  controller.clear();
-                }
+                _resendTimer = 0;
+                _otpControllers.forEach((c) => c.clear());
               });
             },
             child: Text(
               'Change Phone Number',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.amber.shade600,
-              ),
+              style: TextStyle(fontSize: 14, color: Colors.amber.shade600),
             ),
           ),
         ),
@@ -377,10 +396,15 @@ class _PhoneOtpLoginDialogState extends State<PhoneOtpLoginDialog> {
 
   @override
   Widget build(BuildContext context) {
+    // Listen to auth state changes but don't auto-close dialog
+    // The dialog will only close when verification is successful
+    ref.listen<AsyncValue<User?>>(authNotifierProvider, (previous, next) {
+      // Only handle specific auth state changes if needed
+      // We're not auto-closing here to maintain control
+    });
+
     return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 8,
       child: Container(
         width: 400,
@@ -394,10 +418,8 @@ class _PhoneOtpLoginDialogState extends State<PhoneOtpLoginDialog> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _isOtpSent ? _buildOtpVerificationStep() : _buildPhoneNumberStep(),
-            SizedBox(height: 16),
-
-            // Or login with (only show on phone number step)
             if (!_isOtpSent) ...[
+              SizedBox(height: 16),
               Row(
                 children: [
                   Expanded(child: Divider(color: Colors.grey.shade300)),
@@ -415,69 +437,22 @@ class _PhoneOtpLoginDialogState extends State<PhoneOtpLoginDialog> {
                 ],
               ),
               SizedBox(height: 16),
-
-              // Social Login Buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // Facebook
-                  Container(
-                    width: 60,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey.shade300),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: IconButton(
-                      onPressed: () {
-                        // Handle Facebook login
-                      },
-                      icon: Icon(
-                        Icons.facebook,
-                        color: Colors.blue.shade600,
-                      ),
-                    ),
+                  _buildSocialButton(Icons.facebook, Colors.blue.shade600, () {
+                    _showSnackBar('Facebook login not implemented yet');
+                  }),
+                  _buildSocialButton(
+                    Icons.golf_course,
+                    Colors.red.shade600,
+                    () {
+                      _showSnackBar('Google login not implemented yet');
+                    },
                   ),
-                  // Google
-                  Container(
-                    width: 60,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey.shade300),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: IconButton(
-                      onPressed: () {
-                        // Handle Google login
-                      },
-                      icon: Text(
-                        'G',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.red.shade600,
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Apple
-                  Container(
-                    width: 60,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey.shade300),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: IconButton(
-                      onPressed: () {
-                        // Handle Apple login
-                      },
-                      icon: Icon(
-                        Icons.apple,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
+                  _buildSocialButton(Icons.apple, Colors.black, () {
+                    _showSnackBar('Apple login not implemented yet');
+                  }),
                 ],
               ),
             ],

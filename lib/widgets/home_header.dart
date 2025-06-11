@@ -1,9 +1,12 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'login.dart';
+import '../providers/firebase_phone_auth.dart'; // Add this import
 
-class HomeHeader extends StatelessWidget {
+class HomeHeader extends ConsumerWidget {
   const HomeHeader({super.key});
 
   void _showLoginDialog(BuildContext context) async {
@@ -11,7 +14,7 @@ class HomeHeader extends StatelessWidget {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return PhoneOtpLoginDialog();
+        return const PhoneOtpLoginDialog();
       },
     );
 
@@ -24,12 +27,64 @@ class HomeHeader extends StatelessWidget {
           backgroundColor: Colors.green,
         ),
       );
-      // You can add navigation or state management logic here
+    }
+  }
+
+  void _handleLogout(BuildContext context, WidgetRef ref) async {
+    // Show confirmation dialog
+    final shouldLogout = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Logout'),
+          content: const Text('Are you sure you want to logout?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+              ),
+              child: const Text('Logout'),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (shouldLogout == true) {
+      try {
+        await ref.read(authNotifierProvider.notifier).signOut();
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Logged out successfully!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+      } catch (e) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Logout failed: $e'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Watch the authentication state
+    final authState = ref.watch(authNotifierProvider);
+
     return Container(
       width: double.infinity,
       height: 80,
@@ -40,19 +95,17 @@ class HomeHeader extends StatelessWidget {
           children: [
             // Logo container styled like the reference image
             Container(
-              width: 140, // Increased width for better visibility
-              height: 70,  // Increased height for better visibility
+              width: 140,
+              height: 70,
               decoration: BoxDecoration(
-                // Dark background similar to reference
                 color: const Color(0xFF1A1A1A),
                 borderRadius: BorderRadius.circular(8),
-                // Strong shadow for visibility against yellow background
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.5), // Darker shadow
-                    offset: const Offset(0, 6), // Larger offset
-                    blurRadius: 15, // More blur
-                    spreadRadius: 3, // More spread
+                    color: Colors.black.withOpacity(0.5),
+                    offset: const Offset(0, 6),
+                    blurRadius: 15,
+                    spreadRadius: 3,
                   ),
                   BoxShadow(
                     color: Colors.black.withOpacity(0.3),
@@ -61,19 +114,13 @@ class HomeHeader extends StatelessWidget {
                     spreadRadius: 1,
                   ),
                 ],
-                // Golden border to match the reference styling
-                border: Border.all(
-                  color: const Color(0xFFD4BB26),
-                  width: 2.5, // Thicker border
-                ),
+                border: Border.all(color: const Color(0xFFD4BB26), width: 2.5),
               ),
               child: Container(
                 margin: const EdgeInsets.all(3),
                 decoration: BoxDecoration(
-                  // Inner dark container
                   color: const Color(0xFF0D0D0D),
                   borderRadius: BorderRadius.circular(5),
-                  // Inner shadow for depth
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.8),
@@ -85,16 +132,15 @@ class HomeHeader extends StatelessWidget {
                 ),
                 child: Center(
                   child: Container(
-                    width: 60, // Slightly larger logo
-                    height: 60, // Slightly larger logo
+                    width: 60,
+                    height: 60,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
-                      // Stronger glow around the logo
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFFD4BB26).withOpacity(0.4), // Stronger glow
+                          color: const Color(0xFFD4BB26).withOpacity(0.4),
                           offset: const Offset(0, 0),
-                          blurRadius: 12, // More glow
+                          blurRadius: 12,
                           spreadRadius: 2,
                         ),
                       ],
@@ -104,11 +150,9 @@ class HomeHeader extends StatelessWidget {
                       child: Image.asset(
                         'assets/images/Logo.jpg',
                         fit: BoxFit.cover,
-                        // Enhanced error handling with golden fallback
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
                             decoration: BoxDecoration(
-                              // Golden gradient fallback
                               gradient: const LinearGradient(
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
@@ -124,7 +168,7 @@ class HomeHeader extends StatelessWidget {
                               child: Icon(
                                 Icons.business_center,
                                 color: Colors.white,
-                                size: 36, // Larger fallback icon
+                                size: 36,
                               ),
                             ),
                           );
@@ -138,271 +182,199 @@ class HomeHeader extends StatelessWidget {
 
             const Spacer(),
 
-            // "Already Have An Account?" text
-            const Text(
-              'Already Have An Account?',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-
-            const SizedBox(width: 16),
-
-            // Log in button - Enhanced styling
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    offset: const Offset(0, 2),
-                    blurRadius: 4,
-                    spreadRadius: 0,
-                  ),
-                ],
-              ),
-              child: ElevatedButton(
-                onPressed: () => _showLoginDialog(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFEFE7BA),
-                  foregroundColor: Colors.black,
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                  minimumSize: const Size(100, 4),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  elevation: 0,
-                ),
-                child: const Text(
-                  "Log in",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
-
-            const SizedBox(width: 16),
-
-            // Help button with dropdown arrow
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    // Handle help action
-                  },
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    minimumSize: Size.zero,
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
+            // Show different content based on auth state
+            authState.when(
+              data: (user) {
+                if (user != null) {
+                  // User is logged in - show user info and logout button
+                  return Row(
                     children: [
-                      Text(
-                        'Help',
+                      // Welcome message with user phone number
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const Text(
+                            'Welcome back!',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            user.phoneNumber ?? 'User',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(width: 16),
+
+                      // Logout button
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              offset: const Offset(0, 2),
+                              blurRadius: 4,
+                              spreadRadius: 0,
+                            ),
+                          ],
+                        ),
+                        child: ElevatedButton.icon(
+                          onPressed: () => _handleLogout(context, ref),
+                          icon: const Icon(Icons.logout, size: 18),
+                          label: const Text("Logout"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red.shade600,
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 18,
+                            ),
+                            minimumSize: const Size(100, 40),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            elevation: 0,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  // User is not logged in - show login section
+                  return Row(
+                    children: [
+                      const Text(
+                        'Already Have An Account?',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(width: 4),
-                      Icon(
-                        Icons.keyboard_arrow_down,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
-// Alternative version with even more premium styling
-class PremiumHomeHeader extends StatelessWidget {
-  const PremiumHomeHeader({super.key});
+                      const SizedBox(width: 16),
 
-  void _showLoginDialog(BuildContext context) async {
-    final result = await showDialog<bool>(
-      context: context,
-      barrierDismissible: true,
-      builder: (BuildContext context) {
-        return PhoneOtpLoginDialog();
-      },
-    );
-
-    if (result == true) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Login successful!'),
-          backgroundColor: Colors.green,
-        ),
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 80,
-      decoration: const BoxDecoration(color: Color(0xFFD4BB26)),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: Row(
-          children: [
-            // Premium logo with glass morphism effect
-            Container(
-              width: 120,
-              height: 60,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Colors.white.withOpacity(0.2),
-                    Colors.white.withOpacity(0.1),
-                  ],
-                ),
-                border: Border.all(
-                  color: Colors.white.withOpacity(0.3),
-                  width: 1.5,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    offset: const Offset(0, 8),
-                    blurRadius: 24,
-                    spreadRadius: 0,
-                  ),
-                  BoxShadow(
-                    color: Colors.white.withOpacity(0.1),
-                    offset: const Offset(0, -4),
-                    blurRadius: 8,
-                    spreadRadius: 0,
-                  ),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Colors.white.withOpacity(0.15),
-                          Colors.white.withOpacity(0.05),
-                        ],
-                      ),
-                    ),
-                    child: Center(
-                      child: Container(
-                        width: 54,
-                        height: 54,
+                      // Log in button
+                      Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(8),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.2),
-                              offset: const Offset(0, 4),
-                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                              blurRadius: 4,
+                              spreadRadius: 0,
                             ),
                           ],
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.asset(
-                            'assets/images/Logo.jpg',
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  gradient: const LinearGradient(
-                                    colors: [Color(0xFFD4BB26), Color(0xFFB8A020)],
-                                  ),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: const Icon(
-                                  Icons.business,
-                                  color: Colors.white,
-                                  size: 28,
-                                ),
-                              );
-                            },
+                        child: ElevatedButton(
+                          onPressed: () => _showLoginDialog(context),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFEFE7BA),
+                            foregroundColor: Colors.black,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 16,
+                            ),
+                            minimumSize: const Size(100, 4),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            elevation: 0,
+                          ),
+                          child: const Text(
+                            "Log in",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              },
+              loading: () {
+                // Show loading state
+                return const SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2,
+                  ),
+                );
+              },
+              error: (error, stack) {
+                // Show error state - fallback to login
+                return Row(
+                  children: [
+                    const Text(
+                      'Already Have An Account?',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+
+                    const SizedBox(width: 16),
+
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            offset: const Offset(0, 2),
+                            blurRadius: 4,
+                            spreadRadius: 0,
+                          ),
+                        ],
+                      ),
+                      child: ElevatedButton(
+                        onPressed: () => _showLoginDialog(context),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFEFE7BA),
+                          foregroundColor: Colors.black,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 16,
+                          ),
+                          minimumSize: const Size(100, 4),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          elevation: 0,
+                        ),
+                        child: const Text(
+                          "Log in",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-            ),
-
-            const Spacer(),
-
-            // Rest of the header remains the same...
-            const Text(
-              'Already Have An Account?',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
+                  ],
+                );
+              },
             ),
 
             const SizedBox(width: 16),
 
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    offset: const Offset(0, 2),
-                    blurRadius: 4,
-                    spreadRadius: 0,
-                  ),
-                ],
-              ),
-              child: ElevatedButton(
-                onPressed: () => _showLoginDialog(context),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFEFE7BA),
-                  foregroundColor: Colors.black,
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                  minimumSize: const Size(100, 4),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  elevation: 0,
-                ),
-                child: const Text(
-                  "Log in",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
-
-            const SizedBox(width: 16),
-
+            // Help button with dropdown arrow
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [

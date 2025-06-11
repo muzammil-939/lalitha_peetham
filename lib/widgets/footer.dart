@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class FooterWidget extends StatefulWidget {
+  const FooterWidget({super.key});
+
   @override
   _FooterWidgetState createState() => _FooterWidgetState();
 }
@@ -46,34 +48,22 @@ class _FooterWidgetState extends State<FooterWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Left section - Logo and description
-        Expanded(
-          flex: 2,
-          child: _buildLeftSection(),
-        ),
+        Expanded(flex: 2, child: _buildLeftSection()),
 
         SizedBox(width: 80),
 
         // Company section
-        Expanded(
-          flex: 1,
-          child: _buildCompanySection(),
-        ),
+        Expanded(flex: 1, child: _buildCompanySection()),
 
         SizedBox(width: 60),
 
         // Services section
-        Expanded(
-          flex: 1,
-          child: _buildServicesSection(),
-        ),
+        Expanded(flex: 1, child: _buildServicesSection()),
 
         SizedBox(width: 60),
 
         // Contact section
-        Expanded(
-          flex: 1,
-          child: _buildContactSection(),
-        ),
+        Expanded(flex: 1, child: _buildContactSection()),
       ],
     );
   }
@@ -105,9 +95,9 @@ class _FooterWidgetState extends State<FooterWidget> {
         // Logo - Circular design with lotus/mandala pattern
         Container(
           height: 300,
-         width: 300,
-         padding: EdgeInsets.all(8),
-         
+          width: 300,
+          padding: EdgeInsets.all(8),
+
           child: Center(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
@@ -140,11 +130,7 @@ class _FooterWidgetState extends State<FooterWidget> {
         // Description
         Text(
           'We help you exploring your\ncosmic path',
-          style: TextStyle(
-            color: Colors.white70,
-            fontSize: 16,
-            height: 1.5,
-          ),
+          style: TextStyle(color: Colors.white70, fontSize: 16, height: 1.5),
         ),
 
         SizedBox(height: 32),
@@ -169,15 +155,8 @@ class _FooterWidgetState extends State<FooterWidget> {
       child: Container(
         width: 40,
         height: 40,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          shape: BoxShape.circle,
-        ),
-        child: Icon(
-          icon,
-          color: Colors.black,
-          size: 18,
-        ),
+        decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+        child: Icon(icon, color: Colors.black, size: 18),
       ),
     );
   }
@@ -255,32 +234,32 @@ class _FooterWidgetState extends State<FooterWidget> {
   }
 
   List<Widget> _buildMenuItems(List<String> items) {
-    return items.map((item) => Padding(
-      padding: EdgeInsets.only(bottom: 16),
-      child: GestureDetector(
-        onTap: () {
-          // Handle navigation
-        },
-        child: Text(
-          item,
-          style: TextStyle(
-            color: Colors.white70,
-            fontSize: 16,
-            height: 1.4,
+    return items
+        .map(
+          (item) => Padding(
+            padding: EdgeInsets.only(bottom: 16),
+            child: GestureDetector(
+              onTap: () {
+                // Handle navigation
+              },
+              child: Text(
+                item,
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 16,
+                  height: 1.4,
+                ),
+              ),
+            ),
           ),
-        ),
-      ),
-    )).toList();
+        )
+        .toList();
   }
 
   Widget _buildContactItem(String text) {
     return Text(
       text,
-      style: TextStyle(
-        color: Colors.white70,
-        fontSize: 16,
-        height: 1.4,
-      ),
+      style: TextStyle(color: Colors.white70, fontSize: 16, height: 1.4),
     );
   }
 
@@ -304,10 +283,7 @@ class _FooterWidgetState extends State<FooterWidget> {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    width: 350,
-                    child: _buildEmailInput(),
-                  ),
+                  Container(width: 350, child: _buildEmailInput()),
                   SizedBox(width: 20),
                   _buildSubscribeButton(),
                 ],
@@ -376,13 +352,9 @@ class _FooterWidgetState extends State<FooterWidget> {
         ),
         child: Text(
           'Subscribe',
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),
     );
   }
 }
-

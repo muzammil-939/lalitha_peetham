@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/matrimony/matri_dashboard.dart';
 
 class DropdownGridMenu extends StatefulWidget {
   @override
@@ -37,10 +39,7 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
       duration: Duration(milliseconds: 300),
       vsync: this,
     );
-    _animation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
-    );
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
     _controller.forward();
   }
 
@@ -95,7 +94,8 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
                                 Container(
                                   padding: EdgeInsets.all(16),
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         'Services Menu',
@@ -110,7 +110,9 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
                                         child: Container(
                                           padding: EdgeInsets.all(4),
                                           decoration: BoxDecoration(
-                                            color: Colors.black.withOpacity(0.1),
+                                            color: Colors.black.withOpacity(
+                                              0.1,
+                                            ),
                                             shape: BoxShape.circle,
                                           ),
                                           child: Icon(
@@ -127,39 +129,54 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
                                 // Grid Menu items
                                 Container(
                                   constraints: BoxConstraints(
-                                    maxHeight: MediaQuery.of(context).size.height * 0.6,
+                                    maxHeight:
+                                        MediaQuery.of(context).size.height *
+                                        0.6,
                                   ),
                                   child: SingleChildScrollView(
                                     padding: EdgeInsets.all(16),
                                     child: GridView.builder(
                                       shrinkWrap: true,
                                       physics: NeverScrollableScrollPhysics(),
-                                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 4, // 2 columns
-                                        crossAxisSpacing: 12,
-                                        mainAxisSpacing: 12,
-                                        childAspectRatio: 2.5, // Adjust height ratio
-                                      ),
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 4, // 2 columns
+                                            crossAxisSpacing: 12,
+                                            mainAxisSpacing: 12,
+                                            childAspectRatio:
+                                                2.5, // Adjust height ratio
+                                          ),
                                       itemCount: menuItems.length,
                                       itemBuilder: (context, index) {
                                         return GestureDetector(
                                           onTap: () {
-                                            print('Selected: ${menuItems[index]}');
+                                            print(
+                                              'Selected: ${menuItems[index]}',
+                                            );
                                             Navigator.pop(context);
-                                            _handleMenuItemTap(menuItems[index]);
+                                            _handleMenuItemTap(
+                                              menuItems[index],
+                                            );
                                           },
                                           child: Container(
                                             decoration: BoxDecoration(
-                                              color: Colors.white.withOpacity(0.3),
-                                              borderRadius: BorderRadius.circular(75),
+                                              color: Colors.white.withOpacity(
+                                                0.3,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(75),
                                               border: Border.all(
-                                                color: Colors.black.withOpacity(0.1),
+                                                color: Colors.black.withOpacity(
+                                                  0.1,
+                                                ),
                                                 width: 1,
                                               ),
                                             ),
                                             child: Center(
                                               child: Padding(
-                                                padding: EdgeInsets.symmetric(horizontal: 8),
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: 8,
+                                                ),
                                                 child: Text(
                                                   menuItems[index],
                                                   textAlign: TextAlign.center,
@@ -169,7 +186,8 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
                                                     fontWeight: FontWeight.w600,
                                                   ),
                                                   maxLines: 2,
-                                                  overflow: TextOverflow.ellipsis,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                 ),
                                               ),
                                             ),
@@ -199,20 +217,21 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
     // Handle navigation based on menu item
     switch (item) {
       case 'Astrology':
-      // Navigate to astrology page
+        // Navigate to astrology page
         break;
       case 'Matrimony':
-      // Navigate to matrimony page
+        context.go('/matri_dashboard');
+        // Navigate to matrimony page
         break;
       case 'Online Pooja':
-      // Navigate to online pooja page
+        // Navigate to online pooja page
         break;
       case 'Function Hall Booking':
-      // Navigate to function hall booking page
+        // Navigate to function hall booking page
         break;
-    // Add more cases as needed
+      // Add more cases as needed
       default:
-      // Handle other menu items
+        // Handle other menu items
         break;
     }
   }
@@ -226,9 +245,7 @@ class OverlayDropdownGridMenu {
     if (_overlayEntry != null) return;
 
     _overlayEntry = OverlayEntry(
-      builder: (context) => _DropdownGridOverlay(
-        onClose: () => hide(),
-      ),
+      builder: (context) => _DropdownGridOverlay(onClose: () => hide()),
     );
 
     Overlay.of(context)?.insert(_overlayEntry!);
@@ -281,10 +298,7 @@ class _DropdownGridOverlayState extends State<_DropdownGridOverlay>
       duration: Duration(milliseconds: 250),
       vsync: this,
     );
-    _animation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOut,
-    );
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeOut);
     _controller.forward();
   }
 
@@ -333,39 +347,51 @@ class _DropdownGridOverlayState extends State<_DropdownGridOverlay>
                             children: [
                               Container(
                                 constraints: BoxConstraints(
-                                  maxHeight: MediaQuery.of(context).size.height * 0.6,
+                                  maxHeight:
+                                      MediaQuery.of(context).size.height * 0.6,
                                 ),
                                 child: SingleChildScrollView(
                                   padding: EdgeInsets.all(16),
                                   child: GridView.builder(
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
-                                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      crossAxisSpacing: 12,
-                                      mainAxisSpacing: 12,
-                                      childAspectRatio: 2.5,
-                                    ),
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 12,
+                                          mainAxisSpacing: 12,
+                                          childAspectRatio: 2.5,
+                                        ),
                                     itemCount: menuItems.length,
                                     itemBuilder: (context, index) {
                                       return InkWell(
                                         onTap: () {
                                           widget.onClose();
-                                          print('Selected: ${menuItems[index]}');
+                                          print(
+                                            'Selected: ${menuItems[index]}',
+                                          );
                                         },
                                         borderRadius: BorderRadius.circular(8),
                                         child: Container(
                                           decoration: BoxDecoration(
-                                            color: Colors.white.withOpacity(0.3),
-                                            borderRadius: BorderRadius.circular(8),
+                                            color: Colors.white.withOpacity(
+                                              0.3,
+                                            ),
+                                            borderRadius: BorderRadius.circular(
+                                              8,
+                                            ),
                                             border: Border.all(
-                                              color: Colors.black.withOpacity(0.1),
+                                              color: Colors.black.withOpacity(
+                                                0.1,
+                                              ),
                                               width: 6,
                                             ),
                                           ),
                                           child: Center(
                                             child: Padding(
-                                              padding: EdgeInsets.symmetric(horizontal: 8),
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 8,
+                                              ),
                                               child: Text(
                                                 menuItems[index],
                                                 textAlign: TextAlign.center,

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "258300359966",
+    "project_id": "sreelalithapeetham-e53c7",
+    "storage_bucket": "sreelalithapeetham-e53c7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:258300359966:android:39e562461db6203b67050f",
+        "android_client_info": {
+          "package_name": "com.example.lalitha_peetham"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwTj8p43vxco1bB1eTqXE_X7uYgDUq6DU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

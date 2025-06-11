@@ -31,8 +31,36 @@
 
   <title>lalitha_peetham</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+
+  <!-- reCAPTCHA -->
+  <script src="https://www.google.com/recaptcha/api.js?render=explicit"></script>
+
 </head>
 <body>
+<!-- Firebase Configuration -->
+<script>
+  // Your Firebase config object
+  const firebaseConfig = {
+    apiKey: 'AIzaSyCqAM_IvJmts8n4US9E0OadoiagHnrwgag',
+    appId: '1:258300359966:web:caa7213894838fed67050f',
+    messagingSenderId: '258300359966',
+    projectId: 'sreelalithapeetham-e53c7',
+    authDomain: 'sreelalithapeetham-e53c7.firebaseapp.com',
+    storageBucket: 'sreelalithapeetham-e53c7.firebasestorage.app',
+    measurementId: 'G-PL7KTNJTS7',
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+<!-- reCAPTCHA container -->
+<div id="recaptcha-container"></div>
+
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
