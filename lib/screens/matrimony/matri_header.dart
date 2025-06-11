@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MatriHeader extends StatelessWidget {
   const MatriHeader({super.key});
@@ -159,15 +160,11 @@ class MatriHeader extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildSubNavItem('Dashboard', isActive: true),
-
-              _buildSubNavItem('My Profile'),
-
-              _buildSubNavItem('Partner Preferences'),
-
-              _buildSubNavItem('Settings'),
-
-              _buildSubNavItem('More'),
+              _buildSubNavItem(context, 'Dashboard', '/matri_dashboard'),
+              _buildSubNavItem(context, 'My Profile', '/matri_profile'),
+              _buildSubNavItem(context, 'Partner Preferences', '/preferences'),
+              _buildSubNavItem(context, 'Settings', '/settings'),
+              _buildSubNavItem(context, 'More', '/more'),
             ],
           ),
         ),
@@ -201,15 +198,25 @@ class MatriHeader extends StatelessWidget {
     );
   }
 
-  Widget _buildSubNavItem(String text, {bool isActive = false}) {
-    return Text(
-      text,
-      style: TextStyle(
-        color: Colors.black87,
-        fontWeight: FontWeight.w500,
-        decoration: isActive ? TextDecoration.underline : null,
-        decorationThickness: 1.5,
-        fontSize: 18,
+  Widget _buildSubNavItem(
+    BuildContext context,
+    String text,
+    String route, {
+    bool isActive = false,
+  }) {
+    return TextButton(
+      onPressed: () {
+        context.go(route);
+      },
+      child: Text(
+        text,
+        style: TextStyle(
+          color: Colors.black87,
+          fontWeight: FontWeight.w500,
+          decoration: isActive ? TextDecoration.underline : null,
+          decorationThickness: 1.5,
+          fontSize: 18,
+        ),
       ),
     );
   }

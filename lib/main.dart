@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/matrimony/matri_dashboard.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:lalitha_peetham/screens/matrimony/matri_profile.dart';
 import 'firebase_options.dart';
 import 'screens/home.dart';
 
@@ -27,6 +28,10 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/matri_dashboard',
           builder: (context, state) => const MatriDashboard(),
+        ),
+        GoRoute(
+          path: '/matri_profile',
+          builder: (context, state) => const MatriProfile(),
         ),
       ],
     );
