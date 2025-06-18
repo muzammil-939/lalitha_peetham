@@ -1,6 +1,6 @@
 # lalitha_peetham
 
-A new Flutter project.
+Lalitha Peetham.
 
 ## Getting Started
 

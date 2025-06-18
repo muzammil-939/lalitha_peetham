@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'dart:html' as html;
 
 class FooterWidget extends StatefulWidget {
   const FooterWidget({super.key});
@@ -10,10 +12,55 @@ class FooterWidget extends StatefulWidget {
 class _FooterWidgetState extends State<FooterWidget> {
   final TextEditingController _emailController = TextEditingController();
 
+  // Social media URLs - Replace these with your actual social media links
+  final String facebookUrl =
+      'https://www.facebook.com/profile.php?id=61576106333288';
+  final String instagramUrl = 'https://www.instagram.com/lalithapeetham/';
+  final String threadsUrl = 'https://www.threads.com/@lalithapeetham';
+  final String youTube = 'https://www.youtube.com/@sreelalithapeetham-9';
+  final String linkedIn =
+      'https://www.linkedin.com/in/sreelalitha-peetham-6269a9363/';
+  //contact
+  final String emailAddress = 'mailto:booking@celestial.com';
+  final String phoneNumber = 'tel:+6212345678';
+
   @override
   void dispose() {
     _emailController.dispose();
     super.dispose();
+  }
+
+  // Function to launch URLs - Web optimized version
+  void _launchUrl(String url) {
+    try {
+      if (kIsWeb) {
+        // For web, use window.open to open in new tab
+        html.window.open(url, '_blank');
+        print('Opened URL in new tab: $url');
+      } else {
+        // For mobile, you'd still need url_launcher
+        print('Mobile platform not supported in this version');
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Link opening not supported on this platform'),
+              backgroundColor: Colors.orange,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      print('Error opening URL: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Could not open link'),
+            backgroundColor: Colors.red,
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    }
   }
 
   @override
@@ -135,28 +182,69 @@ class _FooterWidgetState extends State<FooterWidget> {
 
         SizedBox(height: 32),
 
-        // Social media icons
+        // Social media icons with navigation
         Row(
           children: [
-            _buildSocialIcon(Icons.facebook, () {}),
+            _buildSocialIcon(
+              Icons.facebook,
+              () => _launchUrl(facebookUrl),
+              'Facebook',
+            ),
             SizedBox(width: 16),
-            _buildSocialIcon(Icons.camera_alt, () {}), // Instagram
+            _buildSocialIcon(
+              Icons.camera_alt_outlined, // Better Instagram icon
+              () => _launchUrl(instagramUrl),
+              'Instagram',
+            ),
             SizedBox(width: 16),
-            _buildSocialIcon(Icons.close, () {}), // X/Twitter icon
+            _buildSocialIcon(
+              Icons.alternate_email, // Twitter/X icon
+              () => _launchUrl(threadsUrl),
+              'Threads',
+            ),
+            SizedBox(width: 16),
+            _buildSocialIcon(
+              Icons.ondemand_video,
+              () => _launchUrl(youTube),
+              'Youtube',
+            ),
+            SizedBox(width: 16),
+            _buildSocialIcon(
+              Icons.mail_outline,
+              () => _launchUrl(linkedIn),
+              'Linkedin',
+            ),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildSocialIcon(IconData icon, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 40,
-        height: 40,
-        decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-        child: Icon(icon, color: Colors.black, size: 18),
+  Widget _buildSocialIcon(IconData icon, VoidCallback onTap, String tooltip) {
+    return Tooltip(
+      message: tooltip,
+      child: GestureDetector(
+        onTap: onTap,
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 200),
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 4,
+                  offset: Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Icon(icon, color: Colors.black, size: 18),
+          ),
+        ),
       ),
     );
   }
@@ -176,7 +264,7 @@ class _FooterWidgetState extends State<FooterWidget> {
         SizedBox(height: 24),
         ..._buildMenuItems([
           'Home',
-          'services',
+          'Services',
           'Book A Pooja',
           'Astrologers',
           'Palm Reading',
@@ -224,9 +312,15 @@ class _FooterWidgetState extends State<FooterWidget> {
           ),
         ),
         SizedBox(height: 24),
-        _buildContactItem('booking@celestial.com'),
+        GestureDetector(
+          onTap: () => _launchUrl(emailAddress),
+          child: _buildContactItem('booking@celestial.com', isClickable: true),
+        ),
         SizedBox(height: 16),
-        _buildContactItem('(+62) 1234 5678'),
+        GestureDetector(
+          onTap: () => _launchUrl(phoneNumber),
+          child: _buildContactItem('(+62) 1234 5678', isClickable: true),
+        ),
         SizedBox(height: 16),
         _buildContactItem('Oak Building 19, North City'),
       ],
@@ -240,14 +334,18 @@ class _FooterWidgetState extends State<FooterWidget> {
             padding: EdgeInsets.only(bottom: 16),
             child: GestureDetector(
               onTap: () {
-                // Handle navigation
+                // Handle navigation - you can implement your app's navigation logic here
+                print('Navigate to $item');
               },
-              child: Text(
-                item,
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 16,
-                  height: 1.4,
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: Text(
+                  item,
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 16,
+                    height: 1.4,
+                  ),
                 ),
               ),
             ),
@@ -256,10 +354,18 @@ class _FooterWidgetState extends State<FooterWidget> {
         .toList();
   }
 
-  Widget _buildContactItem(String text) {
-    return Text(
-      text,
-      style: TextStyle(color: Colors.white70, fontSize: 16, height: 1.4),
+  Widget _buildContactItem(String text, {bool isClickable = false}) {
+    return MouseRegion(
+      cursor: isClickable ? SystemMouseCursors.click : SystemMouseCursors.basic,
+      child: Text(
+        text,
+        style: TextStyle(
+          color: isClickable ? Color(0xFFD4AF37) : Colors.white70,
+          fontSize: 16,
+          height: 1.4,
+          decoration: isClickable ? TextDecoration.underline : null,
+        ),
+      ),
     );
   }
 
