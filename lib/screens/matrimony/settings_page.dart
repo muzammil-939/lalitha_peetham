@@ -29,7 +29,7 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 30,),
+            SizedBox(height: 30),
             Text(
               'SETTINGS',
               style: TextStyle(
@@ -40,7 +40,7 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
             const SizedBox(height: 30),
-            
+
             // Account Settings
             _buildExpandableSection(
               title: 'ACCOUNT SETTINGS',
@@ -52,9 +52,9 @@ class _SettingsPageState extends State<SettingsPage> {
               },
               child: Container(), // Add account settings content here
             ),
-            
+
             const SizedBox(height: 20),
-            
+
             // My Contact Settings
             _buildExpandableSection(
               title: 'MY CONTACT SETTINGS',
@@ -75,10 +75,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       children: [
                         const Text(
                           'Contact Number',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey,
-                          ),
+                          style: TextStyle(fontSize: 16, color: Colors.grey),
                         ),
                         TextButton(
                           onPressed: () {
@@ -106,7 +103,10 @@ class _SettingsPageState extends State<SettingsPage> {
                         ),
                         const SizedBox(width: 10),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.orange[100],
                             borderRadius: BorderRadius.circular(12),
@@ -137,16 +137,17 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 20),
-            
-            // Contact Display Status (modified to match reference image)
+
+            // Contact Display Status
             _buildExpandableSection(
               title: 'CONTACT DISPLAY STATUS',
               isExpanded: _isContactDisplayStatusExpanded,
               onTap: () {
                 setState(() {
-                  _isContactDisplayStatusExpanded = !_isContactDisplayStatusExpanded;
+                  _isContactDisplayStatusExpanded =
+                      !_isContactDisplayStatusExpanded;
                 });
               },
               child: Container(
@@ -174,7 +175,8 @@ class _SettingsPageState extends State<SettingsPage> {
                     Row(
                       children: [
                         Radio<String>(
-                          value: 'Only Visible To All Your Matches (Expires With Membership)',
+                          value:
+                              'Only Visible To All Your Matches (Expires With Membership)',
                           groupValue: _selectedContactDisplayStatus,
                           onChanged: (String? newValue) {
                             setState(() {
@@ -206,7 +208,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       ],
                     ),
                     const SizedBox(height: 32),
-                    
+
                     // Submit Button
                     Center(
                       child: Container(
@@ -216,7 +218,9 @@ class _SettingsPageState extends State<SettingsPage> {
                             // Handle submit action
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFD4A574), // Golden color from reference
+                            backgroundColor: const Color(
+                              0xFFD4A574,
+                            ), // Golden color from reference
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25),
@@ -239,19 +243,15 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 20),
-            
+
             // Privacy Notice Text (between cards as requested)
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               child: Row(
                 children: [
-                  Icon(
-                    Icons.lock,
-                    color: Colors.orange[700],
-                    size: 16,
-                  ),
+                  Icon(Icons.lock, color: Colors.orange[700], size: 16),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -266,13 +266,15 @@ class _SettingsPageState extends State<SettingsPage> {
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 20),
-            
+
             // Combined Settings Card (Contact Filters to Messages)
             Container(
               decoration: BoxDecoration(
-                color: const Color(0xFFF5F1E8), // Light beige color matching the design
+                color: const Color(
+                  0xFFF5F1E8,
+                ), // Light beige color matching the design
                 borderRadius: BorderRadius.circular(0),
               ),
               child: Column(
@@ -289,7 +291,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: Container(), // Add contact filters content here
                     showDivider: true,
                   ),
-                  
+
                   // Astro Details
                   _buildSectionWithDivider(
                     title: 'ASTRO DETAILS',
@@ -302,7 +304,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: Container(), // Add astro details content here
                     showDivider: true,
                   ),
-                  
+
                   // Email & SMS Alert
                   _buildSectionWithDivider(
                     title: 'EMAIL & SMS ALERT',
@@ -315,7 +317,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: Container(), // Add email & sms alert content here
                     showDivider: true,
                   ),
-                  
+
                   // Privacy Options
                   _buildSectionWithDivider(
                     title: 'PRIVACY OPTIONS',
@@ -328,20 +330,22 @@ class _SettingsPageState extends State<SettingsPage> {
                     child: Container(), // Add privacy options content here
                     showDivider: true,
                   ),
-                  
+
                   // Hide and Delete Profile
                   _buildSectionWithDivider(
                     title: 'HIDE AND DELETE PROFILE',
                     isExpanded: _isHideDeleteProfileExpanded,
                     onTap: () {
                       setState(() {
-                        _isHideDeleteProfileExpanded = !_isHideDeleteProfileExpanded;
+                        _isHideDeleteProfileExpanded =
+                            !_isHideDeleteProfileExpanded;
                       });
                     },
-                    child: Container(), // Add hide and delete profile content here
+                    child:
+                        Container(), // Add hide and delete profile content here
                     showDivider: true,
                   ),
-                  
+
                   // Messages (last item, no divider)
                   _buildSectionWithDivider(
                     title: 'MESSAGES',
@@ -357,7 +361,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 40),
           ],
         ),
@@ -391,7 +395,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ),
                 Icon(
-                  isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                  isExpanded
+                      ? Icons.keyboard_arrow_up
+                      : Icons.keyboard_arrow_down,
                   color: const Color(0xFF6B5B73),
                 ),
               ],
@@ -439,7 +445,9 @@ class _SettingsPageState extends State<SettingsPage> {
                     ),
                   ),
                   Icon(
-                    isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+                    isExpanded
+                        ? Icons.keyboard_arrow_up
+                        : Icons.keyboard_arrow_down,
                     color: const Color(0xFF6B5B73),
                   ),
                 ],

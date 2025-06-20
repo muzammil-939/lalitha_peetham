@@ -12,31 +12,35 @@ class _MoresectionpageState extends State<Moresectionpage> {
   bool includeDeclinedNotifications = false;
   String selectedFilter = 'All Notifications';
   int currentPage = 1;
-  
+
   final List<NotificationItem> notifications = [
     NotificationItem(
       name: 'Yuvarajan L',
       message: 'Has Sent You To Interest',
       time: 'Few Minutes Ago',
-      profileImage: 'assets/images/profile1.jpg', // Replace with actual asset path
+      profileImage:
+          'assets/images/profile1.jpg', // Replace with actual asset path
     ),
     NotificationItem(
       name: 'Yuvarajan L',
       message: 'Has Sent You To Interest',
       time: 'Few Minutes Ago',
-      profileImage: 'assets/images/profile2.jpg', // Replace with actual asset path
+      profileImage:
+          'assets/images/profile2.jpg', // Replace with actual asset path
     ),
     NotificationItem(
       name: 'Yuvarajan L',
       message: 'Has Sent You To Interest',
       time: 'Few Hours Ago',
-      profileImage: 'assets/images/profile3.jpg', // Replace with actual asset path
+      profileImage:
+          'assets/images/profile3.jpg', // Replace with actual asset path
     ),
     NotificationItem(
       name: 'Yuvarajan L',
-      message: 'Has Sent You To Interest',
+      message: 'Has Sent You To Intrest',
       time: 'Yesterday',
-      profileImage: 'assets/images/profile4.jpg', // Replace with actual asset path
+      profileImage:
+          'assets/images/profile4.jpg', // Replace with actual asset path
     ),
   ];
 
@@ -49,7 +53,7 @@ class _MoresectionpageState extends State<Moresectionpage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 30),
-            
+
             // Header Section
             Text(
               'NOTIFICATIONS',
@@ -60,9 +64,9 @@ class _MoresectionpageState extends State<Moresectionpage> {
                 letterSpacing: 1.2,
               ),
             ),
-            
+
             const SizedBox(height: 30),
-            
+
             // Include Declined Notifications Toggle
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -93,18 +97,15 @@ class _MoresectionpageState extends State<Moresectionpage> {
                       },
                       activeColor: Colors.orange[700],
                       checkColor: Colors.white,
-                      side: BorderSide(
-                        color: Colors.brown[400]!,
-                        width: 1.5,
-                      ),
+                      side: BorderSide(color: Colors.brown[400]!, width: 1.5),
                     ),
                   ),
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 20),
-            
+
             // Notifications Card
             Container(
               decoration: BoxDecoration(
@@ -115,7 +116,10 @@ class _MoresectionpageState extends State<Moresectionpage> {
                 children: [
                   // All Notifications Dropdown Header
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 15,
+                    ),
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
@@ -144,22 +148,25 @@ class _MoresectionpageState extends State<Moresectionpage> {
                       ],
                     ),
                   ),
-                  
+
                   // Notifications List
                   ...notifications.asMap().entries.map((entry) {
                     int index = entry.key;
                     NotificationItem notification = entry.value;
                     bool isLast = index == notifications.length - 1;
-                    
+
                     return Container(
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                        border: isLast ? null : Border(
-                          bottom: BorderSide(
-                            color: Colors.orange[200]!,
-                            width: 1,
-                          ),
-                        ),
+                        border:
+                            isLast
+                                ? null
+                                : Border(
+                                  bottom: BorderSide(
+                                    color: Colors.orange[200]!,
+                                    width: 1,
+                                  ),
+                                ),
                       ),
                       child: Row(
                         children: [
@@ -180,9 +187,9 @@ class _MoresectionpageState extends State<Moresectionpage> {
                               ),
                             ),
                           ),
-                          
+
                           const SizedBox(width: 15),
-                          
+
                           // Notification Content
                           Expanded(
                             child: Column(
@@ -207,7 +214,7 @@ class _MoresectionpageState extends State<Moresectionpage> {
                               ],
                             ),
                           ),
-                          
+
                           // Timestamp
                           Text(
                             notification.time,
@@ -221,16 +228,13 @@ class _MoresectionpageState extends State<Moresectionpage> {
                       ),
                     );
                   }).toList(),
-                  
+
                   // Pagination inside the card
                   Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       border: Border(
-                        top: BorderSide(
-                          color: Colors.orange[200]!,
-                          width: 1,
-                        ),
+                        top: BorderSide(color: Colors.orange[200]!, width: 1),
                       ),
                     ),
                     child: Row(
@@ -250,14 +254,14 @@ class _MoresectionpageState extends State<Moresectionpage> {
                             size: 20,
                           ),
                         ),
-                        
+
                         const SizedBox(width: 8),
-                        
+
                         // Page numbers
                         ...List.generate(5, (index) {
                           int pageNumber = index + 1;
                           bool isSelected = pageNumber == currentPage;
-                          
+
                           return Container(
                             margin: const EdgeInsets.symmetric(horizontal: 2),
                             child: GestureDetector(
@@ -270,14 +274,24 @@ class _MoresectionpageState extends State<Moresectionpage> {
                                 width: 35,
                                 height: 35,
                                 decoration: BoxDecoration(
-                                  color: isSelected ? Colors.orange[700] : Colors.grey[300],
+                                  color:
+                                      isSelected
+                                          ? Colors.orange[700]
+                                          : Colors.grey[300],
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                                 child: Center(
                                   child: Text(
-                                    pageNumber == 4 ? '...' : pageNumber == 5 ? '10' : pageNumber.toString(),
+                                    pageNumber == 4
+                                        ? '...'
+                                        : pageNumber == 5
+                                        ? '10'
+                                        : pageNumber.toString(),
                                     style: TextStyle(
-                                      color: isSelected ? Colors.white : Colors.grey[700],
+                                      color:
+                                          isSelected
+                                              ? Colors.white
+                                              : Colors.grey[700],
                                       fontWeight: FontWeight.w600,
                                       fontSize: 14,
                                     ),
@@ -287,9 +301,9 @@ class _MoresectionpageState extends State<Moresectionpage> {
                             ),
                           );
                         }),
-                        
+
                         const SizedBox(width: 8),
-                        
+
                         // Next button
                         Container(
                           width: 35,
@@ -310,7 +324,7 @@ class _MoresectionpageState extends State<Moresectionpage> {
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 40),
           ],
         ),

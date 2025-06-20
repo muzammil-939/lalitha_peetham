@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lalitha_peetham/widgets/footer.dart';
+
+import '../../widgets/footer.dart';
 import 'matri_header.dart';
 
 class MatriPageLayout extends StatelessWidget {
@@ -11,7 +12,9 @@ class MatriPageLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ListView(children: [const MatriHeader(), child, FooterWidget()]),
+      body: SingleChildScrollView(
+        child: Column(children: [const MatriHeader(), child, FooterWidget()]),
+      ),
     );
   }
 }

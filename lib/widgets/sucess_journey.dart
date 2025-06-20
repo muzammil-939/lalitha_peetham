@@ -1,40 +1,100 @@
 import 'package:flutter/material.dart';
 
+// Refined SuccessJourneyWidget
 class SuccessJourneyWidget extends StatelessWidget {
   const SuccessJourneyWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    // Responsive padding
+    double horizontalPadding;
+    if (screenWidth > 1200) {
+      horizontalPadding = 100;
+    } else if (screenWidth > 800) {
+      horizontalPadding = 60;
+    } else if (screenWidth > 600) {
+      horizontalPadding = 40;
+    } else {
+      horizontalPadding = 20;
+    }
+
+    // Responsive title font size
+    double titleFontSize;
+    if (screenWidth > 1200) {
+      titleFontSize = 40;
+    } else if (screenWidth > 800) {
+      titleFontSize = 32;
+    } else if (screenWidth > 600) {
+      titleFontSize = 28;
+    } else {
+      titleFontSize = 24;
+    }
+
+    // Responsive subtitle font size
+    double subtitleFontSize;
+    if (screenWidth > 1200) {
+      subtitleFontSize = 60;
+    } else if (screenWidth > 800) {
+      subtitleFontSize = 48;
+    } else if (screenWidth > 600) {
+      subtitleFontSize = 36;
+    } else {
+      subtitleFontSize = 28;
+    }
+
+    // Responsive subtitle padding
+    double subtitlePadding;
+    if (screenWidth > 1200) {
+      subtitlePadding = 300;
+    } else if (screenWidth > 800) {
+      subtitlePadding = 100;
+    } else if (screenWidth > 600) {
+      subtitlePadding = 50;
+    } else {
+      subtitlePadding = 20;
+    }
+
+    // Responsive cross axis count
+    int crossAxisCount;
+    if (screenWidth > 900) {
+      crossAxisCount = 3;
+    } else if (screenWidth > 600) {
+      crossAxisCount = 2;
+    } else {
+      crossAxisCount = 1;
+    }
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 100.0),
+      padding: EdgeInsets.symmetric(
+        horizontal: horizontalPadding,
+        vertical: 100,
+      ),
       color: const Color(0xFFF5F5F5),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Title
+          // Title Section
           Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Header text
               Text(
-                'JOURNEY  OF FAITH AND FULFILLMENT',
+                'JOURNEY OF FAITH AND FULFILLMENT',
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 40,
+                  fontSize: titleFontSize,
                   fontWeight: FontWeight.w500,
                   color: Colors.grey[600],
                   letterSpacing: 1.2,
                 ),
               ),
               const SizedBox(height: 20),
-
-              // Main title
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 300),
-                child: const Text(
-                  textAlign: TextAlign.center,
+                padding: EdgeInsets.symmetric(horizontal: subtitlePadding),
+                child: Text(
                   'share your success journey with # sree lalitha peetham',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 60,
+                    fontSize: subtitleFontSize,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF2D2D2D),
                     letterSpacing: 0.5,
@@ -49,63 +109,36 @@ class SuccessJourneyWidget extends StatelessWidget {
           GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 3,
-            crossAxisSpacing: 4.0,
-            mainAxisSpacing: 6.0,
+            crossAxisCount: crossAxisCount,
+            crossAxisSpacing: 4,
+            mainAxisSpacing: 6,
             childAspectRatio: 0.68,
             children: [
+              _buildServiceCard('assets/images/marriage_card.png', () {}),
+              _buildServiceCard('assets/images/astrology_card.png', () {}),
               _buildServiceCard(
-                icon: Icons.stars_outlined,
-                title: 'Astrology',
-                onPressed: () {},
-                context: context,
-                imgpath: 'assets/images/marriage_card.png',
-              ),
-              _buildServiceCard(
-                icon: Icons.favorite_outline,
-                title: 'Matrimony',
-                onPressed: () {},
-                context: context,
-                imgpath: 'assets/images/astrology_card.png',
-              ),
-              _buildServiceCard(
-                icon: Icons.business_outlined,
-                title: 'Property Sell & Rent',
-                onPressed: () {},
-                context: context,
-                imgpath: 'assets/images/flower_decoration_card.png',
+                'assets/images/flower_decoration_card.png',
+                () {},
               ),
             ],
           ),
-
           const SizedBox(height: 30),
         ],
       ),
     );
   }
 
-  Widget _buildServiceCard({
-    required BuildContext context,
-    required IconData icon,
-    required String title,
-    required VoidCallback onPressed,
-    required String imgpath,
-  }) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+  Widget _buildServiceCard(String imgpath, VoidCallback onPressed) {
     return Column(
       children: [
-        // Golden container with icon and title
-        Container(
-          height: screenHeight * 0.75,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-          child: Image.asset(imgpath, fit: BoxFit.cover),
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+            child: Image.asset(imgpath, fit: BoxFit.cover),
+          ),
         ),
-
         const SizedBox(height: 30),
-
-        // View More Button OUTSIDE the container
-        Container(
+        SizedBox(
           width: 250,
           height: 60,
           child: OutlinedButton(
@@ -116,7 +149,6 @@ class SuccessJourneyWidget extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             ),
             child: const Text(
               'READ',

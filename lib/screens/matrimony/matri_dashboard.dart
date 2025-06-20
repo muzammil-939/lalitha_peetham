@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lalitha_peetham/screens/matrimony/matimony_page_layout.dart';
-
 import 'matri_dash_subcat.dart';
+import 'matri_profile_widget.dart';
 
 class MatriDashboard extends StatelessWidget {
   const MatriDashboard({super.key});
@@ -9,376 +9,357 @@ class MatriDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final isDesktop = size.width >= 1200;
+    final isTablet = size.width >= 768 && size.width < 1200;
+    final isMobile = size.width < 768;
 
     return MatriPageLayout(
-      child: SingleChildScrollView(
-        child: Container(
-          width: size.width,
-          padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 50),
-          child: Column(
+      child: Container(
+        width: size.width,
+        padding: EdgeInsets.symmetric(
+          horizontal: _getHorizontalPadding(size.width),
+          vertical: _getVerticalPadding(size.width),
+        ),
+        child: Column(
+          children: [
+            if (isDesktop)
+              _buildDesktopLayout(size)
+            else if (isTablet)
+              _buildTabletLayout(size)
+            else
+              _buildMobileLayout(size),
+            const SizedBox(height: 20),
+            const MatriDashSubcat(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  double _getHorizontalPadding(double width) {
+    if (width >= 1200) return 150.0; // Desktop
+    if (width >= 768) return 40.0; // Tablet
+    return 16.0; // Mobile
+  }
+
+  double _getVerticalPadding(double width) {
+    if (width >= 1200) return 50.0; // Desktop
+    if (width >= 768) return 30.0; // Tablet
+    return 20.0; // Mobile
+  }
+
+  Widget _buildDesktopLayout(Size size) {
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          MatriProfileWidget(),
+          const SizedBox(width: 20),
+          Expanded(child: _buildMiddleContentPanel(size)),
+          const SizedBox(width: 20),
+          _buildRightPanel(size.height, size.width),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTabletLayout(Size size) {
+    return Column(
+      children: [
+        IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildLeftProfilePanel(size.height),
-                  const SizedBox(width: 20),
-                  _buildMiddleContentPanel(size),
-                  const SizedBox(width: 20),
-                  _buildRightPanel(size.height),
-                ],
-              ),
-              MatriDashSubcat(),
+              Expanded(child: MatriProfileWidget()),
+              const SizedBox(width: 16),
+              Expanded(child: _buildRightPanel(null, size.width)),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildLeftProfilePanel(double screenHeight) {
-    return Container(
-      height: screenHeight,
-      width: 280,
-      decoration: BoxDecoration(
-        color: const Color(0xffD4BB26),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _buildProfileImage(),
-          const SizedBox(height: 30),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildProfileInfo(),
-                const SizedBox(height: 40),
-                _buildAccountTypeSection(),
-                const SizedBox(height: 40),
-                _buildVerificationSection(),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildProfileImage() {
-    return Image.network(
-      'https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?20150327203541',
-      fit: BoxFit.cover,
-      height: 250,
-      width: 280,
-      errorBuilder:
-          (context, error, stackTrace) => Container(
-            height: 250,
-            width: 280,
-            color: Colors.grey[300],
-            child: Icon(Icons.person, size: 100, color: Colors.grey[600]),
-          ),
-    );
-  }
-
-  Widget _buildProfileInfo() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'ELAMPIRAL.K',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
-                letterSpacing: 1.2,
-              ),
-            ),
-            Text(
-              'Edit',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.black54,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        const Text(
-          'SH73537294',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.white,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
+        const SizedBox(height: 20),
+        _buildMiddleContentPanel(size),
       ],
     );
   }
 
-  Widget _buildAccountTypeSection() {
+  Widget _buildMobileLayout(Size size) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'ACCOUNT TYPE',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-            letterSpacing: 1.0,
-          ),
-        ),
-        const SizedBox(height: 8),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Free Membership',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.white,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            Text(
-              'Upgrade',
-              style: TextStyle(
-                fontSize: 14,
-                color: Color(0xFF3498DB),
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildVerificationSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'VERIFICATION',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-            letterSpacing: 1.0,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Flexible(
-              child: Text(
-                'Get Blue Tick',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Color(0xFF3498DB),
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ),
-            Container(
-              width: 24,
-              height: 24,
-              decoration: BoxDecoration(
-                color: const Color(0xFF3498DB).withOpacity(0.2),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Icon(
-                Icons.check,
-                size: 16,
-                color: Color(0xFF3498DB),
-              ),
-            ),
-          ],
-        ),
+        MatriProfileWidget(),
+        const SizedBox(height: 20),
+        _buildMiddleContentPanel(size),
+        const SizedBox(height: 20),
+        _buildRightPanel(null, size.width),
       ],
     );
   }
 
   Widget _buildMiddleContentPanel(Size size) {
-    return SizedBox(
-      width: size.width * 0.4,
+    final isMobile = size.width < 768;
+
+    return Container(
+      width: size.width >= 1200 ? size.width * 0.4 : null,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildSectionTitle('YOUR ACTIVITY SUMMARY'),
-          const SizedBox(height: 20),
-          _buildActivitySummaryGrid(),
-          const SizedBox(height: 20),
-          _buildSectionTitle('IMPROVED YOUR PROFILE'),
-          const SizedBox(height: 20),
+          _buildSectionTitle('YOUR ACTIVITY SUMMARY', size.width),
+          SizedBox(height: isMobile ? 16 : 20),
+          _buildActivitySummaryGrid(size.width),
+          SizedBox(height: isMobile ? 20 : 30),
+          _buildSectionTitle('IMPROVE YOUR PROFILE', size.width),
+          SizedBox(height: isMobile ? 16 : 20),
           _buildUpgradeSection(size),
         ],
       ),
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildSectionTitle(String title, double screenWidth) {
+    final isMobile = screenWidth < 768;
     return Text(
       title,
-      style: const TextStyle(
-        fontSize: 40,
-        letterSpacing: 2,
-        color: Color(0xffD4BB26),
+      style: TextStyle(
+        fontSize: isMobile ? 24 : (screenWidth < 1200 ? 32 : 40),
+        letterSpacing: isMobile ? 1 : 2,
+        color: const Color(0xffD4BB26),
         fontWeight: FontWeight.bold,
       ),
     );
   }
 
-  Widget _buildActivitySummaryGrid() {
+  Widget _buildActivitySummaryGrid(double screenWidth) {
+    final isMobile = screenWidth < 768;
+    const cardData = [
+      ('63', 'Pending\nInvitations', '2 New', Color(0xFFC4B454)),
+      ('20', 'Accepted\nInvitations', '2 New', Color(0xFFC4B454)),
+      ('289', 'Recent\nVisitors', '289 New', Color(0xFF4ECDC4)),
+    ];
+
     return Container(
-      padding: const EdgeInsets.all(16.0),
-      color: const Color(0xFFF5F5F5),
+      padding: EdgeInsets.all(isMobile ? 12.0 : 16.0),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.circular(8),
+      ),
       child: Column(
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: _buildStatsCard(
-                  '63',
-                  'Pending\nInvetations',
-                  '2 New',
-                  const Color(0xFFC4B454),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _buildStatsCard(
-                  '20',
-                  'Accepted\nInvetations',
-                  '2 New',
-                  const Color(0xFFC4B454),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _buildStatsCard(
-                  '289',
-                  'Recent\nVisitors',
-                  '289 New',
-                  const Color(0xFF4ECDC4),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              Expanded(
-                child: _buildBottomCard(
+          // Top stats cards
+          if (isMobile)
+            Column(
+              children:
+                  cardData
+                      .map(
+                        (data) => Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: _buildStatsCard(
+                            data.$1,
+                            data.$2,
+                            data.$3,
+                            data.$4,
+                            screenWidth,
+                          ),
+                        ),
+                      )
+                      .toList(),
+            )
+          else
+            Row(
+              children:
+                  cardData.asMap().entries.map((entry) {
+                    final isLast = entry.key == cardData.length - 1;
+                    return Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.only(right: isLast ? 0 : 12),
+                        child: _buildStatsCard(
+                          entry.value.$1,
+                          entry.value.$2,
+                          entry.value.$3,
+                          entry.value.$4,
+                          screenWidth,
+                        ),
+                      ),
+                    );
+                  }).toList(),
+            ),
+
+          SizedBox(height: isMobile ? 12 : 16),
+
+          // Bottom cards
+          if (isMobile)
+            Column(
+              children: [
+                _buildBottomCard(
                   title: 'Only Premium Members\nCan Avail These Benefits',
                   highlightWord: 'Premium',
+                  screenWidth: screenWidth,
                 ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _buildBottomCard(
-                  icon: Icons.circle_outlined,
-                  title: 'Contact\nViewed',
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: _buildBottomCard(
+                        icon: Icons.circle_outlined,
+                        title: 'Contact\nViewed',
+                        screenWidth: screenWidth,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: _buildBottomCard(
+                        icon: Icons.circle_outlined,
+                        title: 'Chat\nInitiated',
+                        screenWidth: screenWidth,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _buildBottomCard(
-                  icon: Icons.circle_outlined,
-                  title: 'Chat\nInitiated',
+              ],
+            )
+          else
+            Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: _buildBottomCard(
+                    title: 'Only Premium Members\nCan Avail These Benefits',
+                    highlightWord: 'Premium',
+                    screenWidth: screenWidth,
+                  ),
                 ),
-              ),
-            ],
-          ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildBottomCard(
+                    icon: Icons.circle_outlined,
+                    title: 'Contact\nViewed',
+                    screenWidth: screenWidth,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _buildBottomCard(
+                    icon: Icons.circle_outlined,
+                    title: 'Chat\nInitiated',
+                    screenWidth: screenWidth,
+                  ),
+                ),
+              ],
+            ),
         ],
       ),
     );
   }
 
   Widget _buildUpgradeSection(Size size) {
+    final isMobile = size.width < 768;
+    final isTablet = size.width >= 768 && size.width < 1200;
+
     return Container(
-      height: size.height * 0.36,
-      width: size.width * 0.39,
-      color: const Color(0xffEFE7C0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Container(
-            height: size.width * 0.1,
-            width: size.width * 0.1,
-            color: Colors.white,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'BLUE TICK VERIFICATION',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF4A4A4A),
-                  letterSpacing: 1.0,
-                ),
-              ),
-              const SizedBox(height: 4),
-              const Text(
-                'Register For Free & Put Up\nYour Matrimony Profile',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Color(0xFF888888),
-                  height: 1.3,
-                ),
-              ),
-              const SizedBox(height: 12),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFDAA520),
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 18,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  elevation: 1,
-                  minimumSize: const Size(0, 32),
-                ),
-                child: const Text(
-                  'UPGRADE NOW',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
+      width: double.infinity,
+      constraints: BoxConstraints(minHeight: isMobile ? 200 : 250),
+      padding: EdgeInsets.all(isMobile ? 16 : 20),
+      decoration: BoxDecoration(
+        color: const Color(0xffEFE7C0),
+        borderRadius: BorderRadius.circular(8),
       ),
+      child:
+          isMobile
+              ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 100,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    margin: const EdgeInsets.only(bottom: 20),
+                  ),
+                  _buildUpgradeContent(isMobile),
+                ],
+              )
+              : Row(
+                children: [
+                  Container(
+                    height: isTablet ? 100 : 120,
+                    width: isTablet ? 100 : 120,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(child: _buildUpgradeContent(false)),
+                ],
+              ),
     );
   }
 
-  Widget _buildRightPanel(double screenHeight) {
+  Widget _buildUpgradeContent(bool isMobile) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment:
+          isMobile ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+      children: [
+        Text(
+          'BLUE TICK VERIFICATION',
+          style: TextStyle(
+            fontSize: isMobile ? 16 : 18,
+            fontWeight: FontWeight.bold,
+            color: const Color(0xFF4A4A4A),
+            letterSpacing: 1.0,
+          ),
+          textAlign: isMobile ? TextAlign.center : TextAlign.left,
+        ),
+        const SizedBox(height: 8),
+        Text(
+          'Register For Free & Put Up\nYour Matrimony Profile',
+          style: TextStyle(
+            fontSize: isMobile ? 14 : 16,
+            color: const Color(0xFF888888),
+            height: 1.3,
+          ),
+          textAlign: isMobile ? TextAlign.center : TextAlign.left,
+        ),
+        const SizedBox(height: 16),
+        SizedBox(
+          width: isMobile ? double.infinity : null,
+          child: ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFDAA520),
+              foregroundColor: Colors.white,
+              padding: EdgeInsets.symmetric(
+                horizontal: isMobile ? 24 : 32,
+                vertical: isMobile ? 16 : 18,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              elevation: 2,
+            ),
+            child: Text(
+              'UPGRADE NOW',
+              style: TextStyle(
+                fontSize: isMobile ? 14 : 16,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 0.5,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRightPanel(double? screenHeight, double screenWidth) {
+    //final isDesktop = screenWidth >= 1200;
+    final isMobile = screenWidth < 768;
+
     return Container(
-      height: screenHeight,
       width: 280,
+
+      constraints: const BoxConstraints(minHeight: 720, maxWidth: 350),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         gradient: const LinearGradient(
@@ -394,22 +375,51 @@ class MatriDashboard extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Image.asset(
-            'assets/images/gift.png',
-            height: 300,
-            width: 200,
-            fit: BoxFit.cover,
-          ),
-          Image.asset(
-            'assets/images/save_upto.png',
-            height: 150,
-            width: 200,
-            fit: BoxFit.cover,
-          ),
-        ],
+      child: Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              'assets/images/gift.png',
+              height: isMobile ? 150 : 200,
+              width: isMobile ? 100 : 150,
+              fit: BoxFit.contain,
+              errorBuilder:
+                  (context, error, stackTrace) => Container(
+                    height: isMobile ? 150 : 200,
+                    width: isMobile ? 100 : 150,
+                    color: Colors.grey[300],
+                    child: Icon(
+                      Icons.card_giftcard,
+                      size: isMobile ? 60 : 80,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+            ),
+
+            const SizedBox(height: 20),
+
+            Image.asset(
+              'assets/images/save_upto.png',
+              height: isMobile ? 75 : 100,
+              width: isMobile ? 100 : 150,
+              fit: BoxFit.contain,
+              errorBuilder:
+                  (context, error, stackTrace) => Container(
+                    height: isMobile ? 75 : 100,
+                    width: isMobile ? 100 : 150,
+                    color: Colors.grey[300],
+                    child: Icon(
+                      Icons.savings,
+                      size: isMobile ? 40 : 50,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -419,10 +429,13 @@ class MatriDashboard extends StatelessWidget {
     String title,
     String badgeText,
     Color badgeColor,
+    double screenWidth,
   ) {
+    final isMobile = screenWidth < 768;
+
     return Container(
-      height: 120,
-      padding: const EdgeInsets.all(16),
+      height: isMobile ? 100 : 120,
+      padding: EdgeInsets.all(isMobile ? 12 : 16),
       decoration: BoxDecoration(
         color: const Color(0xFFE8E2B8),
         borderRadius: BorderRadius.circular(8),
@@ -433,12 +446,18 @@ class MatriDashboard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                number,
-                style: const TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF333333),
+              Expanded(
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    number,
+                    style: TextStyle(
+                      fontSize: isMobile ? 24 : 32,
+                      fontWeight: FontWeight.bold,
+                      color: const Color(0xFF333333),
+                    ),
+                  ),
                 ),
               ),
               Container(
@@ -449,9 +468,9 @@ class MatriDashboard extends StatelessWidget {
                 ),
                 child: Text(
                   badgeText,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
-                    fontSize: 10,
+                    fontSize: isMobile ? 8 : 10,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -461,11 +480,13 @@ class MatriDashboard extends StatelessWidget {
           const Spacer(),
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Color(0xFF666666),
+            style: TextStyle(
+              fontSize: isMobile ? 12 : 14,
+              color: const Color(0xFF666666),
               height: 1.2,
             ),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),
@@ -476,10 +497,13 @@ class MatriDashboard extends StatelessWidget {
     String? title,
     String? highlightWord,
     IconData? icon,
+    required double screenWidth,
   }) {
+    final isMobile = screenWidth < 768;
+
     return Container(
-      height: 120,
-      padding: const EdgeInsets.all(16),
+      height: isMobile ? 100 : 120,
+      padding: EdgeInsets.all(isMobile ? 12 : 16),
       decoration: BoxDecoration(
         color: const Color(0xFFE8E2B8),
         borderRadius: BorderRadius.circular(8),
@@ -489,29 +513,40 @@ class MatriDashboard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (icon != null) ...[
-            Icon(icon, size: 24, color: const Color(0xFFCCCCCC)),
-            const SizedBox(height: 8),
+            Icon(
+              icon,
+              size: isMobile ? 20 : 24,
+              color: const Color(0xFFCCCCCC),
+            ),
+            SizedBox(height: isMobile ? 6 : 8),
           ],
           if (title != null)
-            highlightWord != null
-                ? RichText(
-                  text: TextSpan(
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFFCCCCCC),
-                      height: 1.3,
-                    ),
-                    children: _buildTextSpans(title, highlightWord),
-                  ),
-                )
-                : Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFFCCCCCC),
-                    height: 1.3,
-                  ),
-                ),
+            Expanded(
+              child:
+                  highlightWord != null
+                      ? RichText(
+                        text: TextSpan(
+                          style: TextStyle(
+                            fontSize: isMobile ? 12 : 14,
+                            color: const Color(0xFFCCCCCC),
+                            height: 1.3,
+                          ),
+                          children: _buildTextSpans(title, highlightWord),
+                        ),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      )
+                      : Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: isMobile ? 12 : 14,
+                          color: const Color(0xFFCCCCCC),
+                          height: 1.3,
+                        ),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+            ),
         ],
       ),
     );
@@ -520,9 +555,10 @@ class MatriDashboard extends StatelessWidget {
   List<TextSpan> _buildTextSpans(String text, String highlightWord) {
     final spans = <TextSpan>[];
     final parts = text.split(highlightWord);
-
     for (int i = 0; i < parts.length; i++) {
-      if (parts[i].isNotEmpty) spans.add(TextSpan(text: parts[i]));
+      if (parts[i].isNotEmpty) {
+        spans.add(TextSpan(text: parts[i]));
+      }
       if (i < parts.length - 1) {
         spans.add(
           TextSpan(

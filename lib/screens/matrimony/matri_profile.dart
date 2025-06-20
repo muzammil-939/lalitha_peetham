@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:lalitha_peetham/screens/matrimony/matimony_page_layout.dart';
 
+import 'matri_profile_widget.dart';
+
 class MatriProfile extends StatelessWidget {
   const MatriProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 768;
     return MatriPageLayout(
       child: SingleChildScrollView(
         // Added to prevent overflow
         child: Container(
           width: size.width,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 150,
+          padding: EdgeInsets.symmetric(
+            horizontal: isMobile ? 60 : 150,
             vertical: 50,
           ), // Reduced padding for mobile
           child: LayoutBuilder(
@@ -24,7 +27,7 @@ class MatriProfile extends StatelessWidget {
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildLeftProfilePanel(size.height),
+                    MatriProfileWidget(),
                     const SizedBox(width: 20),
                     Expanded(child: _buildMainContent()),
                   ],
@@ -32,7 +35,7 @@ class MatriProfile extends StatelessWidget {
               } else {
                 return Column(
                   children: [
-                    _buildLeftProfilePanel(300), // Fixed height for mobile
+                    MatriProfileWidget(), // Fixed height for mobile
                     const SizedBox(height: 20),
                     _buildMainContent(),
                   ],
@@ -352,43 +355,6 @@ class MatriProfile extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildLeftProfilePanel(double height) {
-    return Container(
-      height: height,
-      width: 280,
-      decoration: BoxDecoration(
-        color: const Color(0xffD4BB26),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildProfileImage(),
-          const SizedBox(height: 30),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildProfileInfo(),
-                const SizedBox(height: 40),
-                _buildAccountTypeSection(),
-                const SizedBox(height: 40),
-                _buildVerificationSection(),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 

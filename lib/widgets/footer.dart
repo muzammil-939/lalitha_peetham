@@ -229,8 +229,8 @@ class _FooterWidgetState extends State<FooterWidget> {
           cursor: SystemMouseCursors.click,
           child: AnimatedContainer(
             duration: Duration(milliseconds: 200),
-            width: 40,
-            height: 40,
+            width: 38,
+            height: 38,
             decoration: BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,

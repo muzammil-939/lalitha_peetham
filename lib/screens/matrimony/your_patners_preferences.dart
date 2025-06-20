@@ -17,7 +17,7 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             SizedBox(height: 30,),
+            SizedBox(height: 30),
             // Header Section
             Text(
               'YOUR PARTNER PREFERENCES',
@@ -40,10 +40,7 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
             const SizedBox(height: 4),
             Text(
               'Tap On The Field To Edit',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey[600],
-              ),
+              style: TextStyle(fontSize: 14, color: Colors.grey[600]),
             ),
             const SizedBox(height: 24),
 
@@ -71,7 +68,7 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
             ),
             const SizedBox(height: 50),
 
-            // Community Section
+            // Community
             _buildSectionCard(
               title: 'COMMUNITY',
               children: [
@@ -83,7 +80,8 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
                 _buildPreferenceItem(
                   icon: Icons.groups,
                   label: 'Community',
-                  value: 'Mudaliyar - Arcot, Vellalar, Agamudayar\nArcot, Thuluva Vellala.',
+                  value:
+                      'Mudaliyar - Arcot, Vellalar, Agamudayar\nArcot, Thuluva Vellala.',
                 ),
                 _buildPreferenceItem(
                   icon: Icons.language,
@@ -114,7 +112,8 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
                 _buildPreferenceItem(
                   icon: Icons.location_city,
                   label: 'City / District',
-                  value: 'Pondicherry, Chennai, Cuddalore,\nKanchipuram, Salem, Tiruchirappalli,\nTiruvannamalai, Villupuram',
+                  value:
+                      'Pondicherry, Chennai, Cuddalore,\nKanchipuram, Salem, Tiruchirappalli,\nTiruvannamalai, Villupuram',
                   showArrow: true,
                 ),
                 // Suggested Location inside the container - RIGHT ALIGNED
@@ -134,7 +133,10 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
                         ),
                         const SizedBox(height: 8),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.orange[300]!),
                             borderRadius: BorderRadius.circular(20),
@@ -186,7 +188,8 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
                 _buildPreferenceItem(
                   icon: Icons.business,
                   label: 'Profession',
-                  value: 'IT & Software Engineering,\nArtists, Animation & Web Designers\nArchitecture & Design, Airline & Aviation',
+                  value:
+                      'IT & Software Engineering,\nArtists, Animation & Web Designers\nArchitecture & Design, Airline & Aviation',
                   showArrow: true,
                 ),
                 _buildPreferenceItem(
@@ -276,11 +279,7 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
                   color: Colors.orange[700],
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
-                  icon,
-                  color: Colors.white,
-                  size: 24,
-                ),
+                child: Icon(icon, color: Colors.white, size: 24),
               ),
               const SizedBox(width: 16),
               // Label

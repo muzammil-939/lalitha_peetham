@@ -5,61 +5,68 @@ class HomeDailyHoroscope extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+    final size = MediaQuery.of(context).size;
+    final isTablet = size.width > 600;
+    final isMobile = size.width < 600;
 
-    return Container(
-      width: screenWidth,
+    return SizedBox(
+      width: size.width,
       child: Stack(
         children: [
           // Background image
           Padding(
-            padding: const EdgeInsets.only(top: 300),
+            padding: EdgeInsets.only(
+              top:
+                  isMobile
+                      ? size.height * 0.65
+                      : (isTablet ? size.height * 0.6 : size.height * 0.55),
+            ),
             child: Image.asset(
               'assets/images/daily_horo-b.png',
-              width: screenWidth,
+              width: size.width,
               fit: BoxFit.cover,
             ),
           ),
+
+          // Content section
           Positioned(
-            top: 50,
-            left: 200,
+            top: size.height * 0.05,
+            left: isMobile ? 16 : (isTablet ? size.width * 0.05 : 200),
+            right: isMobile ? 16 : null,
             child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
+              width: isMobile ? null : (isTablet ? size.width * 0.6 : null),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Header section
+                  // Header
                   Text(
                     'DAILY HOROSCOPE',
                     style: TextStyle(
-                      fontSize: 28,
+                      fontSize: isMobile ? 18 : (isTablet ? 24 : 28),
                       fontWeight: FontWeight.w500,
                       letterSpacing: 2.0,
                       color: Colors.grey[600],
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: size.height * 0.02),
 
                   // Main title
-                  const Text(
+                  Text(
                     'CHOOSE YOUR ZODIAC SIGN',
                     style: TextStyle(
-                      fontSize: 60,
+                      fontSize: isMobile ? 32 : (isTablet ? 48 : 60),
                       fontWeight: FontWeight.bold,
                       color: Color(0xFF2D2D2D),
                       height: 1.2,
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(height: size.height * 0.03),
 
-                  // Description text
+                  // Description
                   RichText(
                     text: TextSpan(
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: isMobile ? 14 : (isTablet ? 16 : 24),
                         color: Colors.grey[700],
                         height: 1.6,
                       ),
@@ -73,26 +80,22 @@ class HomeDailyHoroscope extends StatelessWidget {
                         TextSpan(text: '✨ ', style: TextStyle(fontSize: 18)),
                         TextSpan(
                           text:
-                              'Check what the universe has in store for you\n'
-                              'today.',
+                              'Check what the universe has in store for you\ntoday.',
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 32),
+                  SizedBox(height: size.height * 0.04),
 
-                  // Call to action button
+                  // CTA button
                   GestureDetector(
-                    onTap: () {
-                      // Handle navigation to horoscope reading
-                      print('Navigate to today\'s horoscope');
-                    },
+                    onTap: () => print('Navigate to today\'s horoscope'),
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 4.0),
                       decoration: const BoxDecoration(
                         border: Border(
                           bottom: BorderSide(
-                            color: Color(0xFFD4A574), // Golden brown color
+                            color: Color(0xFFD4A574),
                             width: 2.0,
                           ),
                         ),
@@ -103,16 +106,16 @@ class HomeDailyHoroscope extends StatelessWidget {
                           Text(
                             'Read Today\'s Horoscope',
                             style: TextStyle(
-                              fontSize: 40,
+                              fontSize: isMobile ? 20 : (isTablet ? 26 : 32),
                               fontWeight: FontWeight.w600,
-                              color: const Color(0xFFD4A574),
+                              color: Color(0xFFD4A574),
                             ),
                           ),
                           const SizedBox(width: 8),
-                          const Icon(
+                          Icon(
                             Icons.arrow_forward,
                             color: Color(0xFFD4A574),
-                            size: 18,
+                            size: isMobile ? 16 : 18,
                           ),
                         ],
                       ),
@@ -122,25 +125,36 @@ class HomeDailyHoroscope extends StatelessWidget {
               ),
             ),
           ),
-          // Fixed GridView with proper constraints
+
+          // Zodiac grid - FIXED
           Positioned(
-            bottom: 300,
+            bottom:
+                isMobile
+                    ? size.height * 0.25
+                    : (isTablet ? size.height * 0.25 : size.height * 0.3),
             left: 16,
             right: 16,
-            height: screenHeight, // Only constrain the GridView height
-            child: GridView.builder(
-              physics:
-                  NeverScrollableScrollPhysics(), // Disable scrolling since we have fixed items
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 6, // 6 items per row
-                crossAxisSpacing: 10.0,
-                mainAxisSpacing: 150.0,
-                childAspectRatio: 1.0, // Square containers
+            height:
+                isMobile
+                    ? size.height * 0.4
+                    : (isTablet ? size.height * 0.35 : size.height * 0.25),
+            child: Padding(
+              padding: EdgeInsets.only(top: isMobile ? 80 : 0),
+              child: GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: isMobile ? 4 : 6,
+                  crossAxisSpacing: isMobile ? 8.0 : 10.0,
+                  mainAxisSpacing: isMobile ? 20.0 : (isTablet ? 25.0 : 30.0),
+                  childAspectRatio: 1.0,
+                ),
+                itemCount: 6,
+                itemBuilder:
+                    (context, index) => Image.asset(
+                      'assets/images/virgo.png',
+                      fit: BoxFit.contain,
+                    ),
               ),
-              itemCount: 12, // 2 rows × 6 items = 12 total items
-              itemBuilder: (context, index) {
-                return Container(child: Image.asset('assets/images/virgo.png'));
-              },
             ),
           ),
         ],

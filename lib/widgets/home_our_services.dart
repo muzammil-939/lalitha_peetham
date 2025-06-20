@@ -5,8 +5,25 @@ class HomeOurServices extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final isTablet = size.width > 600 && size.width <= 1024;
+    final isMobile = size.width <= 600;
+
+    // Responsive padding
+    double padding = isMobile ? 20.0 : (isTablet ? 50.0 : 100.0);
+
+    // Responsive cross axis count
+    int crossAxisCount = isMobile ? 1 : (isTablet ? 2 : 3);
+
+    // Responsive spacing
+    double crossAxisSpacing = isMobile ? 20 : 10;
+    double mainAxisSpacing = isMobile ? 30 : 50;
+
+    // Responsive aspect ratio
+    double childAspectRatio = isMobile ? 0.65 : (isTablet ? 0.7 : 0.68);
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 100.0),
+      padding: EdgeInsets.all(padding),
       color: const Color(0xFFF5F5F5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -14,79 +31,73 @@ class HomeOurServices extends StatelessWidget {
           // Title
           Align(
             alignment: Alignment.centerLeft,
-            child: const Text(
+            child: Text(
               'OUR SERVICES',
               style: TextStyle(
-                fontSize: 60,
+                fontSize: isMobile ? 32 : (isTablet ? 48 : 60),
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF4A4A4A),
                 letterSpacing: 2.0,
               ),
             ),
           ),
-          const SizedBox(height: 40),
+          SizedBox(height: isMobile ? 20 : 40),
 
           // Services Grid
-          GridView.count(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 3,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 50,
-            childAspectRatio: 0.68,
-            children: [
-              _buildServiceCard(
-                icon: Icons.stars_outlined,
-                title: 'Astrology',
-                onPressed: () {},
-                context: context,
-              ),
-              _buildServiceCard(
-                icon: Icons.favorite_outline,
-                title: 'Matrimony',
-                onPressed: () {},
-                context: context,
-              ),
-              _buildServiceCard(
-                icon: Icons.business_outlined,
-                title: 'Property Sell & Rent',
-                onPressed: () {},
-                context: context,
-              ),
-              _buildServiceCard(
-                icon: Icons.diamond_outlined,
-                title: 'Gemstone Selling',
-                onPressed: () {},
-                context: context,
-              ),
-              _buildServiceCard(
-                icon: Icons.restaurant_outlined,
-                title: 'Catering',
-                onPressed: () {},
-                context: context,
-              ),
-              _buildServiceCard(
-                icon: Icons.account_balance_outlined,
-                title: 'Function Hall Booking',
-                onPressed: () {},
-                context: context,
-              ),
-            ],
+          LayoutBuilder(
+            builder: (context, constraints) {
+              return GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: crossAxisCount,
+                crossAxisSpacing: crossAxisSpacing,
+                mainAxisSpacing: mainAxisSpacing,
+                childAspectRatio: childAspectRatio,
+                children: [
+                  _buildServiceCard(context, Icons.stars_outlined, 'Astrology'),
+                  _buildServiceCard(
+                    context,
+                    Icons.favorite_outline,
+                    'Matrimony',
+                  ),
+                  _buildServiceCard(
+                    context,
+                    Icons.business_outlined,
+                    'Property Sell & Rent',
+                  ),
+                  _buildServiceCard(
+                    context,
+                    Icons.diamond_outlined,
+                    'Gemstone Selling',
+                  ),
+                  _buildServiceCard(
+                    context,
+                    Icons.restaurant_outlined,
+                    'Catering',
+                  ),
+                  _buildServiceCard(
+                    context,
+                    Icons.account_balance_outlined,
+                    'Function Hall Booking',
+                  ),
+                ],
+              );
+            },
           ),
 
-          const SizedBox(height: 30),
+          SizedBox(height: isMobile ? 15 : 30),
 
           // Navigation Dots
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildDot(isActive: true),
-              const SizedBox(width: 8),
-              _buildDot(isActive: false),
-              const SizedBox(width: 8),
-              _buildDot(isActive: false),
-              const SizedBox(width: 8),
-              _buildDot(isActive: false),
+            children: const [
+              _Dot(isActive: true),
+              SizedBox(width: 8),
+              _Dot(isActive: false),
+              SizedBox(width: 8),
+              _Dot(isActive: false),
+              SizedBox(width: 8),
+              _Dot(isActive: false),
             ],
           ),
         ],
@@ -94,91 +105,115 @@ class HomeOurServices extends StatelessWidget {
     );
   }
 
-  Widget _buildServiceCard({
-    required BuildContext context,
-    required IconData icon,
-    required String title,
-    required VoidCallback onPressed,
-  }) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-    return Column(
-      children: [
-        // Golden container with icon and title
-        Container(
-          width: screenWidth * 0.27,
-          height: screenHeight * 0.75,
-          decoration: BoxDecoration(
-            color: Color(0xffC0B020),
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                spreadRadius: 1,
-                blurRadius: 5,
-                offset: const Offset(0, 2),
+  Widget _buildServiceCard(BuildContext context, IconData icon, String title) {
+    final size = MediaQuery.of(context).size;
+    final isTablet = size.width > 600 && size.width <= 1024;
+    final isMobile = size.width <= 600;
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Use available width from GridView
+        double availableWidth = constraints.maxWidth;
+        double availableHeight = constraints.maxHeight;
+
+        // Calculate card dimensions based on available space
+        double cardWidth = availableWidth * 0.9;
+        double cardHeight = availableHeight * 0.65; // Leave space for button
+
+        // Responsive icon size
+        double iconSize = isMobile ? 40 : (isTablet ? 50 : 60);
+
+        // Responsive font size
+        double fontSize = isMobile ? 14 : (isTablet ? 18 : 24);
+
+        // Responsive button dimensions
+        double buttonWidth = availableWidth * 0.8;
+        double buttonHeight = isMobile ? 35 : (isTablet ? 40 : 50);
+
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Golden container with icon and title
+            Container(
+              width: cardWidth,
+              height: cardHeight,
+              decoration: BoxDecoration(
+                color: const Color(0xffC0B020),
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    spreadRadius: 1,
+                    blurRadius: 5,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
               ),
-            ],
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Icon
-              Icon(icon, size: 80, color: Colors.white, weight: 1.5),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Icon
+                  Icon(icon, size: iconSize, color: Colors.white, weight: 1.5),
+                  SizedBox(height: isMobile ? 8 : 15),
 
-              const SizedBox(height: 25),
+                  // Title
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Text(
+                      title,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: fontSize,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xFF2C2C2C),
+                        letterSpacing: 1,
+                        height: 1.2,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
 
-              // Title
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+            SizedBox(height: isMobile ? 8 : 12),
+
+            // View More Button
+            SizedBox(
+              width: buttonWidth,
+              height: buttonHeight,
+              child: OutlinedButton(
+                onPressed: () {},
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: Color(0xFFB8941F), width: 1.5),
+                  backgroundColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                ),
                 child: Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w500,
+                  'VIEW MORE',
+                  style: TextStyle(
+                    fontSize: isMobile ? 10 : (isTablet ? 12 : 14),
+                    fontWeight: FontWeight.w600,
                     color: Color(0xFF2C2C2C),
-                    letterSpacing: 2,
-                    height: 1.2,
+                    letterSpacing: 1,
                   ),
                 ),
               ),
-            ],
-          ),
-        ),
-
-        const SizedBox(height: 30),
-
-        // View More Button OUTSIDE the container
-        Container(
-          width: 250,
-          height: 60,
-          child: OutlinedButton(
-            onPressed: onPressed,
-            style: OutlinedButton.styleFrom(
-              side: const BorderSide(color: Color(0xFFB8941F), width: 1.5),
-              backgroundColor: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             ),
-            child: const Text(
-              'VIEW MORE',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF2C2C2C),
-                letterSpacing: 1,
-              ),
-            ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
+}
 
-  Widget _buildDot({required bool isActive}) {
+class _Dot extends StatelessWidget {
+  final bool isActive;
+  const _Dot({required this.isActive});
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       width: 12,
       height: 12,

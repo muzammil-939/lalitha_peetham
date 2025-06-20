@@ -9,15 +9,17 @@ class AppointmentBookingWidget extends StatefulWidget {
 }
 
 class _AppointmentBookingWidgetState extends State<AppointmentBookingWidget> {
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
+  final _controllers = {
+    'firstName': TextEditingController(),
+    'lastName': TextEditingController(),
+    'phone': TextEditingController(),
+    'email': TextEditingController(),
+  };
 
   String? selectedService;
   DateTime? selectedDate;
 
-  final List<String> services = [
+  final services = [
     'Astrology Consultation',
     'Horoscope Reading',
     'Palmistry',
@@ -25,32 +27,175 @@ class _AppointmentBookingWidgetState extends State<AppointmentBookingWidget> {
     'Tarot Card Reading',
   ];
 
+  Widget _buildTextField(String label, String hint, String controllerKey) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: Colors.grey[700],
+            letterSpacing: 1,
+          ),
+        ),
+        const SizedBox(height: 8),
+        TextField(
+          controller: _controllers[controllerKey],
+          decoration: _inputDecoration(hint),
+        ),
+      ],
+    );
+  }
+
+  InputDecoration _inputDecoration(String hint) {
+    return InputDecoration(
+      hintText: hint,
+      hintStyle: TextStyle(color: Colors.grey[500], fontSize: 14),
+      border: _outlineBorder(Colors.grey[300]!),
+      enabledBorder: _outlineBorder(Colors.grey[300]!),
+      focusedBorder: _outlineBorder(Colors.blue),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+    );
+  }
+
+  OutlineInputBorder _outlineBorder(Color color) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(4),
+      borderSide: BorderSide(color: color),
+    );
+  }
+
+  Widget _buildDropdown() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'SERVICES*',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: Colors.grey[700],
+            letterSpacing: 1,
+          ),
+        ),
+        const SizedBox(height: 8),
+        DropdownButtonFormField<String>(
+          value: selectedService,
+          hint: Text(
+            'Choose services',
+            style: TextStyle(color: Colors.grey[500], fontSize: 14),
+          ),
+          decoration: _inputDecoration(''),
+          items:
+              services
+                  .map(
+                    (service) =>
+                        DropdownMenuItem(value: service, child: Text(service)),
+                  )
+                  .toList(),
+          onChanged: (value) => setState(() => selectedService = value),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDatePicker() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'DATE*',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: Colors.grey[700],
+            letterSpacing: 1,
+          ),
+        ),
+        const SizedBox(height: 8),
+        GestureDetector(
+          onTap: () async {
+            FocusScope.of(context).unfocus();
+            await Future.delayed(const Duration(milliseconds: 100));
+            if (!mounted) return;
+
+            final picked = await showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime.now(),
+              lastDate: DateTime.now().add(const Duration(days: 365)),
+            );
+            if (picked != null && mounted) {
+              setState(() => selectedDate = picked);
+            }
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey[300]!),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  selectedDate != null
+                      ? '${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}'
+                      : 'Choose Date',
+                  style: TextStyle(
+                    color:
+                        selectedDate != null ? Colors.black : Colors.grey[500],
+                    fontSize: 14,
+                  ),
+                ),
+                Icon(Icons.calendar_today, color: Colors.grey[500], size: 18),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildContainer(Widget child) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(24),
+      margin: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 8,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: child,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final isDesktop = screenWidth > 1024;
+    final isTablet = screenWidth > 600 && screenWidth <= 1024;
+    final isMobile = screenWidth <= 600;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100),
+      padding: EdgeInsets.symmetric(
+        horizontal: isDesktop ? 100 : (isTablet ? 50 : 16),
+      ),
       child: Column(
         children: [
           // Main appointment form
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(24),
-            margin: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.1),
-                  spreadRadius: 1,
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Column(
+          _buildContainer(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Header
@@ -68,7 +213,7 @@ class _AppointmentBookingWidgetState extends State<AppointmentBookingWidget> {
                   'LET\'S MEET WITH OUR\nTEAM',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 28,
+                    fontSize: isMobile ? 24 : 28,
                     fontWeight: FontWeight.bold,
                     color: Colors.grey[800],
                     height: 1.2,
@@ -86,367 +231,104 @@ class _AppointmentBookingWidgetState extends State<AppointmentBookingWidget> {
                 const SizedBox(height: 32),
 
                 // Form fields
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
+                isMobile
+                    ? Column(
+                      children: [
+                        _buildTextField(
+                          'FIRST NAME*',
+                          'Enter Your First Name',
+                          'firstName',
+                        ),
+                        const SizedBox(height: 24),
+                        _buildTextField(
+                          'LAST NAME*',
+                          'Enter Your Last Name',
+                          'lastName',
+                        ),
+                      ],
+                    )
+                    : Row(
+                      children: [
+                        Expanded(
+                          child: _buildTextField(
                             'FIRST NAME*',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey[700],
-                              letterSpacing: 1,
-                            ),
+                            'Enter Your First Name',
+                            'firstName',
                           ),
-                          const SizedBox(height: 8),
-                          TextField(
-                            controller: firstNameController,
-                            decoration: InputDecoration(
-                              hintText: 'Enter Your First Name',
-                              hintStyle: TextStyle(
-                                color: Colors.grey[500],
-                                fontSize: 14,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                  color: Colors.grey[300]!,
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                  color: Colors.grey[300]!,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: const BorderSide(
-                                  color: Colors.blue,
-                                ),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 12,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: _buildTextField(
                             'LAST NAME*',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey[700],
-                              letterSpacing: 1,
-                            ),
+                            'Enter Your Last Name',
+                            'lastName',
                           ),
-                          const SizedBox(height: 8),
-                          TextField(
-                            controller: lastNameController,
-                            decoration: InputDecoration(
-                              hintText: 'Enter Your Last Name',
-                              hintStyle: TextStyle(
-                                color: Colors.grey[500],
-                                fontSize: 14,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                  color: Colors.grey[300]!,
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                  color: Colors.grey[300]!,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: const BorderSide(
-                                  color: Colors.blue,
-                                ),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 12,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
                 const SizedBox(height: 24),
 
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
+                isMobile
+                    ? Column(
+                      children: [
+                        _buildTextField(
+                          'YOUR PHONE*',
+                          '+44 3737 838xxx',
+                          'phone',
+                        ),
+                        const SizedBox(height: 24),
+                        _buildTextField(
+                          'YOUR EMAIL*',
+                          'youremail@domain.com',
+                          'email',
+                        ),
+                      ],
+                    )
+                    : Row(
+                      children: [
+                        Expanded(
+                          child: _buildTextField(
                             'YOUR PHONE*',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey[700],
-                              letterSpacing: 1,
-                            ),
+                            '+44 3737 838xxx',
+                            'phone',
                           ),
-                          const SizedBox(height: 8),
-                          TextField(
-                            controller: phoneController,
-                            decoration: InputDecoration(
-                              hintText: '+44 3737 838xxx',
-                              hintStyle: TextStyle(
-                                color: Colors.grey[500],
-                                fontSize: 14,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                  color: Colors.grey[300]!,
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                  color: Colors.grey[300]!,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: const BorderSide(
-                                  color: Colors.blue,
-                                ),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 12,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: _buildTextField(
                             'YOUR EMAIL*',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey[700],
-                              letterSpacing: 1,
-                            ),
+                            'youremail@domain.com',
+                            'email',
                           ),
-                          const SizedBox(height: 8),
-                          TextField(
-                            controller: emailController,
-                            decoration: InputDecoration(
-                              hintText: 'youremail@domain.com',
-                              hintStyle: TextStyle(
-                                color: Colors.grey[500],
-                                fontSize: 14,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                  color: Colors.grey[300]!,
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                  color: Colors.grey[300]!,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: const BorderSide(
-                                  color: Colors.blue,
-                                ),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 12,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
                 const SizedBox(height: 24),
 
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'SERVICES*',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey[700],
-                              letterSpacing: 1,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          DropdownButtonFormField<String>(
-                            value: selectedService,
-                            hint: Text(
-                              'Choose services',
-                              style: TextStyle(
-                                color: Colors.grey[500],
-                                fontSize: 14,
-                              ),
-                            ),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                  color: Colors.grey[300]!,
-                                ),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: BorderSide(
-                                  color: Colors.grey[300]!,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: const BorderSide(
-                                  color: Colors.blue,
-                                ),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 12,
-                              ),
-                            ),
-                            items:
-                                services.map((String service) {
-                                  return DropdownMenuItem<String>(
-                                    value: service,
-                                    child: Text(service),
-                                  );
-                                }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                selectedService = newValue;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
+                isMobile
+                    ? Column(
+                      children: [
+                        _buildDropdown(),
+                        const SizedBox(height: 24),
+                        _buildDatePicker(),
+                      ],
+                    )
+                    : Row(
+                      children: [
+                        Expanded(child: _buildDropdown()),
+                        const SizedBox(width: 16),
+                        Expanded(child: _buildDatePicker()),
+                      ],
                     ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'DATE*',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.grey[700],
-                              letterSpacing: 1,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          GestureDetector(
-                            onTap: () async {
-                              FocusScope.of(context).unfocus();
-                              await Future.delayed(
-                                const Duration(milliseconds: 100),
-                              );
-                              if (!mounted) return;
-
-                              final DateTime? picked = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime.now(),
-                                lastDate: DateTime.now().add(
-                                  const Duration(days: 365),
-                                ),
-                              );
-                              if (picked != null && mounted) {
-                                setState(() {
-                                  selectedDate = picked;
-                                });
-                              }
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 12,
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey[300]!),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    selectedDate != null
-                                        ? '${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}'
-                                        : 'Choose Date',
-                                    style: TextStyle(
-                                      color:
-                                          selectedDate != null
-                                              ? Colors.black
-                                              : Colors.grey[500],
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  Icon(
-                                    Icons.calendar_today,
-                                    color: Colors.grey[500],
-                                    size: 18,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
                 const SizedBox(height: 32),
 
                 // Book Now button
                 SizedBox(
-                  width: 200,
+                  width: isMobile ? double.infinity : 200,
                   child: ElevatedButton(
                     onPressed: () async {
                       FocusScope.of(context).unfocus();
                       await Future.delayed(const Duration(milliseconds: 100));
-                      // Handle booking logic here
                       if (mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
@@ -456,9 +338,7 @@ class _AppointmentBookingWidgetState extends State<AppointmentBookingWidget> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(
-                        0xFFB8A715,
-                      ), // Olive/mustard color
+                      backgroundColor: const Color(0xFFB8A715),
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
@@ -482,7 +362,7 @@ class _AppointmentBookingWidgetState extends State<AppointmentBookingWidget> {
           // Mobile App Download Section
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(32),
+            padding: EdgeInsets.all(isMobile ? 16 : 32),
             margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -503,7 +383,7 @@ class _AppointmentBookingWidgetState extends State<AppointmentBookingWidget> {
                   'DOWNLOAD OUR\nMOBILE APP',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 60,
+                    fontSize: isMobile ? 24 : (isTablet ? 32 : 40),
                     fontWeight: FontWeight.bold,
                     color: Colors.grey[800],
                     height: 1.2,
@@ -511,15 +391,21 @@ class _AppointmentBookingWidgetState extends State<AppointmentBookingWidget> {
                 ),
                 const SizedBox(height: 24),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment:
+                      isMobile
+                          ? CrossAxisAlignment.center
+                          : CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      width: screenWidth * 0.75,
+                    Container(
+                      constraints: BoxConstraints(
+                        maxWidth:
+                            isDesktop ? screenWidth * 0.75 : double.infinity,
+                      ),
                       child: Text(
                         'Unlock the secrets of the stars witour Astrobharati Mobile App! Download \nnow to explore personalized horoscopes, daily predictions. Your celestia \njourney awaits- embrace the power of the cosmos at your fingertips!"',
-                        textAlign: TextAlign.left,
+                        textAlign: isMobile ? TextAlign.center : TextAlign.left,
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: isMobile ? 16 : (isTablet ? 20 : 24),
                           color: Colors.grey[700],
                           height: 1.5,
                         ),
@@ -528,60 +414,67 @@ class _AppointmentBookingWidgetState extends State<AppointmentBookingWidget> {
                     const SizedBox(height: 40),
 
                     // Google Play Store button
-                    Container(
-                      width: 330,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 36,
-                            height: 36,
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color(0xFF4CAF50),
-                                  Color(0xFF2196F3),
-                                  Color(0xFFFF9800),
-                                  Color(0xFFF44336),
-                                ],
-                                stops: [0.0, 0.33, 0.66, 1.0],
-                              ),
-                            ),
-                            child: const Icon(
-                              Icons.play_arrow,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'GET IT ON',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w300,
+                    Center(
+                      child: Container(
+                        width:
+                            isMobile
+                                ? screenWidth * 0.8
+                                : (isTablet ? 280 : 330),
+                        height: isMobile ? 80 : (isTablet ? 100 : 120),
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: isMobile ? 24 : (isTablet ? 30 : 36),
+                              height: isMobile ? 24 : (isTablet ? 30 : 36),
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color(0xFF4CAF50),
+                                    Color(0xFF2196F3),
+                                    Color(0xFFFF9800),
+                                    Color(0xFFF44336),
+                                  ],
+                                  stops: [0.0, 0.33, 0.66, 1.0],
                                 ),
                               ),
-                              Text(
-                                'GOOGLE PLAY STORE',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                              child: Icon(
+                                Icons.play_arrow,
+                                color: Colors.white,
+                                size: isMobile ? 20 : (isTablet ? 25 : 30),
                               ),
-                            ],
-                          ),
-                        ],
+                            ),
+                            const SizedBox(width: 12),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'GET IT ON',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize:
+                                        isMobile ? 10 : (isTablet ? 12 : 14),
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                                Text(
+                                  'GOOGLE PLAY STORE',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize:
+                                        isMobile ? 14 : (isTablet ? 16 : 20),
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -596,10 +489,7 @@ class _AppointmentBookingWidgetState extends State<AppointmentBookingWidget> {
 
   @override
   void dispose() {
-    firstNameController.dispose();
-    lastNameController.dispose();
-    phoneController.dispose();
-    emailController.dispose();
+    _controllers.values.forEach((controller) => controller.dispose());
     super.dispose();
   }
 }

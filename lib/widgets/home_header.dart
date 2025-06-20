@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'login.dart';
-import '../providers/firebase_phone_auth.dart'; // Add this import
+import '../providers/firebase_phone_auth.dart';
 
 class HomeHeader extends ConsumerWidget {
   const HomeHeader({super.key});
@@ -13,14 +13,10 @@ class HomeHeader extends ConsumerWidget {
     final result = await showDialog<bool>(
       context: context,
       barrierDismissible: true,
-      builder: (BuildContext context) {
-        return const PhoneOtpLoginDialog();
-      },
+      builder: (context) => const PhoneOtpLoginDialog(),
     );
 
-    // Handle the result if needed
-    if (result == true) {
-      // User successfully logged in
+    if (result == true && context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Login successful!'),
@@ -31,29 +27,27 @@ class HomeHeader extends ConsumerWidget {
   }
 
   void _handleLogout(BuildContext context, WidgetRef ref) async {
-    // Show confirmation dialog
     final shouldLogout = await showDialog<bool>(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Confirm Logout'),
-          content: const Text('Are you sure you want to logout?'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Cancel'),
-            ),
-            ElevatedButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                foregroundColor: Colors.white,
+      builder:
+          (context) => AlertDialog(
+            title: const Text('Confirm Logout'),
+            content: const Text('Are you sure you want to logout?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text('Cancel'),
               ),
-              child: const Text('Logout'),
-            ),
-          ],
-        );
-      },
+              ElevatedButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                ),
+                child: const Text('Logout'),
+              ),
+            ],
+          ),
     );
 
     if (shouldLogout == true) {
@@ -80,337 +74,366 @@ class HomeHeader extends ConsumerWidget {
     }
   }
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // Watch the authentication state
-    final authState = ref.watch(authNotifierProvider);
-
-    return Container(
-      width: double.infinity,
-      height: 80,
-      decoration: const BoxDecoration(color: Color(0xFFD4BB26)),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: Row(
-          children: [
-            // Logo container styled like the reference image
-            Container(
-              width: 140,
-              height: 70,
-              decoration: BoxDecoration(
-                color: const Color(0xFF1A1A1A),
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
-                    offset: const Offset(0, 6),
-                    blurRadius: 15,
-                    spreadRadius: 3,
-                  ),
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    offset: const Offset(0, 3),
-                    blurRadius: 8,
-                    spreadRadius: 1,
-                  ),
-                ],
-                border: Border.all(color: const Color(0xFFD4BB26), width: 2.5),
-              ),
-              child: Container(
-                margin: const EdgeInsets.all(3),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0D0D0D),
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.8),
-                      offset: const Offset(0, 2),
-                      blurRadius: 4,
-                      spreadRadius: 0,
-                    ),
-                  ],
-                ),
-                child: Center(
-                  child: Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFFD4BB26).withOpacity(0.4),
-                          offset: const Offset(0, 0),
-                          blurRadius: 12,
-                          spreadRadius: 2,
-                        ),
-                      ],
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(
-                        'assets/images/Logo.jpg',
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Color(0xFFD4BB26),
-                                  Color(0xFFB8A020),
-                                  Color(0xFF9A8519),
-                                ],
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: const Center(
-                              child: Icon(
-                                Icons.business_center,
-                                color: Colors.white,
-                                size: 36,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
+  Widget _buildLoginSection(BuildContext context, bool isSmallScreen) {
+    if (isSmallScreen) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            'Already Have An Account?',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: isSmallScreen ? 12 : 16,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 3),
+            child: _buildButton(
+              onPressed: () => _showLoginDialog(context),
+              backgroundColor: const Color(0xFFEFE7BA),
+              foregroundColor: Colors.black,
+              isSmallScreen: isSmallScreen,
+              child: Text(
+                "Log in",
+                style: TextStyle(
+                  fontSize: isSmallScreen ? 14 : 16,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
+          ),
+        ],
+      );
+    }
 
-            const Spacer(),
+    return Row(
+      children: [
+        const Text(
+          'Already Have An Account?',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(width: 16),
+        _buildButton(
+          onPressed: () => _showLoginDialog(context),
+          backgroundColor: const Color(0xFFEFE7BA),
+          foregroundColor: Colors.black,
+          isSmallScreen: isSmallScreen,
+          child: const Text(
+            "Log in",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
+        ),
+      ],
+    );
+  }
 
-            // Show different content based on auth state
-            authState.when(
-              data: (user) {
-                if (user != null) {
-                  // User is logged in - show user info and logout button
-                  return Row(
-                    children: [
-                      // Welcome message with user phone number
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          const Text(
-                            'Welcome back!',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            user.phoneNumber ?? 'User',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      const SizedBox(width: 16),
-
-                      // Logout button
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              offset: const Offset(0, 2),
-                              blurRadius: 4,
-                              spreadRadius: 0,
-                            ),
-                          ],
-                        ),
-                        child: ElevatedButton.icon(
-                          onPressed: () => _handleLogout(context, ref),
-                          icon: const Icon(Icons.logout, size: 18),
-                          label: const Text("Logout"),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red.shade600,
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 20,
-                              vertical: 18,
-                            ),
-                            minimumSize: const Size(100, 40),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            elevation: 0,
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                } else {
-                  // User is not logged in - show login section
-                  return Row(
-                    children: [
-                      const Text(
-                        'Already Have An Account?',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-
-                      const SizedBox(width: 16),
-
-                      // Log in button
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              offset: const Offset(0, 2),
-                              blurRadius: 4,
-                              spreadRadius: 0,
-                            ),
-                          ],
-                        ),
-                        child: ElevatedButton(
-                          onPressed: () => _showLoginDialog(context),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFEFE7BA),
-                            foregroundColor: Colors.black,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 24,
-                              vertical: 16,
-                            ),
-                            minimumSize: const Size(100, 4),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            elevation: 0,
-                          ),
-                          child: const Text(
-                            "Log in",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                }
-              },
-              loading: () {
-                // Show loading state
-                return const SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                    strokeWidth: 2,
-                  ),
-                );
-              },
-              error: (error, stack) {
-                // Show error state - fallback to login
-                return Row(
-                  children: [
-                    const Text(
-                      'Already Have An Account?',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-
-                    const SizedBox(width: 16),
-
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            offset: const Offset(0, 2),
-                            blurRadius: 4,
-                            spreadRadius: 0,
-                          ),
-                        ],
-                      ),
-                      child: ElevatedButton(
-                        onPressed: () => _showLoginDialog(context),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFEFE7BA),
-                          foregroundColor: Colors.black,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 24,
-                            vertical: 16,
-                          ),
-                          minimumSize: const Size(100, 4),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          elevation: 0,
-                        ),
-                        child: const Text(
-                          "Log in",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
-
-            const SizedBox(width: 16),
-
-            // Help button with dropdown arrow
-            Row(
+  Widget _buildLoggedInSection(
+    BuildContext context,
+    WidgetRef ref,
+    User user,
+    bool isSmallScreen,
+  ) {
+    if (isSmallScreen) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                'Welcome back!',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: isSmallScreen ? 12 : 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              Text(
+                user.phoneNumber ?? 'User',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: isSmallScreen ? 14 : 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          _buildButton(
+            onPressed: () => _handleLogout(context, ref),
+            backgroundColor: Colors.red.shade600,
+            foregroundColor: Colors.white,
+            isSmallScreen: isSmallScreen,
+            child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TextButton(
-                  onPressed: () {
-                    // Handle help action
-                  },
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
-                    minimumSize: Size.zero,
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'Help',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(width: 4),
-                      Icon(
-                        Icons.keyboard_arrow_down,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ],
-                  ),
+                Icon(Icons.logout, size: isSmallScreen ? 16 : 18),
+                SizedBox(width: isSmallScreen ? 4 : 8),
+                Text(
+                  "Logout",
+                  style: TextStyle(fontSize: isSmallScreen ? 12 : 14),
                 ),
               ],
             ),
+          ),
+        ],
+      );
+    }
+
+    return Row(
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const Text(
+              'Welcome back!',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Text(
+              user.phoneNumber ?? 'User',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ],
         ),
+        const SizedBox(width: 16),
+        _buildButton(
+          onPressed: () => _handleLogout(context, ref),
+          backgroundColor: Colors.red.shade600,
+          foregroundColor: Colors.white,
+          isSmallScreen: isSmallScreen,
+          child: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.logout, size: 18),
+              SizedBox(width: 8),
+              Text("Logout"),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildButton({
+    required VoidCallback onPressed,
+    required Color backgroundColor,
+    required Color foregroundColor,
+    required Widget child,
+    required bool isSmallScreen,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            offset: const Offset(0, 2),
+            blurRadius: 4,
+          ),
+        ],
+      ),
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor,
+          foregroundColor: foregroundColor,
+          padding: EdgeInsets.symmetric(
+            horizontal: isSmallScreen ? 12 : 20,
+            vertical: isSmallScreen ? 12 : 16,
+          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          elevation: 0,
+        ),
+        child: child,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authNotifierProvider);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isSmallScreen = screenWidth < 600;
+    final isMediumScreen = screenWidth < 900;
+
+    return Container(
+      width: double.infinity,
+      height: isSmallScreen ? 120 : 100,
+      decoration: const BoxDecoration(color: Color(0xFFD4BB26)),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: isSmallScreen ? 12.0 : 24.0),
+        child:
+            isSmallScreen
+                ? Column(
+                  children: [
+                    // Top row with logo and help
+                    Expanded(
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 60,
+                            height: 48,
+                            child: Image.asset(
+                              'assets/images/Logo.jpg',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          const Spacer(),
+                          TextButton(
+                            onPressed: () {},
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4,
+                              ),
+                              minimumSize: Size.zero,
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            ),
+                            child: const Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Help',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                SizedBox(width: 2),
+                                Icon(
+                                  Icons.keyboard_arrow_down,
+                                  color: Colors.white,
+                                  size: 18,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    // Bottom row with auth section
+                    SizedBox(
+                      height: 60,
+                      child: Row(
+                        children: [
+                          const Spacer(),
+                          authState.when(
+                            data:
+                                (user) =>
+                                    user != null
+                                        ? _buildLoggedInSection(
+                                          context,
+                                          ref,
+                                          user,
+                                          isSmallScreen,
+                                        )
+                                        : _buildLoginSection(
+                                          context,
+                                          isSmallScreen,
+                                        ),
+                            loading:
+                                () => const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                    strokeWidth: 2,
+                                  ),
+                                ),
+                            error:
+                                (_, __) =>
+                                    _buildLoginSection(context, isSmallScreen),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+                : Row(
+                  children: [
+                    SizedBox(
+                      width: isMediumScreen ? 80 : 100,
+                      height: isMediumScreen ? 64 : 80,
+                      child: Image.asset(
+                        'assets/images/Logo.jpg',
+                        fit: BoxFit.cover,
+                        height: isMediumScreen ? 64 : 80,
+                        width: isMediumScreen ? 64 : 80,
+                      ),
+                    ),
+                    const Spacer(),
+                    authState.when(
+                      data:
+                          (user) =>
+                              user != null
+                                  ? _buildLoggedInSection(
+                                    context,
+                                    ref,
+                                    user,
+                                    isSmallScreen,
+                                  )
+                                  : _buildLoginSection(context, isSmallScreen),
+                      loading:
+                          () => const SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          ),
+                      error:
+                          (_, __) => _buildLoginSection(context, isSmallScreen),
+                    ),
+                    SizedBox(width: isMediumScreen ? 8 : 16),
+                    TextButton(
+                      onPressed: () {},
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: isMediumScreen ? 4 : 8,
+                        ),
+                        minimumSize: Size.zero,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Help',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: isMediumScreen ? 14 : 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(width: isMediumScreen ? 2 : 4),
+                          Icon(
+                            Icons.keyboard_arrow_down,
+                            color: Colors.white,
+                            size: isMediumScreen ? 18 : 20,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
       ),
     );
   }
