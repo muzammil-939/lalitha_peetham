@@ -332,7 +332,7 @@ class MatrimonialSearch extends StatelessWidget {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  context.go('/dating');
+                                  context.go('/search_results');
                                 },
                                 child: Container(
                                   height: 45,

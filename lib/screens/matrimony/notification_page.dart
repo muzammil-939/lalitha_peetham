@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lalitha_peetham/screens/matrimony/matimony_page_layout.dart';
 
-class Moresectionpage extends StatefulWidget {
-  const Moresectionpage({super.key});
+class NotificationsPage extends StatefulWidget {
+  const NotificationsPage({super.key});
 
   @override
-  State<Moresectionpage> createState() => _MoresectionpageState();
+  State<NotificationsPage> createState() => _NotificationsPageState();
 }
 
-class _MoresectionpageState extends State<Moresectionpage> {
+class _NotificationsPageState extends State<NotificationsPage> {
   bool includeDeclinedNotifications = false;
   String selectedFilter = 'All Notifications';
   int currentPage = 1;

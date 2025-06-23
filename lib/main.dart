@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lalitha_peetham/screens/matrimony/matches/my_maches.dart';
 import 'package:lalitha_peetham/screens/matrimony/matches/new_matches_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/matches/tdy_matches.dart';
 import 'package:lalitha_peetham/screens/matrimony/matri_dashboard.dart';
@@ -9,9 +8,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:lalitha_peetham/screens/matrimony/matri_myphotos.dart';
 import 'package:lalitha_peetham/screens/matrimony/matri_profile.dart';
 import 'package:lalitha_peetham/screens/matrimony/matri_search.dart';
-import 'package:lalitha_peetham/screens/matrimony/moresectionpage.dart';
+import 'package:lalitha_peetham/screens/matrimony/notification_page.dart';
+import 'package:lalitha_peetham/screens/matrimony/orders.dart';
 import 'package:lalitha_peetham/screens/matrimony/search_results.dart';
 import 'package:lalitha_peetham/screens/matrimony/settings_page.dart';
+import 'package:lalitha_peetham/screens/matrimony/upgrade_plans.dart';
 import 'package:lalitha_peetham/screens/matrimony/your_patners_preferences.dart';
 import 'firebase_options.dart';
 import 'screens/home.dart';
@@ -51,8 +52,8 @@ class MyApp extends StatelessWidget {
           builder: (context, state) => const SettingsPage(),
         ),
         GoRoute(
-          path: '/more',
-          builder: (context, state) => const Moresectionpage(),
+          path: '/notifications',
+          builder: (context, state) => const NotificationsPage(),
         ),
         GoRoute(
           path: '/matri_search',
@@ -63,20 +64,25 @@ class MyApp extends StatelessWidget {
           builder: (context, state) => MyPhotosContainer(),
         ),
         GoRoute(
-          path: '/dating',
-          builder: (context, state) => MessagingInterfaceContainer(),
+          path: '/search_results',
+          builder: (context, state) => SearchResults(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/matches',
           builder: (context, state) => NewMatchesScreen(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/tdy_matches',
           builder: (context, state) => TdyMatches(),
         ),
+
         GoRoute(
-          path: '/my_matches',
-          builder: (context, state) => MyMatches(),
+          path: '/upgrade_plans',
+          builder: (context, state) => PremiumPlansContainer(),
+        ),
+        GoRoute(
+          path: '/orders',
+          builder: (context, state) => OrdersPageContainer(),
         ),
       ],
     );

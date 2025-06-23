@@ -343,7 +343,7 @@ class MatriHeader extends StatelessWidget {
           child: _buildSubNavItem(context, 'Preferences', '/preferences'),
         ),
         Expanded(child: _buildSubNavItem(context, 'Settings', '/settings')),
-        Expanded(child: _buildSubNavItem(context, 'More', '/more')),
+        Expanded(child: _buildMoreDropdown(context, true)),
       ],
     );
   }
@@ -357,8 +357,72 @@ class MatriHeader extends StatelessWidget {
         _buildSubNavItem(context, 'Photos', '/matri_photos'),
         _buildSubNavItem(context, 'Partner Preferences', '/preferences'),
         _buildSubNavItem(context, 'Settings', '/settings'),
-        _buildSubNavItem(context, 'More', '/more'),
+        _buildMoreDropdown(context, false),
       ],
+    );
+  }
+
+  Widget _buildMoreDropdown(BuildContext context, bool isMobile) {
+    return PopupMenuButton<String>(
+      onSelected: (String value) {
+        switch (value) {
+          case 'notifications':
+            context.go('/notifications');
+            break;
+          case 'orders':
+            context.go('/orders');
+            break;
+        }
+      },
+      itemBuilder:
+          (BuildContext context) => [
+            const PopupMenuItem<String>(
+              value: 'notifications',
+              child: Row(
+                children: [
+                  Icon(Icons.notifications, size: 20, color: Colors.black87),
+                  SizedBox(width: 8),
+                  Text('Notifications'),
+                ],
+              ),
+            ),
+            const PopupMenuItem<String>(
+              value: 'orders',
+              child: Row(
+                children: [
+                  Icon(Icons.shopping_bag, size: 20, color: Colors.black87),
+                  SizedBox(width: 8),
+                  Text('Orders'),
+                ],
+              ),
+            ),
+          ],
+      child: TextButton(
+        onPressed: null, // Let PopupMenuButton handle the press
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'More',
+              style: TextStyle(
+                color: Colors.black87,
+                fontWeight: FontWeight.w500,
+                decorationThickness: 1.5,
+                fontSize: isMobile ? 12 : 16,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(width: 4),
+            Icon(
+              Icons.keyboard_arrow_down,
+              color: Colors.black87,
+              size: isMobile ? 16 : 18,
+            ),
+          ],
+        ),
+      ),
     );
   }
 

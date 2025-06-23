@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/matrimony/matimony_page_layout.dart';
 import 'matri_dash_subcat.dart';
 import 'matri_profile_widget.dart';
@@ -23,11 +24,11 @@ class MatriDashboard extends StatelessWidget {
         child: Column(
           children: [
             if (isDesktop)
-              _buildDesktopLayout(size)
+              _buildDesktopLayout(context, size)
             else if (isTablet)
-              _buildTabletLayout(size)
+              _buildTabletLayout(context, size)
             else
-              _buildMobileLayout(size),
+              _buildMobileLayout(context, size),
             const SizedBox(height: 20),
             const MatriDashSubcat(),
           ],
@@ -48,14 +49,14 @@ class MatriDashboard extends StatelessWidget {
     return 20.0; // Mobile
   }
 
-  Widget _buildDesktopLayout(Size size) {
+  Widget _buildDesktopLayout(BuildContext context, Size size) {
     return IntrinsicHeight(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           MatriProfileWidget(),
           const SizedBox(width: 20),
-          Expanded(child: _buildMiddleContentPanel(size)),
+          Expanded(child: _buildMiddleContentPanel(context, size)),
           const SizedBox(width: 20),
           _buildRightPanel(size.height, size.width),
         ],
@@ -63,7 +64,7 @@ class MatriDashboard extends StatelessWidget {
     );
   }
 
-  Widget _buildTabletLayout(Size size) {
+  Widget _buildTabletLayout(BuildContext context, Size size) {
     return Column(
       children: [
         IntrinsicHeight(
@@ -77,24 +78,24 @@ class MatriDashboard extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        _buildMiddleContentPanel(size),
+        _buildMiddleContentPanel(context, size),
       ],
     );
   }
 
-  Widget _buildMobileLayout(Size size) {
+  Widget _buildMobileLayout(BuildContext context, Size size) {
     return Column(
       children: [
         MatriProfileWidget(),
         const SizedBox(height: 20),
-        _buildMiddleContentPanel(size),
+        _buildMiddleContentPanel(context, size),
         const SizedBox(height: 20),
         _buildRightPanel(null, size.width),
       ],
     );
   }
 
-  Widget _buildMiddleContentPanel(Size size) {
+  Widget _buildMiddleContentPanel(BuildContext context, Size size) {
     final isMobile = size.width < 768;
 
     return Container(
@@ -108,7 +109,7 @@ class MatriDashboard extends StatelessWidget {
           SizedBox(height: isMobile ? 20 : 30),
           _buildSectionTitle('IMPROVE YOUR PROFILE', size.width),
           SizedBox(height: isMobile ? 16 : 20),
-          _buildUpgradeSection(size),
+          _buildUpgradeSection(context, size),
         ],
       ),
     );
@@ -249,7 +250,7 @@ class MatriDashboard extends StatelessWidget {
     );
   }
 
-  Widget _buildUpgradeSection(Size size) {
+  Widget _buildUpgradeSection(BuildContext context, Size size) {
     final isMobile = size.width < 768;
     final isTablet = size.width >= 768 && size.width < 1200;
 
@@ -275,7 +276,7 @@ class MatriDashboard extends StatelessWidget {
                     ),
                     margin: const EdgeInsets.only(bottom: 20),
                   ),
-                  _buildUpgradeContent(isMobile),
+                  _buildUpgradeContent(context, isMobile),
                 ],
               )
               : Row(
@@ -289,13 +290,13 @@ class MatriDashboard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 20),
-                  Expanded(child: _buildUpgradeContent(false)),
+                  Expanded(child: _buildUpgradeContent(context, false)),
                 ],
               ),
     );
   }
 
-  Widget _buildUpgradeContent(bool isMobile) {
+  Widget _buildUpgradeContent(BuildContext context, bool isMobile) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment:
@@ -325,7 +326,9 @@ class MatriDashboard extends StatelessWidget {
         SizedBox(
           width: isMobile ? double.infinity : null,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              context.go('/upgrade_plans');
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFDAA520),
               foregroundColor: Colors.white,
