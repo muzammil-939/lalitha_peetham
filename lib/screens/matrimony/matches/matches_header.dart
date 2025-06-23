@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class MatriHeader extends StatelessWidget {
-  const MatriHeader({super.key});
+class MatchesHeader extends StatelessWidget {
+  const MatchesHeader({super.key});
 
   void _showMobileMenu(BuildContext context) {
     showModalBottomSheet(
@@ -243,7 +243,7 @@ class MatriHeader extends StatelessWidget {
             children: [
               Flexible(child: _buildNavItem(context, 'MY LALITHA PEETHAM', '')),
               SizedBox(width: isTablet ? 15 : 40),
-              Flexible(child: _buildNavItem(context, 'MATCHES', '/matches')),
+              Flexible(child: _buildNavItem(context, 'MATCHES', '')),
               SizedBox(width: isTablet ? 15 : 40),
               Flexible(
                 child: _buildNavItem(context, 'SEARCH', '/matri_search'),
@@ -335,15 +335,14 @@ class MatriHeader extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: _buildSubNavItem(context, 'Dashboard', '/matri_dashboard'),
+          child: _buildSubNavItem(context, 'New Matches', ''),
         ),
-        Expanded(child: _buildSubNavItem(context, 'Profile', '/matri_profile')),
-        Expanded(child: _buildSubNavItem(context, 'Photos', '/matri_photos')),
+        Expanded(child: _buildSubNavItem(context, 'Today Matches', '/tdy_matches')),
+        Expanded(child: _buildSubNavItem(context, 'My Matches', '/my_matches')),
         Expanded(
-          child: _buildSubNavItem(context, 'Preferences', '/preferences'),
+          child: _buildSubNavItem(context, 'Near Me', '/Match_nearme'),
         ),
-        Expanded(child: _buildSubNavItem(context, 'Settings', '/settings')),
-        Expanded(child: _buildSubNavItem(context, 'More', '/more')),
+        
       ],
     );
   }
@@ -352,12 +351,11 @@ class MatriHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildSubNavItem(context, 'Dashboard', '/matri_dashboard'),
-        _buildSubNavItem(context, 'My Profile', '/matri_profile'),
-        _buildSubNavItem(context, 'Photos', '/matri_photos'),
-        _buildSubNavItem(context, 'Partner Preferences', '/preferences'),
-        _buildSubNavItem(context, 'Settings', '/settings'),
-        _buildSubNavItem(context, 'More', '/more'),
+        _buildSubNavItem(context, 'New Matches', ''),
+        _buildSubNavItem(context, 'Today Matches', '/tdy_matches'),
+        _buildSubNavItem(context, 'My Matches', '/my_matches'),
+        _buildSubNavItem(context, 'Near Me', '/Match_nearme'),
+        
       ],
     );
   }

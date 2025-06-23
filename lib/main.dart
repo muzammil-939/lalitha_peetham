@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/matrimony/matches/my_maches.dart';
+import 'package:lalitha_peetham/screens/matrimony/matches/new_matches_screen.dart';
+import 'package:lalitha_peetham/screens/matrimony/matches/tdy_matches.dart';
 import 'package:lalitha_peetham/screens/matrimony/matri_dashboard.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:lalitha_peetham/screens/matrimony/matri_myphotos.dart';
@@ -62,6 +65,18 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/dating',
           builder: (context, state) => MessagingInterfaceContainer(),
+        ),
+         GoRoute(
+          path: '/matches',
+          builder: (context, state) => NewMatchesScreen(),
+        ),
+         GoRoute(
+          path: '/tdy_matches',
+          builder: (context, state) => TdyMatches(),
+        ),
+        GoRoute(
+          path: '/my_matches',
+          builder: (context, state) => MyMatches(),
         ),
       ],
     );
