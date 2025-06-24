@@ -2,6 +2,7 @@
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:lalitha_peetham/screens/matrimony/matches/filtered_section_widget.dart';
 import 'package:lalitha_peetham/screens/matrimony/matches/matches_header_layout.dart';
 
 class NewMatchesScreen extends StatefulWidget {
@@ -22,49 +23,49 @@ class _NewMatchesScreenState extends State<NewMatchesScreen> {
  @override
 Widget build(BuildContext context) {
   return MatchesHeaderLayout(
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Sidebar (fixed)
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-          child: Container(
+    child: Padding(
+     padding: const EdgeInsets.symmetric(horizontal: 150),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Sidebar (fixed)
+          Container(
             width: 250,
             color: Colors.white,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildFilterSection(
+               FilterSection(
                   title: 'REFINE SEARCH',
                   options: ['All', 'Blue Tick Profile'],
                   selectedValue: selectedRefineFilter,
                   onChanged: (value) => setState(() => selectedRefineFilter = value),
                 ),
-                _buildFilterSection(
+                FilterSection(
                   title: 'PHOTO SETTINGS',
                   options: ['All', 'Visible To All', 'Protected Pho...(4)'],
                   selectedValue: selectedPhotoFilter,
                   onChanged: (value) => setState(() => selectedPhotoFilter = value),
                 ),
-                _buildFilterSection(
+                FilterSection(
                   title: 'RECENTLY JOINED',
                   options: ['All', 'With In A Day', 'With In A Week', 'With In A Month'],
                   selectedValue: selectedRecentlyJoined,
                   onChanged: (value) => setState(() => selectedRecentlyJoined = value),
                 ),
-                _buildFilterSection(
+                FilterSection(
                   title: 'ACTIVE MEMBERS',
                   options: ['All', 'With In A Day', 'With In A Week', 'With In A Month'],
                   selectedValue: activeMembers,
                   onChanged: (value) => setState(() => activeMembers = value),
                 ),
-                _buildFilterSection(
+               FilterSection(
                   title: 'ANNUAL INCOME',
                   options: ['All', '2 To 4 Lakh', '4 To 5 Lakh', '5 To 6 Lakh'],
                   selectedValue: annualIncome,
                   onChanged: (value) => setState(() => annualIncome = value),
                 ),
-                _buildFilterSection(
+                FilterSection(
                   title: 'MARRITAL STATUS',
                   options: ['All', 'Never Married', 'Divorced', 'Awaiting Divorce', 'Widowed'],
                   selectedValue: marritalStatus,
@@ -73,101 +74,39 @@ Widget build(BuildContext context) {
               ],
             ),
           ),
-        ),
-
-        // Main Scrollable Area (cards)
-        Expanded(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 20, right: 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  'New Members Who Match Most Of Your Preferences',
-                  style: TextStyle(fontSize: 16, color: Colors.grey, fontWeight: FontWeight.w500),
-                ),
-                const SizedBox(height: 20),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 3,
-                  itemBuilder: (context, index) => _buildProfileCard(),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    ),
-  );
-}
-
-
-  Widget _buildFilterSection({
-    required String title,
-    required List<String> options,
-    required String selectedValue,
-    required Function(String) onChanged,
-  }) {
-    return Container(
-      margin: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        color: const Color(0xFFD4AF37), // Golden color
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Header
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            child: Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 0.5,
-              ),
-            ),
-          ),
-          
-          // Options
-          Container(
-            color: Colors.white,
-            child: Column(
-              children: options.map((option) {
-                return RadioListTile<String>(
-                  value: option,
-                  groupValue: selectedValue,
-                  onChanged: (value) {
-                    if (value != null) {
-                      onChanged(value);
-                    }
-                  },
-                  title: Text(
-                    option,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      color: Colors.black87,
-                    ),
+          SizedBox(width: 30,),
+      
+          // Main Scrollable Area (cards)
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.only(top: 20,),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text(
+                    'New Members Who Match Most Of Your Preferences',
+                    style: TextStyle(fontSize: 16, color: Colors.grey, fontWeight: FontWeight.w500),
                   ),
-                  dense: true,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 8),
-                  activeColor: const Color(0xFFD4AF37),
-                );
-              }).toList(),
+                  const SizedBox(height: 20),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: 3,
+                    itemBuilder: (context, index) => _buildProfileCard(),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 
 Widget _buildProfileCard() {
   return Container(
-    margin: const EdgeInsets.symmetric(vertical: 10,horizontal: 150),
+    margin: const EdgeInsets.symmetric(vertical: 10,),
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
       color: const Color(0xFFFFF9E4), // Light cream background
@@ -182,8 +121,8 @@ Widget _buildProfileCard() {
           children: [
             // Profile Image
             Container(
-              width: 150,
-              height: 180,
+              width: 180,
+              height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
                 image: const DecorationImage(

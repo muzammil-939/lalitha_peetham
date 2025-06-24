@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/matrimony/matches/my_maches.dart';
 import 'package:lalitha_peetham/screens/matrimony/matches/new_matches_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/matches/tdy_matches.dart';
 import 'package:lalitha_peetham/screens/matrimony/matri_dashboard.dart';
@@ -75,11 +76,16 @@ class MyApp extends StatelessWidget {
           path: '/tdy_matches',
           builder: (context, state) => TdyMatches(),
         ),
+        GoRoute(
+          path: '/my_matches',
+          builder: (context, state) => MyMatches(),
+        ),
 
         GoRoute(
           path: '/upgrade_plans',
           builder: (context, state) => PremiumPlansContainer(),
         ),
+        
         GoRoute(
           path: '/orders',
           builder: (context, state) => OrdersPageContainer(),
