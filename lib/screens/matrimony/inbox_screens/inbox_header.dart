@@ -1,86 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class MatriHeader extends StatelessWidget {
-  const MatriHeader({super.key});
-
-  void _showMobileMenu(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                leading: const Icon(Icons.login),
-                title: const Text('Login'),
-                onTap: () {
-                  Navigator.pop(context);
-                  // Add login functionality
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.help),
-                title: const Text('Help'),
-                onTap: () {
-                  Navigator.pop(context);
-                  // Add help functionality
-                },
-              ),
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text('MY LALITHA PEETHAM'),
-                onTap: () {
-                  Navigator.pop(context);
-                  context.go('');
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.favorite),
-                title: const Text('MATCHES'),
-                onTap: () {
-                  Navigator.pop(context);
-                  context.go('');
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.search),
-                title: const Text('SEARCH'),
-                onTap: () {
-                  Navigator.pop(context);
-                  context.go('/matri_search');
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.inbox),
-                title: const Text('INBOX'),
-                onTap: () {
-                  Navigator.pop(context);
-                  context.go('');
-                },
-              ),
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.upgrade),
-                title: const Text('UPGRADE NOW'),
-                onTap: () {
-                  Navigator.pop(context);
-                  // Add upgrade functionality
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  void _showDesktopMenu(BuildContext context) {
-    // Add desktop menu functionality if needed
-  }
+class InboxHeader extends StatelessWidget {
+  const InboxHeader({super.key});
 
   bool _isMobile(BuildContext context) {
     return MediaQuery.of(context).size.width < 768;
@@ -89,10 +11,6 @@ class MatriHeader extends StatelessWidget {
   bool _isTablet(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return width >= 768 && width < 1024;
-  }
-
-  bool _isDesktop(BuildContext context) {
-    return MediaQuery.of(context).size.width >= 1024;
   }
 
   @override
@@ -207,7 +125,7 @@ class MatriHeader extends StatelessWidget {
                 const SizedBox(width: 20),
                 _buildNavItem(context, 'SEARCH', '/matri_search'),
                 const SizedBox(width: 20),
-                _buildNavItem(context, 'INBOX', ''),
+                _buildNavItem(context, 'INBOX', '/messages'),
                 const SizedBox(width: 20),
               ],
             ),
@@ -335,14 +253,15 @@ class MatriHeader extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: _buildSubNavItem(context, 'Dashboard', '/matri_dashboard'),
+          child: _buildSubNavItem(context, 'Messages',''),
         ),
-        Expanded(child: _buildSubNavItem(context, 'Profile', '/matri_profile')),
-        Expanded(child: _buildSubNavItem(context, 'Photos', '/matri_photos')),
+        Expanded(child: _buildSubNavItem(context, 'Received', '/inbox_received')),
+        Expanded(child: _buildSubNavItem(context, 'Accepted', '/inbox_accepted')),
         Expanded(
-          child: _buildSubNavItem(context, 'Preferences', '/preferences'),
+          child: _buildSubNavItem(context, 'Request', '/inbox_request'),
         ),
-        Expanded(child: _buildSubNavItem(context, 'Settings', '/settings')),
+        Expanded(child: _buildSubNavItem(context, 'Sent', '/inbox_sent')),
+         Expanded(child: _buildSubNavItem(context, 'Deleted', '/inbox_deleted')),
         Expanded(child: _buildMoreDropdown(context, true)),
       ],
     );
@@ -352,11 +271,13 @@ class MatriHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildSubNavItem(context, 'Dashboard', '/matri_dashboard'),
-        _buildSubNavItem(context, 'My Profile', '/matri_profile'),
-        _buildSubNavItem(context, 'Photos', '/matri_photos'),
-        _buildSubNavItem(context, 'Partner Preferences', '/preferences'),
-        _buildSubNavItem(context, 'Settings', '/settings'),
+        _buildSubNavItem(context, 'Messages',''),
+        _buildSubNavItem(context, 'Received', '/inbox_received'),
+        _buildSubNavItem(context, 'Accepted', '/inbox_accepted'),
+        _buildSubNavItem(context, 'Request', '/inbox_request'),
+        _buildSubNavItem(context, 'Sent', '/inbox_sent'),
+         _buildSubNavItem(context, 'Deleted', '/inbox_deleted'),
+         
         _buildMoreDropdown(context, false),
       ],
     );

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/matrimony/inbox_screens/accepted_screen.dart';
+import 'package:lalitha_peetham/screens/matrimony/inbox_screens/deleted_screen.dart';
+import 'package:lalitha_peetham/screens/matrimony/inbox_screens/message_screen.dart';
+import 'package:lalitha_peetham/screens/matrimony/inbox_screens/received_screen.dart';
+import 'package:lalitha_peetham/screens/matrimony/inbox_screens/sent_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/matches/my_maches.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_articles.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_home.dart';
@@ -97,6 +102,31 @@ class MyApp extends StatelessWidget {
           builder: (context, state) => AyurvedaArticles(),
         ),
         GoRoute(path: '/my_matches', builder: (context, state) => MyMatches()),
+        //inbox
+        GoRoute(
+          path: '/messages',
+          builder: (context, state) => MessageScreen(),
+        ),
+        GoRoute(
+          path: '/inbox_received',
+          builder: (context, state) => ReceivedScreen(),
+        ),
+        GoRoute(
+          path: '/inbox_sent',
+          builder: (context, state) => SentScreen(),
+        ),
+        GoRoute(
+          path: '/inbox_accepted',
+          builder: (context, state) => AcceptedScreen(),
+        ),
+        // GoRoute(
+        //   path: '/inbox_request',
+        //   builder: (context, state) => (),
+        //),
+        GoRoute(
+          path: '/inbox_deleted',
+          builder: (context, state) => DeletedScreen(),
+        ),
       ],
     );
     return MaterialApp.router(
