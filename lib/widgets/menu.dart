@@ -217,6 +217,7 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
     // Handle navigation based on menu item
     switch (item) {
       case 'Astrology':
+        context.go('/ayurvedha');
         // Navigate to astrology page
         break;
       case 'Matrimony':
