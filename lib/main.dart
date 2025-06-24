@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/matrimony/matches/my_maches.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_articles.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_home.dart';
 import 'package:lalitha_peetham/screens/matrimony/matches/new_matches_screen.dart';
@@ -95,6 +96,7 @@ class MyApp extends StatelessWidget {
           path: '/ayurvedha_articles',
           builder: (context, state) => AyurvedaArticles(),
         ),
+        GoRoute(path: '/my_matches', builder: (context, state) => MyMatches()),
       ],
     );
     return MaterialApp.router(
