@@ -5,6 +5,9 @@ import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_find_doc.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_patient_reg_1.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_patient_reg_2.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_patient_reg_3.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/blog_screen.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/buy_herbs&medicince.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/case_discussions.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/doc_profile.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/accepted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/deleted_screen.dart';
@@ -126,6 +129,21 @@ class MyApp extends StatelessWidget {
           path: '/doc_profile',
           builder: (context, state) => DocProfile(),
         ),
+
+        GoRoute(
+          path: '/blog',
+          builder: (context, state) => BlogScreen(),
+        ),
+        GoRoute(
+          path: '/buy_herbs',
+          builder: (context, state) => BuyHerbsmedicince(),
+        ),
+
+        GoRoute(
+          path: '/case_discussions',
+          builder: (context, state) => CaseDiscussions(),
+        ),
+
         GoRoute(path: '/my_matches', builder: (context, state) => MyMatches()),
         //inbox
         GoRoute(

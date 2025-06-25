@@ -228,10 +228,6 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
         context.go('/doc_profile');
         // Navigate to online pooja page
         break;
-      // case 'Ayurveda Consultancy':
-      //   context.go('/ayurvedha');
-      //   // Navigate to astrology page
-      //   break;
       case 'Function Hall Booking':
         // Navigate to function hall booking page
         break;
