@@ -95,9 +95,9 @@ class AyurvedhHeader extends StatelessWidget {
           color: const Color(0xffD4BB26),
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child:
-          isMobile
-              ? _buildMobileSubNav(context)
-              : _buildDesktopSubNav(context),
+              isMobile
+                  ? _buildMobileSubNav(context)
+                  : _buildDesktopSubNav(context),
         ),
       ],
     );
@@ -106,8 +106,16 @@ class AyurvedhHeader extends StatelessWidget {
   Widget _buildMobileSubNav(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: _buildSubNavItem(context, 'Article’s', '/ayurvedha_articles')),
-        Expanded(child: _buildSubNavItem(context, 'Case Discussions', '/case_discussions')),
+        Expanded(
+          child: _buildSubNavItem(context, 'Article’s', '/ayurvedha_articles'),
+        ),
+        Expanded(
+          child: _buildSubNavItem(
+            context,
+            'Case Discussions',
+            '/case_discussions',
+          ),
+        ),
         Expanded(
           child: _buildSubNavItem(
             context,
@@ -115,7 +123,13 @@ class AyurvedhHeader extends StatelessWidget {
             '/ayurvedha_find_doc',
           ),
         ),
-        Expanded(child: _buildSubNavItem(context, 'Buy Herbs & Medicines', '/buy_herbs')),
+        Expanded(
+          child: _buildSubNavItem(
+            context,
+            'Buy Herbs & Medicines',
+            '/buy_herbs',
+          ),
+        ),
         Expanded(child: _buildSubNavItem(context, 'Blog', '/blog')),
         Expanded(child: _buildMoreDropdown(context, false)),
       ],
@@ -141,7 +155,7 @@ class AyurvedhHeader extends StatelessWidget {
       onSelected: (String value) {
         switch (value) {
           case 'notifications':
-            context.go('/notifications');
+            context.go('null');
             break;
           case 'patient_reg':
             context.go('/ayurvedha_patient_reg');
@@ -150,31 +164,31 @@ class AyurvedhHeader extends StatelessWidget {
       },
       itemBuilder:
           (BuildContext context) => [
-        const PopupMenuItem<String>(
-          value: 'notifications',
-          child: Row(
-            children: [
-              Icon(Icons.notifications, size: 20, color: Colors.black87),
-              SizedBox(width: 8),
-              Text('Notifications'),
-            ],
-          ),
-        ),
-        const PopupMenuItem<String>(
-          value: 'patient_reg',
-          child: Row(
-            children: [
-              Icon(
-                Icons.medical_services_rounded,
-                size: 20,
-                color: Colors.black87,
+            const PopupMenuItem<String>(
+              value: 'notifications',
+              child: Row(
+                children: [
+                  Icon(Icons.notifications, size: 20, color: Colors.black87),
+                  SizedBox(width: 8),
+                  Text('Notifications'),
+                ],
               ),
-              SizedBox(width: 8),
-              Text('Patient Reg'),
-            ],
-          ),
-        ),
-      ],
+            ),
+            const PopupMenuItem<String>(
+              value: 'patient_reg',
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.medical_services_rounded,
+                    size: 20,
+                    color: Colors.black87,
+                  ),
+                  SizedBox(width: 8),
+                  Text('Patient Reg'),
+                ],
+              ),
+            ),
+          ],
       child: TextButton(
         onPressed: null, // Let PopupMenuButton handle the press
         child: Row(

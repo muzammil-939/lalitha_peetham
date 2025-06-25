@@ -225,7 +225,7 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
         // Navigate to matrimony page
         break;
       case 'Online Pooja':
-        context.go('/doc_profile');
+        //context.go('/doc_profile');
         // Navigate to online pooja page
         break;
       case 'Function Hall Booking':

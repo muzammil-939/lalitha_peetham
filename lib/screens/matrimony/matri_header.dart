@@ -4,84 +4,6 @@ import 'package:go_router/go_router.dart';
 class MatriHeader extends StatelessWidget {
   const MatriHeader({super.key});
 
-  void _showMobileMenu(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                leading: const Icon(Icons.login),
-                title: const Text('Login'),
-                onTap: () {
-                  Navigator.pop(context);
-                  // Add login functionality
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.help),
-                title: const Text('Help'),
-                onTap: () {
-                  Navigator.pop(context);
-                  // Add help functionality
-                },
-              ),
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text('MY LALITHA PEETHAM'),
-                onTap: () {
-                  Navigator.pop(context);
-                  context.go('');
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.favorite),
-                title: const Text('MATCHES'),
-                onTap: () {
-                  Navigator.pop(context);
-                  context.go('');
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.search),
-                title: const Text('SEARCH'),
-                onTap: () {
-                  Navigator.pop(context);
-                  context.go('/matri_search');
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.inbox),
-                title: const Text('INBOX'),
-                onTap: () {
-                  Navigator.pop(context);
-                  context.go('');
-                },
-              ),
-              const Divider(),
-              ListTile(
-                leading: const Icon(Icons.upgrade),
-                title: const Text('UPGRADE NOW'),
-                onTap: () {
-                  Navigator.pop(context);
-                  // Add upgrade functionality
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  void _showDesktopMenu(BuildContext context) {
-    // Add desktop menu functionality if needed
-  }
-
   bool _isMobile(BuildContext context) {
     return MediaQuery.of(context).size.width < 768;
   }
@@ -203,11 +125,11 @@ class MatriHeader extends StatelessWidget {
               children: [
                 _buildNavItem(context, 'HOME', ''),
                 const SizedBox(width: 20),
-                _buildNavItem(context, 'MATCHES', ''),
+                _buildNavItem(context, 'MATCHES', '/matches'),
                 const SizedBox(width: 20),
                 _buildNavItem(context, 'SEARCH', '/matri_search'),
                 const SizedBox(width: 20),
-                _buildNavItem(context, 'INBOX', ''),
+                _buildNavItem(context, 'INBOX', '/messages'),
                 const SizedBox(width: 20),
               ],
             ),

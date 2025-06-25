@@ -78,7 +78,7 @@ class MatriHeaderTwo extends StatelessWidget {
                   const SizedBox(width: 40),
                   _buildNavItem(context, 'SEARCH', '/matri_search'),
                   const SizedBox(width: 40),
-                  _buildNavItem(context, 'INBOX', ''),
+                  _buildNavItem(context, 'INBOX', '/messages'),
                 ],
               ),
               SizedBox(width: 300),

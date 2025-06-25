@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedh_page_layout.dart';
 
+import 'ayurvedha_articles.dart';
+
 class DocProfile extends StatefulWidget {
   const DocProfile({super.key});
 
@@ -82,7 +84,7 @@ class _DocProfileState extends State<DocProfile> {
                       // Background image
                       Positioned.fill(
                         child: Image.asset(
-                          'assets/images/background.png',
+                          'assets/images/doc_prof_background.png',
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -100,6 +102,58 @@ class _DocProfileState extends State<DocProfile> {
                   ),
                 ),
                 Positioned(bottom: 0, child: _buildDocInfoImage(context)),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 150, horizontal: 200),
+            child: SizedBox(
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'About Hospital/Clinic',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Qualifications
+                  Text(
+                    "Address : house number704, prasanthnagar, ulloor, mc po, trivandrum",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[700],
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.fromLTRB(200, 0, 200, 150),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'My Article',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+                ArticleCard(),
               ],
             ),
           ),
@@ -138,7 +192,7 @@ class _DocProfileState extends State<DocProfile> {
           const Text(
             'M.D(Ayurved) / M.S (Ayurved)',
             style: TextStyle(
-              fontSize: 13,
+              fontSize: 14,
               color: Colors.black,
               fontWeight: FontWeight.w500,
             ),
