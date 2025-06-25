@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/patient_appointment.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_find_doc.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_patient_reg_1.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_patient_reg_2.dart';
@@ -124,6 +125,10 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/ayurvedha_patient_reg_3',
           builder: (context, state) => AyurvedhaPatientReg3(),
+        ),
+        GoRoute(
+          path: '/ayurvedha_patient_appointment',
+          builder: (context, state) => PatientAppointment(),
         ),
         GoRoute(
           path: '/doc_profile',

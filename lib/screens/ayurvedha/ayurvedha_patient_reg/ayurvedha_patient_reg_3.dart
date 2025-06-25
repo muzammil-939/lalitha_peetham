@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedh_page_layout.dart';
 
 class AyurvedhaPatientReg3 extends StatefulWidget {
@@ -94,7 +95,7 @@ class AyurvedhaPatientReg3State extends State<AyurvedhaPatientReg3> {
                     height: 45,
                     child: ElevatedButton(
                       onPressed: () {
-                        // Handle submit
+                        context.go('/ayurvedha_patient_appointment');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFFB8A835),
