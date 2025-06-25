@@ -253,7 +253,7 @@ class InboxHeader extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: _buildSubNavItem(context, 'Messages',''),
+          child: _buildSubNavItem(context, 'Messages','/messages'),
         ),
         Expanded(child: _buildSubNavItem(context, 'Received', '/inbox_received')),
         Expanded(child: _buildSubNavItem(context, 'Accepted', '/inbox_accepted')),
@@ -271,7 +271,7 @@ class InboxHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildSubNavItem(context, 'Messages',''),
+        _buildSubNavItem(context, 'Messages','/messages'),
         _buildSubNavItem(context, 'Received', '/inbox_received'),
         _buildSubNavItem(context, 'Accepted', '/inbox_accepted'),
         _buildSubNavItem(context, 'Request', '/inbox_request'),

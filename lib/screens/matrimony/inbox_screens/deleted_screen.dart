@@ -161,23 +161,26 @@ class _DeletedScreenState extends State<DeletedScreen> {
             children: [
               // Profile Image
               Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.grey.shade300, width: 2),
-                ),
-                child: ClipOval(
-                  child: Container(
-                    color: Colors.grey.shade200,
-                    child: const Icon(
-                      Icons.person,
-                      size: 40,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-              ),
+                          width: 200,
+                          height: 230,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(color: Colors.white, width: 4),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                blurRadius: 8,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: const CircleAvatar(
+                            radius: 66,
+                            backgroundImage: NetworkImage(
+                              'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face',
+                            ),
+                          ),
+                        ),
               
               const SizedBox(width: 20),
               

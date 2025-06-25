@@ -109,8 +109,8 @@ class AyurvedhHeader extends StatelessWidget {
         Expanded(child: _buildSubNavItem(context, 'Article’s', '')),
         Expanded(child: _buildSubNavItem(context, 'Case Discussions', '')),
         Expanded(child: _buildSubNavItem(context, 'Find  Doctor', '')),
-        Expanded(child: _buildSubNavItem(context, 'Buy Herbs & Medicines', '')),
-        Expanded(child: _buildSubNavItem(context, 'Blog', '')),
+        Expanded(child: _buildSubNavItem(context, 'Buy Herbs & Medicines', '/buy_herbs')),
+        Expanded(child: _buildSubNavItem(context, 'Blog', '/blog')),
         // _buildMoreDropdown(context, false),
       ],
     );
@@ -123,8 +123,8 @@ class AyurvedhHeader extends StatelessWidget {
         _buildSubNavItem(context, 'Article’s', '/ayurvedha_articles'),
         _buildSubNavItem(context, 'Case Discussions', ''),
         _buildSubNavItem(context, 'Find Doctor', ''),
-        _buildSubNavItem(context, 'Buy Herbs & Medicines', ''),
-        _buildSubNavItem(context, 'Blog', ''),
+        _buildSubNavItem(context, 'Buy Herbs & Medicines', '/buy_herbs'),
+        _buildSubNavItem(context, 'Blog', '/blog'),
         // _buildMoreDropdown(context, false),
       ],
     );

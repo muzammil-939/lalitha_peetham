@@ -15,24 +15,26 @@ class _SentScreenState extends State<SentScreen> {
   @override
   Widget build(BuildContext context) {
     return InboxHeaderLayout(
-     
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 35),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Left Sidebar
+            // Left Sidebar - Positioned to align with main content
             Container(
               width: 280,
               color: Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Add spacing to align with main content
+                  const SizedBox(height: 30), // Matches header + divider + spacing
+                  
                   // Sort Header
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(
-                      vertical: 16,
-                      horizontal: 20,
+                      vertical: 12,
                     ),
                     decoration: const BoxDecoration(
                       color: Colors.white,
@@ -44,10 +46,11 @@ class _SentScreenState extends State<SentScreen> {
                     ),
                     child: const Text(
                       'SORT',
+                      textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: const Color(0xFFCC901C),
+                        color: Color(0xFFCC901C),
                         letterSpacing: 2,
                       ),
                     ),
@@ -55,7 +58,7 @@ class _SentScreenState extends State<SentScreen> {
                   // Filter Options
                   Container(
                     decoration: const BoxDecoration(
-                      color: const Color(0xFFCC901C),
+                      color: Color(0xFFCC901C),
                       border: Border(
                         left: BorderSide(color: Color(0xFFB8941F), width: 2),
                         right: BorderSide(color: Color(0xFFB8941F), width: 2),
@@ -73,6 +76,7 @@ class _SentScreenState extends State<SentScreen> {
                 ],
               ),
             ),
+            const SizedBox(width: 40),
             // Main Content Area
             Expanded(
               child: Column(
@@ -98,11 +102,11 @@ class _SentScreenState extends State<SentScreen> {
                   // Content Area
                   Container(
                     margin: const EdgeInsets.all(24),
-                    padding: EdgeInsets.symmetric(horizontal: 180,vertical: 35),
+                    padding: const EdgeInsets.symmetric(horizontal: 180, vertical: 35),
                     decoration: BoxDecoration(
                       color: const Color(0xFFF0E6B8),
                       borderRadius: BorderRadius.circular(8),
-                       boxShadow: [
+                      boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.1),
                           blurRadius: 8,
@@ -119,7 +123,6 @@ class _SentScreenState extends State<SentScreen> {
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
-                              // Optional: Remove question marks and lightbulb if image includes them
                               SizedBox(
                                 width: 180,
                                 height: 250,
@@ -131,25 +134,26 @@ class _SentScreenState extends State<SentScreen> {
                             ],
                           ),
                         ),
-                          
+                        
                         const SizedBox(height: 40),
                         // Empty State Message
                         DottedBorder(
-                            borderType: BorderType.RRect,
-                            radius: Radius.circular(4),
-                            color: Color(0xFFD4AF37),
-                            strokeWidth: 1,
-                            dashPattern: [4, 3],
-                            child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 30,horizontal: 35),
-                              width: 300,
-                              color: Colors.white,
-                              child: Text(
-                                'There Are No Sent Invitations',                            
-                                style: TextStyle(fontSize: 16, color: const Color(0xFFCC901C)),
-                              ),
+                          borderType: BorderType.RRect,
+                          radius: const Radius.circular(4),
+                          color: const Color(0xFFD4AF37),
+                          strokeWidth: 1,
+                          dashPattern: const [4, 3],
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 35),
+                            width: 300,
+                            color: Colors.white,
+                            child: const Text(
+                              'There Are No Sent Invitations',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 16, color: Color(0xFFCC901C)),
                             ),
-                           ),
+                          ),
+                        ),
                         const SizedBox(height: 30),
                         // View My Matches Button
                         ElevatedButton(
@@ -201,16 +205,15 @@ class _SentScreenState extends State<SentScreen> {
               border: Border.all(color: Colors.white, width: 2),
               color: isSelected ? Colors.white : Colors.transparent,
             ),
-            child:
-                isSelected
-                    ? const Center(
-                      child: Icon(
-                        Icons.circle,
-                        size: 8,
-                       color: const Color(0xFFCC901C),
-                      ),
-                    )
-                    : null,
+            child: isSelected
+                ? const Center(
+                    child: Icon(
+                      Icons.circle,
+                      size: 8,
+                      color: Color(0xFFCC901C),
+                    ),
+                  )
+                : null,
           ),
           const SizedBox(width: 12),
           Text(

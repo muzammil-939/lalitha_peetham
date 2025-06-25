@@ -159,12 +159,11 @@ class AyurvedhaHero extends StatelessWidget {
                                         color: Colors.white,
                                         size: 18,
                                       ),
-                                      SizedBox(width: 6),
                                       Text(
                                         'SEARCH BY LOCALITY OR CITY',
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: isTablet ? 6 : 10,
+                                          fontSize: isTablet ? 6 : 8,
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -196,7 +195,7 @@ class AyurvedhaHero extends StatelessWidget {
                                         'SEARCH SPECIALITY',
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: isTablet ? 8 : 12,
+                                          fontSize: isTablet ? 8 : 10,
                                           fontWeight: FontWeight.w500,
                                           letterSpacing: 0.5,
                                         ),

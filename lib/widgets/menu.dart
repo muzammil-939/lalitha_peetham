@@ -216,7 +216,7 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
   void _handleMenuItemTap(String item) {
     // Handle navigation based on menu item
     switch (item) {
-      case 'Astrology':
+      case 'Ayurveda Consultancy':
         context.go('/ayurvedha');
         // Navigate to astrology page
         break;
@@ -227,6 +227,10 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
       case 'Online Pooja':
         // Navigate to online pooja page
         break;
+      // case 'Ayurveda Consultancy':
+      //   context.go('/ayurvedha');
+      //   // Navigate to astrology page
+      //   break;
       case 'Function Hall Booking':
         // Navigate to function hall booking page
         break;

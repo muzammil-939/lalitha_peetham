@@ -39,17 +39,18 @@ class _AcceptedScreenState extends State<AcceptedScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   // Sort header
-                  Container(
+                 Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 16,
+                      horizontal: 20,
+                    ),
                     decoration: const BoxDecoration(
-                      color: Color(0xFFD4AC0D),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(0),
-                        topRight: Radius.circular(0),
-                      ),
+                      color: Colors.white,
                       border: Border(
-                        bottom: BorderSide(color: Color(0xFFB8860B), width: 2),
+                        top: BorderSide(color: Color(0xFFB8941F), width: 2),
+                        left: BorderSide(color: Color(0xFFB8941F), width: 2),
+                        right: BorderSide(color: Color(0xFFB8941F), width: 2),
                       ),
                     ),
                     child: const Text(
@@ -57,10 +58,9 @@ class _AcceptedScreenState extends State<AcceptedScreen> {
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        letterSpacing: 1.2,
+                        color: const Color(0xFFCC901C),
+                        letterSpacing: 2,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                   ),
                   // Sort options
@@ -219,10 +219,10 @@ class _AcceptedScreenState extends State<AcceptedScreen> {
                                 borderType: BorderType.RRect,
                                 radius: const Radius.circular(8),
                                 child: Container(
-                                  width: double.infinity,
+                                  width: 250,
                                   padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                    vertical: 12,
+                                    horizontal: 8,
+                                    vertical: 24,
                                   ),
                                   color: Colors.white,
                                   child: const Text(
@@ -362,7 +362,7 @@ class _AcceptedScreenState extends State<AcceptedScreen> {
 
   Widget _buildActionButton(String text, IconData icon, Color color) {
     return SizedBox(
-      width: double.infinity,
+      width: 250,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
         decoration: BoxDecoration(
