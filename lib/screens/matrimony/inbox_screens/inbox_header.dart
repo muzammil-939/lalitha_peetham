@@ -252,16 +252,16 @@ class InboxHeader extends StatelessWidget {
   Widget _buildMobileSubNav(BuildContext context) {
     return Row(
       children: [
+        Expanded(child: _buildSubNavItem(context, 'Messages', '/messages')),
         Expanded(
-          child: _buildSubNavItem(context, 'Messages',''),
+          child: _buildSubNavItem(context, 'Received', '/inbox_received'),
         ),
-        Expanded(child: _buildSubNavItem(context, 'Received', '/inbox_received')),
-        Expanded(child: _buildSubNavItem(context, 'Accepted', '/inbox_accepted')),
         Expanded(
-          child: _buildSubNavItem(context, 'Request', '/inbox_request'),
+          child: _buildSubNavItem(context, 'Accepted', '/inbox_accepted'),
         ),
+        Expanded(child: _buildSubNavItem(context, 'Request', '/inbox_request')),
         Expanded(child: _buildSubNavItem(context, 'Sent', '/inbox_sent')),
-         Expanded(child: _buildSubNavItem(context, 'Deleted', '/inbox_deleted')),
+        Expanded(child: _buildSubNavItem(context, 'Deleted', '/inbox_deleted')),
         Expanded(child: _buildMoreDropdown(context, true)),
       ],
     );
@@ -271,13 +271,13 @@ class InboxHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildSubNavItem(context, 'Messages',''),
+        _buildSubNavItem(context, 'Messages', '/messages'),
         _buildSubNavItem(context, 'Received', '/inbox_received'),
         _buildSubNavItem(context, 'Accepted', '/inbox_accepted'),
         _buildSubNavItem(context, 'Request', '/inbox_request'),
         _buildSubNavItem(context, 'Sent', '/inbox_sent'),
-         _buildSubNavItem(context, 'Deleted', '/inbox_deleted'),
-         
+        _buildSubNavItem(context, 'Deleted', '/inbox_deleted'),
+
         _buildMoreDropdown(context, false),
       ],
     );

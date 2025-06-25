@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_find_doc.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_patient_reg_1.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_patient_reg_2.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_patient_reg_3.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/doc_profile.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/accepted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/deleted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/message_screen.dart';
@@ -101,6 +106,26 @@ class MyApp extends StatelessWidget {
           path: '/ayurvedha_articles',
           builder: (context, state) => AyurvedaArticles(),
         ),
+        GoRoute(
+          path: '/ayurvedha_find_doc',
+          builder: (context, state) => AyurvedhaFindDoc(),
+        ),
+        GoRoute(
+          path: '/ayurvedha_patient_reg',
+          builder: (context, state) => AyurvedhaPatientReg1(),
+        ),
+        GoRoute(
+          path: '/ayurvedha_patient_reg_2',
+          builder: (context, state) => AyurvedhaPatientReg2(),
+        ),
+        GoRoute(
+          path: '/ayurvedha_patient_reg_3',
+          builder: (context, state) => AyurvedhaPatientReg3(),
+        ),
+        GoRoute(
+          path: '/doc_profile',
+          builder: (context, state) => DocProfile(),
+        ),
         GoRoute(path: '/my_matches', builder: (context, state) => MyMatches()),
         //inbox
         GoRoute(
@@ -111,10 +136,7 @@ class MyApp extends StatelessWidget {
           path: '/inbox_received',
           builder: (context, state) => ReceivedScreen(),
         ),
-        GoRoute(
-          path: '/inbox_sent',
-          builder: (context, state) => SentScreen(),
-        ),
+        GoRoute(path: '/inbox_sent', builder: (context, state) => SentScreen()),
         GoRoute(
           path: '/inbox_accepted',
           builder: (context, state) => AcceptedScreen(),
