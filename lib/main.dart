@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_cardpin.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_notifications/ayurvedha_order_confirm.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_appoint_track.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_notifications/user_notifications.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_appointment.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_call_request.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_post.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_post_case_discussion.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/patient_appointment.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_find_doc.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_patient_reg_1.dart';
@@ -129,6 +137,38 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/ayurvedha_patient_appointment',
           builder: (context, state) => PatientAppointment(),
+        ),
+        GoRoute(
+          path: '/ayurvedha_cardpin',
+          builder: (context, state) => AyurvedhaCardpin(),
+        ),
+        GoRoute(
+          path: '/ayurvedha_order_confirm',
+          builder: (context, state) => OrderConfirmPage(),
+        ),
+        GoRoute(
+          path: '/ayurvedha_appoint',
+          builder: (context, state) => AyurvedhaAppointment(),
+        ),
+        GoRoute(
+          path: '/ayurvedha_appointment_tracking',
+          builder: (context, state) => AyurvedhaAppointTrack(),
+        ),
+        GoRoute(
+          path: '/ayurvedha_call_request',
+          builder: (context, state) => AyurvedhaCallRequest(),
+        ),
+        GoRoute(
+          path: '/ayurvedha_post_case_discussion',
+          builder: (context, state) => AyurvedhaPostCaseDiscussion(),
+        ),
+        GoRoute(
+          path: '/post',
+          builder: (context, state) => AyurvedhaPost(),
+        ),
+        GoRoute(
+          path: '/user_notifications',
+          builder: (context, state) => UserNotifications(),
         ),
         GoRoute(
           path: '/doc_profile',

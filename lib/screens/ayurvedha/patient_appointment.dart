@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedh_page_layout.dart';
 
 class PatientAppointment extends StatefulWidget {
@@ -182,6 +183,8 @@ class PatientAppointmentState extends State<PatientAppointment> {
                   child: ElevatedButton(
                     onPressed: () {
                       // Handle submit logic here
+                      //context.go('/ayurvedha_appointment_tracking');
+                      context.go('/ayurvedha_cardpin');
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFB8A835),
