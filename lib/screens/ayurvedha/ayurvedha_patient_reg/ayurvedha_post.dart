@@ -56,46 +56,68 @@ class _AyurvedhaPostState extends State<AyurvedhaPost> {
                   ),
                 ),
               ),
+               
+             const SizedBox(height: 40),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 100),
+                child: const Text(
+                  "Post Case Discussion",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    letterSpacing: 0.8,
+                  ),
+                ),
+              ),
+              
 
               const SizedBox(height: 60),
 
-                Container(
-              width: 80,
-              height: 80,
-              decoration: const BoxDecoration(
-                color: Color(0xFFE8F5E8),
-                shape: BoxShape.circle,
+             Center(
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE8F5E8),
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.green, // ✅ Your desired border color
+                      width: 2,            // ✅ Border width
+                    ),
+                  ),
+                  child: const Icon(
+                    Icons.check,
+                    size: 40,
+                    color: Color(0xFF4CAF50),
+                  ),
+                ),
               ),
-              child: const Icon(
-                Icons.check,
-                size: 40,
-                color: Color(0xFF4CAF50),
-              ),
-            ),
-            
+
 
               const SizedBox(height: 40),
               Center(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFC1B11F),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 40,
-                      vertical: 14,
+                child: SizedBox(
+                  height: 80,
+                  width: 450,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF34AD42),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 40,
+                        vertical: 14,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0),
+                      ),
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0),
-                    ),
-                  ),
-                  onPressed: () {
-                    
-                  },
-                  child: const Text(
-                    "Post",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.2,
+                    onPressed: () {},
+                    child: const Text(
+                      "SUCCESSFULLY POSTED",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.2,
+                      ),
                     ),
                   ),
                 ),
