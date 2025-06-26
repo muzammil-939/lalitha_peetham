@@ -158,7 +158,10 @@ class AyurvedhHeader extends StatelessWidget {
             context.go('/user_notifications');
             break;
           case 'patient_reg':
-            context.go('/ayurvedha_patient_reg');
+            context.go('/ayurvedha_patient_reg_1');
+            break;
+          case 'doc_reg':
+            context.go('/ayurvedha_doc_reg_1');
             break;
           case 'doc_post_case':
             context.go('/ayurvedha_post_case_discussion');
@@ -202,6 +205,20 @@ class AyurvedhHeader extends StatelessWidget {
                   ),
                   SizedBox(width: 8),
                   Text('Doc Post Case'),
+                ],
+              ),
+            ),
+            const PopupMenuItem<String>(
+              value: 'doc_reg',
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.medical_services_rounded,
+                    size: 20,
+                    color: Colors.black87,
+                  ),
+                  SizedBox(width: 8),
+                  Text('Doctor Reg'),
                 ],
               ),
             ),

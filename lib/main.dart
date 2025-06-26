@@ -2,22 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_cardpin.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_doc_reg/ayurvedha_doc_reg_1.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_doc_reg/ayurvedha_doc_reg_2.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_doc_reg/ayurvedha_doc_reg_3.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_doc_reg/ayurvedha_doc_regsuccess.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_find_doc.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_notifications/ayurvedha_order_confirm.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_appoint_track.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_notifications/user_notifications.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_appoint_track.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_appointment.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_call_request.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_post.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_post_case_discussion.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/patient_appointment.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_find_doc.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_patient_reg_1.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_patient_reg_2.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_patient_reg_3.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_post.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_patient_reg/ayurvedha_post_case_discussion.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/blog_screen.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/buy_herbs&medicince.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/case_discussion_info.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/case_discussions.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/doc_profile.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/patient_appointment.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/accepted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/deleted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/message_screen.dart';
@@ -123,7 +128,7 @@ class MyApp extends StatelessWidget {
           builder: (context, state) => AyurvedhaFindDoc(),
         ),
         GoRoute(
-          path: '/ayurvedha_patient_reg',
+          path: '/ayurvedha_patient_reg_1',
           builder: (context, state) => AyurvedhaPatientReg1(),
         ),
         GoRoute(
@@ -133,6 +138,27 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/ayurvedha_patient_reg_3',
           builder: (context, state) => AyurvedhaPatientReg3(),
+        ),
+        //Doc Registeration
+        GoRoute(
+          path: '/ayurvedha_doc_reg_1',
+          builder: (context, state) => AyurvedhaDocReg1(),
+        ),
+        GoRoute(
+          path: '/ayurvedha_doc_reg_2',
+          builder: (context, state) => AyurvedhaDocReg2(),
+        ),
+        GoRoute(
+          path: '/ayurvedha_doc_reg_3',
+          builder: (context, state) => AyurvedhaDocReg3(),
+        ),
+        GoRoute(
+          path: '/ayurvedha_doc_regsuccess',
+          builder: (context, state) => AyurvedhaDocRegsuccess(),
+        ),
+        GoRoute(
+          path: '/case_discussions_info',
+          builder: (context, state) => CaseDiscussionInfo(),
         ),
         GoRoute(
           path: '/ayurvedha_patient_appointment',
@@ -162,23 +188,18 @@ class MyApp extends StatelessWidget {
           path: '/ayurvedha_post_case_discussion',
           builder: (context, state) => AyurvedhaPostCaseDiscussion(),
         ),
-        GoRoute(
-          path: '/post',
-          builder: (context, state) => AyurvedhaPost(),
-        ),
+        GoRoute(path: '/post', builder: (context, state) => AyurvedhaPost()),
         GoRoute(
           path: '/user_notifications',
           builder: (context, state) => UserNotifications(),
         ),
+        //docprof
         GoRoute(
           path: '/doc_profile',
           builder: (context, state) => DocProfile(),
         ),
 
-        GoRoute(
-          path: '/blog',
-          builder: (context, state) => BlogScreen(),
-        ),
+        GoRoute(path: '/blog', builder: (context, state) => BlogScreen()),
         GoRoute(
           path: '/buy_herbs',
           builder: (context, state) => BuyHerbsmedicince(),

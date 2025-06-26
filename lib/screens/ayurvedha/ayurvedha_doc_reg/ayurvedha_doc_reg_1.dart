@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedh_page_layout.dart';
 
-class AyurvedhaPatientReg1 extends StatefulWidget {
-  const AyurvedhaPatientReg1({super.key});
+class AyurvedhaDocReg1 extends StatefulWidget {
+  const AyurvedhaDocReg1({super.key});
 
   @override
-  AyurvedhaPatientReg1State createState() => AyurvedhaPatientReg1State();
+  AyurvedhaDocReg1State createState() => AyurvedhaDocReg1State();
 }
 
-class AyurvedhaPatientReg1State extends State<AyurvedhaPatientReg1> {
+class AyurvedhaDocReg1State extends State<AyurvedhaDocReg1> {
   final _controllers = {
     'firstName': TextEditingController(),
     'lastName': TextEditingController(),
@@ -60,7 +60,7 @@ class AyurvedhaPatientReg1State extends State<AyurvedhaPatientReg1> {
           children: [
             Icon(Icons.home, size: 16, color: Colors.black),
             Text(
-              ' / AYURVEDA CONSULTANCY // Registor As A Patient',
+              ' // AYURVEDA CONSULTANCY // Registor As A Doctor',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 14,
@@ -185,7 +185,7 @@ class AyurvedhaPatientReg1State extends State<AyurvedhaPatientReg1> {
       width: 120,
       height: 45,
       child: ElevatedButton(
-        onPressed: () => context.go('/ayurvedha_patient_reg_2'),
+        onPressed: () => context.go('/ayurvedha_doc_reg_2'),
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFFB8A835),
           elevation: 0,

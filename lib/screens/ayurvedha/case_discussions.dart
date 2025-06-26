@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedh_page_layout.dart';
 
 class CaseDiscussions extends StatefulWidget {
@@ -61,7 +62,7 @@ class _CaseDiscussionsState extends State<CaseDiscussions> {
                 ),
               ),
               SizedBox(height: 40),
-              
+
               // Header with Total Cases
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 150),
@@ -75,9 +76,9 @@ class _CaseDiscussionsState extends State<CaseDiscussions> {
                   ),
                 ),
               ),
-              
+
               SizedBox(height: 30),
-              
+
               // Search Bar
               Center(
                 child: SizedBox(
@@ -138,9 +139,9 @@ class _CaseDiscussionsState extends State<CaseDiscussions> {
                   ),
                 ),
               ),
-              
+
               SizedBox(height: 30),
-              
+
               // Filter Buttons
               Container(
                 height: 60,
@@ -199,9 +200,9 @@ class _CaseDiscussionsState extends State<CaseDiscussions> {
                   ],
                 ),
               ),
-              
+
               SizedBox(height: 40),
-              
+
               // Case Cards
               ...List.generate(
                 4,
@@ -209,11 +210,12 @@ class _CaseDiscussionsState extends State<CaseDiscussions> {
                   padding: EdgeInsets.only(bottom: 20),
                   child: CaseCard(
                     isLargerCard: index == 2, // Make the third card larger
-                    hasDescription: index >= 2, // Add description to last two cards
+                    hasDescription:
+                        index >= 2, // Add description to last two cards
                   ),
                 ),
               ),
-              
+
               SizedBox(height: 40),
             ],
           ),
@@ -226,7 +228,7 @@ class _CaseDiscussionsState extends State<CaseDiscussions> {
 class CaseCard extends StatelessWidget {
   final bool isLargerCard;
   final bool hasDescription;
-  
+
   const CaseCard({
     Key? key,
     this.isLargerCard = false,
@@ -277,9 +279,9 @@ class CaseCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    
+
                     SizedBox(height: 16),
-                    
+
                     // Person details below profile image
                     Column(
                       children: [
@@ -311,19 +313,25 @@ class CaseCard extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 16),
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-                          decoration: BoxDecoration(
-                            color: Color(0xFFD4BB26),
-                            borderRadius: BorderRadius.circular(0),
-                          ),
-                          child: Text(
-                            'VIEW LAST REPLY',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              letterSpacing: 0.5,
+                        GestureDetector(
+                          onTap: () => context.go('/case_discussions_info'),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 14,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Color(0xFFD4BB26),
+                              borderRadius: BorderRadius.circular(0),
+                            ),
+                            child: Text(
+                              'VIEW LAST REPLY',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 0.5,
+                              ),
                             ),
                           ),
                         ),
@@ -331,9 +339,9 @@ class CaseCard extends StatelessWidget {
                     ),
                   ],
                 ),
-      
+
                 SizedBox(width: 24),
-      
+
                 // Content section
                 Expanded(
                   child: Column(
@@ -345,7 +353,10 @@ class CaseCard extends StatelessWidget {
                         children: [
                           // Category tag
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
                             decoration: BoxDecoration(
                               color: Color(0xFFD4BB26),
                               borderRadius: BorderRadius.circular(12),
@@ -360,9 +371,9 @@ class CaseCard extends StatelessWidget {
                               ),
                             ),
                           ),
-                          
+
                           SizedBox(width: 16),
-                          
+
                           // Time
                           Row(
                             children: [
@@ -392,13 +403,13 @@ class CaseCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      
+
                       SizedBox(height: hasDescription ? 16 : 12),
-                      
+
                       // // Title (only for cards with description)
                       // if (hasDescription) ...[
                       //   Text(
-                      //     hasDescription && isLargerCard 
+                      //     hasDescription && isLargerCard
                       //         ? 'Triple Vessels Blockage'
                       //         : 'The Significance Of Ayurvedic Medicinal Plants',
                       //     style: TextStyle(
@@ -410,13 +421,13 @@ class CaseCard extends StatelessWidget {
                       //   ),
                       //   SizedBox(height: 12),
                       // ],
-                      
+
                       // Description (only for cards with description)
                       if (hasDescription) ...[
                         Text(
                           hasDescription && isLargerCard
-                              ? 'A patient went to a hospital for routine check-up. He had had COVID-19 and taken medicines for six months and was cured, but went to the physician regularly for routine check-up. The physician did ECG due':
-                            '' ,
+                              ? 'A patient went to a hospital for routine check-up. He had had COVID-19 and taken medicines for six months and was cured, but went to the physician regularly for routine check-up. The physician did ECG due'
+                              : '',
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey.shade700,
@@ -425,7 +436,7 @@ class CaseCard extends StatelessWidget {
                         ),
                         SizedBox(height: 16),
                       ],
-                      
+
                       // Stats positioned at the right
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -434,7 +445,10 @@ class CaseCard extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Container(
-                                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 8,
+                                ),
                                 decoration: BoxDecoration(
                                   color: Colors.grey.shade400,
                                   borderRadius: BorderRadius.circular(6),
@@ -448,11 +462,14 @@ class CaseCard extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              
+
                               SizedBox(height: 8),
-                              
+
                               Container(
-                                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                  vertical: 8,
+                                ),
                                 decoration: BoxDecoration(
                                   color: Colors.grey.shade400,
                                   borderRadius: BorderRadius.circular(6),
