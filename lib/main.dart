@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_cardpin.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_doc_reg/ayurvedha_article_submit.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_doc_reg/ayurvedha_doc_reg_1.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_doc_reg/ayurvedha_doc_reg_2.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_doc_reg/ayurvedha_doc_reg_3.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_doc_reg/ayurvedha_doc_regsuccess.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_doc_reg/ayurvedha_post_article.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_find_doc.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_notifications/ayurvedha_order_confirm.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_notifications/user_notifications.dart';
@@ -22,6 +24,7 @@ import 'package:lalitha_peetham/screens/ayurvedha/buy_herbs&medicince.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/case_discussion_info.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/case_discussions.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/doc_profile.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/herbs_products_details.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/patient_appointment.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/accepted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/deleted_screen.dart';
@@ -197,6 +200,18 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/doc_profile',
           builder: (context, state) => DocProfile(),
+        ),
+        GoRoute(
+          path: '/ayurvedha_post_article',
+          builder: (context, state) => AyurvedhaPostArticle(),
+        ),
+        GoRoute(
+          path: '/article_submit',
+          builder: (context, state) => AyurvedhaArticleSubmit(),
+        ),
+         GoRoute(
+          path: '/herbs_product_details',
+          builder: (context, state) => HerbsProductsDetails(),
         ),
 
         GoRoute(path: '/blog', builder: (context, state) => BlogScreen()),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedh_page_layout.dart';
 
 class BuyHerbsmedicince extends StatefulWidget {
@@ -298,7 +299,7 @@ class _BuyHerbsmedicinceState extends State<BuyHerbsmedicince> {
         ),
         const SizedBox(height: 20),
         _buildProductRow([
-          {'name': 'Sarvatobhadra Vati', 'price': '₹ 430', 'rating': 5},
+          {'name': 'Sarvatobhadra Vati', 'price': '₹ 430', 'rating': 5,},
           {'name': 'Shilajit Capsules', 'price': '₹ 1150', 'rating': 5},
           {'name': 'Ashwagandha Capsules', 'price': '₹ 720', 'rating': 5},
           {'name': 'Tricho Capsules', 'price': '₹ 510', 'rating': 5},
@@ -310,23 +311,57 @@ class _BuyHerbsmedicinceState extends State<BuyHerbsmedicince> {
     );
   }
 
-  Widget _buildProductRow(List<Map<String, dynamic>> products) {
-    return SizedBox(
-      height: 180,
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.chevron_left, size: 30, color: Color(0xFFAA961B),),
-          ),
-          Flexible(
-            child: SizedBox(
-              height: 180,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: products.length,
-                itemBuilder: (context, index) {
-                  return Container(
+Widget _buildProductRow(List<Map<String, dynamic>> products) {
+  return SizedBox(
+    height: 180,
+    child: Row(
+      children: [
+        IconButton(
+          onPressed: () {}, // Optional: scroll left
+          icon: const Icon(Icons.chevron_left, size: 30, color: Color(0xFFAA961B)),
+        ),
+        Flexible(
+          child: SizedBox(
+            height: 180,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                final product = products[index];
+                final productName = product['name'];
+
+                return GestureDetector(
+                  onTap: () {
+                    // Individual navigation logic
+                    switch (productName) {
+                      case 'Curcumin Capsules':
+                        context.go('/herbs_product_details');
+                        break;
+                      case 'Ayush-64 Tab 60':
+                        context.go('/ayush64_product_details');
+                        break;
+                      case 'Shilajit Capsules':
+                        context.go('/shilajit_product_details');
+                        break;
+                      case 'Neem Capsules':
+                        context.go('/neem_product_details');
+                        break;
+                      case 'Giloy Capsules':
+                        context.go('/giloy_product_details');
+                        break;
+                      case 'Ashwagandha Capsules':
+                        context.go('/ashwagandha_product_details');
+                        break;
+                      case 'Giloyghan Vati':
+                        context.go('/giloyghan_product_details');
+                        break;
+                      default:
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('$productName tapped')),
+                        );
+                    }
+                  },
+                  child: Container(
                     width: 140,
                     margin: const EdgeInsets.symmetric(horizontal: 8),
                     decoration: BoxDecoration(
@@ -343,7 +378,7 @@ class _BuyHerbsmedicinceState extends State<BuyHerbsmedicince> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        // Product Image
+                        // Product Image Placeholder
                         Container(
                           height: 80,
                           margin: const EdgeInsets.all(12),
@@ -359,13 +394,12 @@ class _BuyHerbsmedicinceState extends State<BuyHerbsmedicince> {
                             ),
                           ),
                         ),
-                        
                         // Product Name
                         Flexible(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: Text(
-                              products[index]['name'],
+                              productName,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 fontSize: 11,
@@ -377,26 +411,24 @@ class _BuyHerbsmedicinceState extends State<BuyHerbsmedicince> {
                             ),
                           ),
                         ),
-                        
-                        // Rating
                         const SizedBox(height: 4),
+                        // Rating
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: List.generate(5, (starIndex) {
                             return Icon(
                               Icons.star,
                               size: 10,
-                              color: starIndex < products[index]['rating']
+                              color: starIndex < product['rating']
                                   ? Colors.amber
                                   : Colors.grey[300],
                             );
                           }),
                         ),
-                        
-                        // Price
                         const SizedBox(height: 4),
+                        // Price
                         Text(
-                          products[index]['price'],
+                          product['price'],
                           style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.bold,
@@ -406,19 +438,20 @@ class _BuyHerbsmedicinceState extends State<BuyHerbsmedicince> {
                         const SizedBox(height: 8),
                       ],
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.chevron_right, size: 30, color: Color(0xFFAA961B),),
-          ),
-        ],
-      ),
-    );
-  }
+        ),
+        IconButton(
+          onPressed: () {}, // Optional: scroll right
+          icon: const Icon(Icons.chevron_right, size: 30, color: Color(0xFFAA961B)),
+        ),
+      ],
+    ),
+  );
+}
 
   Color _getProductColor(int index) {
     final colors = [
