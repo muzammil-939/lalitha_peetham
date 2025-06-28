@@ -24,8 +24,10 @@ import 'package:lalitha_peetham/screens/ayurvedha/buy_herbs&medicince.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/case_discussion_info.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/case_discussions.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/doc_profile.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/herbs_product_buynow.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/herbs_products_details.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/patient_appointment.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/single_herbformulation.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/accepted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/deleted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/message_screen.dart';
@@ -209,7 +211,7 @@ class MyApp extends StatelessWidget {
           path: '/article_submit',
           builder: (context, state) => AyurvedhaArticleSubmit(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/herbs_product_details',
           builder: (context, state) => HerbsProductsDetails(),
         ),
@@ -218,6 +220,14 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/buy_herbs',
           builder: (context, state) => BuyHerbsmedicince(),
+        ),
+        GoRoute(
+          path: '/herbs_buy_now',
+          builder: (context, state) => CurcuminProductUI(),
+        ),
+        GoRoute(
+          path: '/single_herbformulation',
+          builder: (context, state) => SingleHerbFormulationPage(),
         ),
 
         GoRoute(

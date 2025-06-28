@@ -91,7 +91,9 @@ class HerbsProductsDetailsState extends State<HerbsProductsDetails> {
                         children: [
                           Container(
                             height: 350,
-                            color: const Color(0xFFFFF8E1), // Light yellowish background to match
+                            color: const Color(
+                              0xFFFFF8E1,
+                            ), // Light yellowish background to match
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
@@ -104,7 +106,10 @@ class HerbsProductsDetailsState extends State<HerbsProductsDetails> {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                ),])),
+                                ),
+                              ],
+                            ),
+                          ),
 
                           const SizedBox(height: 20),
 
@@ -133,21 +138,24 @@ class HerbsProductsDetailsState extends State<HerbsProductsDetails> {
 
                               const SizedBox(width: 16),
 
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 24,
-                                  vertical: 12,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Color(0xff333333),
-                                  borderRadius: BorderRadius.circular(0),
-                                ),
-                                child: const Text(
-                                  'BUY NOW',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
+                              GestureDetector(
+                                onTap: () => context.go('/herbs_buy_now'),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 24,
+                                    vertical: 12,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Color(0xff333333),
+                                    borderRadius: BorderRadius.circular(0),
+                                  ),
+                                  child: const Text(
+                                    'BUY NOW',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -483,7 +491,7 @@ class HerbsProductsDetailsState extends State<HerbsProductsDetails> {
                           ],
                         ),
                       ),
-                
+
                       // Tab content
                       Container(
                         padding: const EdgeInsets.all(20),
@@ -491,7 +499,10 @@ class HerbsProductsDetailsState extends State<HerbsProductsDetails> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             'Grapeseed Essential oil',
-                            style: TextStyle(fontSize: 12, color: Colors.black87),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black87,
+                            ),
                           ),
                         ),
                       ),
