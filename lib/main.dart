@@ -28,6 +28,7 @@ import 'package:lalitha_peetham/screens/ayurvedha/herbs_product_buynow.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/herbs_products_details.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/patient_appointment.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/single_herbformulation.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/welcome_yoga_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/accepted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/deleted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/message_screen.dart';
@@ -257,6 +258,11 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/inbox_deleted',
           builder: (context, state) => DeletedScreen(),
+        ),
+        // yoga goroutes............
+         GoRoute(
+          path: '/welcome_screen',
+          builder: (context, state) => WelcomeYogaScreen(),
         ),
       ],
     );
