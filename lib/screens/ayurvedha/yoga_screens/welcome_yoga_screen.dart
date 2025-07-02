@@ -11,102 +11,164 @@ class WelcomeYogaScreen extends StatefulWidget {
 }
 
 class _WelcomeYogaScreenState extends State<WelcomeYogaScreen> {
-   final TextEditingController _localityController = TextEditingController();
+  final TextEditingController _localityController = TextEditingController();
   final TextEditingController _specialtyController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return  YogaLayout(
+    return YogaLayout(
       child: Column(
-      children: [
-        // Hero Section with Search
-        _buildHeroSection(),
-        
-        // Welcome Section
-        _buildWelcomeSection(),
-        
-        // Yoga Cards Grid
-        _buildYogaCardsGrid(),
-        
-        // Online Classes Section
-        _buildOnlineClassesSection(),
+        children: [
+          // Hero Section with Search
+          _buildHeroSection(),
 
-        _buildGuruProfileSection(),
+          // Welcome Section
+          _buildWelcomeSection(),
 
-        SuccessStoriesSection(),
+          // Yoga Cards Grid
+          _buildYogaCardsGrid(),
 
-        _buildyogaSection(),
+          // Online Classes Section
+          _buildOnlineClassesSection(),
 
-        _buildintrestedSection(),
+          SuccessStoriesSection(),
 
-        _buildContactSection(),
-        
-      ],
-      )
+          _buildGuruProfileSection(),
+
+          _buildyogaSection(),
+
+          _buildintrestedSection(),
+
+          _buildContactSection(),
+        ],
+      ),
     );
-
   }
 
- Widget _buildHeroSection() {
-  return Container(
-    height: 800,
-    decoration: const BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage('assets/images/yoga_image1.jpg'),
-        fit: BoxFit.cover,
-      ),
-    ),
-    child: Center(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _searchBox(_localityController, 'Search by Locality or City', Icons.search),
-            _searchBox(_specialtyController, 'Search Speciality', Icons.search),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFE7C90F),
-                shape: const RoundedRectangleBorder(),
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
-              ),
-              child: const Text('Search', style: TextStyle(fontWeight: FontWeight.bold)),
-            ),
-          ],
+  Widget _buildHeroSection() {
+    final size = MediaQuery.of(context).size;
+    final isTablet = size.width >= 768 && size.width < 1200;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    return Container(
+      height: 800,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/yoga_image1.jpg'),
+          fit: BoxFit.cover,
         ),
       ),
-    ),
-  );
-}
+      child: Center(
+        child: SizedBox(
+          width: screenWidth * 0.34,
+          child: Row(
+            children: [
+              // Location search field
+              Expanded(
+                flex: 1,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                  decoration: BoxDecoration(color: Color(0xCCD4BB26)),
+                  child: Row(
+                    children: [
+                      Icon(Icons.search, color: Colors.white, size: 18),
+                      Text(
+                        'SEARCH BY LOCALITY OR CITY',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: isTablet ? 6 : 8,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
 
-Widget _searchBox(TextEditingController controller, String hint, IconData icon) {
-  return Container(
-    width: 200,
-    height: 50,
-    margin: const EdgeInsets.only(right: 10),
-    color: const Color(0xCCD0DC2E),
-    child: Row(
-      children: [
-        const SizedBox(width: 10),
-        Icon(icon, color: Colors.white),
-        const SizedBox(width: 10),
-        Expanded(
-          child: TextField(
-            controller: controller,
-            style: const TextStyle(color: Colors.white),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: hint,
-              hintStyle: const TextStyle(color: Colors.white),
-            ),
+              // Specialty search field
+              Expanded(
+                flex: 1,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFABB547), // Dark gray
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.search, color: Colors.white, size: 18),
+                      SizedBox(width: 12),
+                      Text(
+                        'SEARCH SPECIALITY',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: isTablet ? 8 : 10,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // Search button
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                decoration: BoxDecoration(
+                  color: Color(0xFFD4BB26), // Purple color
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(4),
+                    bottomRight: Radius.circular(4),
+                  ),
+                ),
+                child: Text(
+                  'SEARCH',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.8,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-      ],
-    ),
-  );
-}
+      ),
+    );
+  }
 
+  Widget _searchBox(
+    TextEditingController controller,
+    String hint,
+    IconData icon,
+  ) {
+    return Container(
+      width: 200,
+      height: 50,
+      margin: const EdgeInsets.only(right: 10),
+      color: const Color(0xCCD0DC2E),
+      child: Row(
+        children: [
+          const SizedBox(width: 10),
+          Icon(icon, color: Colors.white),
+          const SizedBox(width: 10),
+          Expanded(
+            child: TextField(
+              controller: controller,
+              style: const TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: hint,
+                hintStyle: const TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget _buildWelcomeSection() {
     return Container(
@@ -116,6 +178,102 @@ Widget _searchBox(TextEditingController controller, String hint, IconData icon) 
         children: [
           const Text(
             'WELCOME TO LALITHA\nPEETHAM YOGA!',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+              height: 1.2,
+              letterSpacing: 1.25,
+            ),
+          ),
+          const SizedBox(height: 15),
+          const Text(
+            'SOME OF OUR BEST PICKS!',
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.grey,
+              letterSpacing: 1.5,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildYogaCardsGrid() {
+    final yogaCardImages = [
+      'assets/images/yoga_image2.png',
+      'assets/images/yoga_image2.png',
+      'assets/images/yoga_image2.png',
+      'assets/images/yoga_image2.png',
+      'assets/images/yoga_image2.png',
+      'assets/images/yoga_image2.png',
+    ];
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: yogaCardImages.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          mainAxisSpacing: 3,
+          crossAxisSpacing: 20,
+        ),
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(0),
+                child: Image.asset(
+                  yogaCardImages[index],
+                  width: 350,
+                  height: 300,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                height: 50,
+                width: 250,
+                child: ElevatedButton(
+                  onPressed: () {
+                    // handle navigation
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.amber,
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 10,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0),
+                    ),
+                  ),
+                  child: const Text(
+                    'View More',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildOnlineClassesSection() {
+    return Container(
+      padding: const EdgeInsets.all(30),
+      color: Colors.grey[50],
+      child: Column(
+        children: [
+          const Text(
+            'MORE ABOUT OUR ONLINE\nCLASSES!',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 28,
@@ -133,180 +291,74 @@ Widget _searchBox(TextEditingController controller, String hint, IconData icon) 
               letterSpacing: 1.5,
             ),
           ),
+          const SizedBox(height: 30),
+
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Expanded(
+                child: _buildOnlineClassCard(
+                  'Online Yoga Classes',
+                  'Patanjale Shyambhai Inst\nOf Yoga & Therapy Offers',
+                  'Live Classes Conducted By\nYoga Guru Shyamsunder Biyani.',
+                  '',
+                  'assets/images/yoga_image3.jpg',
+                ),
+              ),
+              const SizedBox(width: 15),
+              Expanded(
+                child: _buildOnlineClassCard(
+                  'Yoga Therapy',
+                  'One-On-One Yoga Therapy Offered\nTo Cure Disorders Such As Diabetes,\nBack Pain, Knee Pain, Obesity,\nHernia, Sleep Apnea, Sinus,\nMigraine, Heart Disorders And\nMore.',
+                  '',
+                  '',
+                  'assets/images/yoga_image3.jpg',
+                ),
+              ),
+              const SizedBox(width: 15),
+              Expanded(
+                child: _buildOnlineClassCard(
+                  'Regular Yoga Classes',
+                  'Patanjale Shyambhai Inst Of Yoga &\nTherapy Offers Live Online Classes For\nThe Members Anywhere In The World At\nTheir Convenient Time.',
+                  'Live Classes Conducted By\nYoga Guru Shyamsunder Biyani.',
+                  '',
+                  'assets/images/yoga_image3.jpg',
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
   }
-Widget _buildYogaCardsGrid() {
-  final yogaCardImages = [
-    'assets/images/yoga_image2.png',
-    'assets/images/yoga_image2.png',
-    'assets/images/yoga_image2.png',
-    'assets/images/yoga_image2.png',
-    'assets/images/yoga_image2.png',
-    'assets/images/yoga_image2.png',
-  ];
 
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
-    child: GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: yogaCardImages.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        mainAxisSpacing: 3,
-        crossAxisSpacing: 20,
-        
-      ),
-      itemBuilder: (context, index) {
-        return Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(0),
-              child: Image.asset(
-                yogaCardImages[index],
-                width: 350,
-                height: 300,
-                fit: BoxFit.cover,
-              ),
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-              height: 50,
-              width: 250,
-              child: ElevatedButton(
-                onPressed: () {
-                  // handle navigation
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.amber,
-                  foregroundColor: Colors.black,
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-                ),
-                child: const Text(
-                  'View More',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    ),
-  );
-}
-
-
- Widget _buildOnlineClassesSection() {
-  return Container(
-    padding: const EdgeInsets.all(30),
-    color: Colors.grey[50],
-    child: Column(
+  Widget _buildOnlineClassCard(
+    String title,
+    String description,
+    String additionalText1,
+    String additionalText2,
+    String imagePath, // Pass image path here
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text(
-          'MORE ABOUT OUR ONLINE\nCLASSES!',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
-            height: 1.2,
-          ),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(0),
+          child: Image.asset(imagePath, height: 80, width: 250),
         ),
         const SizedBox(height: 15),
-        const Text(
-          'SOME OF OUR BEST PICKS!',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey,
-            letterSpacing: 1.5,
+        Text(
+          title,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
           ),
+          textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 30),
-
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: _buildOnlineClassCard(
-                'Online Yoga Classes',
-                'Patanjale Shyambhai Inst\nOf Yoga & Therapy Offers',
-                'Live Classes Conducted By\nYoga Guru Shyamsunder Biyani.',
-                '',
-                'assets/images/yoga_image3.jpg',
-              ),
-            ),
-            const SizedBox(width: 15),
-            Expanded(
-              child: _buildOnlineClassCard(
-                'Yoga Therapy',
-                'One-On-One Yoga Therapy Offered\nTo Cure Disorders Such As Diabetes,\nBack Pain, Knee Pain, Obesity,\nHernia, Sleep Apnea, Sinus,\nMigraine, Heart Disorders And\nMore.',
-                '',
-                '',
-                'assets/images/yoga_image3.jpg',
-              ),
-            ),
-            const SizedBox(width: 15),
-            Expanded(
-              child: _buildOnlineClassCard(
-                'Regular Yoga Classes',
-                'Patanjale Shyambhai Inst Of Yoga &\nTherapy Offers Live Online Classes For\nThe Members Anywhere In The World At\nTheir Convenient Time.',
-                'Live Classes Conducted By\nYoga Guru Shyamsunder Biyani.',
-                '',
-                'assets/images/yoga_image3.jpg',
-              ),
-            ),
-          ],
-        ),
-      ],
-    ),
-  );
-}
-
- Widget _buildOnlineClassCard(
-  String title,
-  String description,
-  String additionalText1,
-  String additionalText2,
-  String imagePath, // Pass image path here
-) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      ClipRRect(
-        borderRadius: BorderRadius.circular(0),
-        child: Image.asset(
-          imagePath,
-          height: 80,
-          width: 250,
-        ),
-      ),
-      const SizedBox(height: 15),
-      Text(
-        title,
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-          color: Colors.black87,
-        ),
-        textAlign: TextAlign.center,
-      ),
-      const SizedBox(height: 10),
-      Text(
-        description,
-        style: const TextStyle(
-          fontSize: 12,
-          color: Colors.black54,
-          height: 1.4,
-        ),
-        textAlign: TextAlign.center,
-      ),
-      if (additionalText1.isNotEmpty) ...[
         const SizedBox(height: 10),
         Text(
-          additionalText1,
+          description,
           style: const TextStyle(
             fontSize: 12,
             color: Colors.black54,
@@ -314,116 +366,136 @@ Widget _buildYogaCardsGrid() {
           ),
           textAlign: TextAlign.center,
         ),
-      ],
-      if (additionalText2.isNotEmpty) ...[
-        const SizedBox(height: 10),
-        Text(
-          additionalText2,
-          style: const TextStyle(
-            fontSize: 12,
-            color: Colors.black54,
-            height: 1.4,
+        if (additionalText1.isNotEmpty) ...[
+          const SizedBox(height: 10),
+          Text(
+            additionalText1,
+            style: const TextStyle(
+              fontSize: 12,
+              color: Colors.black54,
+              height: 1.4,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
+        ],
+        if (additionalText2.isNotEmpty) ...[
+          const SizedBox(height: 10),
+          Text(
+            additionalText2,
+            style: const TextStyle(
+              fontSize: 12,
+              color: Colors.black54,
+              height: 1.4,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+        const SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.amber,
+            foregroundColor: Colors.black,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(0),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 12),
+          ),
+          child: const Text(
+            'View More',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
       ],
-      const SizedBox(height: 20),
-      ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.amber,
-          foregroundColor: Colors.black,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0),
+    );
+  }
+
+  Widget _buildGuruProfileSection() {
+    return Container(
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // LEFT: Image (Meditating figure with leaves)
+          Expanded(
+            flex: 1,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Replace with your actual image asset
+                Image.asset(
+                  'assets/images/yoga_image7.png',
+                  width: 350,
+                  height: 350,
+                  fit: BoxFit.contain,
+                ),
+              ],
+            ),
           ),
-          padding: const EdgeInsets.symmetric(vertical: 12),
-        ),
-        child: const Text(
-          'View More',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+
+          const SizedBox(width: 50),
+
+          // RIGHT: Text content
+          Expanded(
+            flex: 2,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'SREE SHYAMSUNDER\nBIYANI - ONE\nOF THE BEST YOGA GURUS',
+                  style: TextStyle(
+                    fontSize: 34,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                    height: 1.3,
+                  ),
+                ),
+                const SizedBox(height: 30),
+                _buildBulletPoint(
+                  'More Than 20 Years Of Experience In Yoga And Therapy',
+                ),
+                _buildBulletPoint(
+                  'Specialized In Yoga And Yoga Therapy Under Various Traditions',
+                ),
+                _buildBulletPoint('Published Multiple Journal Publications'),
+                _buildBulletPoint(
+                  'Successfully Integrated Traditional Yoga Practices Into Modern Therapeutic Techniques For Effective Results',
+                ),
+                const SizedBox(height: 30),
+                SizedBox(
+                  height: 50,
+                  width: 250,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFE7C90F),
+                      foregroundColor: Colors.black,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 35,
+                        vertical: 15,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(0),
+                      ),
+                    ),
+                    child: const Text(
+                      'View More',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
-    ],
-  );
-}
-
-Widget _buildGuruProfileSection() {
-  return Container(
-    color: Colors.white,
-    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        // LEFT: Image (Meditating figure with leaves)
-        Expanded(
-          flex: 1,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Replace with your actual image asset
-              Image.asset(
-                'assets/images/yoga_image7.png',
-                width: 350,
-                height: 350,
-                fit: BoxFit.contain,
-              ),
-            ],
-          ),
-        ),
-
-        const SizedBox(width: 50),
-
-        // RIGHT: Text content
-        Expanded(
-          flex: 2,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'SREE SHYAMSUNDER\nBIYANI - ONE\nOF THE BEST YOGA GURUS',
-                style: TextStyle(
-                  fontSize: 34,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                  height: 1.3,
-                ),
-              ),
-              const SizedBox(height: 30),
-              _buildBulletPoint('More Than 20 Years Of Experience In Yoga And Therapy'),
-              _buildBulletPoint('Specialized In Yoga And Yoga Therapy Under Various Traditions'),
-              _buildBulletPoint('Published Multiple Journal Publications'),
-              _buildBulletPoint('Successfully Integrated Traditional Yoga Practices Into Modern Therapeutic Techniques For Effective Results'),
-              const SizedBox(height: 30),
-              SizedBox(
-                height: 50,
-                width: 250,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFE7C90F),
-                    foregroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0),
-                    ),
-                  ),
-                  child: const Text(
-                    'View More',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ),
-  );
-}
+    );
+  }
 
   Widget _buildBulletPoint(String text) {
     return Padding(
@@ -454,7 +526,7 @@ Widget _buildGuruProfileSection() {
       ),
     );
   }
-  
+
   Widget _buildyogaSection() {
     return Container(
       height: 800,
@@ -494,7 +566,6 @@ Widget _buildGuruProfileSection() {
                   ),
                 ),
               ),
-              
             ],
           ),
         ),
@@ -502,7 +573,7 @@ Widget _buildGuruProfileSection() {
     );
   }
 
-    Widget _buildintrestedSection() {
+  Widget _buildintrestedSection() {
     return Container(
       height: 800,
       decoration: const BoxDecoration(
@@ -527,8 +598,8 @@ Widget _buildGuruProfileSection() {
                 letterSpacing: 1.2,
               ),
             ),
-            
-             SizedBox(height: 20),
+
+            SizedBox(height: 20),
             Text(
               'Get Started From The BEST YOGA CENTER In India!',
               textAlign: TextAlign.start,
@@ -537,12 +608,13 @@ Widget _buildGuruProfileSection() {
                 color: Colors.white70,
                 letterSpacing: 1.2,
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
+
   Widget _buildContactSection() {
     return Container(
       padding: const EdgeInsets.all(50),
@@ -615,11 +687,16 @@ Widget _buildGuruProfileSection() {
                           backgroundColor: Colors.black,
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 15),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                         ),
                         child: const Text(
                           'SUBMIT',
-                          style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.5),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.5,
+                          ),
                         ),
                       ),
                     ),
@@ -699,11 +776,13 @@ Widget _buildGuruProfileSection() {
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Color(0xFFE7C90F)),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 15,
+        ),
       ),
     );
   }
-
 
   @override
   void dispose() {
@@ -712,9 +791,6 @@ Widget _buildGuruProfileSection() {
     super.dispose();
   }
 }
-
-
-
 
 class SuccessStoriesSection extends StatelessWidget {
   final List<String> tabs = [
@@ -728,7 +804,7 @@ class SuccessStoriesSection extends StatelessWidget {
     'FACE YOGA',
   ];
 
-   SuccessStoriesSection({super.key});
+  SuccessStoriesSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -771,7 +847,9 @@ class SuccessStoriesSection extends StatelessWidget {
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/yoga_image.jpg'), // Replace with your background
+                    image: AssetImage(
+                      'assets/images/yoga_image.jpg',
+                    ), // Replace with your background
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -826,7 +904,10 @@ class SuccessStoriesSection extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFFE7C90F),
                                 foregroundColor: Colors.black,
-                                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 40,
+                                  vertical: 15,
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(25),
                                 ),
