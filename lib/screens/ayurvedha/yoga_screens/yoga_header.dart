@@ -423,7 +423,7 @@ class _YogaHeaderState extends State<YogaHeader> {
               ),
             ),
             const SizedBox(height: 24.0),
-            _buildClassItem('pregnancy yoga', ''),
+            _buildClassItem('pregnancy yoga', '/pregnancy_yoga'),
             const SizedBox(height: 16.0),
             _buildClassItem('online post natal yoga classes', ''),
             const SizedBox(height: 16.0),

@@ -31,11 +31,11 @@ class _WelcomeYogaScreenState extends State<WelcomeYogaScreen> {
           // Online Classes Section
           _buildOnlineClassesSection(),
 
+           _buildyogaSection(),
+
+           _buildGuruProfileSection(),
+
           SuccessStoriesSection(),
-
-          _buildGuruProfileSection(),
-
-          _buildyogaSection(),
 
           _buildintrestedSection(),
 
@@ -204,11 +204,11 @@ class _WelcomeYogaScreenState extends State<WelcomeYogaScreen> {
   Widget _buildYogaCardsGrid() {
     final yogaCardImages = [
       'assets/images/yoga_image2.png',
-      'assets/images/yoga_image2.png',
-      'assets/images/yoga_image2.png',
-      'assets/images/yoga_image2.png',
-      'assets/images/yoga_image2.png',
-      'assets/images/yoga_image2.png',
+      'assets/images/online_image7.png',
+      'assets/images/online_image2.png',
+      'assets/images/online_image5.png',
+      'assets/images/online_image1.png',
+      'assets/images/online_image3.png',
     ];
 
     return Container(
@@ -294,36 +294,31 @@ class _WelcomeYogaScreenState extends State<WelcomeYogaScreen> {
           const SizedBox(height: 30),
 
           Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
+             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: _buildOnlineClassCard(
-                  'Online Yoga Classes',
-                  'Patanjale Shyambhai Inst\nOf Yoga & Therapy Offers',
-                  'Live Classes Conducted By\nYoga Guru Shyamsunder Biyani.',
-                  '',
-                  'assets/images/yoga_image3.jpg',
-                ),
+              _buildOnlineClassCard(
+                'Online Yoga Classes',
+                'Patanjale Shyambhai Inst\nOf Yoga & Therapy Offers',
+                'Live Classes Conducted By\nYoga Guru Shyamsunder Biyani.',
+                '',
+                'assets/images/yoga_image3.jpg',
               ),
-              const SizedBox(width: 15),
-              Expanded(
-                child: _buildOnlineClassCard(
-                  'Yoga Therapy',
-                  'One-On-One Yoga Therapy Offered\nTo Cure Disorders Such As Diabetes,\nBack Pain, Knee Pain, Obesity,\nHernia, Sleep Apnea, Sinus,\nMigraine, Heart Disorders And\nMore.',
-                  '',
-                  '',
-                  'assets/images/yoga_image3.jpg',
-                ),
+              const SizedBox(width: 5),
+              _buildOnlineClassCard(
+                'Yoga Therapy',
+                'One-On-One Yoga Therapy Offered\nTo Cure Disorders Such As Diabetes,\nBack Pain, Knee Pain, Obesity,\nHernia, Sleep Apnea, Sinus,\nMigraine, Heart Disorders And\nMore.',
+                '',
+                '',
+                'assets/images/online_image4.jpg',
               ),
-              const SizedBox(width: 15),
-              Expanded(
-                child: _buildOnlineClassCard(
-                  'Regular Yoga Classes',
-                  'Patanjale Shyambhai Inst Of Yoga &\nTherapy Offers Live Online Classes For\nThe Members Anywhere In The World At\nTheir Convenient Time.',
-                  'Live Classes Conducted By\nYoga Guru Shyamsunder Biyani.',
-                  '',
-                  'assets/images/yoga_image3.jpg',
-                ),
+              const SizedBox(width: 5),
+              _buildOnlineClassCard(
+                'Regular Yoga Classes',
+                'Patanjale Shyambhai Inst Of Yoga &\nTherapy Offers Live Online Classes For\nThe Members Anywhere In The World At\nTheir Convenient Time.',
+                'Live Classes Conducted By\nYoga Guru Shyamsunder Biyani.',
+                '',
+                'assets/images/online_image6.jpg',
               ),
             ],
           ),
@@ -340,7 +335,7 @@ class _WelcomeYogaScreenState extends State<WelcomeYogaScreen> {
     String imagePath, // Pass image path here
   ) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(0),
@@ -391,19 +386,23 @@ class _WelcomeYogaScreenState extends State<WelcomeYogaScreen> {
           ),
         ],
         const SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.amber,
-            foregroundColor: Colors.black,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(0),
+        SizedBox(
+          width: 140,
+          child: ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color(0xffD4BB26),
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(0),
+              ),
+              
             ),
-            padding: const EdgeInsets.symmetric(vertical: 12),
-          ),
-          child: const Text(
-            'View More',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            child: const Text(
+              'View More',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
         ),
       ],
@@ -575,7 +574,7 @@ class _WelcomeYogaScreenState extends State<WelcomeYogaScreen> {
 
   Widget _buildintrestedSection() {
     return Container(
-      height: 800,
+      height: 500,
       decoration: const BoxDecoration(
         image: DecorationImage(
           image: AssetImage('assets/images/yoga_image4.jpg'),
@@ -584,7 +583,8 @@ class _WelcomeYogaScreenState extends State<WelcomeYogaScreen> {
       ),
       child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             // Hero Text
             Text(
@@ -592,7 +592,7 @@ class _WelcomeYogaScreenState extends State<WelcomeYogaScreen> {
               textAlign: TextAlign.start,
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 25,
+                fontSize: 45,
                 fontWeight: FontWeight.bold,
                 height: 1.5,
                 letterSpacing: 1.2,
@@ -626,7 +626,7 @@ class _WelcomeYogaScreenState extends State<WelcomeYogaScreen> {
             style: TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.bold,
-              color: Colors.black87,
+              color: Color(0xffD4BB26),
             ),
           ),
           const SizedBox(height: 50),
@@ -664,7 +664,7 @@ class _WelcomeYogaScreenState extends State<WelcomeYogaScreen> {
                   ],
                 ),
               ),
-              const SizedBox(width: 50),
+              const SizedBox(width: 15),
               // Right side - Contact Form
               Expanded(
                 child: Column(
@@ -680,7 +680,8 @@ class _WelcomeYogaScreenState extends State<WelcomeYogaScreen> {
                     _buildTextField('Best time you prefer', maxLines: 3),
                     const SizedBox(height: 30),
                     SizedBox(
-                      width: double.infinity,
+                      height: 50,
+                      width: 150,
                       child: ElevatedButton(
                         onPressed: () {},
                         style: ElevatedButton.styleFrom(
@@ -688,7 +689,7 @@ class _WelcomeYogaScreenState extends State<WelcomeYogaScreen> {
                           foregroundColor: Colors.white,
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
+                            borderRadius: BorderRadius.circular(0),
                           ),
                         ),
                         child: const Text(
@@ -708,6 +709,15 @@ class _WelcomeYogaScreenState extends State<WelcomeYogaScreen> {
           const SizedBox(height: 50),
           const Text(
             'CALL US NOW TO BOOK YOUR SLOT',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ),
+          const SizedBox(height: 15),
+          const Text(
+            '+91 892 812 6174',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -761,26 +771,35 @@ class _WelcomeYogaScreenState extends State<WelcomeYogaScreen> {
     );
   }
 
-  Widget _buildTextField(String hint, {int maxLines = 1}) {
-    return TextField(
-      maxLines: maxLines,
-      decoration: InputDecoration(
-        hintText: hint,
-        hintStyle: const TextStyle(color: Colors.grey),
-        border: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey),
-        ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey),
-        ),
-        focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFFE7C90F)),
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 15,
-          vertical: 15,
+  Widget _buildTextField(String labelText, {int maxLines = 1}) {
+    return Column(
+crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        labelText,
+        style: const TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w500,
+          color: Colors.black87,
         ),
       ),
+      const SizedBox(height: 8),
+      TextField(
+        maxLines: maxLines,
+        decoration: const InputDecoration(
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFE7C90F)),
+          ),
+          contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        ),
+      ),
+    ],
     );
   }
 
@@ -792,7 +811,19 @@ class _WelcomeYogaScreenState extends State<WelcomeYogaScreen> {
   }
 }
 
-class SuccessStoriesSection extends StatelessWidget {
+
+
+
+
+class SuccessStoriesSection extends StatefulWidget {
+  const SuccessStoriesSection({super.key});
+
+  @override
+  State<SuccessStoriesSection> createState() => _SuccessStoriesSectionState();
+}
+
+class _SuccessStoriesSectionState extends State<SuccessStoriesSection>
+    with TickerProviderStateMixin {
   final List<String> tabs = [
     'PREGNANCY',
     'YOGA THERAPY',
@@ -804,112 +835,116 @@ class SuccessStoriesSection extends StatelessWidget {
     'FACE YOGA',
   ];
 
-  SuccessStoriesSection({super.key});
+  final Map<String, Map<String, String>> testimonials = {
+    'PREGNANCY': {
+      'name': 'MEDHA',
+      'quote':
+          'Blessed With A Baby Boy Through Normal Delivery\nThank You So Much @Yoga Teacher Deepa Mam For Prenatal Yoga And Your Advice Has Helped A lot',
+      'image': 'assets/images/yoga_image6.jpg',
+    },
+    // Add other testimonials if needed
+  };
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: tabs.length,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 40),
+          const SizedBox(height: 60),
           const Text(
             'OUR SUCCESS STORIES...',
             style: TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.bold,
-              color: Colors.black87,
+              color: Colors.black,
+              letterSpacing: 1.5,
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 30),
 
-          // Tab Bar Section
+          // Tabs
           Container(
-            color: Colors.grey[200],
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            color: const Color(0xFFD4BB26),
             child: TabBar(
               isScrollable: true,
-              indicatorColor: const Color(0xFFE7C90F),
+              indicatorColor: Color(0xFFD4BB26),
               labelColor: Colors.black,
-              unselectedLabelColor: Colors.grey,
-              labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+              unselectedLabelColor: Colors.white,
+              labelStyle: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
               tabs: tabs.map((label) => Tab(text: label)).toList(),
             ),
           ),
+         
 
-          const SizedBox(height: 30),
-
-          // Background image with blur overlay testimonial
-          Stack(
-            children: [
-              Container(
-                height: 400,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                      'assets/images/yoga_image.jpg',
-                    ), // Replace with your background
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Positioned.fill(
-                child: Center(
-                  child: Container(
-                    width: 500,
-                    padding: const EdgeInsets.all(30),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.6),
-                      borderRadius: BorderRadius.circular(20),
-                      backgroundBlendMode: BlendMode.overlay,
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          // Tab Views
+          SizedBox(
+            height: 520,
+            child: TabBarView(
+              children: tabs.map((tab) {
+                final testimonial = testimonials[tab];
+                if (testimonial != null) {
+                  return Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(testimonial['image']!),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 520,
+                         width: double.infinity,
+                        color: Colors.white.withOpacity(0.75),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: Column(
-                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
-                              '"',
-                              style: TextStyle(
-                                fontSize: 60,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            const Icon(Icons.format_quote,
+                                size: 50, color: Colors.grey),
                             const SizedBox(height: 10),
-                            const Text(
-                              'MEDHA',
-                              style: TextStyle(
-                                fontSize: 24,
+                            Text(
+                              testimonial['name']!,
+                              style: const TextStyle(
+                                fontSize: 22,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black87,
+                                letterSpacing: 1.2,
                               ),
                             ),
                             const SizedBox(height: 15),
-                            const Text(
-                              'Blessed With A Baby Boy Through Normal Delivery\nThank You So Much @Yoga Teacher Deepa Mam For Prenatal Yoga And Your Advice Has Helped Alot',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.black87,
-                                height: 1.5,
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Text(
+                                testimonial['quote']!,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  height: 1.6,
+                                  color: Colors.black87,
+                                ),
                               ),
                             ),
-                            const SizedBox(height: 25),
+                            const SizedBox(height: 30),
                             ElevatedButton(
                               onPressed: () {},
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFFE7C90F),
+                                backgroundColor: const Color(0xFFD4BB26),
                                 foregroundColor: Colors.black,
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: 40,
                                   vertical: 15,
                                 ),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
+                                  borderRadius: BorderRadius.circular(2),
                                 ),
                               ),
                               child: const Text(
@@ -920,15 +955,30 @@ class SuccessStoriesSection extends StatelessWidget {
                           ],
                         ),
                       ),
+                    ],
+                  );
+                } else {
+                  // If no testimonial yet
+                  return Center(
+                    child: Text(
+                      'Coming soon...',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.grey[600],
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ],
+                  );
+                }
+              }).toList(),
+            ),
           ),
-          const SizedBox(height: 40),
+
+          const SizedBox(height: 50),
         ],
       ),
     );
   }
 }
+
+
