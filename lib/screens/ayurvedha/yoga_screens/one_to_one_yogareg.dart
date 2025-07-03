@@ -56,7 +56,7 @@ class OnetoOneYogaRegState extends State<OnetoOneYogaReg> {
           children: [
             Icon(Icons.home, size: 16, color: Colors.black),
             Text(
-              ' / AYURVEDA CONSULTANCY // Registor As A Patient',
+              ' / AYURVEDA CONSULTANCY // One to One Yoga',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 14,
@@ -74,7 +74,7 @@ class OnetoOneYogaRegState extends State<OnetoOneYogaReg> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'PERSONAL DETAILS',
+          'Hello Elampirai, Please Fill The Details',
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
@@ -166,7 +166,7 @@ class OnetoOneYogaRegState extends State<OnetoOneYogaReg> {
       width: 120,
       height: 45,
       child: ElevatedButton(
-        onPressed: () => context.go('/ayurvedha_patient_reg_2'),
+        onPressed: () => context.go('/one_to_one_sessions'),
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFFB8A835),
           elevation: 0,
