@@ -342,7 +342,7 @@ class _YogaHeaderState extends State<YogaHeader> {
   Widget _buildOnlineClassesDropdown() {
     return Container(
       width: 350,
-      height: 440,
+      height: 500,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16.0),
@@ -376,7 +376,7 @@ class _YogaHeaderState extends State<YogaHeader> {
               '/one_to_one_yogareg',
             ),
             const SizedBox(height: 16.0),
-            _buildClassItem('Online Meditation Classes', ''),
+            _buildClassItem('Online Meditation Classes', '/online_meditation'),
             const SizedBox(height: 16.0),
             _buildClassItem('Yoga For Kids', ''),
             const SizedBox(height: 16.0),
@@ -387,6 +387,8 @@ class _YogaHeaderState extends State<YogaHeader> {
             _buildClassItem('Yoga For Corporates (Karya Yoga)', ''),
             const SizedBox(height: 16.0),
             _buildClassItem('Online Women Yoga', ''),
+            const SizedBox(height: 16.0),
+            _buildClassItem('Testimonials', '/testimonials'),
           ],
         ),
       ),

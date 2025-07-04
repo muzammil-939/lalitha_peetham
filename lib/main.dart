@@ -28,13 +28,12 @@ import 'package:lalitha_peetham/screens/ayurvedha/herbs_product_buynow.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/herbs_products_details.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/patient_appointment.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/single_herbformulation.dart';
-
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/one_to_one_sessions.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/one_to_one_yogareg.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/pregnacy_yoga.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/theraphy_for_backpain.dart';
-
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/onetoone_sessions_book.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/online_meditation.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/testimonials.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/welcome_yoga_screen.dart';
-
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/accepted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/deleted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/message_screen.dart';
@@ -56,7 +55,6 @@ import 'package:lalitha_peetham/screens/matrimony/search_results.dart';
 import 'package:lalitha_peetham/screens/matrimony/settings_page.dart';
 import 'package:lalitha_peetham/screens/matrimony/upgrade_plans.dart';
 import 'package:lalitha_peetham/screens/matrimony/your_patners_preferences.dart';
-
 import 'firebase_options.dart';
 import 'screens/home.dart';
 
@@ -238,8 +236,6 @@ class MyApp extends StatelessWidget {
           builder: (context, state) => SingleHerbFormulationPage(),
         ),
 
-      
-
         GoRoute(
           path: '/case_discussions',
           builder: (context, state) => CaseDiscussions(),
@@ -260,10 +256,6 @@ class MyApp extends StatelessWidget {
           path: '/inbox_accepted',
           builder: (context, state) => AcceptedScreen(),
         ),
-        // GoRoute(
-        //   path: '/inbox_request',
-        //   builder: (context, state) => (),
-        //),
         GoRoute(
           path: '/inbox_deleted',
           builder: (context, state) => DeletedScreen(),
@@ -278,12 +270,20 @@ class MyApp extends StatelessWidget {
           builder: (context, state) => OnetoOneYogaReg(),
         ),
         GoRoute(
-          path: '/pregnancy_yoga',
-          builder: (context, state) => PregnacyYoga(),
+          path: '/one_to_one_sessions',
+          builder: (context, state) => OneToOneSessions(),
         ),
         GoRoute(
-          path: '/yoga_theraphy_for_backpain',
-          builder: (context, state) => TheraphyForBackpain(),
+          path: '/onetoone_sessions_booking',
+          builder: (context, state) => BookingConfirmation(),
+        ),
+        GoRoute(
+          path: '/online_meditation',
+          builder: (context, state) => MeditationInstructors(),
+        ),
+        GoRoute(
+          path: '/testimonials',
+          builder: (context, state) => Testimonials(),
         ),
       ],
     );
