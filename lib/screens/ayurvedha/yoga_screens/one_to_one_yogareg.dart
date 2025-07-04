@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/ayurvedh_page_layout.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_layout.dart';
 
 class OnetoOneYogaReg extends StatefulWidget {
   const OnetoOneYogaReg({super.key});
@@ -23,7 +23,7 @@ class OnetoOneYogaRegState extends State<OnetoOneYogaReg> {
 
   @override
   Widget build(BuildContext context) {
-    return AyurvedhPageLayout(
+    return YogaLayout(
       child: Container(
         padding: const EdgeInsets.fromLTRB(200, 50, 200, 150),
         decoration: const BoxDecoration(color: Colors.white),

@@ -182,7 +182,7 @@ class BookingConfirmation extends StatelessWidget {
                       height: 60,
                       child: ElevatedButton(
                         onPressed: () {
-                          context.go('/ayurvedha_cardpin');
+                          context.go('/yoga_payment');
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFD4BB26),

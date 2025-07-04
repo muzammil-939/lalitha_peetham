@@ -1,394 +1,478 @@
 import 'package:flutter/material.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_layout.dart';
 
-class PregnacyYoga extends StatefulWidget {
+class PregnacyYoga extends StatelessWidget {
   const PregnacyYoga({super.key});
 
   @override
-  PregnacyYogaState createState() => PregnacyYogaState();
-}
-
-class PregnacyYogaState extends State<PregnacyYoga> {
-  final List<Map<String, String>> instructors = [
-    {
-      'name': 'VANITHA.L',
-      'price': '₹1,850.00',
-      'duration': '/month',
-      'experience': 'Exp: 4 Years',
-      'image': 'assets/images/instructor_1.jpg'
-    },
-    {
-      'name': 'SRI PRIYA.L',
-      'price': '₹1,850.00',
-      'duration': '/month',
-      'experience': 'Exp: 5 Years',
-      'image': 'assets/images/instructor_2.jpg'
-    },
-    {
-      'name': 'SHREEHARI',
-      'price': '₹1,850.00',
-      'duration': '/month',
-      'experience': 'Exp: 9 Years',
-      'image': 'assets/images/instructor_3.jpg'
-    },
-    {
-      'name': 'SHREEHARI',
-      'price': '₹1,850.00',
-      'duration': '/month',
-      'experience': 'Exp: 9 Years',
-      'image': 'assets/images/instructor_4.jpg'
-    },
-    {
-      'name': 'SHREEHARI',
-      'price': '₹1,850.00',
-      'duration': '/month',
-      'experience': 'Exp: 9 Years',
-      'image': 'assets/images/instructor_5.jpg'
-    },
-    {
-      'name': 'SHREEHARI',
-      'price': '₹1,850.00',
-      'duration': '/month',
-      'experience': 'Exp: 9 Years',
-      'image': 'assets/images/instructor_6.jpg'
-    },
-  ];
-
-  @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return YogaLayout(
-      child: Container(
-        color: const Color(0xFFF5EFC2), // Light yellow background
+      child: SizedBox(
+        width: double.infinity,
         child: Column(
           children: [
-            // Breadcrumb
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24),
+            SizedBox(height: 50),
+            _buildBreadcrumb(),
+            SizedBox(height: 50),
+            // Hero Section
+            Container(
+              height: screenHeight * 0.8,
+              padding: const EdgeInsets.all(80),
+              decoration: BoxDecoration(
+                color: const Color(0xFFD4BB26), // Inner mustard
+                border: Border.all(width: 40, color: Color(0xFF756F2C)),
+              ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFD4BB26),
-                      borderRadius: BorderRadius.circular(30),
+                  // Text Left
+                  Expanded(
+                    flex: 3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'PREGNANCY YOGA\nMADE EASY, SAFE,\nAND SOOTHING —\nFOR YOU AND\nYOUR LITTLE ONE',
+                          style: TextStyle(
+                            fontSize: 38,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.black,
+                            height: 1.4,
+                          ),
+                        ),
+                        const SizedBox(height: 30),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: TextButton(
+                            onPressed: () {},
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 24,
+                                vertical: 12,
+                              ),
+                              child: Text(
+                                'Book Now',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Icon(Icons.home, size: 16, color: Colors.black),
-                        SizedBox(width: 6),
-                        Text(' // ',
-                            style: TextStyle(color: Colors.black, fontSize: 14)),
-                        SizedBox(width: 6),
-                        Text('PREGNANCY YOGA',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold)),
+                  ),
+
+                  // Images Right
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                height: 100,
+                                margin: const EdgeInsets.all(6),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: const DecorationImage(
+                                    image: AssetImage(
+                                      'assets/images/pregnancy_image1.jpg',
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: 100,
+                                margin: const EdgeInsets.all(6),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: const DecorationImage(
+                                    image: AssetImage(
+                                      'assets/images/pregnancy_image2.jpg',
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          height: 100,
+                          width: 100,
+                          margin: const EdgeInsets.only(top: 6),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: const DecorationImage(
+                              image: AssetImage(
+                                'assets/images/pregnancy_image3.jpg',
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-
-            // Hero Section
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: const Color(0xFF756F2C), // Outer olive
-                borderRadius: BorderRadius.circular(12),
+            SizedBox(height: 60),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 350,
+                vertical: 40,
               ),
-              child: Container(
-                padding: const EdgeInsets.all(30),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFD4BB26), // Inner mustard
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  children: [
-                    // Text Left
-                    Expanded(
-                      flex: 3,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'PREGNANCY YOGA\nMADE EASY, SAFE,\nAND SOOTHING —\nFOR YOU AND\nYOUR LITTLE ONE',
-                            style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.w900,
-                              color: Colors.black,
-                              height: 1.4,
-                            ),
-                          ),
-                          const SizedBox(height: 30),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: TextButton(
-                              onPressed: () {},
-                              child: const Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 24, vertical: 12),
-                                child: Text(
-                                  'Book Now',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    letterSpacing: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Pregnancy Yoga',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 30,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-
-                    // Images Right
-                    Expanded(
-                      flex: 2,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  height: 100,
-                                  margin: const EdgeInsets.all(6),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: const DecorationImage(
-                                      image: AssetImage('assets/images/pregnancy_image1.jpg'),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  height: 100,
-                                  margin: const EdgeInsets.all(6),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: const DecorationImage(
-                                      image: AssetImage('assets/images/pregnancy_image2.jpg'),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            height: 100,
-                            width: 100,
-                            margin: const EdgeInsets.only(top: 6),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: const DecorationImage(
-                                image: AssetImage('assets/images/pregnancy_image3.jpg'),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ],
+                    ],
+                  ),
+                  SizedBox(height: 50),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildInstructorCard(
+                        name: 'SWETHA.S',
+                        rating: 4.5,
+                        orders: '24541 Orders',
+                        price: '₹1,850.00',
+                        services: 'Mindful Meditation, Chakra Meditation 🏆',
+                        language: 'Telugu',
+                        experience: 'Exp: 3 Years',
+                        imageAsset: 'assets/swetha.jpg',
                       ),
-                    ),
-                  ],
-                ),
+                      _buildInstructorCard(
+                        name: 'BHANU.K',
+                        rating: 4.5,
+                        orders: '24541 Orders',
+                        price: '₹1,850.00',
+                        services: 'Mindful Meditation, Gen Meditation 🏆',
+                        language: 'Telugu',
+                        experience: 'Exp: 3 Years',
+                        imageAsset: 'assets/bhanu.jpg',
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 80),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildInstructorCard(
+                        name: 'VANITHA.L',
+                        rating: 4.5,
+                        orders: '24541 Orders',
+                        price: '₹1,850.00',
+                        services: 'Mantra Meditation, Chakra Meditation 🏆',
+                        language: 'Tamil',
+                        experience: 'Exp: 3 Years',
+                        imageAsset: 'assets/vanitha.jpg',
+                      ),
+                      _buildInstructorCard(
+                        name: 'SRI PRIYA.L',
+                        rating: 4.5,
+                        orders: '24541 Orders',
+                        price: '₹1,850.00',
+                        services: 'Kundalini Meditation, Chakra Meditation 🏆',
+                        language: 'Tamil',
+                        experience: 'Exp: 3 Years',
+                        imageAsset: 'assets/sri_priya.jpg',
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 80),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildInstructorCard(
+                        name: 'VANITHA.L',
+                        rating: 4.5,
+                        orders: '24541 Orders',
+                        price: '₹1,850.00',
+                        services: 'Mantra Meditation, Chakra Meditation 🏆',
+                        language: 'Tamil',
+                        experience: 'Exp: 3 Years',
+                        imageAsset: 'assets/vanitha.jpg',
+                      ),
+                      _buildInstructorCard(
+                        name: 'SRI PRIYA.L',
+                        rating: 4.5,
+                        orders: '24541 Orders',
+                        price: '₹1,850.00',
+                        services: 'Kundalini Meditation, Chakra Meditation 🏆',
+                        language: 'Tamil',
+                        experience: 'Exp: 3 Years',
+                        imageAsset: 'assets/sri_priya.jpg',
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 40),
+                ],
               ),
             ),
-
-            // Title
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 30),
-              child: Text(
-                'PREGNANCY YOGA',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  letterSpacing: 1.2,
-                ),
-              ),
-            ),
-
-            // Instructor Grid
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 150),
-              child: GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: instructors.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                  childAspectRatio: 0.55, // Made even smaller for much taller cards
-                ),
-                itemBuilder: (context, index) => _buildInstructorCard(instructors[index]),
-              ),
-            ),
-            const SizedBox(height: 40),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildInstructorCard(Map<String, String> data) {
+  Widget _buildInstructorCard({
+    required String name,
+    required double rating,
+    required String orders,
+    required String price,
+    required String services,
+    required String language,
+    required String experience,
+    required String imageAsset,
+  }) {
     return Container(
-      height: 350, // Fixed height to ensure all content fits
+      height: 480,
+      width: 340,
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(50),
+        border: Border.symmetric(
+          horizontal: BorderSide(color: Color(0xffB88E2F), width: 2),
+        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 2,
+            blurRadius: 8,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // Top Heart Icon
-          Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: CircleAvatar(
-                backgroundColor: const Color(0xFFF5EFC2),
-                radius: 14,
-                child: const Icon(Icons.favorite_border, size: 14, color: Colors.grey),
-              ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFD4AF37),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(
+                      Icons.person,
+                      size: 12,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                const Spacer(),
+              ],
             ),
-          ),
+            Column(
+              children: [
+                // Profile section with icon
+                const SizedBox(height: 8),
 
-          // Profile Image
-          Container(
-            width: 70,
-            height: 70,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: const Color(0xFFD4BB26), width: 3),
-              image: DecorationImage(
-                image: AssetImage(data['image']!),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+                // Profile Image
+                Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: const Color(0xFFD4AF37),
+                      width: 3,
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: Container(
+                      color: Colors.grey[300],
+                      child: const Icon(
+                        Icons.person,
+                        size: 30,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
 
-          const SizedBox(height: 10),
+                // Rating Stars
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(5, (index) {
+                    return Icon(
+                      index < 4 ? Icons.star : Icons.star_border,
+                      color: const Color(0xFFD4AF37),
+                      size: 16,
+                    );
+                  }),
+                ),
+                const SizedBox(height: 4),
 
-          // Star rating
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(5, (i) {
-              return const Icon(Icons.star, size: 16, color: Color(0xFFD4BB26));
-            }),
-          ),
-
-          const SizedBox(height: 4),
-
-          const Text("24541 Orders", 
-              style: TextStyle(fontSize: 11, color: Colors.grey)),
-          
-          const SizedBox(height: 8),
-
-          // Name
-          Text(data['name']!,
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold, 
-                  fontSize: 15,
-                  color: Colors.black)),
-
-          const SizedBox(height: 4),
-
-          // Price & Duration
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(data['price']!,
+                // Orders
+                Text(
+                  orders,
                   style: const TextStyle(
-                      color: Color(0xFFD4BB26),
-                      fontWeight: FontWeight.w600,
-                      fontSize: 13)),
-              Text(' ${data['duration']}',
-                  style: const TextStyle(color: Colors.grey, fontSize: 11)),
-            ],
-          ),
+                    fontSize: 10,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
 
-          const SizedBox(height: 6),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Name
+                Text(
+                  name,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 4),
 
-          // Info
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Prenatal Yoga Specialist ",
-                  style: TextStyle(fontSize: 11, color: Colors.grey)),
-              Icon(Icons.verified, size: 12, color: Color(0xFFD4BB26)),
-            ],
-          ),
-          
-          const SizedBox(height: 2),
-          
-          const Text("Tamil", style: TextStyle(fontSize: 11, color: Colors.grey)),
-          
-          const SizedBox(height: 2),
-          
-          Text(data['experience']!, 
-              style: const TextStyle(fontSize: 11, color: Colors.grey)),
+                // Price
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      '₹2,199.00',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black54,
+                        decoration: TextDecoration.lineThrough,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      '$price/month',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFFD4AF37),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
 
-          const Spacer(),
+                // Services
+                Text(
+                  services,
+                  style: const TextStyle(fontSize: 14, color: Colors.black54),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 2),
 
-          // Visit Button
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-            child: SizedBox(
-              width: double.infinity,
-              height: 36,
+                // Language
+                Text(
+                  language,
+                  style: const TextStyle(fontSize: 14, color: Colors.black54),
+                ),
+                const SizedBox(height: 2),
+
+                // Experience
+                Text(
+                  experience,
+                  style: const TextStyle(fontSize: 14, color: Colors.black54),
+                ),
+                const SizedBox(height: 12),
+              ],
+            ),
+
+            // Visit Button
+            Container(
+              width: 300,
+              height: 50,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFFD4AF37), Color(0xFFB8941F)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+                borderRadius: BorderRadius.circular(8),
+              ),
               child: ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFB8A532),
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                 ),
                 child: const Text(
                   'VISIT',
                   style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 13,
-                    letterSpacing: 1,
                     color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.2,
                   ),
                 ),
               ),
             ),
-          ),
+          ],
+        ),
+      ),
+    );
+  }
 
-          // Yellow Bottom Border
-          Container(
-            height: 5,
-            decoration: const BoxDecoration(
-              color: Color(0xFFD4BB26),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16),
+  Widget _buildBreadcrumb() {
+    return Center(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+        decoration: BoxDecoration(
+          color: const Color(0xFFD4BB26),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: const Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.home, size: 16, color: Colors.black),
+            Text(
+              ' // Pregnancy Yoga',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

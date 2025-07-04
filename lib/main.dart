@@ -28,12 +28,22 @@ import 'package:lalitha_peetham/screens/ayurvedha/herbs_product_buynow.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/herbs_products_details.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/patient_appointment.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/single_herbformulation.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/general_yoga.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/one_to_one_sessions.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/one_to_one_yogareg.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/onetoone_sessions_book.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/online_meditation.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/pregnacy_yoga.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/teacher_reg_success.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/testimonials.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/testimonials_certificate.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/theraphy_for_backpain.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/therapy_backpain_form.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/welcome_yoga_screen.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_booking_confirm.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_payment.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_teacher_reg.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_teacher_reg_2.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/accepted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/deleted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/message_screen.dart';
@@ -284,6 +294,46 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/testimonials',
           builder: (context, state) => Testimonials(),
+        ),
+        GoRoute(
+          path: '/testimonials_certificate',
+          builder: (context, state) => TestimonialsCertificate(),
+        ),
+        GoRoute(
+          path: '/pregnancy_yoga',
+          builder: (context, state) => PregnacyYoga(),
+        ),
+        GoRoute(
+          path: '/yoga_theraphy_for_backpain',
+          builder: (context, state) => TheraphyForBackpain(),
+        ),
+        GoRoute(
+          path: '/theraphy_backpain_form',
+          builder: (context, state) => ElampiraicartForm(),
+        ),
+        GoRoute(
+          path: '/yoga_confirm',
+          builder: (context, state) => YogaOrderConfirm(),
+        ),
+        GoRoute(
+          path: '/yoga_payment',
+          builder: (context, state) => YogaPayment(),
+        ),
+        GoRoute(
+          path: '/yoga_teacher_reg',
+          builder: (context, state) => YogaTeacherReg(),
+        ),
+        GoRoute(
+          path: '/yoga_teacher_reg_2',
+          builder: (context, state) => YogaTeacherReg2(),
+        ),
+        GoRoute(
+          path: '/yoga_teacher_regsuccess',
+          builder: (context, state) => YogaTeacherRegSuccess(),
+        ),
+        GoRoute(
+          path: '/general_yoga',
+          builder: (context, state) => GeneralYoga(),
         ),
       ],
     );
