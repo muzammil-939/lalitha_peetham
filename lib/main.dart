@@ -31,6 +31,7 @@ import 'package:lalitha_peetham/screens/ayurvedha/single_herbformulation.dart';
 
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/one_to_one_yogareg.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/pregnacy_yoga.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/theraphy_for_backpain.dart';
 
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/welcome_yoga_screen.dart';
 
@@ -279,6 +280,10 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/pregnancy_yoga',
           builder: (context, state) => PregnacyYoga(),
+        ),
+        GoRoute(
+          path: '/yoga_theraphy_for_backpain',
+          builder: (context, state) => TheraphyForBackpain(),
         ),
       ],
     );

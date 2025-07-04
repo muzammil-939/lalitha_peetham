@@ -200,7 +200,7 @@ class _YogaHeaderState extends State<YogaHeader> {
             break;
           case 'YOGA THERAPHY':
             items = [
-              'Personalised Yoga Classes',
+              'Online Back Pain Yoga',
               'One To One Online Yoga Classes',
               'Online Meditation Classes',
               'Yoga For Kids',
@@ -516,7 +516,7 @@ class _YogaHeaderState extends State<YogaHeader> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'ONLINE CLASSES',
+                  'Yoga Theraphy',
                   style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
@@ -525,7 +525,7 @@ class _YogaHeaderState extends State<YogaHeader> {
                   ),
                 ),
                 const SizedBox(height: 24.0),
-                _buildClassItem('Personalised Yoga Classes', ''),
+                _buildClassItem('Online Back Pain Yoga', '/yoga_theraphy_for_backpain'),
                 const SizedBox(height: 16.0),
                 _buildClassItem('One To One Online Yoga Classes', ''),
                 const SizedBox(height: 16.0),
