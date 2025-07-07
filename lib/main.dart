@@ -28,12 +28,17 @@ import 'package:lalitha_peetham/screens/ayurvedha/herbs_product_buynow.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/herbs_products_details.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/patient_appointment.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/single_herbformulation.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/backpain_booking.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/general_yoga.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/mindful_meditation.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/mindful_meditation_confirm.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/one_to_one_sessions.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/one_to_one_yogareg.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/onetoone_sessions_book.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/online_meditation.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/pregnacy_yoga.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/pregnacy_yoga_confirm.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/pregnacy_yoga_join.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/teacher_reg_success.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/testimonials.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/testimonials_certificate.dart';
@@ -41,6 +46,7 @@ import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/theraphy_for_back
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/therapy_backpain_form.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/welcome_yoga_screen.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_booking_confirm.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_kids.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_payment.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_teacher_reg.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_teacher_reg_2.dart';
@@ -305,11 +311,11 @@ class MyApp extends StatelessWidget {
         ),
         GoRoute(
           path: '/yoga_theraphy_for_backpain',
-          builder: (context, state) => TheraphyForBackpain(),
+          builder: (context, state) => TherapyForBackpain(),
         ),
         GoRoute(
           path: '/theraphy_backpain_form',
-          builder: (context, state) => ElampiraicartForm(),
+          builder: (context, state) => TherapyForBackPainForm(),
         ),
         GoRoute(
           path: '/yoga_confirm',
@@ -334,6 +340,30 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/general_yoga',
           builder: (context, state) => GeneralYoga(),
+        ),
+        GoRoute(
+          path: '/mindful_meditation',
+          builder: (context, state) => MindfulMeditation(),
+        ),
+        GoRoute(
+          path: '/mindful_meditation_confirm',
+          builder: (context, state) => MindfulMeditationConfirm(),
+        ),
+        GoRoute(
+          path: '/therapy_for_backpain_booking',
+          builder: (context, state) => TherapyForBackpainBooking(),
+        ),
+        GoRoute(
+          path: '/pregnancy_yoga_join',
+          builder: (context, state) => PregnacyYogaJoin(),
+        ),
+        GoRoute(
+          path: '/pregnancy_yoga_confirm',
+          builder: (context, state) => PregnacyYogaConfirm(),
+        ),
+        GoRoute(
+          path: '/yoga_for_kids',
+          builder: (context, state) => YogaForKids(),
         ),
       ],
     );

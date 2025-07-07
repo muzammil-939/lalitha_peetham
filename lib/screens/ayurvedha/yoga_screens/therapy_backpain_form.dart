@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_layout.dart';
 
-class ElampiraicartForm extends StatelessWidget {
-  const ElampiraicartForm({Key? key}) : super(key: key);
+class TherapyForBackPainForm extends StatelessWidget {
+  const TherapyForBackPainForm({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class ElampiraicartForm extends StatelessWidget {
           _buildBreadcrumb(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 200),
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
 
               child: Column(

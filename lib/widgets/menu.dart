@@ -24,7 +24,7 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
     'Sannaimelam',
     'Event Management',
     'Online Muhurthas',
-    'Referal & Even',
+    'Referal & Earn',
     'Nithyapooja Subscription',
     'Online Vasthu Property',
     'Poojavidhanam Course Calling',
@@ -47,6 +47,46 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  // Helper method to get responsive values
+  bool _isDesktop(BuildContext context) {
+    return MediaQuery.of(context).size.width >= 1024;
+  }
+
+  bool _isTablet(BuildContext context) {
+    return MediaQuery.of(context).size.width >= 768 &&
+        MediaQuery.of(context).size.width < 1024;
+  }
+
+  int _getCrossAxisCount(BuildContext context) {
+    if (_isDesktop(context)) return 6;
+    if (_isTablet(context)) return 5;
+    return 4;
+  }
+
+  double _getChildAspectRatio(BuildContext context) {
+    if (_isDesktop(context)) return 2.5;
+    if (_isTablet(context)) return 2.3;
+    return 2.2;
+  }
+
+  double _getFontSize(BuildContext context) {
+    if (_isDesktop(context)) return 18;
+    if (_isTablet(context)) return 15;
+    return 14;
+  }
+
+  double _getHeaderFontSize(BuildContext context) {
+    if (_isDesktop(context)) return 20;
+    if (_isTablet(context)) return 18;
+    return 16;
+  }
+
+  double _getHorizontalPadding(BuildContext context) {
+    if (_isDesktop(context)) return 8;
+    if (_isTablet(context)) return 7;
+    return 6;
   }
 
   @override
@@ -92,7 +132,10 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
                               children: [
                                 // Header with close button
                                 Container(
-                                  padding: EdgeInsets.all(16),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                    vertical: 12,
+                                  ),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -100,7 +143,7 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
                                       Text(
                                         'Services Menu',
                                         style: TextStyle(
-                                          fontSize: 18,
+                                          fontSize: _getHeaderFontSize(context),
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black87,
                                         ),
@@ -117,7 +160,7 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
                                           ),
                                           child: Icon(
                                             Icons.close,
-                                            size: 20,
+                                            size: 18,
                                             color: Colors.black87,
                                           ),
                                         ),
@@ -134,17 +177,19 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
                                         0.6,
                                   ),
                                   child: SingleChildScrollView(
-                                    padding: EdgeInsets.all(16),
+                                    padding: EdgeInsets.fromLTRB(12, 0, 12, 12),
                                     child: GridView.builder(
                                       shrinkWrap: true,
                                       physics: NeverScrollableScrollPhysics(),
                                       gridDelegate:
                                           SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 4, // 2 columns
-                                            crossAxisSpacing: 12,
-                                            mainAxisSpacing: 12,
+                                            crossAxisCount: _getCrossAxisCount(
+                                              context,
+                                            ),
+                                            crossAxisSpacing: 8,
+                                            mainAxisSpacing: 8,
                                             childAspectRatio:
-                                                2.5, // Adjust height ratio
+                                                _getChildAspectRatio(context),
                                           ),
                                       itemCount: menuItems.length,
                                       itemBuilder: (context, index) {
@@ -164,28 +209,35 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
                                                 0.3,
                                               ),
                                               borderRadius:
-                                                  BorderRadius.circular(75),
+                                                  BorderRadius.circular(8),
                                               border: Border.all(
                                                 color: Colors.black.withOpacity(
                                                   0.1,
                                                 ),
-                                                width: 1,
+                                                width: 0.5,
                                               ),
                                             ),
                                             child: Center(
                                               child: Padding(
                                                 padding: EdgeInsets.symmetric(
-                                                  horizontal: 8,
+                                                  horizontal:
+                                                      _getHorizontalPadding(
+                                                        context,
+                                                      ),
+                                                  vertical: 4,
                                                 ),
                                                 child: Text(
                                                   menuItems[index],
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
-                                                    fontSize: 24,
+                                                    fontSize: _getFontSize(
+                                                      context,
+                                                    ),
                                                     color: Colors.black87,
-                                                    fontWeight: FontWeight.w600,
+                                                    fontWeight: FontWeight.w500,
+                                                    height: 1.2,
                                                   ),
-                                                  maxLines: 2,
+                                                  maxLines: 3,
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                 ),
@@ -286,7 +338,7 @@ class _DropdownGridOverlayState extends State<_DropdownGridOverlay>
     'Sannaimelam',
     'Event Management',
     'Online Muhurthas',
-    'Referal & Even',
+    'Referal & Earn',
     'Nithyapooja Subscription',
     'Online Vasthu Property',
     'Poojavidhanam Course Calling',
@@ -309,6 +361,40 @@ class _DropdownGridOverlayState extends State<_DropdownGridOverlay>
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  // Helper method to get responsive values
+  bool _isDesktop(BuildContext context) {
+    return MediaQuery.of(context).size.width >= 1024;
+  }
+
+  bool _isTablet(BuildContext context) {
+    return MediaQuery.of(context).size.width >= 768 &&
+        MediaQuery.of(context).size.width < 1024;
+  }
+
+  int _getCrossAxisCount(BuildContext context) {
+    if (_isDesktop(context)) return 5;
+    if (_isTablet(context)) return 4;
+    return 3;
+  }
+
+  double _getChildAspectRatio(BuildContext context) {
+    if (_isDesktop(context)) return 3.0;
+    if (_isTablet(context)) return 2.9;
+    return 2.8;
+  }
+
+  double _getFontSize(BuildContext context) {
+    if (_isDesktop(context)) return 20;
+    if (_isTablet(context)) return 16;
+    return 16;
+  }
+
+  double _getHorizontalPadding(BuildContext context) {
+    if (_isDesktop(context)) return 8;
+    if (_isTablet(context)) return 7;
+    return 6;
   }
 
   @override
@@ -354,16 +440,19 @@ class _DropdownGridOverlayState extends State<_DropdownGridOverlay>
                                       MediaQuery.of(context).size.height * 0.6,
                                 ),
                                 child: SingleChildScrollView(
-                                  padding: EdgeInsets.all(16),
+                                  padding: EdgeInsets.all(12),
                                   child: GridView.builder(
                                     shrinkWrap: true,
                                     physics: NeverScrollableScrollPhysics(),
                                     gridDelegate:
                                         SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2,
-                                          crossAxisSpacing: 12,
-                                          mainAxisSpacing: 12,
-                                          childAspectRatio: 2.5,
+                                          crossAxisCount: _getCrossAxisCount(
+                                            context,
+                                          ),
+                                          crossAxisSpacing: 8,
+                                          mainAxisSpacing: 8,
+                                          childAspectRatio:
+                                              _getChildAspectRatio(context),
                                         ),
                                     itemCount: menuItems.length,
                                     itemBuilder: (context, index) {
@@ -387,23 +476,30 @@ class _DropdownGridOverlayState extends State<_DropdownGridOverlay>
                                               color: Colors.black.withOpacity(
                                                 0.1,
                                               ),
-                                              width: 6,
+                                              width: 0.5,
                                             ),
                                           ),
                                           child: Center(
                                             child: Padding(
                                               padding: EdgeInsets.symmetric(
-                                                horizontal: 8,
+                                                horizontal:
+                                                    _getHorizontalPadding(
+                                                      context,
+                                                    ),
+                                                vertical: 4,
                                               ),
                                               child: Text(
                                                 menuItems[index],
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                  fontSize: 20,
+                                                  fontSize: _getFontSize(
+                                                    context,
+                                                  ),
                                                   color: Colors.black87,
-                                                  fontWeight: FontWeight.w500,
+                                                  fontWeight: FontWeight.w600,
+                                                  height: 1.2,
                                                 ),
-                                                maxLines: 2,
+                                                maxLines: 3,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                             ),

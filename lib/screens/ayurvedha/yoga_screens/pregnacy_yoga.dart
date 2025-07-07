@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_layout.dart';
 
 class PregnacyYoga extends StatelessWidget {
@@ -164,6 +165,7 @@ class PregnacyYoga extends StatelessWidget {
                         language: 'Telugu',
                         experience: 'Exp: 3 Years',
                         imageAsset: 'assets/swetha.jpg',
+                        context: context,
                       ),
                       _buildInstructorCard(
                         name: 'BHANU.K',
@@ -174,6 +176,7 @@ class PregnacyYoga extends StatelessWidget {
                         language: 'Telugu',
                         experience: 'Exp: 3 Years',
                         imageAsset: 'assets/bhanu.jpg',
+                        context: context,
                       ),
                     ],
                   ),
@@ -190,6 +193,7 @@ class PregnacyYoga extends StatelessWidget {
                         language: 'Tamil',
                         experience: 'Exp: 3 Years',
                         imageAsset: 'assets/vanitha.jpg',
+                        context: context,
                       ),
                       _buildInstructorCard(
                         name: 'SRI PRIYA.L',
@@ -200,6 +204,7 @@ class PregnacyYoga extends StatelessWidget {
                         language: 'Tamil',
                         experience: 'Exp: 3 Years',
                         imageAsset: 'assets/sri_priya.jpg',
+                        context: context,
                       ),
                     ],
                   ),
@@ -216,6 +221,7 @@ class PregnacyYoga extends StatelessWidget {
                         language: 'Tamil',
                         experience: 'Exp: 3 Years',
                         imageAsset: 'assets/vanitha.jpg',
+                        context: context,
                       ),
                       _buildInstructorCard(
                         name: 'SRI PRIYA.L',
@@ -226,6 +232,7 @@ class PregnacyYoga extends StatelessWidget {
                         language: 'Tamil',
                         experience: 'Exp: 3 Years',
                         imageAsset: 'assets/sri_priya.jpg',
+                        context: context,
                       ),
                     ],
                   ),
@@ -240,6 +247,7 @@ class PregnacyYoga extends StatelessWidget {
   }
 
   Widget _buildInstructorCard({
+    required BuildContext context,
     required String name,
     required double rating,
     required String orders,
@@ -426,7 +434,9 @@ class PregnacyYoga extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.go('/pregnancy_yoga_join');
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
                   shadowColor: Colors.transparent,

@@ -288,7 +288,7 @@ class GeneralYoga extends StatelessWidget {
             children: [
               Icon(Icons.home, size: 16, color: Colors.black),
               Text(
-                ' // General Yoga',
+                ' YOGA // General Yoga',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 14,

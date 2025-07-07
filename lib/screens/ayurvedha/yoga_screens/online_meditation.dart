@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_layout.dart';
 
 class MeditationInstructors extends StatelessWidget {
@@ -27,6 +28,7 @@ class MeditationInstructors extends StatelessWidget {
                     language: 'Telugu',
                     experience: 'Exp: 3 Years',
                     imageAsset: 'assets/swetha.jpg',
+                    context: context,
                   ),
                   _buildInstructorCard(
                     name: 'BHANU.K',
@@ -37,6 +39,7 @@ class MeditationInstructors extends StatelessWidget {
                     language: 'Telugu',
                     experience: 'Exp: 3 Years',
                     imageAsset: 'assets/bhanu.jpg',
+                    context: context,
                   ),
                 ],
               ),
@@ -53,6 +56,7 @@ class MeditationInstructors extends StatelessWidget {
                     language: 'Tamil',
                     experience: 'Exp: 3 Years',
                     imageAsset: 'assets/vanitha.jpg',
+                    context: context,
                   ),
                   _buildInstructorCard(
                     name: 'SRI PRIYA.L',
@@ -63,6 +67,7 @@ class MeditationInstructors extends StatelessWidget {
                     language: 'Tamil',
                     experience: 'Exp: 3 Years',
                     imageAsset: 'assets/sri_priya.jpg',
+                    context: context,
                   ),
                 ],
               ),
@@ -79,6 +84,7 @@ class MeditationInstructors extends StatelessWidget {
                     language: 'Tamil',
                     experience: 'Exp: 3 Years',
                     imageAsset: 'assets/vanitha.jpg',
+                    context: context,
                   ),
                   _buildInstructorCard(
                     name: 'SRI PRIYA.L',
@@ -89,6 +95,7 @@ class MeditationInstructors extends StatelessWidget {
                     language: 'Tamil',
                     experience: 'Exp: 3 Years',
                     imageAsset: 'assets/sri_priya.jpg',
+                    context: context,
                   ),
                 ],
               ),
@@ -100,6 +107,7 @@ class MeditationInstructors extends StatelessWidget {
   }
 
   Widget _buildInstructorCard({
+    required BuildContext context,
     required String name,
     required double rating,
     required String orders,
@@ -286,7 +294,9 @@ class MeditationInstructors extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.go('/mindful_meditation');
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
                   shadowColor: Colors.transparent,
@@ -324,7 +334,7 @@ class MeditationInstructors extends StatelessWidget {
           children: [
             Icon(Icons.home, size: 16, color: Colors.black),
             Text(
-              ' / AYURVEDA CONSULTANCY // Online Meditation Classes',
+              ' / Yoga // Online Meditation Classes',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 14,

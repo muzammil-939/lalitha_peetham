@@ -56,7 +56,7 @@ class OnetoOneYogaRegState extends State<OnetoOneYogaReg> {
           children: [
             Icon(Icons.home, size: 16, color: Colors.black),
             Text(
-              ' / AYURVEDA CONSULTANCY // One to One Yoga',
+              ' / YOGA // One to One Yoga',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 14,
