@@ -270,7 +270,7 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
     switch (item) {
       case 'Ayurveda Consultancy':
         context.go('/ayurvedha');
-        // Navigate to astrology page
+        // Navigate to Ayurveda page
         break;
       case 'Matrimony':
         context.go('/matri_dashboard');
@@ -278,11 +278,11 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
         break;
       case 'Yoga Classes Conducting':
         context.go('/welcome_screen');
-        // Navigate to online pooja page
+        // Navigate to Yoga Classes Conducting page
         break;
-      case 'Function Hall Booking':
-        //context.go('/online_classes');
-        // Navigate to function hall booking page
+      case 'Sannaimelam':
+        context.go('/sanni_melam_welcome_screen');
+        // Navigate to Sannaimelam page
         break;
       // Add more cases as needed
       default:

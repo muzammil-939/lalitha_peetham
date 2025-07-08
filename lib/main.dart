@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_fuction_details.dart';
+import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_melam_online_bookings.dart';
+import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_melam_online_payment.dart';
+import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_melam_order_confirm_page.dart';
+import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_melam_paynow_page.dart';
+import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_melam_welcome_screens.dart';
+import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_service_highlights.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_cardpin.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_doc_reg/ayurvedha_article_submit.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_doc_reg/ayurvedha_doc_reg_1.dart';
@@ -364,6 +371,35 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/yoga_for_kids',
           builder: (context, state) => YogaForKids(),
+        ),
+        // SANNAI MELAM
+         GoRoute(
+          path: '/sanni_melam_welcome_screen',
+          builder: (context, state) => SannaiMelamWelcomeScreens(),
+        ),
+          GoRoute(
+          path: '/sanni_function_deatis',
+          builder: (context, state) => SannaiFuctionDetails(),
+        ),
+         GoRoute(
+          path: '/sannai_melam_online_bookings',
+          builder: (context, state) => SannaiMelamOnlineBookings(),
+        ),
+         GoRoute(
+          path: '/sannai_service_highlights_1',
+          builder: (context, state) => SannaiServiceHighlights(),
+        ),
+        GoRoute(
+          path: '/sannai_melam_booknow',
+          builder: (context, state) => SannaiMelamPaynowPage(),
+        ),
+        GoRoute(
+          path: '/sannai_melam_payment',
+          builder: (context, state) => SannaiMelamOnlinePayment(),
+        ),
+         GoRoute(
+          path: '/sannai_melam_order_confirm',
+          builder: (context, state) => SannaiMelamOrderConfirmPage(),
         ),
       ],
     );
