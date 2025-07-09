@@ -284,6 +284,11 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
         context.go('/sanni_melam_welcome_screen');
         // Navigate to Sannaimelam page
         break;
+        case 'Event Management':
+        context.go('/em_welcome_screen');
+        // Navigate to Sannaimelam page
+        break;
+        
       // Add more cases as needed
       default:
         // Handle other menu items

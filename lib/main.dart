@@ -57,6 +57,14 @@ import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_kids.dar
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_payment.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_teacher_reg.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_teacher_reg_2.dart';
+import 'package:lalitha_peetham/screens/event_management/em_basicdetails.dart';
+import 'package:lalitha_peetham/screens/event_management/em_booking_summary.dart';
+import 'package:lalitha_peetham/screens/event_management/em_contractor_profile.dart';
+import 'package:lalitha_peetham/screens/event_management/em_register_contractor.dart';
+import 'package:lalitha_peetham/screens/event_management/em_register_vendor.dart';
+import 'package:lalitha_peetham/screens/event_management/em_registered_successful.dart';
+import 'package:lalitha_peetham/screens/event_management/em_service_details.dart';
+import 'package:lalitha_peetham/screens/event_management/em_welcome_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/accepted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/deleted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/message_screen.dart';
@@ -400,6 +408,39 @@ class MyApp extends StatelessWidget {
          GoRoute(
           path: '/sannai_melam_order_confirm',
           builder: (context, state) => SannaiMelamOrderConfirmPage(),
+        ),
+        //event management
+        GoRoute(
+          path: '/em_welcome_screen',
+          builder: (context, state) => EmWelcomeScreen(),
+        ),
+        GoRoute(
+          path: '/em_basicdetails',
+          builder: (context, state) => EmBasicdetails(),
+        ),
+        GoRoute(
+          path: '/em_contractor_profiles',
+          builder: (context, state) => EmContractorProfile(),
+        ),
+         GoRoute(
+          path: '/em_service_details',
+          builder: (context, state) => EmServiceDetails(),
+        ),
+         GoRoute(
+          path: '/em_booking_summary',
+          builder: (context, state) => EmBookingSummary(),
+        ),
+         GoRoute(
+          path: '/em_register_contractor',
+          builder: (context, state) => EmRegisterContractor(),
+        ),
+        GoRoute(
+          path: '/em_register_vendor',
+          builder: (context, state) => EmRegisterVendor(),
+        ),
+        GoRoute(
+          path: '/em_register_vendor_successfull',
+          builder: (context, state) => EmRegisteredSuccessful(),
         ),
       ],
     );
