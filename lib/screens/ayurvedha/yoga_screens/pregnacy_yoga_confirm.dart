@@ -264,7 +264,7 @@ class PregnacyYogaConfirm extends StatelessWidget {
             children: [
               Icon(Icons.home, size: 16, color: Colors.black),
               Text(
-                'ONLINE CLASSES // ONLINE MEDITATION CLASSES',
+                'ONLINE CLASSES // PREGNANCY YOGA',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 14,

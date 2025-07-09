@@ -226,7 +226,8 @@ class BookingConfirmation extends StatelessWidget {
                   Text(
                     'Why Choose our brain yoga class?',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
                       color: Colors.black87,
                       height: 1.3,
                     ),

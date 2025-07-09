@@ -22,9 +22,10 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
     'Photography',
     'Flower Decoration',
     'Sannaimelam',
+    'Function Hall Booking',
     'Event Management',
     'Online Muhurthas',
-    'Referal & Earn',
+    'Referal & Even',
     'Nithyapooja Subscription',
     'Online Vasthu Property',
     'Poojavidhanam Course Calling',
@@ -96,6 +97,7 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
       body: GestureDetector(
         onTap: () => Navigator.pop(context),
         child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 600),
           width: double.infinity,
           height: double.infinity,
           child: Stack(
@@ -130,46 +132,7 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
                             ),
                             child: Column(
                               children: [
-                                // Header with close button
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                    vertical: 12,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Services Menu',
-                                        style: TextStyle(
-                                          fontSize: _getHeaderFontSize(context),
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black87,
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () => Navigator.pop(context),
-                                        child: Container(
-                                          padding: EdgeInsets.all(4),
-                                          decoration: BoxDecoration(
-                                            color: Colors.black.withOpacity(
-                                              0.1,
-                                            ),
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Icon(
-                                            Icons.close,
-                                            size: 18,
-                                            color: Colors.black87,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-
-                                // Grid Menu items
+                                // Menu items in vertical list
                                 Container(
                                   constraints: BoxConstraints(
                                     maxHeight:
@@ -177,75 +140,36 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
                                         0.6,
                                   ),
                                   child: SingleChildScrollView(
-                                    padding: EdgeInsets.fromLTRB(12, 0, 12, 12),
-                                    child: GridView.builder(
-                                      shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: _getCrossAxisCount(
-                                              context,
-                                            ),
-                                            crossAxisSpacing: 8,
-                                            mainAxisSpacing: 8,
-                                            childAspectRatio:
-                                                _getChildAspectRatio(context),
-                                          ),
-                                      itemCount: menuItems.length,
-                                      itemBuilder: (context, index) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            print(
-                                              'Selected: ${menuItems[index]}',
-                                            );
-                                            Navigator.pop(context);
-                                            _handleMenuItemTap(
-                                              menuItems[index],
-                                            );
-                                          },
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.white.withOpacity(
-                                                0.3,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              border: Border.all(
-                                                color: Colors.black.withOpacity(
-                                                  0.1,
-                                                ),
-                                                width: 0.5,
-                                              ),
-                                            ),
-                                            child: Center(
-                                              child: Padding(
+                                    padding: EdgeInsets.all(16),
+                                    child: Column(
+                                      children:
+                                          menuItems.map((item) {
+                                            return GestureDetector(
+                                              onTap: () {
+                                                print('Selected: $item');
+                                                Navigator.pop(context);
+                                                _handleMenuItemTap(item);
+                                              },
+                                              child: Container(
+                                                width: double.infinity,
                                                 padding: EdgeInsets.symmetric(
-                                                  horizontal:
-                                                      _getHorizontalPadding(
-                                                        context,
-                                                      ),
-                                                  vertical: 4,
+                                                  vertical: 16,
+                                                  horizontal: 16,
+                                                ),
+                                                margin: EdgeInsets.only(
+                                                  bottom: 8,
                                                 ),
                                                 child: Text(
-                                                  menuItems[index],
-                                                  textAlign: TextAlign.center,
+                                                  item,
                                                   style: TextStyle(
-                                                    fontSize: _getFontSize(
-                                                      context,
-                                                    ),
+                                                    fontSize: 18,
                                                     color: Colors.black87,
                                                     fontWeight: FontWeight.w500,
-                                                    height: 1.2,
                                                   ),
-                                                  maxLines: 3,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                        );
-                                      },
+                                            );
+                                          }).toList(),
                                     ),
                                   ),
                                 ),
@@ -284,11 +208,19 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
         context.go('/sanni_melam_welcome_screen');
         // Navigate to Sannaimelam page
         break;
-        case 'Event Management':
+      case 'Event Management':
         context.go('/em_welcome_screen');
         // Navigate to Sannaimelam page
         break;
-        
+      case 'Referal & Even':
+        context.go('/refer_and_earn');
+        // Navigate to Sannaimelam page
+        break;
+      case 'Flower Decoration':
+        context.go('/flower_deco_home');
+        // Navigate to Sannaimelam page
+        break;
+
       // Add more cases as needed
       default:
         // Handle other menu items
@@ -344,7 +276,8 @@ class _DropdownGridOverlayState extends State<_DropdownGridOverlay>
     'Event Management',
     'Online Muhurthas',
     'Referal & Earn',
-    'Nithyapooja Subscription',
+    'Pandit Registration'
+        'Nithyapooja Subscription',
     'Online Vasthu Property',
     'Poojavidhanam Course Calling',
     'Yoga Classes Conducting',
