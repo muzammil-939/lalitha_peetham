@@ -1,9 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_layout.dart';
+import 'flower_deco_select_city.dart';
 
-class FlowerDecoEvent extends StatelessWidget {
+class FlowerDecoEvent extends StatefulWidget {
   const FlowerDecoEvent({super.key});
+
+  @override
+  State<FlowerDecoEvent> createState() => _FlowerDecoEventState();
+}
+
+class _FlowerDecoEventState extends State<FlowerDecoEvent> {
+  @override
+  void initState() {
+    super.initState();
+    // Show dialog after the widget is built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showCitySearchDialog();
+    });
+  }
+
+  void _showCitySearchDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return const CitySearchDialog(); // Your dialog class
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

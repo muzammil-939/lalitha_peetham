@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import 'flower_help.dart';
 
 class FlowerDecoHeader extends StatefulWidget {
   const FlowerDecoHeader({super.key});
@@ -96,9 +99,8 @@ class _FlowerDecoHeaderState extends State<FlowerDecoHeader> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      _buildHeaderButton(context, 'Login', ''),
                       const SizedBox(width: 20),
-                      _buildHeaderButton(context, 'Help', ''),
+                      _buildHeaderButton(context, 'Help'),
                     ],
                   ),
                 ),
@@ -131,6 +133,23 @@ class _FlowerDecoHeaderState extends State<FlowerDecoHeader> {
                   ),
                 ),
               ),
+              SizedBox(width: 30),
+              GestureDetector(
+                onTap: () => context.go('/flower_deco_vendor_dash'),
+                child: Container(
+                  height: 44,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: Colors.black),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Vendor',
+                      style: TextStyle(fontSize: 14, color: Colors.black),
+                    ),
+                  ),
+                ),
+              ),
               Spacer(),
             ],
           ),
@@ -139,8 +158,16 @@ class _FlowerDecoHeaderState extends State<FlowerDecoHeader> {
     );
   }
 
-  Widget _buildHeaderButton(context, String text, String path) => TextButton(
+  Widget _buildHeaderButton(context, String text) => TextButton(
     onPressed: () {
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        barrierColor: Colors.black.withOpacity(0.7), // Dimmed background
+        builder: (BuildContext context) {
+          return const ContactDialog();
+        },
+      );
       // Handle navigation if needed
     },
     child: Text(

@@ -12,9 +12,6 @@ class AyurvedhaPatientReg2 extends StatefulWidget {
 class AyurvedhaPatientReg2State extends State<AyurvedhaPatientReg2> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _mobileController = TextEditingController();
   String _selectedState = 'India(91)';
   DateTime? _selectedDate;
 

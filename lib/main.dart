@@ -76,6 +76,9 @@ import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_event.dart
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_home.dart';
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_order_corfirm.dart';
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_product.dart';
+import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_vendor_dash.dart';
+import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_vendor_profile.dart';
+import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_vendor_basicdetails.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/accepted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/deleted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/message_screen.dart';
@@ -455,6 +458,7 @@ class MyApp extends StatelessWidget {
           path: '/em_register_vendor_successfull',
           builder: (context, state) => EmRegisteredSuccessful(),
         ),
+
         // Flower Decoration
         GoRoute(
           path: '/flower_deco_home',
@@ -471,6 +475,21 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/flower_deco_order_corfirm',
           builder: (context, state) => FlowerDecoOrderCorfirm(),
+        ),
+
+        // Flower Decoration Vendor
+        GoRoute(
+          path: '/flower_deco_vendor_dash',
+          builder: (context, state) => FlowerDecoVendorDash(),
+        ),
+        GoRoute(
+          path: '/flower_deco_vendor_profile',
+          builder: (context, state) => FlowerDecoVendorProfile(),
+        ),
+
+        GoRoute(
+          path: '/flower_vendor_basicdetails',
+          builder: (context, state) => FlowerVendorBasicdetails(),
         ),
 
         //YOGA FOR CORPORATES
@@ -508,7 +527,7 @@ class MyApp extends StatelessWidget {
           path: '/yoga_for_kids_select',
           builder: (context, state) => YogaForKidsSelect(),
         ),
-         // POOJA VIDHANAM
+        // POOJA VIDHANAM
         GoRoute(
           path: '/pv_home_screen',
           builder: (context, state) => PvHomeScreen(),
@@ -517,10 +536,7 @@ class MyApp extends StatelessWidget {
           path: '/pv_live_classes',
           builder: (context, state) => PvLiveClasses(),
         ),
-        GoRoute(
-          path: '/pv_courses',
-          builder: (context, state) => PvCourses(),
-        ),
+        GoRoute(path: '/pv_courses', builder: (context, state) => PvCourses()),
         GoRoute(
           path: '/pv_my_purchase',
           builder: (context, state) => PvMyPurchase(),
@@ -528,7 +544,7 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/pv_purchase_successful',
           builder: (context, state) => PvPurchaseSuccessful(),
-        )
+        ),
       ],
     );
     return MaterialApp.router(
