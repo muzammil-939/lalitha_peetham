@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/matrimony/matri_dashboard.dart';
 
-import '../screens/flower_decoration/flower_deco_select_city.dart';
+
 
 class DropdownGridMenu extends StatefulWidget {
   @override
@@ -193,6 +193,10 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
       case 'Flower Decoration':
         context.go('/flower_deco_home');
         // Navigate to Sannaimelam page
+        break;
+        case 'Poojavidhanam Course Calling':
+        context.go('/pv_home_screen');
+        
         break;
 
       // Add more cases as needed

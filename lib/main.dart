@@ -97,6 +97,11 @@ import 'package:lalitha_peetham/screens/matrimony/search_results.dart';
 import 'package:lalitha_peetham/screens/matrimony/settings_page.dart';
 import 'package:lalitha_peetham/screens/matrimony/upgrade_plans.dart';
 import 'package:lalitha_peetham/screens/matrimony/your_patners_preferences.dart';
+import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_courses.dart';
+import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_home_screen.dart';
+import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_live_classes.dart';
+import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_my_purchase.dart';
+import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_purchase_successful.dart';
 import 'firebase_options.dart';
 import 'screens/home.dart';
 
@@ -503,6 +508,27 @@ class MyApp extends StatelessWidget {
           path: '/yoga_for_kids_select',
           builder: (context, state) => YogaForKidsSelect(),
         ),
+         // POOJA VIDHANAM
+        GoRoute(
+          path: '/pv_home_screen',
+          builder: (context, state) => PvHomeScreen(),
+        ),
+        GoRoute(
+          path: '/pv_live_classes',
+          builder: (context, state) => PvLiveClasses(),
+        ),
+        GoRoute(
+          path: '/pv_courses',
+          builder: (context, state) => PvCourses(),
+        ),
+        GoRoute(
+          path: '/pv_my_purchase',
+          builder: (context, state) => PvMyPurchase(),
+        ),
+        GoRoute(
+          path: '/pv_purchase_successful',
+          builder: (context, state) => PvPurchaseSuccessful(),
+        )
       ],
     );
     return MaterialApp.router(
