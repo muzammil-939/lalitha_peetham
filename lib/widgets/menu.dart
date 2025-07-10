@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/matrimony/matri_dashboard.dart';
 
+import '../screens/flower_decoration/flower_deco_select_city.dart';
+
 class DropdownGridMenu extends StatefulWidget {
   @override
   _DropdownGridMenuState createState() => _DropdownGridMenuState();
@@ -50,136 +52,108 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
     super.dispose();
   }
 
-  // Helper method to get responsive values
-  bool _isDesktop(BuildContext context) {
-    return MediaQuery.of(context).size.width >= 1024;
-  }
-
-  bool _isTablet(BuildContext context) {
-    return MediaQuery.of(context).size.width >= 768 &&
-        MediaQuery.of(context).size.width < 1024;
-  }
-
-  int _getCrossAxisCount(BuildContext context) {
-    if (_isDesktop(context)) return 6;
-    if (_isTablet(context)) return 5;
-    return 4;
-  }
-
-  double _getChildAspectRatio(BuildContext context) {
-    if (_isDesktop(context)) return 2.5;
-    if (_isTablet(context)) return 2.3;
-    return 2.2;
-  }
-
-  double _getFontSize(BuildContext context) {
-    if (_isDesktop(context)) return 18;
-    if (_isTablet(context)) return 15;
-    return 14;
-  }
-
-  double _getHeaderFontSize(BuildContext context) {
-    if (_isDesktop(context)) return 20;
-    if (_isTablet(context)) return 18;
-    return 16;
-  }
-
-  double _getHorizontalPadding(BuildContext context) {
-    if (_isDesktop(context)) return 8;
-    if (_isTablet(context)) return 7;
-    return 6;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(0.5),
       body: GestureDetector(
         onTap: () => Navigator.pop(context),
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 600),
+        child: SizedBox(
           width: double.infinity,
-          height: double.infinity,
-          child: Stack(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Close button area - tap anywhere to close
               Container(
-                width: double.infinity,
-                height: double.infinity,
-                color: Colors.transparent,
-              ),
+                width: 350,
+                child: Stack(
+                  children: [
+                    // Close button area - tap anywhere to close
+                    Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      color: Colors.transparent,
+                    ),
 
-              // Dropdown menu
-              Positioned(
-                top: 80,
-                left: 20,
-                right: 20,
-                child: AnimatedBuilder(
-                  animation: _animation,
-                  builder: (context, child) {
-                    return Transform.scale(
-                      scale: _animation.value,
-                      alignment: Alignment.topCenter,
-                      child: Opacity(
-                        opacity: _animation.value,
-                        child: Material(
-                          elevation: 8,
-                          borderRadius: BorderRadius.circular(12),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xFFF5E6A8), // Cream/beige color
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Column(
-                              children: [
-                                // Menu items in vertical list
-                                Container(
-                                  constraints: BoxConstraints(
-                                    maxHeight:
-                                        MediaQuery.of(context).size.height *
-                                        0.6,
+                    // Dropdown menu
+                    Positioned(
+                      top: 80,
+                      left: 20,
+                      right: 20,
+                      child: AnimatedBuilder(
+                        animation: _animation,
+                        builder: (context, child) {
+                          return Transform.scale(
+                            scale: _animation.value,
+                            alignment: Alignment.topCenter,
+                            child: Opacity(
+                              opacity: _animation.value,
+                              child: Material(
+                                elevation: 8,
+                                borderRadius: BorderRadius.circular(12),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Color(
+                                      0xFFF5E6A8,
+                                    ), // Cream/beige color
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
-                                  child: SingleChildScrollView(
-                                    padding: EdgeInsets.all(16),
-                                    child: Column(
-                                      children:
-                                          menuItems.map((item) {
-                                            return GestureDetector(
-                                              onTap: () {
-                                                print('Selected: $item');
-                                                Navigator.pop(context);
-                                                _handleMenuItemTap(item);
-                                              },
-                                              child: Container(
-                                                width: double.infinity,
-                                                padding: EdgeInsets.symmetric(
-                                                  vertical: 16,
-                                                  horizontal: 16,
-                                                ),
-                                                margin: EdgeInsets.only(
-                                                  bottom: 8,
-                                                ),
-                                                child: Text(
-                                                  item,
-                                                  style: TextStyle(
-                                                    fontSize: 18,
-                                                    color: Colors.black87,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          }).toList(),
-                                    ),
+                                  child: Column(
+                                    children: [
+                                      // Menu items in vertical list
+                                      Container(
+                                        constraints: BoxConstraints(
+                                          maxHeight:
+                                              MediaQuery.of(
+                                                context,
+                                              ).size.height *
+                                              0.6,
+                                        ),
+                                        child: SingleChildScrollView(
+                                          padding: EdgeInsets.all(16),
+                                          child: Column(
+                                            children:
+                                                menuItems.map((item) {
+                                                  return GestureDetector(
+                                                    onTap: () {
+                                                      print('Selected: $item');
+                                                      Navigator.pop(context);
+                                                      _handleMenuItemTap(item);
+                                                    },
+                                                    child: Container(
+                                                      width: double.infinity,
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                            vertical: 16,
+                                                            horizontal: 16,
+                                                          ),
+                                                      margin: EdgeInsets.only(
+                                                        bottom: 8,
+                                                      ),
+                                                      child: Text(
+                                                        item,
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                          color: Colors.black87,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                }).toList(),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       ),
-                    );
-                  },
+                    ),
+                  ],
                 ),
               ),
             ],
