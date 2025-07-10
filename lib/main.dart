@@ -53,7 +53,14 @@ import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/theraphy_for_back
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/therapy_backpain_form.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/welcome_yoga_screen.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_booking_confirm.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_kids.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_corporates_confirm.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_corporates_form.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_corporates_order.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_corporates_select.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_kids_confirm.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_kids_form.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_kids_order.dart';
+import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_kids_select.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_payment.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_teacher_reg.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_teacher_reg_2.dart';
@@ -65,6 +72,10 @@ import 'package:lalitha_peetham/screens/event_management/em_register_vendor.dart
 import 'package:lalitha_peetham/screens/event_management/em_registered_successful.dart';
 import 'package:lalitha_peetham/screens/event_management/em_service_details.dart';
 import 'package:lalitha_peetham/screens/event_management/em_welcome_screen.dart';
+import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_event.dart';
+import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_home.dart';
+import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_order_corfirm.dart';
+import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_product.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/accepted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/deleted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/message_screen.dart';
@@ -86,10 +97,6 @@ import 'package:lalitha_peetham/screens/matrimony/search_results.dart';
 import 'package:lalitha_peetham/screens/matrimony/settings_page.dart';
 import 'package:lalitha_peetham/screens/matrimony/upgrade_plans.dart';
 import 'package:lalitha_peetham/screens/matrimony/your_patners_preferences.dart';
-import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_courses.dart';
-import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_home_screen.dart';
-import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_live_classes.dart';
-import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_my_purchase.dart';
 import 'firebase_options.dart';
 import 'screens/home.dart';
 
@@ -380,24 +387,21 @@ class MyApp extends StatelessWidget {
           path: '/pregnancy_yoga_confirm',
           builder: (context, state) => PregnacyYogaConfirm(),
         ),
-        GoRoute(
-          path: '/yoga_for_kids',
-          builder: (context, state) => YogaForKids(),
-        ),
+
         // SANNAI MELAM
-         GoRoute(
+        GoRoute(
           path: '/sanni_melam_welcome_screen',
           builder: (context, state) => SannaiMelamWelcomeScreens(),
         ),
-          GoRoute(
+        GoRoute(
           path: '/sanni_function_deatis',
           builder: (context, state) => SannaiFuctionDetails(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/sannai_melam_online_bookings',
           builder: (context, state) => SannaiMelamOnlineBookings(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/sannai_service_highlights_1',
           builder: (context, state) => SannaiServiceHighlights(),
         ),
@@ -409,7 +413,7 @@ class MyApp extends StatelessWidget {
           path: '/sannai_melam_payment',
           builder: (context, state) => SannaiMelamOnlinePayment(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/sannai_melam_order_confirm',
           builder: (context, state) => SannaiMelamOrderConfirmPage(),
         ),
@@ -426,15 +430,15 @@ class MyApp extends StatelessWidget {
           path: '/em_contractor_profiles',
           builder: (context, state) => EmContractorProfile(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/em_service_details',
           builder: (context, state) => EmServiceDetails(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/em_booking_summary',
           builder: (context, state) => EmBookingSummary(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/em_register_contractor',
           builder: (context, state) => EmRegisterContractor(),
         ),
@@ -446,22 +450,58 @@ class MyApp extends StatelessWidget {
           path: '/em_register_vendor_successfull',
           builder: (context, state) => EmRegisteredSuccessful(),
         ),
-        // POOJA VIDHANAM
+        // Flower Decoration
         GoRoute(
-          path: '/pv_home_screen',
-          builder: (context, state) => PvHomeScreen(),
+          path: '/flower_deco_home',
+          builder: (context, state) => FlowerDecoHome(),
         ),
         GoRoute(
-          path: '/pv_live_classes',
-          builder: (context, state) => PvLiveClasses(),
+          path: '/flower_deco_event',
+          builder: (context, state) => FlowerDecoEvent(),
         ),
         GoRoute(
-          path: '/pv_courses',
-          builder: (context, state) => PvCourses(),
+          path: '/flower_deco_product',
+          builder: (context, state) => FlowerDecoProduct(),
         ),
         GoRoute(
-          path: '/pv_my_purchase',
-          builder: (context, state) => PvMyPurchase(),
+          path: '/flower_deco_order_corfirm',
+          builder: (context, state) => FlowerDecoOrderCorfirm(),
+        ),
+
+        //YOGA FOR CORPORATES
+        GoRoute(
+          path: '/yoga_for_corporates_select',
+          builder: (context, state) => YogaForCorporatesSelect(),
+        ),
+        GoRoute(
+          path: '/yoga_for_corporates_order',
+          builder: (context, state) => YogaForCorporatesOrder(),
+        ),
+        GoRoute(
+          path: '/yoga_for_corporates_confirm',
+          builder: (context, state) => YogaForCorporatesConfirm(),
+        ),
+        GoRoute(
+          path: '/yoga_for_corporates_form',
+          builder: (context, state) => YogaForCorporatesForm(),
+        ),
+
+        //Yoga For Kids
+        GoRoute(
+          path: '/yoga_for_kids_form',
+          builder: (context, state) => YogaForKidsForm(),
+        ),
+        GoRoute(
+          path: '/yoga_for_kids_confirm',
+          builder: (context, state) => YogaForKidsConfirm(),
+        ),
+        GoRoute(
+          path: '/yoga_for_kids_order',
+          builder: (context, state) => YogaForKidsOrder(),
+        ),
+        GoRoute(
+          path: '/yoga_for_kids_select',
+          builder: (context, state) => YogaForKidsSelect(),
         ),
       ],
     );

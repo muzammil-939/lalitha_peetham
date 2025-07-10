@@ -62,7 +62,6 @@ class SannaiMelamHeader extends StatelessWidget {
                             letterSpacing: isMobile ? 0.8 : 1.2,
                           ),
                         ),
-                        
                       ),
                     ),
                   ],
@@ -108,15 +107,13 @@ class SannaiMelamHeader extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: _buildSubNavItem(context, 'Sannai Melam Online Bookings', '/sanni_melam_welcome_screen'),
-        ),
-        Expanded(
           child: _buildSubNavItem(
             context,
-            'Register As a Vendor',
-            '',
+            'Sannai Melam Online Bookings',
+            '/sanni_melam_welcome_screen',
           ),
         ),
+        Expanded(child: _buildSubNavItem(context, 'Register As a Vendor', '')),
         // Expanded(
         //   child: _buildSubNavItem(
         //     context,
@@ -132,7 +129,7 @@ class SannaiMelamHeader extends StatelessWidget {
         //   ),
         // ),
         // Expanded(child: _buildSubNavItem(context, 'Blog', '/blog')),
-       // Expanded(child: _buildMoreDropdown(context, false)),
+        // Expanded(child: _buildMoreDropdown(context, false)),
       ],
     );
   }
@@ -141,9 +138,12 @@ class SannaiMelamHeader extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildSubNavItem(context, 'Sannai Melam Online Bookings', '/sanni_melam_welcome_screen'),
-        _buildSubNavItem(context, 'Register As a Vendor', ''),
-
+        _buildSubNavItem(
+          context,
+          'Sannai Melam Online Bookings',
+          '/sanni_melam_welcome_screen',
+        ),
+        _buildSubNavItem(context, 'Register As a Vendor', 'null'),
       ],
     );
   }
@@ -166,7 +166,7 @@ class SannaiMelamHeader extends StatelessWidget {
   //           break;
   //         case 'doc_post_article':
   //           context.go('/ayurvedha_post_article');
-  //           break;  
+  //           break;
   //       }
   //     },
   //     itemBuilder:
