@@ -49,7 +49,7 @@ class _EmWelcomeScreenState extends State<EmWelcomeScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 20),
               _buildBreadcrumb(),
@@ -258,7 +258,7 @@ Widget _buildContractorsSection() {
                 },
               ),
             ),
-            const SizedBox(width: 16),
+            const SizedBox(width: 85),
             // Scrollable Cards Container
             Expanded(
               child: SizedBox(

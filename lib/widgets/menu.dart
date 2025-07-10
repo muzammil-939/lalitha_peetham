@@ -288,6 +288,10 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
         context.go('/em_welcome_screen');
         // Navigate to Sannaimelam page
         break;
+        case 'Poojavidhanam Course Calling':
+        context.go('/pv_home_screen');
+        // Navigate to Sannaimelam page
+        break;
         
       // Add more cases as needed
       default:

@@ -13,9 +13,9 @@ class _EmBookingSummaryState extends State<EmBookingSummary> {
   Widget build(BuildContext context) {
     return EmLayout(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 40),
+        padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _buildBreadcrumb(),
             const SizedBox(height: 30),
@@ -23,8 +23,9 @@ class _EmBookingSummaryState extends State<EmBookingSummary> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildLeftSection(),
-                const SizedBox(width: 40),
+                const SizedBox(width: 100),
                 Expanded(child: _buildRightSection()),
+                
               ],
             )
           ],
@@ -74,7 +75,7 @@ Widget _buildLeftSection() {
               backgroundImage: AssetImage('assets/images/em6.jpg'), // Replace with actual image
             ),
           ),
-          const SizedBox(width: 30),
+          const SizedBox(width: 50),
 
           // Green Circular Tick Icon
           Container(
@@ -83,7 +84,7 @@ Widget _buildLeftSection() {
               shape: BoxShape.circle,
               border: Border.all(color: Colors.green, width: 2),
             ),
-            child: const Icon(Icons.check, color: Colors.green, size: 35),
+            child: const Icon(Icons.check, color: Colors.green, size: 50),
           ),
         ],
       ),
@@ -91,10 +92,10 @@ Widget _buildLeftSection() {
 
       // Flower image
       ClipRRect(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(0),
         child: Image.asset(
           'assets/images/em7.jpg', // Replace with actual image
-          width: 350,
+          width: 400,
           height: 450,
           fit: BoxFit.cover,
         ),
@@ -112,9 +113,9 @@ Widget _buildLeftSection() {
       children: [
         const Text(
           "THANK YOU FOR YOUR BOOKING!",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 12),
         const Text(
           "These Are The Details You've\nProvided — Our Team Will Contact\nYou Shortly To Confirm And Assist Further.",
           style: TextStyle(color: Colors.grey),
@@ -122,18 +123,27 @@ Widget _buildLeftSection() {
         const SizedBox(height: 20),
         const Text(
           "YOUR BOOKING DETAILS:",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
-        const SizedBox(height: 14),
+        const SizedBox(height: 16),
         const _DetailLine(title: "Name", value: "Keerthana"),
+        const SizedBox(height: 3),
         const _DetailLine(title: "Phone Number", value: "7868911991"),
+        const SizedBox(height: 3),
         const _DetailLine(title: "Event Type", value: "E.g., Wedding"),
+        const SizedBox(height: 3),
         const _DetailLine(title: "Event Date", value: "[DD/MM/YYYY]"),
+        const SizedBox(height: 3),
         const _DetailLine(title: "Time", value: "[E.g., 6:00 PM]"),
+        const SizedBox(height: 3),
         const _DetailLine(title: "Location", value: "3/4, West Street, Marathehalli, Bangalore"),
+        const SizedBox(height: 3),
         const _DetailLine(title: "Selected Service", value: "Srinavi Wedding Setups"),
+        const SizedBox(height: 3),
         const _DetailLine(title: "Service Type", value: "Wedding Service Set"),
+        const SizedBox(height: 3),
         const _DetailLine(title: "Price", value: "₹25,000 Onwards"),
+        const SizedBox(height: 3),
         const _DetailLine(title: "Special Notes", value: "More Details You Will Get Shortly"),
         const SizedBox(height: 25),
         SizedBox(

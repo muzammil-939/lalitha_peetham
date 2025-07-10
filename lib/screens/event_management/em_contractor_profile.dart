@@ -121,7 +121,7 @@ class _EmContractorProfileState extends State<EmContractorProfile> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 20),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 20),
               _buildBreadcrumb(),
