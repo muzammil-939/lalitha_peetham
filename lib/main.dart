@@ -8,6 +8,7 @@ import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_melam_order_
 import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_melam_paynow_page.dart';
 import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_melam_welcome_screens.dart';
 import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_service_highlights.dart';
+import 'package:lalitha_peetham/screens/admin/panchangam.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_cardpin.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_doc_reg/ayurvedha_article_submit.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_doc_reg/ayurvedha_doc_reg_1.dart';
@@ -126,6 +127,13 @@ class MyApp extends StatelessWidget {
       routes: [
         GoRoute(path: '/', builder: (context, state) => MainScreen()),
         //GoRoute(path: '*', builder: (context, state) => const NotFoundScreen()),
+
+        //ADMIN PANCHANGAM
+        GoRoute(
+          path: '/admin_panchangam',
+          builder: (context, state) => const AdminPanchangam(),
+        ),
+
         GoRoute(
           path: '/matri_dashboard',
           builder: (context, state) => const MatriDashboard(),

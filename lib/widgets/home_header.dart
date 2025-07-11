@@ -2,12 +2,17 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:go_router/go_router.dart';
 
 import 'login.dart';
 import '../providers/firebase_phone_auth.dart';
 
 class HomeHeader extends ConsumerWidget {
   const HomeHeader({super.key});
+
+  bool _isMobile(BuildContext context) {
+    return MediaQuery.of(context).size.width < 768;
+  }
 
   void _showLoginDialog(BuildContext context) async {
     final result = await showDialog<bool>(
@@ -305,22 +310,78 @@ class HomeHeader extends ConsumerWidget {
                               minimumSize: Size.zero,
                               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             ),
-                            child: const Row(
+                            child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text(
-                                  'Help',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
+                                PopupMenuButton<String>(
+                                  onSelected: (String value) {
+                                    switch (value) {
+                                      case 'help':
+                                        context.go('null');
+                                        break;
+                                      case 'Admin':
+                                        context.go('/admin_panchangam');
+                                        break;
+                                    }
+                                  },
+                                  itemBuilder:
+                                      (BuildContext context) => [
+                                        const PopupMenuItem<String>(
+                                          value: 'help',
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons.notifications,
+                                                size: 20,
+                                                color: Colors.black87,
+                                              ),
+                                              SizedBox(width: 8),
+                                              Text('Help'),
+                                            ],
+                                          ),
+                                        ),
+                                        const PopupMenuItem<String>(
+                                          value: 'admin',
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons.shopping_bag,
+                                                size: 20,
+                                                color: Colors.black87,
+                                              ),
+                                              SizedBox(width: 8),
+                                              Text('Admin'),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                  child: TextButton(
+                                    onPressed:
+                                        null, // Let PopupMenuButton handle the press
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          'More',
+                                          style: TextStyle(
+                                            color: Colors.black87,
+                                            fontWeight: FontWeight.w500,
+                                            decorationThickness: 1.5,
+                                            fontSize: 16,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        const SizedBox(width: 4),
+                                        Icon(
+                                          Icons.keyboard_arrow_down,
+                                          color: Colors.black87,
+                                          size: 18,
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                SizedBox(width: 2),
-                                Icon(
-                                  Icons.keyboard_arrow_down,
-                                  color: Colors.white,
-                                  size: 18,
                                 ),
                               ],
                             ),
@@ -415,19 +476,75 @@ class HomeHeader extends ConsumerWidget {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
-                            'Help',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: isMediumScreen ? 14 : 16,
-                              fontWeight: FontWeight.w500,
+                          PopupMenuButton<String>(
+                            onSelected: (String value) {
+                              switch (value) {
+                                case 'help':
+                                  context.go('null');
+                                  break;
+                                case 'Admin':
+                                  context.go('/admin_panchangam');
+                                  break;
+                              }
+                            },
+                            itemBuilder:
+                                (BuildContext context) => [
+                                  const PopupMenuItem<String>(
+                                    value: 'help',
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.notifications,
+                                          size: 20,
+                                          color: Colors.black87,
+                                        ),
+                                        SizedBox(width: 8),
+                                        Text('Help'),
+                                      ],
+                                    ),
+                                  ),
+                                  const PopupMenuItem<String>(
+                                    value: 'admin',
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.shopping_bag,
+                                          size: 20,
+                                          color: Colors.black87,
+                                        ),
+                                        SizedBox(width: 8),
+                                        Text('Admin'),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                            child: TextButton(
+                              onPressed:
+                                  null, // Let PopupMenuButton handle the press
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'More',
+                                    style: TextStyle(
+                                      color: Colors.black87,
+                                      fontWeight: FontWeight.w500,
+                                      decorationThickness: 1.5,
+                                      fontSize: 16,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: Colors.black87,
+                                    size: 18,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(width: isMediumScreen ? 2 : 4),
-                          Icon(
-                            Icons.keyboard_arrow_down,
-                            color: Colors.white,
-                            size: isMediumScreen ? 18 : 20,
                           ),
                         ],
                       ),
