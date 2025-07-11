@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_layout.dart';
 
 class PvCourses extends StatefulWidget {
@@ -241,7 +242,9 @@ Widget _buildCourseCard(Map<String, dynamic> course) {
                   elevation: 0,
                   padding: EdgeInsets.zero,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  context.go('/pv_purchase_successful');
+                },
                 child: const Text("View Details", style: TextStyle(fontSize: 13)),
               ),
             ),

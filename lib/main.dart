@@ -101,11 +101,17 @@ import 'package:lalitha_peetham/screens/matrimony/search_results.dart';
 import 'package:lalitha_peetham/screens/matrimony/settings_page.dart';
 import 'package:lalitha_peetham/screens/matrimony/upgrade_plans.dart';
 import 'package:lalitha_peetham/screens/matrimony/your_patners_preferences.dart';
+import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/complete_your_purchase.dart';
+import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/learn_pooja_vidhanam.dart';
+import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_contact.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_courses.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_home_screen.dart';
+import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_live_chart.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_live_classes.dart';
+import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_my_dashboard.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_my_purchase.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_purchase_successful.dart';
+import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_upcomming_liveclasses.dart';
 import 'firebase_options.dart';
 import 'screens/home.dart';
 
@@ -552,6 +558,31 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/pv_purchase_successful',
           builder: (context, state) => PvPurchaseSuccessful(),
+        ),
+            
+        GoRoute(
+          path: '/learn_pooja_vidhanam',
+          builder: (context, state) => LearnPoojaVidhanam(),
+        ),
+        GoRoute(
+          path: '/cmplt_your_purchase',
+          builder: (context, state) => CompleteYourPurchase(),
+        ),
+         GoRoute(
+          path: '/pv_contact',
+          builder: (context, state) => PvContact(),
+        ),
+         GoRoute(
+          path: '/pv_mydashboard',
+          builder: (context, state) => PvMyDashboard(),
+        ),
+         GoRoute(
+          path: '/pv_live_chart',
+          builder: (context, state) => PvLiveChart(),
+        ),
+         GoRoute(
+          path: '/pv_upcomming_liveclasses',
+          builder: (context, state) => PvUpcommingLiveclasses(),
         ),
       ],
     );

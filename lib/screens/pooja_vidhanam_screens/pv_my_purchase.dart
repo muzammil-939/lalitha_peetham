@@ -118,21 +118,27 @@ class _PvMyPurchaseState extends State<PvMyPurchase> {
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Color(0xFF1FD042),
-              borderRadius: BorderRadius.circular(20),
+          ElevatedButton(
+            onPressed: () {
+              context.go('/learn_pooja_vidhanam');
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor:  Color(0xFF1FD042),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+             shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
             ),
-            child: const Text(
-              "Access Course",
-              style: TextStyle(color: Colors.black, fontSize: 12),
-            ),
+              child: const Text(
+                "Access Course",
+                style: TextStyle(color: Colors.black, fontSize: 12),
+              ),            
           ),
         ],
       ),
     );
   }
+  
 
   Widget _buildLiveSessionCard(
     String title,
@@ -169,23 +175,23 @@ class _PvMyPurchaseState extends State<PvMyPurchase> {
             ),
           ),
           const SizedBox(width: 12),
-                        ElevatedButton(
-                          onPressed: () {
-                            context.go('/pv_purchase_successful');
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xffD4BB26),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 10),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          child: const Text(
-                            'View Details',
-                            style: TextStyle(fontSize: 12,color: Colors.black),
-                          ),
-                        ),
+          ElevatedButton(
+            onPressed: () {
+             
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color(0xffD4BB26),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 16, vertical: 10),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+            child: const Text(
+              'View Details',
+              style: TextStyle(fontSize: 12,color: Colors.black),
+            ),
+          ),
         ],
       ),
     );

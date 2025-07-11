@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_layout.dart';
 
 class PvPurchaseSuccessful extends StatefulWidget {
@@ -63,7 +64,9 @@ class _PvPurchaseSuccessfulState extends State<PvPurchaseSuccessful> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  context.go('/cmplt_your_purchase');
+                },
                 child: const Text(
                   "Go to My Courses",
                   style: TextStyle(

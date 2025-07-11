@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_layout.dart';
 
 class PvLiveClasses extends StatefulWidget {
@@ -118,7 +119,9 @@ class _PvLiveClassesState extends State<PvLiveClasses> {
                         ),
                         const SizedBox(width: 12),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            context.go('/pv_upcomming_liveclasses');
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xff1FD042),
                             padding: const EdgeInsets.symmetric(
