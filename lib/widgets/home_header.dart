@@ -319,7 +319,7 @@ class HomeHeader extends ConsumerWidget {
                                       case 'help':
                                         context.go('null');
                                         break;
-                                      case 'Admin':
+                                      case 'admin':
                                         context.go('/admin_panchangam');
                                         break;
                                     }
@@ -482,7 +482,7 @@ class HomeHeader extends ConsumerWidget {
                                 case 'help':
                                   context.go('null');
                                   break;
-                                case 'Admin':
+                                case 'admin':
                                   context.go('/admin_panchangam');
                                   break;
                               }
