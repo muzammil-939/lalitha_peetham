@@ -77,8 +77,12 @@ import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_event.dart
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_home.dart';
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_order_corfirm.dart';
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_product.dart';
+import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_avaiability.dart';
+import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_bussinesdetails.dart';
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_vendor_dash.dart';
+import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_vendor_notisettings.dart';
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_vendor_profile.dart';
+import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_vendor_settings.dart';
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_vendor_basicdetails.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/accepted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/deleted_screen.dart';
@@ -131,7 +135,7 @@ class MyApp extends StatelessWidget {
     final GoRouter router = GoRouter(
       initialLocation: '/',
       routes: [
-        GoRoute(path: '/', builder: (context, state) => MainScreen()),
+        GoRoute(path: '/', builder: (context, state) => FlowerDecoVendorDash()),
         //GoRoute(path: '*', builder: (context, state) => const NotFoundScreen()),
 
         //ADMIN PANCHANGAM
@@ -505,6 +509,22 @@ class MyApp extends StatelessWidget {
           path: '/flower_vendor_basicdetails',
           builder: (context, state) => FlowerVendorBasicdetails(),
         ),
+        GoRoute(
+          path: '/flower_deco_vendor_bussinesdetails',
+          builder: (context, state) => FlowerDecoBussinesdetails(),
+        ),
+        GoRoute(
+          path: '/flower_deco_vendor_avaiability',
+          builder: (context, state) => FlowerDecoAvaiability(),
+        ),
+        GoRoute(
+          path: '/flower_deco_vendor_notisettings',
+          builder: (context, state) => FlowerDecoVendorNotiSettings(),
+        ),
+        GoRoute(
+          path: '/flower_deco_vendor_settings',
+          builder: (context, state) => FlowerDecoVendorSettings(),
+        ),
 
         //YOGA FOR CORPORATES
         GoRoute(
@@ -559,7 +579,7 @@ class MyApp extends StatelessWidget {
           path: '/pv_purchase_successful',
           builder: (context, state) => PvPurchaseSuccessful(),
         ),
-            
+
         GoRoute(
           path: '/learn_pooja_vidhanam',
           builder: (context, state) => LearnPoojaVidhanam(),
@@ -568,19 +588,16 @@ class MyApp extends StatelessWidget {
           path: '/cmplt_your_purchase',
           builder: (context, state) => CompleteYourPurchase(),
         ),
-         GoRoute(
-          path: '/pv_contact',
-          builder: (context, state) => PvContact(),
-        ),
-         GoRoute(
+        GoRoute(path: '/pv_contact', builder: (context, state) => PvContact()),
+        GoRoute(
           path: '/pv_mydashboard',
           builder: (context, state) => PvMyDashboard(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/pv_live_chart',
           builder: (context, state) => PvLiveChart(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/pv_upcomming_liveclasses',
           builder: (context, state) => PvUpcommingLiveclasses(),
         ),

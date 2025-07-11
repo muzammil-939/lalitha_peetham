@@ -10,14 +10,6 @@ class OnetoOneYogaReg extends StatefulWidget {
 }
 
 class OnetoOneYogaRegState extends State<OnetoOneYogaReg> {
-  final _controllers = {
-    'firstName': TextEditingController(),
-    'lastName': TextEditingController(),
-    'phone': TextEditingController(),
-    'email': TextEditingController(),
-    'mobile': TextEditingController(),
-  };
-
   String _selectedGender = 'Select';
   DateTime? _selectedDate;
 
@@ -182,78 +174,6 @@ class OnetoOneYogaRegState extends State<OnetoOneYogaReg> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildProgressCircle(String number, bool isActive) {
-    return Container(
-      width: 40,
-      height: 40,
-      decoration: BoxDecoration(
-        color: isActive ? const Color(0xFFB8A835) : const Color(0xFFE6D57A),
-        shape: BoxShape.circle,
-      ),
-      child: Center(
-        child: Text(
-          number,
-          style: TextStyle(
-            color: isActive ? Colors.white : const Color(0xFFB8A835),
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildProgressLine(bool isActive) {
-    return Container(
-      width: 60,
-      height: 2,
-      color: isActive ? const Color(0xFFB8A835) : const Color(0xFFE6D57A),
-      margin: const EdgeInsets.symmetric(horizontal: 4),
-    );
-  }
-
-  Widget _buildTextField(
-    String label,
-    String placeholder,
-    TextEditingController controller,
-  ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-            color: Colors.black87,
-            letterSpacing: 0.5,
-          ),
-        ),
-        const SizedBox(height: 8),
-        SizedBox(
-          height: 60,
-          width: 400,
-          child: TextField(
-            controller: controller,
-            decoration: InputDecoration(
-              hintText: placeholder,
-              hintStyle: TextStyle(color: Colors.grey[600], fontSize: 14),
-              border: _inputBorder(),
-              enabledBorder: _inputBorder(),
-              focusedBorder: _inputBorder(const Color(0xFFB8A835)),
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 18,
-              ),
-              filled: true,
-              fillColor: Colors.white,
-            ),
-          ),
-        ),
-      ],
     );
   }
 

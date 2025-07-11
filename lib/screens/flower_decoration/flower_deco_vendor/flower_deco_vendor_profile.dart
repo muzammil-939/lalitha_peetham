@@ -94,7 +94,7 @@ class FlowerDecoVendorProfile extends StatelessWidget {
             context: context,
             title: 'Business Information',
             icon: Icons.chevron_right,
-            Path: '',
+            Path: '/flower_deco_vendor_bussinesdetails',
           ),
           const SizedBox(height: 30),
           _buildSectionItem(
@@ -108,7 +108,7 @@ class FlowerDecoVendorProfile extends StatelessWidget {
             context: context,
             title: 'Availability',
             icon: Icons.chevron_right,
-            Path: '',
+            Path: '/flower_deco_vendor_avaiability',
           ),
         ],
       ),

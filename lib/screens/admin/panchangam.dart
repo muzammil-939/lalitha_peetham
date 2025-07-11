@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_layout.dart';
-
 import '../../widgets/footer.dart';
 import '../../widgets/home_header.dart';
 

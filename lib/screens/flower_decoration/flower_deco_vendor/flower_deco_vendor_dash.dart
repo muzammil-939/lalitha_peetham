@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_vendor_layout.dart';
 import '../../matrimony/matri_profile_widget.dart';
 import 'flower_deco_profile_widget.dart';
+import 'flower_deco_vendor_dashnotifi.dart';
 
 class FlowerDecoVendorDash extends StatelessWidget {
   const FlowerDecoVendorDash({super.key});
@@ -48,6 +49,8 @@ class FlowerDecoVendorDash extends StatelessWidget {
               subtxt: 'Cases',
               imgPath: 'assets/images/flower_vendor_offer_4.png',
             ),
+            const SizedBox(height: 60),
+            NotificationsContainer(),
           ],
         ),
       ),

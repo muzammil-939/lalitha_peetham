@@ -272,6 +272,7 @@ class FlowerDecoVendorHeader extends StatelessWidget {
         ),
         Expanded(child: _buildSubNavItem(context, 'Gallery', 'null')),
         Expanded(child: _buildSubNavItem(context, 'Settings', 'null')),
+        Expanded(child: _buildMoreDropdown(context, true)),
       ],
     );
   }
@@ -300,7 +301,73 @@ class FlowerDecoVendorHeader extends StatelessWidget {
         ),
         Expanded(child: _buildSubNavItem(context, 'Gallery', 'null')),
         Expanded(child: _buildSubNavItem(context, 'Settings', 'null')),
+        Expanded(child: _buildMoreDropdown(context, true)),
       ],
+    );
+  }
+
+  Widget _buildMoreDropdown(BuildContext context, bool isMobile) {
+    return PopupMenuButton<String>(
+      onSelected: (String value) {
+        switch (value) {
+          case 'notifications':
+            context.go('/flower_deco_vendor_notisettings');
+            break;
+          case 'settings':
+            context.go('/flower_deco_vendor_settings');
+            break;
+        }
+      },
+      itemBuilder:
+          (BuildContext context) => [
+            const PopupMenuItem<String>(
+              value: 'settings',
+              child: Row(
+                children: [
+                  Icon(Icons.shopping_bag, size: 20, color: Colors.black87),
+                  SizedBox(width: 8),
+                  Text('Settings'),
+                ],
+              ),
+            ),
+
+            const PopupMenuItem<String>(
+              value: 'notifications',
+              child: Row(
+                children: [
+                  Icon(Icons.notifications, size: 20, color: Colors.black87),
+                  SizedBox(width: 8),
+                  Text('Notifications'),
+                ],
+              ),
+            ),
+          ],
+      child: TextButton(
+        onPressed: null, // Let PopupMenuButton handle the press
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Settings',
+              style: TextStyle(
+                color: Colors.black87,
+                fontWeight: FontWeight.w500,
+                decorationThickness: 1.5,
+                fontSize: isMobile ? 12 : 16,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(width: 4),
+            Icon(
+              Icons.keyboard_arrow_down,
+              color: Colors.black87,
+              size: isMobile ? 16 : 18,
+            ),
+          ],
+        ),
+      ),
     );
   }
 
