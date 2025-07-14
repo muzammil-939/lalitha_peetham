@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_layout.dart';
+import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_vendor_layout.dart';
 
 class FlowerDecoBussinesdetails extends StatefulWidget {
   const FlowerDecoBussinesdetails({super.key});
@@ -18,7 +18,7 @@ class FlowerDecoBussinesdetailsState extends State<FlowerDecoBussinesdetails> {
 
   @override
   Widget build(BuildContext context) {
-    return YogaLayout(
+    return FlowerDecoVendorLayout(
       child: Container(
         padding: const EdgeInsets.fromLTRB(200, 50, 200, 150),
         decoration: const BoxDecoration(color: Colors.white),

@@ -36,35 +36,6 @@ import 'package:lalitha_peetham/screens/ayurvedha/herbs_product_buynow.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/herbs_products_details.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/patient_appointment.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/single_herbformulation.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/backpain_booking.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/general_yoga.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/mindful_meditation.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/mindful_meditation_confirm.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/one_to_one_sessions.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/one_to_one_yogareg.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/onetoone_sessions_book.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/online_meditation.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/pregnacy_yoga.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/pregnacy_yoga_confirm.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/pregnacy_yoga_join.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/teacher_reg_success.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/testimonials.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/testimonials_certificate.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/theraphy_for_backpain.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/therapy_backpain_form.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/welcome_yoga_screen.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_booking_confirm.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_corporates_confirm.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_corporates_form.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_corporates_order.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_corporates_select.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_kids_confirm.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_kids_form.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_kids_order.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_for_kids_select.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_payment.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_teacher_reg.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_teacher_reg_2.dart';
 import 'package:lalitha_peetham/screens/event_management/em_basicdetails.dart';
 import 'package:lalitha_peetham/screens/event_management/em_booking_summary.dart';
 import 'package:lalitha_peetham/screens/event_management/em_contractor_profile.dart';
@@ -83,6 +54,7 @@ import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flo
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_vendor_notisettings.dart';
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_vendor_profile.dart';
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_vendor_settings.dart';
+import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_vendor_reviews.dart';
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_vendor_basicdetails.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/accepted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/deleted_screen.dart';
@@ -106,6 +78,12 @@ import 'package:lalitha_peetham/screens/matrimony/settings_page.dart';
 import 'package:lalitha_peetham/screens/matrimony/upgrade_plans.dart';
 import 'package:lalitha_peetham/screens/matrimony/your_patners_preferences.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_welcome_screen.dart';
+import 'package:lalitha_peetham/screens/photography/photography_contact_form.dart';
+import 'package:lalitha_peetham/screens/photography/photography_packages.dart';
+import 'package:lalitha_peetham/screens/photography/photography_packages_2.dart';
+import 'package:lalitha_peetham/screens/photography/photography_packages_3.dart';
+import 'package:lalitha_peetham/screens/photography/photography_packages_4.dart';
+import 'package:lalitha_peetham/screens/photography/photography_services.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/complete_your_purchase.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/learn_pooja_vidhanam.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_contact.dart';
@@ -118,6 +96,35 @@ import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_my_purchase.da
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_purchase_successful.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_upcomming_liveclasses.dart';
 import 'package:lalitha_peetham/screens/real_estate/rs_dashboard.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/backpain_booking.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/general_yoga.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/mindful_meditation.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/mindful_meditation_confirm.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/one_to_one_sessions.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/one_to_one_yogareg.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/onetoone_sessions_book.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/online_meditation.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/pregnacy_yoga.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/pregnacy_yoga_confirm.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/pregnacy_yoga_join.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/teacher_reg_success.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/testimonials.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/testimonials_certificate.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/theraphy_for_backpain.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/therapy_backpain_form.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/welcome_yoga_screen.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/yoga_booking_confirm.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/yoga_for_corporates_confirm.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/yoga_for_corporates_form.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/yoga_for_corporates_order.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/yoga_for_corporates_select.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/yoga_for_kids_confirm.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/yoga_for_kids_form.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/yoga_for_kids_order.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/yoga_for_kids_select.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/yoga_payment.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/yoga_teacher_reg.dart';
+import 'package:lalitha_peetham/screens/yoga_screens/yoga_teacher_reg_2.dart';
 import 'firebase_options.dart';
 import 'screens/home.dart';
 
@@ -139,6 +146,32 @@ class MyApp extends StatelessWidget {
       routes: [
         GoRoute(path: '/', builder: (context, state) => MainScreen()),
         //GoRoute(path: '*', builder: (context, state) => const NotFoundScreen()),
+
+        //Photography Section
+        GoRoute(
+          path: '/photography_services',
+          builder: (context, state) => const PhotographyServices(),
+        ),
+        GoRoute(
+          path: '/photography_packages',
+          builder: (context, state) => const PhotographyPackages(),
+        ),
+        GoRoute(
+          path: '/photography_packages_2',
+          builder: (context, state) => const PhotographyPackages2(),
+        ),
+        GoRoute(
+          path: '/photography_packages_3',
+          builder: (context, state) => const PhotographyPackages3(),
+        ),
+        GoRoute(
+          path: '/photography_packages_4',
+          builder: (context, state) => const PhotographyPackages4(),
+        ),
+        GoRoute(
+          path: '/photography_contact_form',
+          builder: (context, state) => const PhotographyContactForm(),
+        ),
 
         //ADMIN PANCHANGAM
         GoRoute(
@@ -528,6 +561,11 @@ class MyApp extends StatelessWidget {
           builder: (context, state) => FlowerDecoVendorSettings(),
         ),
 
+        GoRoute(
+          path: '/flower_deco_vendor_reviews',
+          builder: (context, state) => FlowerDecoVendorReviews(),
+        ),
+
         //YOGA FOR CORPORATES
         GoRoute(
           path: '/yoga_for_corporates_select',
@@ -603,7 +641,8 @@ class MyApp extends StatelessWidget {
           path: '/pv_upcomming_liveclasses',
           builder: (context, state) => PvUpcommingLiveclasses(),
         ),
-         GoRoute(
+
+        GoRoute(
           path: '/real_estate_dashboard',
           builder: (context, state) => RsDashboard(),
         ),
@@ -613,7 +652,6 @@ class MyApp extends StatelessWidget {
           path: '/online_vastu_pooja',
           builder: (context, state) => VastupoojaWelcomeScreen(),
         ),
-      
       ],
     );
     return MaterialApp.router(

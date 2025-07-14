@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/matrimony/matri_dashboard.dart';
 
-
-
 class DropdownGridMenu extends StatefulWidget {
   @override
   _DropdownGridMenuState createState() => _DropdownGridMenuState();
@@ -27,6 +25,7 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
     'Sannaimelam',
     'Function Hall Booking',
     'Event Management',
+    'Pandit Booking',
     'Online Muhurthas',
     'Referal & Even',
     'Nithyapooja Subscription',
@@ -195,20 +194,23 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
         context.go('/flower_deco_home');
         // Navigate to Sannaimelam page
         break;
-        
-        case 'Poojavidhanam Course Calling':
-        context.go('/pv_home_screen');       
+
+      case 'Poojavidhanam Course Calling':
+        context.go('/pv_home_screen');
         break;
 
-        case 'Online Vasthu Property':
-        context.go('/online_vastu_pooja');       
+      case 'Online Vasthu Property':
+        context.go('/online_vastu_pooja');
         break;
-        
-         case 'Real Estate':
-        context.go('/real_estate_dashboard');       
-        break;
-        
 
+      case 'Real Estate':
+        context.go('/real_estate_dashboard');
+        break;
+
+      case 'Photography':
+        context.go('/photography_contact_form');
+
+        break;
       // Add more cases as needed
       default:
         // Handle other menu items
@@ -263,6 +265,7 @@ class _DropdownGridOverlayState extends State<_DropdownGridOverlay>
     'Flower Decoration',
     'Sannaimelam',
     'Event Management',
+    'Pandit Booking',
     'Online Muhurthas',
     'Referal & Earn',
     'Pandit Registration'

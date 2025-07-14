@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/ayurvedh_header.dart';
-import 'package:lalitha_peetham/screens/ayurvedha/yoga_screens/yoga_header.dart';
 import 'package:lalitha_peetham/screens/refer&earn/refer_header.dart';
 import 'package:lalitha_peetham/widgets/footer.dart';
 

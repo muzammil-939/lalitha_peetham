@@ -270,8 +270,14 @@ class FlowerDecoVendorHeader extends StatelessWidget {
             '/flower_deco_vendor_profile',
           ),
         ),
-        Expanded(child: _buildSubNavItem(context, 'Gallery', 'null')),
-        Expanded(child: _buildSubNavItem(context, 'Settings', 'null')),
+        Expanded(
+          child: _buildSubNavItem(
+            context,
+            'Gallery',
+            '/flower_deco_vendor_reviews',
+          ),
+        ),
+        //Expanded(child: _buildSubNavItem(context, 'Settings', 'null')),
         Expanded(child: _buildMoreDropdown(context, true)),
       ],
     );
@@ -299,8 +305,14 @@ class FlowerDecoVendorHeader extends StatelessWidget {
             '/flower_deco_vendor_profile',
           ),
         ),
-        Expanded(child: _buildSubNavItem(context, 'Gallery', 'null')),
-        Expanded(child: _buildSubNavItem(context, 'Settings', 'null')),
+        Expanded(
+          child: _buildSubNavItem(
+            context,
+            'Gallery',
+            '/flower_deco_vendor_reviews',
+          ),
+        ),
+        //Expanded(child: _buildSubNavItem(context, 'Settings', 'null')),
         Expanded(child: _buildMoreDropdown(context, true)),
       ],
     );
