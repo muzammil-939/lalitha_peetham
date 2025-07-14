@@ -105,6 +105,7 @@ import 'package:lalitha_peetham/screens/matrimony/search_results.dart';
 import 'package:lalitha_peetham/screens/matrimony/settings_page.dart';
 import 'package:lalitha_peetham/screens/matrimony/upgrade_plans.dart';
 import 'package:lalitha_peetham/screens/matrimony/your_patners_preferences.dart';
+import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_welcome_screen.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/complete_your_purchase.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/learn_pooja_vidhanam.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_contact.dart';
@@ -116,6 +117,7 @@ import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_my_dashboard.d
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_my_purchase.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_purchase_successful.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_upcomming_liveclasses.dart';
+import 'package:lalitha_peetham/screens/real_estate/rs_dashboard.dart';
 import 'firebase_options.dart';
 import 'screens/home.dart';
 
@@ -135,7 +137,7 @@ class MyApp extends StatelessWidget {
     final GoRouter router = GoRouter(
       initialLocation: '/',
       routes: [
-        GoRoute(path: '/', builder: (context, state) => FlowerDecoVendorDash()),
+        GoRoute(path: '/', builder: (context, state) => MainScreen()),
         //GoRoute(path: '*', builder: (context, state) => const NotFoundScreen()),
 
         //ADMIN PANCHANGAM
@@ -601,6 +603,17 @@ class MyApp extends StatelessWidget {
           path: '/pv_upcomming_liveclasses',
           builder: (context, state) => PvUpcommingLiveclasses(),
         ),
+         GoRoute(
+          path: '/real_estate_dashboard',
+          builder: (context, state) => RsDashboard(),
+        ),
+
+        // ONLINE VASTU PROPERTY
+        GoRoute(
+          path: '/online_vastu_pooja',
+          builder: (context, state) => VastupoojaWelcomeScreen(),
+        ),
+      
       ],
     );
     return MaterialApp.router(

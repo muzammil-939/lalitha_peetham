@@ -18,6 +18,7 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
     'Astrology',
     'Matrimony',
     'Online Pooja',
+    'Real Estate',
     'Function Hall Booking',
     'Gemstone Selling',
     'Catering',
@@ -194,10 +195,19 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
         context.go('/flower_deco_home');
         // Navigate to Sannaimelam page
         break;
-        case 'Poojavidhanam Course Calling':
-        context.go('/pv_home_screen');
         
+        case 'Poojavidhanam Course Calling':
+        context.go('/pv_home_screen');       
         break;
+
+        case 'Online Vasthu Property':
+        context.go('/online_vastu_pooja');       
+        break;
+        
+         case 'Real Estate':
+        context.go('/real_estate_dashboard');       
+        break;
+        
 
       // Add more cases as needed
       default:
@@ -245,6 +255,7 @@ class _DropdownGridOverlayState extends State<_DropdownGridOverlay>
     'Astrology',
     'Matrimony',
     'Online Pooja',
+    'Real Estate',
     'Function Hall Booking',
     'Gemstone Selling',
     'Catering',
