@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/astrologer_contact_section.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 import 'vastu_hero_section.dart';
@@ -31,7 +32,7 @@ class _VastupoojaWelcomeScreenState extends State<VastupoojaWelcomeScreen> {
            SizedBox(height: 40),
            AstrologerContactpersonSection(),
            SizedBox(height: 60),
-           VastuFaqSection()
+           VastuFaqSection(),
           ],
         ),
       ),
@@ -368,7 +369,9 @@ class AstrologerContactpersonSection extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            context.go('/vastu_expert');
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: index == 0 ? Colors.orange : Colors.transparent,
             foregroundColor: Colors.black,

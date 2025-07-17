@@ -77,22 +77,21 @@ import 'package:lalitha_peetham/screens/matrimony/search_results.dart';
 import 'package:lalitha_peetham/screens/matrimony/settings_page.dart';
 import 'package:lalitha_peetham/screens/matrimony/upgrade_plans.dart';
 import 'package:lalitha_peetham/screens/matrimony/your_patners_preferences.dart';
+import 'package:lalitha_peetham/screens/online_vastu_property/book_a_session_vastupooja.dart';
+import 'package:lalitha_peetham/screens/online_vastu_property/checkout_expert_vastupooja.dart';
+import 'package:lalitha_peetham/screens/online_vastu_property/cmplt_payment_confirm_booking.dart';
+import 'package:lalitha_peetham/screens/online_vastu_property/confirm_your_vastu_booking.dart';
+import 'package:lalitha_peetham/screens/online_vastu_property/request_for_pandit.dart';
+import 'package:lalitha_peetham/screens/online_vastu_property/vastu_booking_enquery_form.dart';
+import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_check_out_page.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_welcome_screen.dart';
-import 'package:lalitha_peetham/screens/photography/photography_booking_confirm.dart';
-import 'package:lalitha_peetham/screens/photography/photography_bookings_status.dart';
-import 'package:lalitha_peetham/screens/photography/photography_chat_support.dart';
-import 'package:lalitha_peetham/screens/photography/photography_chat_support_form.dart';
+import 'package:lalitha_peetham/screens/online_vastu_property/your_scheduled_and_cmplt_poojas.dart';
 import 'package:lalitha_peetham/screens/photography/photography_contact_form.dart';
-import 'package:lalitha_peetham/screens/photography/photography_package_confirm.dart';
 import 'package:lalitha_peetham/screens/photography/photography_packages.dart';
 import 'package:lalitha_peetham/screens/photography/photography_packages_2.dart';
 import 'package:lalitha_peetham/screens/photography/photography_packages_3.dart';
 import 'package:lalitha_peetham/screens/photography/photography_packages_4.dart';
-import 'package:lalitha_peetham/screens/photography/photography_payment.dart';
-import 'package:lalitha_peetham/screens/photography/photography_payments_status.dart';
 import 'package:lalitha_peetham/screens/photography/photography_services.dart';
-import 'package:lalitha_peetham/screens/photography/photography_subs_packages.dart';
-import 'package:lalitha_peetham/screens/photography/photography_faq_support.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/complete_your_purchase.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/learn_pooja_vidhanam.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_contact.dart';
@@ -660,6 +659,39 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/online_vastu_pooja',
           builder: (context, state) => VastupoojaWelcomeScreen(),
+        ),
+         GoRoute(
+          path: '/vastu_expert',
+          builder: (context, state) => CheckoutExpertVastupooja(),
+        ),
+         GoRoute(
+          path: '/book_a_session_vastupooja',
+          builder: (context, state) => BookASessionVastupooja(),
+        ),
+
+         GoRoute(
+          path: '/vastupooja_booking_enquery_form',
+          builder: (context, state) => VastuBookingEnqueryForm(),
+        ),
+         GoRoute(
+          path: '/vastupooja_check_out_form',
+          builder: (context, state) => VastupoojaCheckOutPage(),
+        ),
+         GoRoute(
+          path: '/request_for_pandit',
+          builder: (context, state) => RequestForPandit(),
+        ),
+         GoRoute(
+          path: '/cmplt_payment_confirm_booking',
+          builder: (context, state) => CmpltPaymentConfirmBooking(),
+        ),
+        GoRoute(
+          path: '/confirm_your_vastu_booking',
+          builder: (context, state) => ConfirmYourVastuBooking(),
+        ),
+        GoRoute(
+          path: '/your_scheduled_cmplt_poojas',
+          builder: (context, state) => YourScheduledAndCmpltPoojas(),
         ),
       ],
     );
