@@ -660,28 +660,28 @@ class MyApp extends StatelessWidget {
           path: '/online_vastu_pooja',
           builder: (context, state) => VastupoojaWelcomeScreen(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/vastu_expert',
           builder: (context, state) => CheckoutExpertVastupooja(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/book_a_session_vastupooja',
           builder: (context, state) => BookASessionVastupooja(),
         ),
 
-         GoRoute(
+        GoRoute(
           path: '/vastupooja_booking_enquery_form',
           builder: (context, state) => VastuBookingEnqueryForm(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/vastupooja_check_out_form',
           builder: (context, state) => VastupoojaCheckOutPage(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/request_for_pandit',
           builder: (context, state) => RequestForPandit(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/cmplt_payment_confirm_booking',
           builder: (context, state) => CmpltPaymentConfirmBooking(),
         ),
