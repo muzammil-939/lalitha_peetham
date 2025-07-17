@@ -243,23 +243,28 @@ class PhotographyPaymentsStatus extends StatelessWidget {
                                     SizedBox(width: 40),
 
                                     // Confirmed Button
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 32,
-                                        vertical: 12,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: Color(
-                                          0xFF71B023,
-                                        ), // Same green as background
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Text(
-                                        'Confirmed',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
+                                    GestureDetector(
+                                      onTap: () {
+                                        context.go('/photography_chart_support_form');
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 32,
+                                          vertical: 12,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: Color(
+                                            0xFF71B023,
+                                          ), // Same green as background
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        child: Text(
+                                          'Confirmed',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       ),
                                     ),

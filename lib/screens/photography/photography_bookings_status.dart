@@ -4,9 +4,14 @@ import 'package:lalitha_peetham/screens/photography/photography_faq_wid.dart';
 import 'package:lalitha_peetham/screens/photography/photography_hero_img2.dart';
 import 'package:lalitha_peetham/screens/photography/photography_layout.dart';
 
-class PhotographyBookingsStatus extends StatelessWidget {
+class PhotographyBookingsStatus extends StatefulWidget {
   const PhotographyBookingsStatus({super.key});
 
+  @override
+  State<PhotographyBookingsStatus> createState() => _PhotographyBookingsStatusState();
+}
+
+class _PhotographyBookingsStatusState extends State<PhotographyBookingsStatus> {
   @override
   Widget build(BuildContext context) {
     return PhotographyLayout(
@@ -197,18 +202,23 @@ class PhotographyBookingsStatus extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                decoration: BoxDecoration(
-                  color: Color(0xFF71B023), // Green color for confirmed
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Text(
-                  "Confirmed",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+              GestureDetector(
+                onTap: () {
+                  context.go('/photography_SubsPackages');
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Color(0xFF71B023), // Green color for confirmed
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    "Confirmed",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),

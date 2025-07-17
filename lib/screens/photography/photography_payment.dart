@@ -231,7 +231,9 @@ class PhotographyPayment extends StatelessWidget {
                         child: Container(
                           height: 50,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              context.go('/Photography_Bookings_Status');
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color(0xFFE6B84A),
                               foregroundColor: Colors.black,

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class RelatedAstrology extends StatelessWidget {
    RelatedAstrology({super.key});
@@ -142,7 +143,10 @@ class RelatedAstrology extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          context.go('/support_page');
+
+                        },
                       ),
                       const SizedBox(width: 8),
                       Icon(Icons.chat, color: Colors.green, size: 20),

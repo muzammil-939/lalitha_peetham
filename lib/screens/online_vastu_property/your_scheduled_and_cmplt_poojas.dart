@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 
 class YourScheduledAndCmpltPoojas extends StatefulWidget {
@@ -319,7 +320,9 @@ class _YourScheduledAndCmpltPoojasState extends State<YourScheduledAndCmpltPooja
                         borderRadius: BorderRadius.circular(0),
                       ),
         ),
-        onPressed: () {},
+        onPressed: () {
+          context.go('/events_page');
+        },
         child: const Text("Customer Support"),
       ),
     ],

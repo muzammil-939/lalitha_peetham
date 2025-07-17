@@ -209,8 +209,17 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
 
       case 'Photography':
         context.go('/photography_contact_form');
-
         break;
+
+        case 'Online Pooja':
+        context.go('/booking_e_pooja');
+        break;
+
+        case 'Nithyapooja Subscription':
+        context.go('/poojas_page');
+        break;
+
+        
       // Add more cases as needed
       default:
         // Handle other menu items
@@ -269,7 +278,7 @@ class _DropdownGridOverlayState extends State<_DropdownGridOverlay>
     'Online Muhurthas',
     'Referal & Earn',
     'Pandit Registration'
-        'Nithyapooja Subscription',
+    'Nithyapooja Subscription',
     'Online Vasthu Property',
     'Poojavidhanam Course Calling',
     'Yoga Classes Conducting',

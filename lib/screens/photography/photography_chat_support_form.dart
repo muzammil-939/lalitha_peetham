@@ -344,7 +344,7 @@ class _PhotographyChatSupportFormState
     print('Form submitted: $formData');
 
     // You can add navigation to chat support or show success message
-    // context.go('/chat-support');
+  context.go('/photography_chart_support');
   }
 
   @override

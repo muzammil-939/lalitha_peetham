@@ -4,9 +4,14 @@ import 'package:lalitha_peetham/screens/photography/photography_faq_wid.dart';
 import 'package:lalitha_peetham/screens/photography/photography_hero_img2.dart';
 import 'package:lalitha_peetham/screens/photography/photography_layout.dart';
 
-class PhotographySubsPackages extends StatelessWidget {
+class PhotographySubsPackages extends StatefulWidget {
   const PhotographySubsPackages({super.key});
 
+  @override
+  State<PhotographySubsPackages> createState() => _PhotographySubsPackagesState();
+}
+
+class _PhotographySubsPackagesState extends State<PhotographySubsPackages> {
   @override
   Widget build(BuildContext context) {
     return PhotographyLayout(
@@ -231,6 +236,7 @@ class PhotographySubsPackages extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 // Handle booking
+                context.go('/photography_paymentsStatus');
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: buttonColor,

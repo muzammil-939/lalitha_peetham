@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/photography/photography_faq_wid.dart';
 import 'package:lalitha_peetham/screens/photography/photography_hero_img2.dart';
 import 'package:lalitha_peetham/screens/photography/photography_layout.dart';
@@ -369,20 +370,25 @@ class PhotographyPackages4 extends StatelessWidget {
                   // Next button
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Container(
-                      width: 80,
-                      height: 36,
-                      decoration: BoxDecoration(
-                        color: Color(0xFFE6B562), // Orange/yellow color
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Center(
-                        child: Text(
-                          'next',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
+                    child: GestureDetector(
+                      onTap: () {
+                        context.go('/photography_payment_page');
+                      },
+                      child: Container(
+                        width: 80,
+                        height: 36,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFE6B562), // Orange/yellow color
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'next',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ),

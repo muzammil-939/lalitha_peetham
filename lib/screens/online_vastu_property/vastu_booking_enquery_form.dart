@@ -90,7 +90,7 @@ class _VastuBookingEnqueryFormState extends State<VastuBookingEnqueryForm> {
             opacity: 0.08,
             child: Center(
               child: Image.asset(
-                'assets/images/vastupooja10.png',
+                'assets/images/Vector (2).png',
                 width: 400,
                 height: 400,
                 fit: BoxFit.contain,
