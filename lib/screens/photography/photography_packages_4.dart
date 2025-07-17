@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lalitha_peetham/screens/photography/photography_faq.dart';
+import 'package:lalitha_peetham/screens/photography/photography_faq_wid.dart';
 import 'package:lalitha_peetham/screens/photography/photography_hero_img2.dart';
 import 'package:lalitha_peetham/screens/photography/photography_layout.dart';
 
