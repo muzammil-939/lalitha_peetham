@@ -8,7 +8,8 @@ class PhotographySubsPackages extends StatefulWidget {
   const PhotographySubsPackages({super.key});
 
   @override
-  State<PhotographySubsPackages> createState() => _PhotographySubsPackagesState();
+  State<PhotographySubsPackages> createState() =>
+      _PhotographySubsPackagesState();
 }
 
 class _PhotographySubsPackagesState extends State<PhotographySubsPackages> {
@@ -140,7 +141,7 @@ class _PhotographySubsPackagesState extends State<PhotographySubsPackages> {
               ),
             ),
           ),
-          PhotographyFaq(),
+          PhotographyFaqWid(),
         ],
       ),
     );

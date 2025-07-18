@@ -245,7 +245,9 @@ class PhotographyPaymentsStatus extends StatelessWidget {
                                     // Confirmed Button
                                     GestureDetector(
                                       onTap: () {
-                                        context.go('/photography_chart_support_form');
+                                        context.go(
+                                          '/photography_chart_support_form',
+                                        );
                                       },
                                       child: Container(
                                         padding: EdgeInsets.symmetric(
@@ -256,7 +258,9 @@ class PhotographyPaymentsStatus extends StatelessWidget {
                                           color: Color(
                                             0xFF71B023,
                                           ), // Same green as background
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
                                         ),
                                         child: Text(
                                           'Confirmed',
@@ -281,7 +285,7 @@ class PhotographyPaymentsStatus extends StatelessWidget {
               ),
             ),
           ),
-          PhotographyFaq(),
+          PhotographyFaqWid(),
         ],
       ),
     );

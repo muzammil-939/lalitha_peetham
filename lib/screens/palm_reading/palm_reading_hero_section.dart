@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class VastuHeroSection extends StatelessWidget {
-  const VastuHeroSection({super.key});
+class PalmReadingHeroSection extends StatelessWidget {
+  const PalmReadingHeroSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,22 +36,13 @@ class VastuHeroSection extends StatelessWidget {
           top: 120,
           child: Column(
             children: const [
+              SizedBox(height: 60),
               Text(
-                "EACH DIRECTION IN VASTU SHASTRA, ITS SIGNIFICANCE,\nAND THE IMPACT DURING A VASTU POOJA",
+                "DIVINE INSIGHTS FROM THE LINES ON YOUR HAND",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                "VASTU PROPERTY PLANNING",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 45,
+                  fontSize: 38,
                   fontWeight: FontWeight.bold,
                 ),
               ),

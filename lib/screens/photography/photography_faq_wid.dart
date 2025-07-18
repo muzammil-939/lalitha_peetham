@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class PhotographyFaq extends StatefulWidget {
-  const PhotographyFaq({super.key});
+class PhotographyFaqWid extends StatefulWidget {
+  const PhotographyFaqWid({super.key});
 
   @override
-  State<PhotographyFaq> createState() => _PhotographyFaqState();
+  State<PhotographyFaqWid> createState() => _PhotographyFaqWidState();
 }
 
-class _PhotographyFaqState extends State<PhotographyFaq> {
+class _PhotographyFaqWidState extends State<PhotographyFaqWid> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -64,7 +64,7 @@ class _PhotographyFaqState extends State<PhotographyFaq> {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: const Color(0xFFD1D5DB), // Gray-300 equivalent
+        color: const Color(0xFFD9D9D9),
         borderRadius: BorderRadius.circular(8),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),

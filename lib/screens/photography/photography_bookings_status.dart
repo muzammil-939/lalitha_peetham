@@ -8,7 +8,8 @@ class PhotographyBookingsStatus extends StatefulWidget {
   const PhotographyBookingsStatus({super.key});
 
   @override
-  State<PhotographyBookingsStatus> createState() => _PhotographyBookingsStatusState();
+  State<PhotographyBookingsStatus> createState() =>
+      _PhotographyBookingsStatusState();
 }
 
 class _PhotographyBookingsStatusState extends State<PhotographyBookingsStatus> {
@@ -69,7 +70,7 @@ class _PhotographyBookingsStatusState extends State<PhotographyBookingsStatus> {
               ),
             ),
           ),
-          PhotographyFaq(),
+          PhotographyFaqWid(),
         ],
       ),
     );

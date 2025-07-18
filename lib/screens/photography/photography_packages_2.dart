@@ -153,7 +153,7 @@ class PhotographyPackages2 extends StatelessWidget {
               ),
             ),
           ),
-          PhotographyFaq(),
+          PhotographyFaqWid(),
         ],
       ),
     );

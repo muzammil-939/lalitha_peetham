@@ -27,6 +27,7 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
     'Event Management',
     'Pandit Booking',
     'Online Muhurthas',
+    'Palm Reading',
     'Referal & Even',
     'Nithyapooja Subscription',
     'Online Vasthu Property',
@@ -208,18 +209,20 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
         break;
 
       case 'Photography':
-        context.go('/photography_contact_form');
+        context.go('/photography_home');
         break;
 
-        case 'Online Pooja':
+      case 'Online Pooja':
         context.go('/booking_e_pooja');
         break;
 
-        case 'Nithyapooja Subscription':
+      case 'Nithyapooja Subscription':
         context.go('/poojas_page');
         break;
+      case 'Palm Reading':
+        context.go('/palm_reading_home');
+        break;
 
-        
       // Add more cases as needed
       default:
         // Handle other menu items
@@ -276,9 +279,10 @@ class _DropdownGridOverlayState extends State<_DropdownGridOverlay>
     'Event Management',
     'Pandit Booking',
     'Online Muhurthas',
+    'Palm Reading',
     'Referal & Earn',
     'Pandit Registration'
-    'Nithyapooja Subscription',
+        'Nithyapooja Subscription',
     'Online Vasthu Property',
     'Poojavidhanam Course Calling',
     'Yoga Classes Conducting',

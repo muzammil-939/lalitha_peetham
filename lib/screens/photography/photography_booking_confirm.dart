@@ -182,7 +182,7 @@ class PhotographyBookingConfirm extends StatelessWidget {
               ),
             ),
           ),
-          PhotographyFaq(),
+          PhotographyFaqWid(),
         ],
       ),
     );

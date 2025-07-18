@@ -109,18 +109,26 @@ import 'package:lalitha_peetham/screens/online_vastu_property/vastu_booking_enqu
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_check_out_page.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_welcome_screen.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/your_scheduled_and_cmplt_poojas.dart';
+import 'package:lalitha_peetham/screens/palm_reading/palm_reading_download_report.dart';
+import 'package:lalitha_peetham/screens/palm_reading/palm_reading_expert_card_follow.dart';
+import 'package:lalitha_peetham/screens/palm_reading/palm_reading_follow_astrologers.dart';
+import 'package:lalitha_peetham/screens/palm_reading/palm_reading_home.dart';
+import 'package:lalitha_peetham/screens/palm_reading/palm_reading_submit_info.dart';
+import 'package:lalitha_peetham/screens/palm_reading/palm_reading_upload_your_palm.dart';
 import 'package:lalitha_peetham/screens/photography/photography_booking_confirm.dart';
 import 'package:lalitha_peetham/screens/photography/photography_bookings_status.dart';
 import 'package:lalitha_peetham/screens/photography/photography_chat_support.dart';
 import 'package:lalitha_peetham/screens/photography/photography_chat_support_form.dart';
 import 'package:lalitha_peetham/screens/photography/photography_contact_form.dart';
 import 'package:lalitha_peetham/screens/photography/photography_faq_support_wid.dart';
+import 'package:lalitha_peetham/screens/photography/photography_home.dart';
 import 'package:lalitha_peetham/screens/photography/photography_packages.dart';
 import 'package:lalitha_peetham/screens/photography/photography_packages_2.dart';
 import 'package:lalitha_peetham/screens/photography/photography_packages_3.dart';
 import 'package:lalitha_peetham/screens/photography/photography_packages_4.dart';
 import 'package:lalitha_peetham/screens/photography/photography_payment.dart';
 import 'package:lalitha_peetham/screens/photography/photography_payments_status.dart';
+import 'package:lalitha_peetham/screens/photography/photography_portfolio.dart';
 import 'package:lalitha_peetham/screens/photography/photography_services.dart';
 import 'package:lalitha_peetham/screens/photography/photography_subs_packages.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/complete_your_purchase.dart';
@@ -186,7 +194,33 @@ class MyApp extends StatelessWidget {
         GoRoute(path: '/', builder: (context, state) => MainScreen()),
         //GoRoute(path: '*', builder: (context, state) => const NotFoundScreen()),
 
+        //PALM READING SECTION
+        GoRoute(
+          path: '/palm_reading_home',
+          builder: (context, state) => const PalmReadingHome(),
+        ),
+        GoRoute(
+          path: '/palm_reading_submit_info',
+          builder: (context, state) => const PalmReadingSubmitInfo(),
+        ),
+        GoRoute(
+          path: '/palm_reading_upload_your_palm',
+          builder: (context, state) => const PalmReadingUploadYourPalm(),
+        ),
+        GoRoute(
+          path: '/palm_reading_follow_astrologers',
+          builder: (context, state) => const PalmReadingFollowAstrologers(),
+        ),
+        GoRoute(
+          path: '/palm_reading_download_report',
+          builder: (context, state) => const PalmReadingDownloadReport(),
+        ),
+
         //Photography Section
+        GoRoute(
+          path: '/photography_home',
+          builder: (context, state) => const PhotographyHome(),
+        ),
         GoRoute(
           //1
           path: '/photography_contact_form',
@@ -213,16 +247,16 @@ class MyApp extends StatelessWidget {
           path: '/photography_packages_4',
           builder: (context, state) => const PhotographyPackages4(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/photography_payment_page',
           builder: (context, state) => const PhotographyPayment(),
-        ),       
+        ),
         GoRoute(
           path: '/photography_booking_confirm_page',
           builder: (context, state) => const PhotographyBookingConfirm(),
         ),
-        
-          GoRoute(
+
+        GoRoute(
           path: '/Photography_Bookings_Status',
           builder: (context, state) => const PhotographyBookingsStatus(),
         ),
@@ -232,11 +266,11 @@ class MyApp extends StatelessWidget {
         ),
         GoRoute(
           path: '/photography_paymentsStatus',
-          builder: (context, state) => const  PhotographyPaymentsStatus(),
+          builder: (context, state) => const PhotographyPaymentsStatus(),
         ),
         GoRoute(
           path: '/photography_faq_support_wid',
-          builder: (context, state) => const  PhotographyFaqSupportWid(),
+          builder: (context, state) => const PhotographyFaqSupportWid(),
         ),
         GoRoute(
           path: '/photography_chart_support_form',
@@ -246,9 +280,6 @@ class MyApp extends StatelessWidget {
           path: '/photography_chart_support',
           builder: (context, state) => const PhotographyChatSupport(),
         ),
-        
-       
-        
 
         //ADMIN PANCHANGAM
         GoRoute(
@@ -762,10 +793,7 @@ class MyApp extends StatelessWidget {
           path: '/your_scheduled_cmplt_poojas',
           builder: (context, state) => YourScheduledAndCmpltPoojas(),
         ),
-        GoRoute(
-          path: '/events_page',
-          builder: (context, state) => Events(),
-        ),
+        GoRoute(path: '/events_page', builder: (context, state) => Events()),
         GoRoute(
           path: '/support_page',
           builder: (context, state) => SupportPage(),
@@ -782,46 +810,46 @@ class MyApp extends StatelessWidget {
         ),
         GoRoute(
           path: '/online_booking',
-          builder: (context, state) =>OnlineBookingPage(),
+          builder: (context, state) => OnlineBookingPage(),
         ),
         GoRoute(
           path: '/pooja_summary',
-          builder: (context, state) =>PoojaSummary(),
+          builder: (context, state) => PoojaSummary(),
         ),
         GoRoute(
           path: '/payment_summary',
-          builder: (context, state) =>PaymentSummaryPage(),
+          builder: (context, state) => PaymentSummaryPage(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/request_forpandit_page',
-          builder: (context, state) =>RequestForPanditPage(),
+          builder: (context, state) => RequestForPanditPage(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/reschedule_page',
-          builder: (context, state) =>ReschedulePage(),
+          builder: (context, state) => ReschedulePage(),
         ),
         GoRoute(
           path: '/onlinepooja_SupportSection',
           builder: (context, state) => OnlinePoojaSupportSection(),
         ),
-       
+
         GoRoute(
           path: '/pooja_service_confirm_page',
-          builder: (context, state) =>PoojaServiceConfirmPage(),
+          builder: (context, state) => PoojaServiceConfirmPage(),
         ),
 
         //...................NITYA POOJA SUBSCRITION...............
-         GoRoute(
+        GoRoute(
           path: '/poojas_page',
-          builder: (context, state) =>PoojasPage(),
+          builder: (context, state) => PoojasPage(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/about_ganesh_poojas_page',
-          builder: (context, state) =>AboutGaneshPooja(),
+          builder: (context, state) => AboutGaneshPooja(),
         ),
         GoRoute(
           path: '/nityapooja_packages',
-          builder: (context, state) =>NityapoojaPackages(),
+          builder: (context, state) => NityapoojaPackages(),
         ),
          GoRoute(
           path: '/nityapooja_subscription_form',

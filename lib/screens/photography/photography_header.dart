@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class PhotographyHeader extends StatelessWidget {
   const PhotographyHeader({super.key});
@@ -45,21 +46,24 @@ class PhotographyHeader extends StatelessWidget {
                 // Right side buttons
                 Row(
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFD4AF37), // Golden yellow color
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: const Text(
-                        'Contact',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
+                    GestureDetector(
+                      onTap: () => context.go('/photography_contact_form'),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFD4AF37), // Golden yellow color
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: const Text(
+                          'Contact',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ),

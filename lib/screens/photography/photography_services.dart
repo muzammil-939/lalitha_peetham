@@ -144,7 +144,7 @@ class PhotographyServices extends StatelessWidget {
               ),
             ),
           ),
-          PhotographyFaq(),
+          PhotographyFaqWid(),
         ],
       ),
     );

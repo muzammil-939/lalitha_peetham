@@ -335,7 +335,7 @@ class PhotographyContactForm extends StatelessWidget {
               ),
             ),
           ),
-          PhotographyFaq(),
+          PhotographyFaqWid(),
         ],
       ),
     );

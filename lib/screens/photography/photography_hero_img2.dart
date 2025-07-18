@@ -33,7 +33,7 @@ class PhotographyHeroImg2 extends StatelessWidget {
             width: 150,
             height: 45,
             decoration: BoxDecoration(
-              color: Color(0xFFE6B85C), // Golden/amber color
+              color: Color(0xFFF5C761), // Golden/amber color
               borderRadius: BorderRadius.circular(6),
             ),
             child: Center(

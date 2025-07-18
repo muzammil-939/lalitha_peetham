@@ -54,7 +54,7 @@ class PhotographyPackageConfirm extends StatelessWidget {
               ),
             ),
           ),
-          PhotographyFaq(),
+          PhotographyFaqWid(),
         ],
       ),
     );
