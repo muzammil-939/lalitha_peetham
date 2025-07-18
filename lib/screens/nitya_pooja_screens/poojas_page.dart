@@ -31,9 +31,9 @@ class _PoojasPageState extends State<PoojasPage> {
             buildTitleSection(),
             const SizedBox(height: 40),
             buildPoojaCardsGrid(poojas),
-            const SizedBox(height: 60),
+            const SizedBox(height: 150),
             NiyapoojaContactWidget(),
-            const SizedBox(height: 60),
+            const SizedBox(height: 150),
             buildPoojaCardsGrid(poojas),
             const SizedBox(height: 80),
             
@@ -86,7 +86,7 @@ class _PoojasPageState extends State<PoojasPage> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(0),
             child: Image.asset(
-              'assets/images/online_pooja2.jpg',
+              'assets/images/vastupooja16.png',
               height: 180,
               width: 280,
               fit: BoxFit.cover,

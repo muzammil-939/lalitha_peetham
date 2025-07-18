@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 
 class NityapoojaPackages extends StatefulWidget {
@@ -68,7 +69,7 @@ class _NityapoojaPackagesState extends State<NityapoojaPackages> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(0),
             child: Image.asset(
-              'assets/images/online_pooja2.jpg',
+             'assets/images/vastupooja16.png',
               height: 180,
               width: 280,
               fit: BoxFit.cover,
@@ -80,87 +81,144 @@ class _NityapoojaPackagesState extends State<NityapoojaPackages> {
   }
 
 
-  Widget buildNityapoojaPackages(BuildContext context) {
-    return 
-        Column(
-          children: [
-            const Text(
-              "Nithya Pooja Subscription Packages",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+Widget buildNityapoojaPackages(BuildContext context) {
+  return Stack(
+    children: [
+      // Background Image
+      Positioned(
+  top: 0,
+  left: 0,
+  child: SizedBox(
+    height: 500, // Adjust height
+    width: 1500,  // Adjust width
+    child: Image.asset(
+      'assets/images/vastupooja4.png',
+      fit: BoxFit.cover,
+    ),
+  ),
+),
+
+
+      // Top-right Planet Image
+      Positioned(
+        top: 100,
+        right: 40,
+        child: Image.asset(
+          'assets/images/vastupooja11.png',
+          height: 120,
+          width: 120,
+        ),
+      ),
+
+
+
+      // Main Content
+      Align(
+        alignment: Alignment.topCenter,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 40),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                "Nithya Pooja Subscription Packages",
+                style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
-            ),
-            const SizedBox(height: 24),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: const Color(0xFFF2C94C),
-                borderRadius: BorderRadius.circular(8),
+              const SizedBox(height: 24),
+
+              // Yellow Card Background Container
+              Container(
+                width: 900,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Color(0xFFEAC63E),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  children: [
+                    // Top Basic Plan Card (fixed width)
+                    buildPackageCard(
+                      title: "Basic Plan – Monthly Pooja",
+                      description:
+                          "Pooja performed daily at selected temple\nIncludes: Nama-Gotra sankalpam, Archana\nNo live access/only confirmation message\nLanguage: Hindi / Telugu / Tamil",
+                      price: "₹499/month",
+                      linkText: "Price: ₹499/month",
+                    ),
+                    const SizedBox(height: 24),
+
+                    // Wrap with 2x2 Responsive Cards
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        double cardWidth = constraints.maxWidth > 700 ? 350 : constraints.maxWidth / 1.1;
+                        return Wrap(
+                          spacing: 20,
+                          runSpacing: 20,
+                          alignment: WrapAlignment.center,
+                          children: [
+                            buildFeatureCardNumbered(
+                              title: "Standard Plan – Monthly + Prasadam",
+                              price: "₹999/month",
+                              features: [
+                                "Daily pooja with name–gotra inclusion",
+                                "Prasadam couriered every 15 days",
+                                "Whatsapp update + pooja confirmation",
+                              ],
+                              width: cardWidth,
+                            ),
+                            buildFeatureCardNumbered(
+                              title: "Premium Plan – Video + Delivery",
+                              price: "₹1,499/month",
+                              features: [
+                                "Personalized daily pooja",
+                                "Pooja video/photo sent weekly",
+                                "Monthly Prasadam courier included",
+                                "Whatsapp support + dashboard tracking",
+                              ],
+                              width: cardWidth,
+                            ),
+                            buildFeatureCardNumbered(
+                              title: "Family Plan – 4 Members",
+                              price: "₹1,999/month",
+                              features: [
+                                "Nithya pooja for up to 4 family members",
+                                "Sankalpam + Archana",
+                                "Prasadam sent monthly",
+                              ],
+                              width: cardWidth,
+                            ),
+                            buildFeatureCardNumbered(
+                              title: "Annual Shashwatha Pooja Plan",
+                              price: "₹7,499/year",
+                              features: [
+                                "365-day pooja registration in chosen temple",
+                                "1 full year sankalpam with your name",
+                                "One-time special puja (Birthday or Sankranti)",
+                                "Annual report + pooja details",
+                                "Best Fest: Ganesh Chaturthi, Diwali, Navratri",
+                              ],
+                              width: cardWidth,
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
-              child: Column(
-                children: [
-                  buildPackageCard(
-                    title: "Basic Plan – Monthly Pooja",
-                    description:
-                        "Pooja performed daily at selected temple\nIncludes: Nama-Gotra sankalpam, Archana\nNo live access/only confirmation message\nLanguage: Hindi / Telugu / Tamil",
-                    price: "₹499/month",
-                    linkText: "Price: ₹499/month",
-                  ),
-                  const SizedBox(height: 16),
-                  Wrap(
-                    spacing: 16,
-                    runSpacing: 16,
-                    children: [
-                      buildFeatureCard(
-                        title: "Standard Plan – Monthly + Prasadam",
-                        price: "₹999/month",
-                        features: [
-                          "Daily pooja with name–gotra inclusion",
-                          "Prasadam couriered every 15 days",
-                          "Whatsapp update + pooja confirmation",
-                        ],
-                      ),
-                      buildFeatureCard(
-                        title: "Premium Plan – Video + Delivery",
-                        price: "₹1,499/month",
-                        features: [
-                          "Personalized daily pooja",
-                          "Pooja video/photo sent weekly",
-                          "Monthly Prasadam courier included",
-                          "Whatsapp support + dashboard tracking",
-                        ],
-                      ),
-                      buildFeatureCard(
-                        title: "Family Plan – 4 Members",
-                        price: "₹1,999/month",
-                        features: [
-                          "Nithya pooja for up to 4 family members",
-                          "Sankalpam + Archana",
-                          "Prasadam sent monthly",
-                        ],
-                      ),
-                      buildFeatureCard(
-                        title: "Annual Shashwatha Pooja Plan",
-                        price: "₹7,499/year",
-                        features: [
-                          "365-day pooja registration in chosen temple",
-                          "1 full year sankalpam with your name",
-                          "One-time special puja (Birthday or Sankranti)",
-                          "Annual report + pooja details",
-                          "Best Fest: Ganesh Chaturthi, Diwali, Navratri",
-                        ],
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ],
-        );
-      
-  
-  }
+            ],
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+
+
 
   Widget buildPackageCard({
     required String title,
@@ -169,7 +227,7 @@ class _NityapoojaPackagesState extends State<NityapoojaPackages> {
     required String linkText,
   }) {
     return Container(
-      width: double.infinity,
+      width: 720,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -177,7 +235,7 @@ class _NityapoojaPackagesState extends State<NityapoojaPackages> {
         borderRadius: BorderRadius.circular(6),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
@@ -186,6 +244,7 @@ class _NityapoojaPackagesState extends State<NityapoojaPackages> {
               fontSize: 16,
             ),
           ),
+          Divider(),
           const SizedBox(height: 8),
           Text(
             description,
@@ -196,7 +255,7 @@ class _NityapoojaPackagesState extends State<NityapoojaPackages> {
           Text(
             price,
             style: const TextStyle(
-              color: Colors.red,
+              color: Color(0xFFFFB208),
               fontWeight: FontWeight.bold,
               fontSize: 15,
             ),
@@ -204,13 +263,16 @@ class _NityapoojaPackagesState extends State<NityapoojaPackages> {
           const SizedBox(height: 8),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.orange[700],
+              backgroundColor: Color(0xFFF5C761),
+              foregroundColor: Colors.black,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
             ),
-            onPressed: () {},
+            onPressed: () {
+              context.go('/nityapooja_subscription_form');
+            },
             child: const Text("Book now"),
           ),
         ],
@@ -218,72 +280,73 @@ class _NityapoojaPackagesState extends State<NityapoojaPackages> {
     );
   }
 
-  Widget buildFeatureCard({
-    required String title,
-    required String price,
-    required List<String> features,
-  }) {
-    return SizedBox(
-      width: 300,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Colors.black12),
-          borderRadius: BorderRadius.circular(6),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style:
-                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              "Price: $price",
-              style: const TextStyle(
-                color: Colors.red,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 8),
-            ...features
-                .map((f) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 2),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text("• "),
-                          Expanded(
-                            child: Text(
-                              f,
-                              style: const TextStyle(fontSize: 13),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ))
-                .toList(),
-            const SizedBox(height: 8),
-            Align(
-              alignment: Alignment.center,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange[700],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
-                onPressed: () {},
-                child: const Text("Book now"),
-              ),
-            ),
-          ],
-        ),
+ Widget buildFeatureCardNumbered({
+  required String title,
+  required String price,
+  required List<String> features,
+  required double width,
+}) {
+  return SizedBox(
+    width: width,
+    height: 290,//fixed height
+    child: Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.black12),
+        borderRadius: BorderRadius.circular(6),
       ),
-    );
-  }
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+          ),
+          Divider(),
+          const SizedBox(height: 12),
+          Text(
+            "Price: $price",
+            style: const TextStyle(
+              color: Color(0xFFFFB208),
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 12),
+          ...features.asMap().entries.map((entry) {
+            final index = entry.key + 1;
+            final feature = entry.value;
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2),
+              child: Text(
+                "$index. $feature",
+                style: const TextStyle(fontSize: 13),
+              ),
+            );
+          }),
+          const SizedBox(height: 12),
+          Align(
+            alignment: Alignment.center,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.black,
+                backgroundColor: Color(0xFFF5C761),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+              onPressed: () {
+                context.go('/nityapooja_booking_page');
+              },
+              child: const Text("Book now"),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+
 }
 

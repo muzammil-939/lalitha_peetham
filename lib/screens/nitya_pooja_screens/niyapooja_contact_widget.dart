@@ -1,14 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class NiyapoojaContactWidget extends StatelessWidget {
   const NiyapoojaContactWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return 
+    Stack(
+    children: [
+    // 1️⃣ Bottom-most background
+    // Positioned(
+    //   top: 0,
+    //   left: 0,
+    //   child: SizedBox(
+    //     width: 1500,
+    //     child: Image.asset(
+    //       'assets/images/vastupooja6.png', // your main background
+    //       fit: BoxFit.cover,
+    //     ),
+    //   ),
+    // ),
+
+    // // 2️⃣ Additional image ABOVE the container (like yellow swoosh)
+    // Positioned(
+    //   top: 100, // adjust based on actual design
+    //   left: 0,
+    //   right: 0,
+    //   child: Image.asset(
+    //     'assets/images/vastupooja5.png', // your overlay asset
+    //     fit: BoxFit.contain,
+    //     height: 200,
+    //   ),
+    // ),
+    Center(
       child: Container(
         color: const Color(0xFFF0C948), // Approx yellow shade
-        width: 650,
+        width: 800,
         height: 280,
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 36),
         child: Stack(
@@ -34,6 +62,7 @@ class NiyapoojaContactWidget extends StatelessWidget {
                   ElevatedButton.icon(
                     onPressed: () {
                       // Add your navigation or call logic
+                      context.go('/nityapooja_offline_contact_page');
                     },
                     icon: const Icon(Icons.phone_in_talk, size: 18),
                     label: const Text(
@@ -41,8 +70,8 @@ class NiyapoojaContactWidget extends StatelessWidget {
                       style: TextStyle(letterSpacing: 1.2),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Color(0xFF4A382D),
+                      backgroundColor: Color(0xFF4A382D),
+                      foregroundColor: Colors.white,
                       padding:
                           const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
                       shape: RoundedRectangleBorder(
@@ -74,6 +103,8 @@ class NiyapoojaContactWidget extends StatelessWidget {
           ],
         ),
       ),
+    )
+    ]
     );
   }
 }

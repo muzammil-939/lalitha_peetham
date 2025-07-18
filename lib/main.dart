@@ -78,8 +78,17 @@ import 'package:lalitha_peetham/screens/matrimony/settings_page.dart';
 import 'package:lalitha_peetham/screens/matrimony/upgrade_plans.dart';
 import 'package:lalitha_peetham/screens/matrimony/your_patners_preferences.dart';
 import 'package:lalitha_peetham/screens/nitya_pooja_screens/about_ganesh_pooja.dart';
+import 'package:lalitha_peetham/screens/nitya_pooja_screens/contact_offline_page.dart';
+import 'package:lalitha_peetham/screens/nitya_pooja_screens/nityapooja_bookings_page.dart';
+import 'package:lalitha_peetham/screens/nitya_pooja_screens/nityapooja_confirm_page.dart';
 import 'package:lalitha_peetham/screens/nitya_pooja_screens/nityapooja_packages.dart';
+import 'package:lalitha_peetham/screens/nitya_pooja_screens/nityapooja_payment_page.dart';
+import 'package:lalitha_peetham/screens/nitya_pooja_screens/nityapooja_renewal_cmplt_page.dart';
+import 'package:lalitha_peetham/screens/nitya_pooja_screens/nityapooja_renewal_deatils.dart';
+import 'package:lalitha_peetham/screens/nitya_pooja_screens/nityapooja_subscriptionform.dart';
 import 'package:lalitha_peetham/screens/nitya_pooja_screens/poojas_page.dart';
+import 'package:lalitha_peetham/screens/nitya_pooja_screens/proceed_to_final_payment.dart';
+import 'package:lalitha_peetham/screens/nitya_pooja_screens/review_check_out_page.dart';
 import 'package:lalitha_peetham/screens/online_pooja/about_satyanarayana_pooja.dart';
 import 'package:lalitha_peetham/screens/online_pooja/online_booking_page.dart';
 import 'package:lalitha_peetham/screens/online_pooja/online_pooja_support_section.dart';
@@ -814,6 +823,44 @@ class MyApp extends StatelessWidget {
           path: '/nityapooja_packages',
           builder: (context, state) =>NityapoojaPackages(),
         ),
+         GoRoute(
+          path: '/nityapooja_subscription_form',
+          builder: (context, state) =>NityapoojaSubscriptionform(),
+        ),
+        GoRoute(
+          path: '/nityapooja_review_checkout_page',
+          builder: (context, state) =>ReviwCheckOutPage(),
+        ),
+        GoRoute(
+          path: '/nityapooja_payment_page',
+          builder: (context, state) =>NityapoojaPaymentPage(),
+        ),
+        GoRoute(
+          path: '/nityapooja_booking_page',
+          builder: (context, state) =>NityapoojaBookingsPage(),
+        ),
+          GoRoute(
+          path: '/nityapooja_renewaldetails_page',
+          builder: (context, state) =>NityapoojaRenewalDeatils(),
+        ),
+         GoRoute(
+          path: '/nityapooja_proceed_final_payment',
+          builder: (context, state) =>ProceedToFinalPayment(),
+        ),
+        
+         GoRoute(
+          path: '/nityapooja_confirm_page',
+          builder: (context, state) =>NityapoojaConfirmPage(),
+        ),
+         GoRoute(
+          path: '/nityapooja_renewal_cmplt_page',
+          builder: (context, state) =>NityapoojaRenewalCmpltPage(),
+        ),
+        GoRoute(
+          path: '/nityapooja_offline_contact_page',
+          builder: (context, state) =>ContactOfflinePage(),
+        ),
+
       ],
     );
     return MaterialApp.router(

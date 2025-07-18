@@ -188,6 +188,7 @@ bool isChatSelected = true;
       ),
     );
   }
+  
 Widget buildChatSupportForm()  {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
