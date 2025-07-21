@@ -9,6 +9,16 @@ import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_melam_paynow
 import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_melam_welcome_screens.dart';
 import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_service_highlights.dart';
 import 'package:lalitha_peetham/screens/admin/panchangam.dart';
+import 'package:lalitha_peetham/screens/astrology_screens/astrologers_info_section.dart';
+import 'package:lalitha_peetham/screens/astrology_screens/astrologers_payment_method.dart';
+import 'package:lalitha_peetham/screens/astrology_screens/astrology_welcome_screen.dart';
+import 'package:lalitha_peetham/screens/astrology_screens/chart_booking_confirmed_page.dart';
+import 'package:lalitha_peetham/screens/astrology_screens/chart_payment_method.dart';
+import 'package:lalitha_peetham/screens/astrology_screens/chart_privetly_with_expert.dart';
+import 'package:lalitha_peetham/screens/astrology_screens/choose_your_astrologers.dart';
+import 'package:lalitha_peetham/screens/astrology_screens/schedule_a_session_with_astrologers.dart';
+import 'package:lalitha_peetham/screens/astrology_screens/talk_to_astrologer.dart';
+import 'package:lalitha_peetham/screens/astrology_screens/your_secure_astrologers_connections.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_cardpin.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_doc_reg/ayurvedha_article_submit.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/ayurvedha_doc_reg/ayurvedha_doc_reg_1.dart';
@@ -887,6 +897,47 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/nityapooja_offline_contact_page',
           builder: (context, state) =>ContactOfflinePage(),
+        ),
+        //...............astrology...........
+        GoRoute(
+          path: '/astrology_welcomescreen',
+          builder: (context, state) =>AstrologyWelcomeScreen(),
+        ),
+        GoRoute(
+          path: '/choose_your_astrology',
+          builder: (context, state) => ChooseYourAstrologers(),
+        ),
+         GoRoute(
+          path: '/astrologers_info_page',
+          builder: (context, state) => AstrologersInfoSection(),
+        ),
+         GoRoute(
+          path: '/astrologers_payment_method',
+          builder: (context, state) => AstrologersPaymentMethod(),
+        ),
+         GoRoute(
+          path: '/talk_to_astrologers',
+          builder: (context, state) => TalkToAstrologer(),
+        ),
+        GoRoute(
+          path: '/chart_privetly_with_expert',
+          builder: (context, state) => ChartPrivetlyWithExpert(),
+        ),
+        GoRoute(
+          path: '/your_secure_astrologers',
+          builder: (context, state) => YourSecureAstrologersConnections(),
+        ),
+        GoRoute(
+          path: '/schedule_a_session_with_astrologers',
+          builder: (context, state) => ScheduleASessionWithAstrologers(),
+        ),
+        GoRoute(
+          path: '/chart_payment_method',
+          builder: (context, state) => ChartPaymentMethod(),
+        ),
+        GoRoute(
+          path: '/chart_booking_confirmed_page',
+          builder: (context, state) => ChartBookingConfirmedPage(),
         ),
 
       ],
