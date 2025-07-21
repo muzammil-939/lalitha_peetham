@@ -119,10 +119,17 @@ import 'package:lalitha_peetham/screens/online_vastu_property/vastu_booking_enqu
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_check_out_page.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_welcome_screen.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/your_scheduled_and_cmplt_poojas.dart';
+import 'package:lalitha_peetham/screens/palm_reading/palm_reading_chat_support.dart';
+import 'package:lalitha_peetham/screens/palm_reading/palm_reading_confirm.dart';
+import 'package:lalitha_peetham/screens/palm_reading/palm_reading_confirm_pay.dart';
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_download_report.dart';
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_expert_card_follow.dart';
+import 'package:lalitha_peetham/screens/palm_reading/palm_reading_explore_packages.dart';
+import 'package:lalitha_peetham/screens/palm_reading/palm_reading_faq_support.dart';
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_follow_astrologers.dart';
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_home.dart';
+import 'package:lalitha_peetham/screens/palm_reading/palm_reading_payment_status.dart';
+import 'package:lalitha_peetham/screens/palm_reading/palm_reading_select_packages.dart';
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_submit_info.dart';
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_upload_your_palm.dart';
 import 'package:lalitha_peetham/screens/photography/photography_booking_confirm.dart';
@@ -224,6 +231,35 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/palm_reading_download_report',
           builder: (context, state) => const PalmReadingDownloadReport(),
+        ),
+
+        GoRoute(
+          path: '/palm_reading_explore_packages',
+          builder: (context, state) => const PalmReadingExplorePackages(),
+        ),
+        GoRoute(
+          path: '/palm_reading_select_packages',
+          builder: (context, state) => const PalmReadingSelectPackages(),
+        ),
+        GoRoute(
+          path: '/palm_reading_confirm',
+          builder: (context, state) => const PalmReadingConfirm(),
+        ),
+        GoRoute(
+          path: '/palm_reading_confirm_pay',
+          builder: (context, state) => const PalmReadingConfirmPay(),
+        ),
+        GoRoute(
+          path: '/palm_reading_chat_support',
+          builder: (context, state) => const PalmReadingChatSupport(),
+        ),
+        GoRoute(
+          path: '/palm_reading_faq_support',
+          builder: (context, state) => const PalmReadingFaqSupport(),
+        ),
+        GoRoute(
+          path: '/palm_reading_payment_status',
+          builder: (context, state) => const PalmReadingPaymentStatus(),
         ),
 
         //Photography Section
@@ -861,61 +897,61 @@ class MyApp extends StatelessWidget {
           path: '/nityapooja_packages',
           builder: (context, state) => NityapoojaPackages(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/nityapooja_subscription_form',
-          builder: (context, state) =>NityapoojaSubscriptionform(),
+          builder: (context, state) => NityapoojaSubscriptionform(),
         ),
         GoRoute(
           path: '/nityapooja_review_checkout_page',
-          builder: (context, state) =>ReviwCheckOutPage(),
+          builder: (context, state) => ReviwCheckOutPage(),
         ),
         GoRoute(
           path: '/nityapooja_payment_page',
-          builder: (context, state) =>NityapoojaPaymentPage(),
+          builder: (context, state) => NityapoojaPaymentPage(),
         ),
         GoRoute(
           path: '/nityapooja_booking_page',
-          builder: (context, state) =>NityapoojaBookingsPage(),
+          builder: (context, state) => NityapoojaBookingsPage(),
         ),
-          GoRoute(
+        GoRoute(
           path: '/nityapooja_renewaldetails_page',
-          builder: (context, state) =>NityapoojaRenewalDeatils(),
+          builder: (context, state) => NityapoojaRenewalDeatils(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/nityapooja_proceed_final_payment',
-          builder: (context, state) =>ProceedToFinalPayment(),
+          builder: (context, state) => ProceedToFinalPayment(),
         ),
-        
-         GoRoute(
+
+        GoRoute(
           path: '/nityapooja_confirm_page',
-          builder: (context, state) =>NityapoojaConfirmPage(),
+          builder: (context, state) => NityapoojaConfirmPage(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/nityapooja_renewal_cmplt_page',
-          builder: (context, state) =>NityapoojaRenewalCmpltPage(),
+          builder: (context, state) => NityapoojaRenewalCmpltPage(),
         ),
         GoRoute(
           path: '/nityapooja_offline_contact_page',
-          builder: (context, state) =>ContactOfflinePage(),
+          builder: (context, state) => ContactOfflinePage(),
         ),
         //...............astrology...........
         GoRoute(
           path: '/astrology_welcomescreen',
-          builder: (context, state) =>AstrologyWelcomeScreen(),
+          builder: (context, state) => AstrologyWelcomeScreen(),
         ),
         GoRoute(
           path: '/choose_your_astrology',
           builder: (context, state) => ChooseYourAstrologers(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/astrologers_info_page',
           builder: (context, state) => AstrologersInfoSection(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/astrologers_payment_method',
           builder: (context, state) => AstrologersPaymentMethod(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/talk_to_astrologers',
           builder: (context, state) => TalkToAstrologer(),
         ),
@@ -939,7 +975,6 @@ class MyApp extends StatelessWidget {
           path: '/chart_booking_confirmed_page',
           builder: (context, state) => ChartBookingConfirmedPage(),
         ),
-
       ],
     );
     return MaterialApp.router(

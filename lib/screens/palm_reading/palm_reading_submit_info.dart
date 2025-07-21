@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/screens/palm_reading/palm_reading_layout.dart';
 
 class PalmReadingSubmitInfo extends StatefulWidget {
   const PalmReadingSubmitInfo({super.key});
@@ -12,7 +13,7 @@ class PalmReadingSubmitInfo extends StatefulWidget {
 class _PalmReadingSubmitInfoState extends State<PalmReadingSubmitInfo> {
   @override
   Widget build(BuildContext context) {
-    return VastupoojaLayout(
+    return PalmReadingLayout(
       child: SingleChildScrollView(
         child: Column(
           children: [

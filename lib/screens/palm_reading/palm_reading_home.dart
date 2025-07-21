@@ -4,6 +4,7 @@ import 'package:lalitha_peetham/screens/online_vastu_property/astrologer_contact
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_expert_card.dart';
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_hero_section.dart';
+import 'package:lalitha_peetham/screens/palm_reading/palm_reading_layout.dart';
 
 class PalmReadingHome extends StatefulWidget {
   const PalmReadingHome({super.key});
@@ -15,7 +16,7 @@ class PalmReadingHome extends StatefulWidget {
 class _PalmReadingHomeState extends State<PalmReadingHome> {
   @override
   Widget build(BuildContext context) {
-    return VastupoojaLayout(
+    return PalmReadingLayout(
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +80,8 @@ class _PalmReadingHomeState extends State<PalmReadingHome> {
                       ),
                       SizedBox(height: 20),
                       GestureDetector(
-                        onTap: () => context.go('/palm_reading_submit_info'),
+                        onTap:
+                            () => context.go('/palm_reading_explore_packages'),
                         child: Container(
                           width: 300,
                           height: 60,

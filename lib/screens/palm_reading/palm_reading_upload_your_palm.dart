@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/screens/palm_reading/palm_reading_layout.dart';
 
 class PalmReadingUploadYourPalm extends StatefulWidget {
   const PalmReadingUploadYourPalm({super.key});
@@ -13,7 +14,7 @@ class PalmReadingUploadYourPalm extends StatefulWidget {
 class _PalmReadingUploadYourPalmState extends State<PalmReadingUploadYourPalm> {
   @override
   Widget build(BuildContext context) {
-    return VastupoojaLayout(
+    return PalmReadingLayout(
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -475,7 +476,7 @@ class _PalmReadingUploadYourPalmState extends State<PalmReadingUploadYourPalm> {
           height: 45,
           child: ElevatedButton(
             onPressed: () {
-              context.go('/palm_reading_download_report');
+              context.go('/palm_reading_confirm_pay');
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,

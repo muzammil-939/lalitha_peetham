@@ -5,6 +5,7 @@ import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_expert_card.dart';
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_expert_card_follow.dart';
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_hero_section.dart';
+import 'package:lalitha_peetham/screens/palm_reading/palm_reading_layout.dart';
 
 class PalmReadingFollowAstrologers extends StatefulWidget {
   const PalmReadingFollowAstrologers({super.key});
@@ -18,7 +19,7 @@ class _PalmReadingFollowAstrologersState
     extends State<PalmReadingFollowAstrologers> {
   @override
   Widget build(BuildContext context) {
-    return VastupoojaLayout(
+    return PalmReadingLayout(
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,7 +30,7 @@ class _PalmReadingFollowAstrologersState
             SizedBox(height: 100),
             AstrologerContactSection(),
             SizedBox(height: 100),
-            _build(),
+            _buildExpertCard(),
             SizedBox(height: 100),
           ],
         ),
@@ -97,7 +98,7 @@ class _PalmReadingFollowAstrologersState
     );
   }
 
-  Widget _build() {
+  Widget _buildExpertCard() {
     double cardWidth = MediaQuery.of(context).size.width / 3.5;
     final List<Map<String, dynamic>> astrologers = [
       {
