@@ -46,6 +46,14 @@ import 'package:lalitha_peetham/screens/ayurvedha/herbs_product_buynow.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/herbs_products_details.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/patient_appointment.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/single_herbformulation.dart';
+import 'package:lalitha_peetham/screens/catering_screens/caterer_menue_page.dart';
+import 'package:lalitha_peetham/screens/catering_screens/caterer_packages.dart';
+import 'package:lalitha_peetham/screens/catering_screens/caterer_recent_screen.dart';
+import 'package:lalitha_peetham/screens/catering_screens/caterer_recents_dashboard.dart';
+import 'package:lalitha_peetham/screens/catering_screens/caterers_payment_method.dart';
+import 'package:lalitha_peetham/screens/catering_screens/caterers_review_checkout.dart';
+import 'package:lalitha_peetham/screens/catering_screens/catering_booking_confirm_page.dart';
+import 'package:lalitha_peetham/screens/catering_screens/catering_welcome_screen.dart';
 import 'package:lalitha_peetham/screens/event_management/em_basicdetails.dart';
 import 'package:lalitha_peetham/screens/event_management/em_booking_summary.dart';
 import 'package:lalitha_peetham/screens/event_management/em_contractor_profile.dart';
@@ -975,6 +983,42 @@ class MyApp extends StatelessWidget {
           path: '/chart_booking_confirmed_page',
           builder: (context, state) => ChartBookingConfirmedPage(),
         ),
+
+        
+         //............CATERING.........
+         GoRoute(
+          path: '/catering_welcome_screen',
+          builder: (context, state) => CateringWelcomeScreen(),
+        ),
+        GoRoute(
+          path: '/catering_caterer_recent',
+          builder: (context, state) => CatererRecentScreen(),
+        ),
+        GoRoute(
+          path: '/caterer_menue_page',
+          builder: (context, state) => CatererMenuePage(),
+        ),
+         GoRoute(
+          path: '/caterer_packages_page',
+          builder: (context, state) => CatererPackages(),
+        ),
+         GoRoute(
+          path: '/caterer_review_checkout',
+          builder: (context, state) => CaterersReviewCheckout(),
+        ),
+        GoRoute(
+          path: '/caterer_recent_dashboard',
+          builder: (context, state) => CatererRecentsDashboard(),
+        ),
+        GoRoute(
+          path: '/caterer_payments_method',
+          builder: (context, state) => CaterersPaymentMethod(),
+        ),
+        GoRoute(
+          path: '/caterer_booking_confirm',
+          builder: (context, state) => CateringBookingConfirmPage(),
+        ),
+
       ],
     );
     return MaterialApp.router(

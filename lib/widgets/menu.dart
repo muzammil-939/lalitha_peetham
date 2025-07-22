@@ -225,6 +225,9 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
       case 'Astrology':
         context.go('/astrology_welcomescreen');
         break;
+        case 'Catering':
+        context.go('/catering_welcome_screen');
+        break;
 
       // Add more cases as needed
       default:
