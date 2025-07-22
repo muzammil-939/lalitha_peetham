@@ -23,7 +23,6 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
     'Photography',
     'Flower Decoration',
     'Sannaimelam',
-    'Function Hall Booking',
     'Event Management',
     'Pandit Booking',
     'Online Muhurthas',
@@ -225,8 +224,11 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
       case 'Astrology':
         context.go('/astrology_welcomescreen');
         break;
-        case 'Catering':
+      case 'Catering':
         context.go('/catering_welcome_screen');
+        break;
+      case 'Pandit Booking':
+        context.go('/pandit_booking_packages');
         break;
 
       // Add more cases as needed

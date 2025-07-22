@@ -140,6 +140,12 @@ import 'package:lalitha_peetham/screens/palm_reading/palm_reading_payment_status
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_select_packages.dart';
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_submit_info.dart';
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_upload_your_palm.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_booking_confirmed.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_form.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_packages.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_payment.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_summary.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_waiting.dart';
 import 'package:lalitha_peetham/screens/photography/photography_booking_confirm.dart';
 import 'package:lalitha_peetham/screens/photography/photography_bookings_status.dart';
 import 'package:lalitha_peetham/screens/photography/photography_chat_support.dart';
@@ -219,6 +225,31 @@ class MyApp extends StatelessWidget {
         GoRoute(path: '/', builder: (context, state) => MainScreen()),
         //GoRoute(path: '*', builder: (context, state) => const NotFoundScreen()),
 
+        //Pandit Booking
+        GoRoute(
+          path: '/pandit_booking_packages',
+          builder: (context, state) => const PanditBookingPackages(),
+        ),
+        GoRoute(
+          path: '/pandit_booking_form',
+          builder: (context, state) => const PanditBookingForm(),
+        ),
+        GoRoute(
+          path: '/pandit_booking_payment',
+          builder: (context, state) => const PanditBookingPayment(),
+        ),
+        GoRoute(
+          path: '/pandit_booking_summary',
+          builder: (context, state) => const PanditBookingSummary(),
+        ),
+        GoRoute(
+          path: '/pandit_booking_waiting',
+          builder: (context, state) => const PanditBookingWaiting(),
+        ),
+        GoRoute(
+          path: '/pandit_booking_booking_confirmed',
+          builder: (context, state) => const PanditBookingBookingConfirmed(),
+        ),
         //PALM READING SECTION
         GoRoute(
           path: '/palm_reading_home',
@@ -984,9 +1015,8 @@ class MyApp extends StatelessWidget {
           builder: (context, state) => ChartBookingConfirmedPage(),
         ),
 
-        
-         //............CATERING.........
-         GoRoute(
+        //............CATERING.........
+        GoRoute(
           path: '/catering_welcome_screen',
           builder: (context, state) => CateringWelcomeScreen(),
         ),
@@ -998,11 +1028,11 @@ class MyApp extends StatelessWidget {
           path: '/caterer_menue_page',
           builder: (context, state) => CatererMenuePage(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/caterer_packages_page',
           builder: (context, state) => CatererPackages(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/caterer_review_checkout',
           builder: (context, state) => CaterersReviewCheckout(),
         ),
@@ -1018,7 +1048,6 @@ class MyApp extends StatelessWidget {
           path: '/caterer_booking_confirm',
           builder: (context, state) => CateringBookingConfirmPage(),
         ),
-
       ],
     );
     return MaterialApp.router(

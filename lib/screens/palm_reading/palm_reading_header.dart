@@ -29,7 +29,10 @@ class PalmReadingHeader extends StatelessWidget {
                   onPressed: () {
                     context.go('/palm_reading_payment_status');
                   },
-                  child: Text('Support', style: TextStyle(fontSize: 16)),
+                  child: Text(
+                    'Support',
+                    style: TextStyle(fontSize: 16, color: Colors.black),
+                  ),
                 ),
               ),
               SizedBox(width: 30),
