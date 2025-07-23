@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/catering_screens/catering_layout.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 
 class CateringWelcomeScreen extends StatefulWidget {
@@ -12,7 +13,7 @@ class CateringWelcomeScreen extends StatefulWidget {
 class _CateringWelcomeScreenState extends State<CateringWelcomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return  VastupoojaLayout(
+    return  CateringLayout(
       child: SingleChildScrollView(
         child: Column(
           children: [

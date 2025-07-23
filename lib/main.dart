@@ -46,13 +46,20 @@ import 'package:lalitha_peetham/screens/ayurvedha/herbs_product_buynow.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/herbs_products_details.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/patient_appointment.dart';
 import 'package:lalitha_peetham/screens/ayurvedha/single_herbformulation.dart';
+import 'package:lalitha_peetham/screens/catering_screens/caterer_menue_details_page.dart';
 import 'package:lalitha_peetham/screens/catering_screens/caterer_menue_page.dart';
 import 'package:lalitha_peetham/screens/catering_screens/caterer_packages.dart';
+import 'package:lalitha_peetham/screens/catering_screens/caterer_product_dishes.dart';
+import 'package:lalitha_peetham/screens/catering_screens/caterer_product_list.dart';
 import 'package:lalitha_peetham/screens/catering_screens/caterer_recent_screen.dart';
 import 'package:lalitha_peetham/screens/catering_screens/caterer_recents_dashboard.dart';
+import 'package:lalitha_peetham/screens/catering_screens/caterer_saved_menue.dart';
 import 'package:lalitha_peetham/screens/catering_screens/caterers_payment_method.dart';
 import 'package:lalitha_peetham/screens/catering_screens/caterers_review_checkout.dart';
+import 'package:lalitha_peetham/screens/catering_screens/catering_about_us.dart';
 import 'package:lalitha_peetham/screens/catering_screens/catering_booking_confirm_page.dart';
+import 'package:lalitha_peetham/screens/catering_screens/catering_login_page.dart';
+import 'package:lalitha_peetham/screens/catering_screens/catering_register_page.dart';
 import 'package:lalitha_peetham/screens/catering_screens/catering_welcome_screen.dart';
 import 'package:lalitha_peetham/screens/event_management/em_basicdetails.dart';
 import 'package:lalitha_peetham/screens/event_management/em_booking_summary.dart';
@@ -1014,9 +1021,37 @@ class MyApp extends StatelessWidget {
           path: '/chart_booking_confirmed_page',
           builder: (context, state) => ChartBookingConfirmedPage(),
         ),
-
-        //............CATERING.........
         GoRoute(
+          path: '/caterer_register_page',
+          builder: (context, state) => CateringRegisterPage(),
+        ),
+        GoRoute(
+          path: '/caterer_login_page',
+          builder: (context, state) => CateringLoginPage(),
+        ),
+        GoRoute(
+          path: '/caterer_about_us',
+          builder: (context, state) => CateringAboutUs(),
+        ),
+         GoRoute(
+          path: '/caterer_product_list',
+          builder: (context, state) => CatererProductList(),
+        ),
+        GoRoute(
+          path: '/caterer_product_dishes',
+          builder: (context, state) => CatererProductDishes(),
+        ),
+        GoRoute(
+          path: '/caterer_saved_menue',
+          builder: (context, state) => CatererSavedMenue(),
+        ),
+         GoRoute(
+          path: '/caterer_menue_details_page',
+          builder: (context, state) => CatererMenueDetailsPage(),
+        ),
+
+         //............CATERING.........
+         GoRoute(
           path: '/catering_welcome_screen',
           builder: (context, state) => CateringWelcomeScreen(),
         ),
@@ -1028,11 +1063,11 @@ class MyApp extends StatelessWidget {
           path: '/caterer_menue_page',
           builder: (context, state) => CatererMenuePage(),
         ),
-        GoRoute(
+         GoRoute(
           path: '/caterer_packages_page',
           builder: (context, state) => CatererPackages(),
         ),
-        GoRoute(
+         GoRoute(
           path: '/caterer_review_checkout',
           builder: (context, state) => CaterersReviewCheckout(),
         ),
@@ -1048,6 +1083,35 @@ class MyApp extends StatelessWidget {
           path: '/caterer_booking_confirm',
           builder: (context, state) => CateringBookingConfirmPage(),
         ),
+        GoRoute(
+          path: '/caterer_register_page',
+          builder: (context, state) => CateringRegisterPage(),
+        ),
+        GoRoute(
+          path: '/caterer_login_page',
+          builder: (context, state) => CateringLoginPage(),
+        ),
+        GoRoute(
+          path: '/caterer_about_us',
+          builder: (context, state) => CateringAboutUs(),
+        ),
+         GoRoute(
+          path: '/caterer_product_list',
+          builder: (context, state) => CatererProductList(),
+        ),
+        GoRoute(
+          path: '/caterer_product_dishes',
+          builder: (context, state) => CatererProductDishes(),
+        ),
+        GoRoute(
+          path: '/caterer_saved_menue',
+          builder: (context, state) => CatererSavedMenue(),
+        ),
+         GoRoute(
+          path: '/caterer_menue_details_page',
+          builder: (context, state) => CatererMenueDetailsPage(),
+        ),
+        
       ],
     );
     return MaterialApp.router(
