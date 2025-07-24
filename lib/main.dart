@@ -81,6 +81,14 @@ import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flo
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_vendor_settings.dart';
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_vendor_reviews.dart';
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_vendor_basicdetails.dart';
+import 'package:lalitha_peetham/screens/gemstones_selling/gs_add_to_cart.dart';
+import 'package:lalitha_peetham/screens/gemstones_selling/gs_booking_onfirm_page.dart';
+import 'package:lalitha_peetham/screens/gemstones_selling/gs_cmplt_final_payment.dart';
+import 'package:lalitha_peetham/screens/gemstones_selling/gs_delivery_address_page.dart';
+import 'package:lalitha_peetham/screens/gemstones_selling/gs_order_summary.dart';
+import 'package:lalitha_peetham/screens/gemstones_selling/gs_product_page.dart';
+import 'package:lalitha_peetham/screens/gemstones_selling/gs_shop_all_products.dart';
+import 'package:lalitha_peetham/screens/gemstones_selling/gs_whishlist.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/accepted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/deleted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/message_screen.dart';
@@ -1110,6 +1118,40 @@ class MyApp extends StatelessWidget {
          GoRoute(
           path: '/caterer_menue_details_page',
           builder: (context, state) => CatererMenueDetailsPage(),
+        ),
+
+        //.........Gemstone Selling..........
+        GoRoute(
+          path: '/gemstone_selling_shop_allproducts',
+          builder: (context, state) => GsShopAllProducts(),
+        ),
+         GoRoute(
+          path: '/gemstone_whishlist',
+          builder: (context, state) => GsWhishlist(),
+        ),
+         GoRoute(
+          path: '/gemstone_product_page',
+          builder: (context, state) => GsProductPage(),
+        ),
+        GoRoute(
+          path: '/gemstone_add_to_cart',
+          builder: (context, state) => GsAddToCart(),
+        ),
+         GoRoute(
+          path: '/gemstone_delivery_address',
+          builder: (context, state) => GsDeliveryAddressPage(),
+        ),
+         GoRoute(
+          path: '/gemstone_order_summary',
+          builder: (context, state) => GsOrderSummary(),
+        ),
+        GoRoute(
+          path: '/gemstone_cmplt_final_payment_method',
+          builder: (context, state) => GsCmpltFinalPayment(),
+        ),
+        GoRoute(
+          path: '/gemstone_booking_confirm',
+          builder: (context, state) => GsBookingOnfirmPage(),
         ),
         
       ],

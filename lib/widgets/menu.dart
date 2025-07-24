@@ -230,6 +230,10 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
       case 'Pandit Booking':
         context.go('/pandit_booking_packages');
         break;
+        
+      case 'Gemstone Selling':
+        context.go('/gemstone_selling_shop_allproducts');
+        break;
 
       // Add more cases as needed
       default:
