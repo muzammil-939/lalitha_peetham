@@ -38,7 +38,7 @@ class RentPropertyCard extends StatelessWidget {
     return Card(
       color: Colors.white,
       elevation: 2,
-      margin: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 150.0, vertical: 20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       child: Padding(
         padding: const EdgeInsets.all(14.0),

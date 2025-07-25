@@ -15,34 +15,57 @@ class RealEstateWelcomePage extends StatefulWidget {
 
 class _RealEstateWelcomePageState extends State<RealEstateWelcomePage> {
   String buyOrRent = "Buy";
-  String propertyType = "Property Type";
- 
+  String propertyType = 'Property Type';
+
   String minBudget = '5 Lacs';
   String maxBudget = '30 Lacs';
   String ownership = 'Agent';
 
   int selectedFilter = 0;
 
-  final filterLabels = [
-  'Sale Property (200)',
-  'Rent Properties (200)',
-  '86 PG/ Co Living',
-  '1108 Projects',
-  '2100 Dealers',
-];
+  final List<Map<String, dynamic>> residentialTypes = [
+    {'icon': Icons.apartment, 'label': 'Flat'},
+    {'icon': Icons.layers, 'label': 'Residential Plots'},
+    {'icon': Icons.home, 'label': 'House'},
+    {'icon': Icons.villa, 'label': 'Villa'},
+    {'icon': Icons.apartment, 'label': 'Builder Floors'},
+  ];
 
-    final List<Map<String, dynamic>> saleProperties = [
+  final List<Map<String, dynamic>> commercialTypes = [
+    {'icon': Icons.location_city, 'label': 'Commercial Land'},
+    {'icon': Icons.agriculture, 'label': 'Agricultural Land'},
+    {'icon': Icons.business, 'label': 'Office Space'},
+    {'icon': Icons.hotel, 'label': 'Hotels'},
+    {'icon': Icons.factory, 'label': 'Industrial Land'},
+    {'icon': Icons.shopping_bag, 'label': 'Commercial Shops'},
+    {'icon': Icons.business, 'label': 'Business Center'},
+    {'icon': Icons.warehouse, 'label': 'Ware House'},
+    {'icon': Icons.factory, 'label': 'Factory'},
+    {'icon': Icons.store, 'label': 'Showrooms'},
+  ];
+
+  final filterLabels = [
+    'Sale Property (200)',
+    'Rent Properties (200)',
+    '86 PG/ Co Living',
+    '1108 Projects',
+    '2100 Dealers',
+  ];
+
+  final List<Map<String, dynamic>> saleProperties = [
     {
-      'title': '2 Bhk 890 Sq.Ft Flats / Apartments For Sale In Phase 2, Electronic City, Bangalore.',
+      'title':
+          '2 Bhk 890 Sq.Ft Flats / Apartments For Sale In Phase 2, Electronic City, Bangalore.',
       'price': '₹ 47.58 lakh',
       'image': 'assets/images/real_estate1.png',
       'rating': 4.8,
       'area': '890 Sq.Ft',
       'features': '2 Guests | 1 Bedroom | 2 Bathroom',
       'location': 'Phase-2, Electronic City',
-      'availability': 'This Spacious 2 Bhk Flat/ Apartment Is Available For Sale',
+      'availability':
+          'This Spacious 2 Bhk Flat/ Apartment Is Available For Sale',
       'builder': 'DS Projects',
-      'similars': '18 Similar Listings By Ds Projects In This Area.'
+      'similars': '18 Similar Listings By Ds Projects In This Area.',
     },
     {
       'title': '3 Bhk 1200 Sq.Ft Villa For Sale In Whitefield, Bangalore.',
@@ -54,19 +77,7 @@ class _RealEstateWelcomePageState extends State<RealEstateWelcomePage> {
       'location': 'Whitefield',
       'availability': 'Luxury Villa Available For Immediate Sale',
       'builder': 'Trinity Homes',
-      'similars': '12 Similar Listings By Trinity Homes In This Area.'
-    },
-     {
-      'title': '3 Bhk 1200 Sq.Ft Villa For Sale In Whitefield, Bangalore.',
-      'price': '₹ 82.00 lakh',
-      'image': 'assets/images/real_estate1.png',
-      'rating': 4.7,
-      'area': '1200 Sq.Ft',
-      'features': '4 Guests | 3 Bedroom | 3 Bathroom',
-      'location': 'Whitefield',
-      'availability': 'Luxury Villa Available For Immediate Sale',
-      'builder': 'Trinity Homes',
-      'similars': '12 Similar Listings By Trinity Homes In This Area.'
+      'similars': '12 Similar Listings By Trinity Homes In This Area.',
     },
     {
       'title': '3 Bhk 1200 Sq.Ft Villa For Sale In Whitefield, Bangalore.',
@@ -78,489 +89,923 @@ class _RealEstateWelcomePageState extends State<RealEstateWelcomePage> {
       'location': 'Whitefield',
       'availability': 'Luxury Villa Available For Immediate Sale',
       'builder': 'Trinity Homes',
-      'similars': '12 Similar Listings By Trinity Homes In This Area.'
+      'similars': '12 Similar Listings By Trinity Homes In This Area.',
+    },
+    {
+      'title': '3 Bhk 1200 Sq.Ft Villa For Sale In Whitefield, Bangalore.',
+      'price': '₹ 82.00 lakh',
+      'image': 'assets/images/real_estate1.png',
+      'rating': 4.7,
+      'area': '1200 Sq.Ft',
+      'features': '4 Guests | 3 Bedroom | 3 Bathroom',
+      'location': 'Whitefield',
+      'availability': 'Luxury Villa Available For Immediate Sale',
+      'builder': 'Trinity Homes',
+      'similars': '12 Similar Listings By Trinity Homes In This Area.',
     },
     // ...add more...
   ];
 
- final List<Map<String, dynamic>> rentProperties = [
-  {
-    'title': '2 Bhk 1890 Sq.Ft Independent House For Rent In Kundalahalli, Bangalore',
-    'price': '₹ 47.58 lakh',
-    'image': 'assets/images/real_estate1.png',
-    'rating': 4.8,
-    'area': '1890 Sq.Ft',
-    'features': '2 Guests | 2 Bedroom | 2 Bathroom | Semi Furnished | East Face',
-    'location': 'Kundalahalli, Bangalore',
-    'availability': 'This Spacious 2 Bhk Independent House Is Available For Rent',
-    'builder': 'Suresh', // You can remove this if you don't use it in RentPropertyCard
-    'similars': 'Similar spacious flats/apartments are available for rent...',
-    'ownerName': 'Suresh',
-    'ownerType': 'Owner',
-  },
-  {
-    'title': '2 Bhk 1890 Sq.Ft Independent House For Rent In Kundalahalli, Bangalore',
-    'price': '₹ 47.58 lakh',
-    'image': 'assets/images/real_estate1.png',
-    'rating': 4.8,
-    'area': '1890 Sq.Ft',
-    'features': '2 Guests | 2 Bedroom | 2 Bathroom | Semi Furnished | East Face',
-    'location': 'Kundalahalli, Bangalore',
-    'availability': 'This Spacious 2 Bhk Independent House Is Available For Rent',
-    'builder': 'Suresh',
-    'similars': 'Similar spacious flats/apartments are available for rent...',
-    'ownerName': 'Suresh',
-    'ownerType': 'Owner',
-  },
+  final List<Map<String, dynamic>> rentProperties = [
+    {
+      'title':
+          '2 Bhk 1890 Sq.Ft Independent House For Rent In Kundalahalli, Bangalore',
+      'price': '₹ 47.58 lakh',
+      'image': 'assets/images/real_estate1.png',
+      'rating': 4.8,
+      'area': '1890 Sq.Ft',
+      'features':
+          '2 Guests | 2 Bedroom | 2 Bathroom | Semi Furnished | East Face',
+      'location': 'Kundalahalli, Bangalore',
+      'availability':
+          'This Spacious 2 Bhk Independent House Is Available For Rent',
+      'builder':
+          'Suresh', // You can remove this if you don't use it in RentPropertyCard
+      'similars': 'Similar spacious flats/apartments are available for rent...',
+      'ownerName': 'Suresh',
+      'ownerType': 'Owner',
+    },
+    {
+      'title':
+          '2 Bhk 1890 Sq.Ft Independent House For Rent In Kundalahalli, Bangalore',
+      'price': '₹ 47.58 lakh',
+      'image': 'assets/images/real_estate1.png',
+      'rating': 4.8,
+      'area': '1890 Sq.Ft',
+      'features':
+          '2 Guests | 2 Bedroom | 2 Bathroom | Semi Furnished | East Face',
+      'location': 'Kundalahalli, Bangalore',
+      'availability':
+          'This Spacious 2 Bhk Independent House Is Available For Rent',
+      'builder': 'Suresh',
+      'similars': 'Similar spacious flats/apartments are available for rent...',
+      'ownerName': 'Suresh',
+      'ownerType': 'Owner',
+    },
 
     {
-    'title': '2 Bhk 1890 Sq.Ft Independent House For Rent In Kundalahalli, Bangalore',
-    'price': '₹ 47.58 lakh',
-    'image': 'assets/images/real_estate1.png',
-    'rating': 4.8,
-    'area': '1890 Sq.Ft',
-    'features': '2 Guests | 2 Bedroom | 2 Bathroom | Semi Furnished | East Face',
-    'location': 'Kundalahalli, Bangalore',
-    'availability': 'This Spacious 2 Bhk Independent House Is Available For Rent',
-    'builder': 'Suresh',
-    'similars': 'Similar spacious flats/apartments are available for rent...',
-    'ownerName': 'Suresh',
-    'ownerType': 'Owner',
-  }
-];
+      'title':
+          '2 Bhk 1890 Sq.Ft Independent House For Rent In Kundalahalli, Bangalore',
+      'price': '₹ 47.58 lakh',
+      'image': 'assets/images/real_estate1.png',
+      'rating': 4.8,
+      'area': '1890 Sq.Ft',
+      'features':
+          '2 Guests | 2 Bedroom | 2 Bathroom | Semi Furnished | East Face',
+      'location': 'Kundalahalli, Bangalore',
+      'availability':
+          'This Spacious 2 Bhk Independent House Is Available For Rent',
+      'builder': 'Suresh',
+      'similars': 'Similar spacious flats/apartments are available for rent...',
+      'ownerName': 'Suresh',
+      'ownerType': 'Owner',
+    },
+  ];
 
   // Repeat structure for as many as you have! (imitate your screenshot cards)
 
+  @override
+  Widget build(BuildContext context) {
+    const Color creamColor = Color(0xFFEFE7C0); // for top section
+    const Color primaryYellow = Color(0xFFD4BB26); // for filter bar
 
-
-@override
-Widget build(BuildContext context) {
-  const Color creamColor = Color(0xFFEFE7C0);        // for top section
-  const Color primaryYellow = Color(0xFFD4BB26);     // for filter bar
-
-  return RealEstateLayout(
-    child: SingleChildScrollView(
-      
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          
-
-          // ------ TOP CREAM SECTION ------
-          Container(
-            width: double.infinity,
-            color: creamColor,
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Top Search Row
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Search bar with Buy dropdown inside
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.grey.shade400),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Row(
-                          children: [
-                            // "Buy" Dropdown
-                            DropdownButtonHideUnderline(
-                              child: DropdownButton<String>(
-                                value: buyOrRent,
-                                icon: const Icon(Icons.arrow_drop_down),
-                                items: ['Buy', 'Rent']
-                                    .map((val) => DropdownMenuItem<String>(
-                                          value: val,
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                                            child: Text(val, style: const TextStyle(fontSize: 13.5)),
-                                          ),
-                                        ))
-                                    .toList(),
-                                onChanged: (val) => setState(() => buyOrRent = val!),
-                              ),
-                            ),
-                            // Vertical Divider
-                            Container(
-                              height: 22,
-                              width: 1,
-                              color: Colors.grey.shade300,
-                              margin: const EdgeInsets.symmetric(horizontal: 4),
-                            ),
-                            // Search Input
-                            Expanded(
-                              child: TextField(
-                                textAlign: TextAlign.start,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: 'Enter Locality',
-                                  isDense: true,
-                                  contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
-                                  suffixIcon: Icon(Icons.search, size: 21, color: Colors.grey.shade600),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      flex: 2,
-                      child: _DropdownSimple(
-                        value: propertyType,
-                        items: ['Property Type', 'Flats', 'Plots', 'Villa'],
-                        onChanged: (val) => setState(() => propertyType = val!),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                   
-        Expanded(
-          flex: 2,
-          child: CustomDropdown(
-            display: Container(
-              height: 38,
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.grey.shade400),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    minBudget == '' && maxBudget == ''
-                        ? 'Budget'
-                        : '₹${minBudget} - ₹${maxBudget}',
-                    style: const TextStyle(fontSize: 13.5),
-                  ),
-                  const Icon(Icons.keyboard_arrow_down, size: 22),
-                ],
-              ),
-            ),
-            dropdownContent: (hide) => Container(
-              padding: const EdgeInsets.all(18),
-              margin: const EdgeInsets.only(top: 8),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.09),
-                    blurRadius: 14,
-                    offset: Offset(1, 4),
-                  ),
-                ],
+    return RealEstateLayout(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // ------ TOP CREAM SECTION ------
+            Container(
+              width: double.infinity,
+              color: creamColor,
+              padding: const EdgeInsets.symmetric(
+                vertical: 12,
+                horizontal: 100,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Top Search Row
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Search bar with Buy dropdown inside
+                      // Main Expanded for Buy + Searchbar
                       Expanded(
-                        child: BudgetColumn(
-                          title: "Min",
-                          options: ["5 Lacs", "10 Lacs", "15 Lacs", "20 Lacs", "25 Lacs", "30 Lacs"],
-                          selectedValue: minBudget,
-                          onChanged: (val) => setState(() => minBudget = val),
+                        flex: 3,
+                        child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(color: Colors.grey.shade400),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Row(
+                            children: [
+                              // Replace the DropdownButton here:
+                              CustomDropdown(
+                                display: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 3,
+                                  ),
+                                  height: 40, // match your bar
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        buyOrRent,
+                                        style: const TextStyle(
+                                          fontSize: 13.5,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 3),
+                                      const Icon(
+                                        Icons.arrow_drop_down,
+                                        size: 21,
+                                        color: Colors.black87,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                dropdownContent: (hide) {
+                                  List<String> options = ['Buy', 'Rent', 'Pg'];
+                                  return Container(
+                                    width: 120,
+                                    constraints: BoxConstraints(maxWidth: 160),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 16,
+                                      horizontal: 0,
+                                    ),
+                                    margin: const EdgeInsets.only(top: 6),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.09),
+                                          blurRadius: 14,
+                                          offset: const Offset(1, 4),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        ...options.map(
+                                          (val) => Material(
+                                            color: Colors.transparent,
+                                            child: InkWell(
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                              onTap: () {
+                                                setState(() => buyOrRent = val);
+                                              },
+                                              child: Container(
+                                                width: double.infinity,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      vertical: 9,
+                                                      horizontal: 20,
+                                                    ),
+                                                decoration: BoxDecoration(
+                                                  color:
+                                                      buyOrRent == val
+                                                          ? Colors.yellow[100]
+                                                          : Colors.transparent,
+                                                  borderRadius:
+                                                      BorderRadius.circular(6),
+                                                ),
+                                                child: Text(
+                                                  val,
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w500,
+                                                    color:
+                                                        buyOrRent == val
+                                                            ? Colors.black
+                                                            : Colors.grey[800],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                              // Vertical Divider
+                              Container(
+                                height: 22,
+                                width: 1,
+                                color: Colors.grey.shade300,
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 4,
+                                ),
+                              ),
+                              // Search Input
+                              Expanded(
+                                child: TextField(
+                                  textAlign: TextAlign.start,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: 'Enter Locality',
+                                    isDense: true,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 8,
+                                      horizontal: 6,
+                                    ),
+                                    suffixIcon: Icon(
+                                      Icons.search,
+                                      size: 21,
+                                      color: Colors.grey.shade600,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
+
+                      const SizedBox(width: 8),
                       Expanded(
-                        child: BudgetColumn(
-                          title: "Max",
-                          options: ["30 Lacs", "40 Lacs", "50 Lacs", "60 Lacs", "70 Lacs", "80 Lacs"],
-                          selectedValue: maxBudget,
-                          onChanged: (val) => setState(() => maxBudget = val),
+                        flex: 2,
+                        child: CustomDropdown(
+                          display: Container(
+                            height: 38,
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: Colors.grey.shade400),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  propertyType,
+                                  style: const TextStyle(fontSize: 13.5),
+                                ),
+                                const Icon(Icons.keyboard_arrow_down, size: 22),
+                              ],
+                            ),
+                          ),
+                          dropdownContent: (hide) {
+                            return Container(
+                              width: 400,
+                              padding: const EdgeInsets.all(18),
+                              margin: const EdgeInsets.only(top: 8),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.09),
+                                    blurRadius: 14,
+                                    offset: const Offset(1, 4),
+                                  ),
+                                ],
+                              ),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'RESIDENTIAL',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13,
+                                        letterSpacing: 1,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 12),
+                                    Wrap(
+                                      spacing: 11,
+                                      runSpacing: 11,
+                                      children:
+                                          residentialTypes
+                                              .map(
+                                                (item) => ChoiceChip(
+                                                  avatar: Icon(
+                                                    item['icon'],
+                                                    size: 18,
+                                                  ),
+                                                  label: Text(item['label']),
+                                                  selected:
+                                                      propertyType ==
+                                                      item['label'],
+                                                  selectedColor:
+                                                      Colors.yellow[100],
+                                                  backgroundColor: Colors.white,
+                                                  onSelected:
+                                                      (_) => setState(
+                                                        () =>
+                                                            propertyType =
+                                                                item['label'],
+                                                      ),
+                                                ),
+                                              )
+                                              .toList(),
+                                    ),
+                                    const SizedBox(height: 23),
+                                    const Text(
+                                      'COMMERCIAL',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13,
+                                        letterSpacing: 1,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 12),
+                                    Wrap(
+                                      spacing: 11,
+                                      runSpacing: 11,
+                                      children:
+                                          commercialTypes
+                                              .map(
+                                                (item) => ChoiceChip(
+                                                  avatar: Icon(
+                                                    item['icon'],
+                                                    size: 18,
+                                                  ),
+                                                  label: Text(item['label']),
+                                                  selected:
+                                                      propertyType ==
+                                                      item['label'],
+                                                  selectedColor:
+                                                      Colors.yellow[100],
+                                                  backgroundColor: Colors.white,
+                                                  onSelected:
+                                                      (_) => setState(
+                                                        () =>
+                                                            propertyType =
+                                                                item['label'],
+                                                      ),
+                                                ),
+                                              )
+                                              .toList(),
+                                    ),
+                                    const SizedBox(height: 18),
+                                    SizedBox(
+                                      width: double.infinity,
+                                      height: 44,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          foregroundColor: Colors.black,
+                                          backgroundColor: const Color(
+                                            0xFFC1B11F,
+                                          ),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                              7,
+                                            ),
+                                          ),
+                                        ),
+                                        onPressed: hide,
+                                        child: const Text(
+                                          'DONE',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+
+                      const SizedBox(width: 8),
+
+                      Expanded(
+                        flex: 2,
+                        child: CustomDropdown(
+                          display: Container(
+                            height: 38,
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: Colors.grey.shade400),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  minBudget == '' && maxBudget == ''
+                                      ? 'Budget'
+                                      : '₹${minBudget} - ₹${maxBudget}',
+                                  style: const TextStyle(fontSize: 13.5),
+                                ),
+                                const Icon(Icons.keyboard_arrow_down, size: 22),
+                              ],
+                            ),
+                          ),
+                          dropdownContent:
+                              (hide) => Container(
+                                padding: const EdgeInsets.all(18),
+                                margin: const EdgeInsets.only(top: 8),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.09),
+                                      blurRadius: 14,
+                                      offset: Offset(1, 4),
+                                    ),
+                                  ],
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: BudgetColumn(
+                                            title: "Min",
+                                            options: [
+                                              "5 Lacs",
+                                              "10 Lacs",
+                                              "15 Lacs",
+                                              "20 Lacs",
+                                              "25 Lacs",
+                                              "30 Lacs",
+                                            ],
+                                            selectedValue: minBudget,
+                                            onChanged:
+                                                (val) => setState(
+                                                  () => minBudget = val,
+                                                ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: BudgetColumn(
+                                            title: "Max",
+                                            options: [
+                                              "30 Lacs",
+                                              "40 Lacs",
+                                              "50 Lacs",
+                                              "60 Lacs",
+                                              "70 Lacs",
+                                              "80 Lacs",
+                                            ],
+                                            selectedValue: maxBudget,
+                                            onChanged:
+                                                (val) => setState(
+                                                  () => maxBudget = val,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 14),
+                                    SizedBox(
+                                      width: double.infinity,
+                                      height: 44,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          foregroundColor: Colors.black,
+                                          backgroundColor: Color(0xFFC1B11F),
+                                        ),
+                                        onPressed: hide,
+                                        child: const Text(
+                                          'DONE',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        flex: 2,
+                        child: CustomDropdown(
+                          display: Container(
+                            height: 38,
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: Colors.grey.shade400),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  ownership,
+                                  style: const TextStyle(fontSize: 13.5),
+                                ),
+                                const Icon(Icons.keyboard_arrow_down, size: 22),
+                              ],
+                            ),
+                          ),
+                          dropdownContent: (hide) {
+                            return Container(
+                              padding: const EdgeInsets.all(18),
+                              margin: const EdgeInsets.only(top: 8),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.09),
+                                    blurRadius: 14,
+                                    offset: Offset(1, 4),
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Wrap(
+                                    spacing: 10,
+                                    children:
+                                        ['Agent', 'Individual', 'Builder']
+                                            .map(
+                                              (o) => ChoiceChip(
+                                                label: Text(o),
+                                                selected: ownership == o,
+                                                selectedColor:
+                                                    Colors.yellow[100],
+                                                backgroundColor: Colors.white,
+                                                onSelected: (_) {
+                                                  setState(() => ownership = o);
+                                                },
+                                              ),
+                                            )
+                                            .toList(),
+                                  ),
+                                  const SizedBox(height: 18),
+                                  SizedBox(
+                                    width: double.infinity,
+                                    height: 44,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        foregroundColor: Colors.black,
+                                        backgroundColor: Color(0xFFC1B11F),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            7,
+                                          ),
+                                        ),
+                                      ),
+                                      onPressed: hide,
+                                      child: const Text(
+                                        'DONE',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 14),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 44,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Color(0xFFD7BF57)),
-                      onPressed: hide,
-                      child: const Text('DONE', style: TextStyle(fontWeight: FontWeight.bold)),
-                    ),
+                  const SizedBox(height: 10),
+                  // Breadcrumbs
+                  Row(
+                    children: [
+                      Text(
+                        'Real Estate',
+                        style: TextStyle(color: Colors.grey[700], fontSize: 13),
+                      ),
+                      Text(' / ', style: TextStyle(color: Colors.grey[600])),
+                      Text(
+                        'Bangalore Property',
+                        style: TextStyle(color: Colors.grey[700], fontSize: 13),
+                      ),
+                      Text(' / ', style: TextStyle(color: Colors.grey[600])),
+                      Text(
+                        'Property For Sale In Bangalore',
+                        style: TextStyle(
+                          color: Colors.grey[800],
+                          fontWeight: FontWeight.w600,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
-          ),
-        ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      flex: 2,
-                      child: CustomDropdown(
-  display: Container(
-    height: 38,
-    padding: const EdgeInsets.symmetric(horizontal: 12),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border.all(color: Colors.grey.shade400),
-      borderRadius: BorderRadius.circular(4),
-    ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(ownership, style: const TextStyle(fontSize: 13.5)),
-        const Icon(Icons.keyboard_arrow_down, size: 22),
-      ],
-    ),
-  ),
-  dropdownContent: (hide) {
-    return Container(
-      padding: const EdgeInsets.all(18),
-      margin: const EdgeInsets.only(top: 8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.09),
-          blurRadius: 14, offset: Offset(1, 4)),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Wrap(
-            spacing: 10,
-            children: ['Agent', 'Individual', 'Builder'].map((o) =>
-              ChoiceChip(
-                label: Text(o),
-                selected: ownership == o,
-                selectedColor: Colors.yellow[100],
-                backgroundColor: Colors.white,
-                onSelected: (_) {
-                  setState(() => ownership = o);
-                },
+            // ------ END TOP CREAM SECTION ------
+
+            // ------ FILTER BAR YELLOW ------
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 100),
+              decoration: BoxDecoration(
+                color: primaryYellow,
+                borderRadius: BorderRadius.circular(0),
               ),
-            ).toList(),
-          ),
-          const SizedBox(height: 18),
-          SizedBox(
-            width: double.infinity,
-            height: 44,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFFD7BF57),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7),
-                ),
-              ),
-              onPressed: hide,
-              child: const Text('DONE', style: TextStyle(fontWeight: FontWeight.bold)),
-            ),
-          ),
-        ],
-      ),
-    );
-  },
-)
-
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                // Breadcrumbs
-                Row(
-                  children: [
-                    Text('Real Estate', style: TextStyle(color: Colors.grey[700], fontSize: 13)),
-                    Text(' / ', style: TextStyle(color: Colors.grey[600])),
-                    Text('Bangalore Property', style: TextStyle(color: Colors.grey[700], fontSize: 13)),
-                    Text(' / ', style: TextStyle(color: Colors.grey[600])),
-                    Text(
-                      'Property For Sale In Bangalore',
-                      style: TextStyle(color: Colors.grey[800], fontWeight: FontWeight.w600, fontSize: 13),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          // ------ END TOP CREAM SECTION ------
-
-       
-          // ------ FILTER BAR YELLOW ------
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 7, horizontal: 10),
-            decoration: BoxDecoration(
-              color: primaryYellow,
-              borderRadius: BorderRadius.circular(0),
-            ),
-            child:Row(
-              children: List.generate(filterLabels.length, (index) {
-                return GestureDetector(
-                  onTap: () => setState(() => selectedFilter = index),
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 18.0),
-                    child: _FilterChip(
-                      filterLabels[index],
-                      selected: selectedFilter == index,
-                    ),
-                  ),
-                );
-              }),
-            )
-          ),
-          // ------ END FILTER BAR ------
-
-          const SizedBox(height: 20),
-
-          // Headings, description, listings...
-        if (selectedFilter == 0) ...[
-            // Only show the below for 'Sale Property (200)' selection
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 100.0),
-              child: Text(
-                '33644 Results | Properties For Sale In Bangalore',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 100.0),
-              child: Text(
-                'Check out 33644+ properties for sale in Bangalore. Realestateindia.com offers you selection of 100% verified 1/2/3/4 BHK semi-furnished and fully-furnished properties for sale in Bangalore at reasonable price. With 11603+ Flats / Apartments, 10887+ Residential Land / Plots, 5428+ Independent House, ... Luxury property near me in posh localities of Bangalore posted by owner for sale. Explore Now!!',
-                style: TextStyle(fontSize: 16, color: Colors.black87, height: 1.8),
-              ),
-            ),
-            const SizedBox(height: 22),
-
-                  // Property cards list as before:
-                  ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: saleProperties.length,
-                    itemBuilder: (context, index) {
-                      final p = saleProperties[index];
-                      return SalePropertyCard(
-                  title: p['title'],
-                  price: p['price'],
-                  image: p['image'],
-                  rating: p['rating'],
-                  area: p['area'],
-                  features: p['features'],
-                  location: p['location'],
-                  availability: p['availability'],
-                  builderName: p['builder'],
-                  similars: p['similars'],
-                  onContact: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => ContactWithSeller(),
-                    );
-                  },
-
-                  onViewPhone: () {
-                    // Handle view phone number action
-                  },
-                );
-
-                    },
-                  ),
-                ],
-
-                // Rent Properties Section
-                if (selectedFilter == 1) ...[
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 100.0),
-                    child: Text(
-                      '383 Results | House For Rent In Bangalore',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
-                    ),
-                  ),
-                  
-                  const SizedBox(height: 22),
-
-                  // Property cards for RENT
-                  ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: rentProperties.length,
-                    itemBuilder: (context, index) {
-                      final p = rentProperties[index];
-                    return RentPropertyCard(
-                  title: p['title'],
-                  price: p['price'],
-                  image: p['image'],
-                  rating: p['rating'],
-                  area: p['area'],
-                  features: p['features'],
-                  location: p['location'],
-                  availability: p['availability'],
-                  ownerName: p['ownerName'],
-                  ownerType: p['ownerType'],
-                  similars: p['similars'],
-                  onContact: () {
-                    // Your callback here, e.g. open chat/contact modal
-                  },
-                  onViewPhone: () {
-                    
-                    // Your callback here, e.g. show phone number
-                  },
-                );
-
-                    },
-                  ),
-                ],
-
-
-                        ],
+              child: Row(
+                children: List.generate(filterLabels.length, (index) {
+                  return GestureDetector(
+                    onTap: () => setState(() => selectedFilter = index),
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 18.0),
+                      child: _FilterChip(
+                        filterLabels[index],
+                        selected: selectedFilter == index,
                       ),
                     ),
                   );
-                }
+                }),
+              ),
+            ),
 
-                }
+            // ------ END FILTER BAR ------
+            const SizedBox(height: 20),
 
-// Dropdown Widget for the top bar
-class _DropdownSimple extends StatelessWidget {
-  final String value;
-  final List<String> items;
-  final void Function(String?) onChanged;
+            // Headings, description, listings...
+            if (selectedFilter == 0) ...[
+              // Only show the below for 'Sale Property (200)' selection
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 150.0),
+                child: Text(
+                  '33644 Results | Properties For Sale In Bangalore',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+                ),
+              ),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 150.0),
+                child: Text(
+                  'Check out 33644+ properties for sale in Bangalore. Realestateindia.com offers you selection of 100% verified 1/2/3/4 BHK semi-furnished and fully-furnished properties for sale in Bangalore at reasonable price. With 11603+ Flats / Apartments, 10887+ Residential Land / Plots, 5428+ Independent House, ... Luxury property near me in posh localities of Bangalore posted by owner for sale. Explore Now!!',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black87,
+                    height: 1.8,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 22),
 
-  const _DropdownSimple(
-      {required this.value, required this.items, required this.onChanged});
+              // Property cards list as before:
+              ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: saleProperties.length,
+                itemBuilder: (context, index) {
+                  final p = saleProperties[index];
+                  return SalePropertyCard(
+                    title: p['title'],
+                    price: p['price'],
+                    image: p['image'],
+                    rating: p['rating'],
+                    area: p['area'],
+                    features: p['features'],
+                    location: p['location'],
+                    availability: p['availability'],
+                    builderName: p['builder'],
+                    similars: p['similars'],
+                    onContact: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => ContactWithSeller(),
+                      );
+                    },
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 38,
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey.shade400),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: DropdownButton<String>(
-        isExpanded: false,
-        value: value,
-        icon: const Icon(Icons.arrow_drop_down, size: 22),
-        underline: SizedBox(),
-        items: items
-            .map((val) => DropdownMenuItem<String>(
-                  value: val,
-                  child: Text(val, style: TextStyle(fontSize: 13.5)),
-                ))
-            .toList(),
-        onChanged: onChanged,
+                    onViewPhone: () {
+                      // Handle view phone number action
+                    },
+                  );
+                },
+              ),
+            ],
+
+            // Rent Properties Section
+            if (selectedFilter == 1) ...[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 100.0),
+                child: Text(
+                  '383 Results | House For Rent In Bangalore',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+                ),
+              ),
+
+              const SizedBox(height: 22),
+
+              // Property cards for RENT
+              ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: rentProperties.length,
+                itemBuilder: (context, index) {
+                  final p = rentProperties[index];
+                  return RentPropertyCard(
+                    title: p['title'],
+                    price: p['price'],
+                    image: p['image'],
+                    rating: p['rating'],
+                    area: p['area'],
+                    features: p['features'],
+                    location: p['location'],
+                    availability: p['availability'],
+                    ownerName: p['ownerName'],
+                    ownerType: p['ownerType'],
+                    similars: p['similars'],
+                    onContact: () {
+                      // Your callback here, e.g. open chat/contact modal
+                    },
+                    onViewPhone: () {
+                      // Your callback here, e.g. show phone number
+                    },
+                  );
+                },
+              ),
+            ],
+
+            SizedBox(height: 80,),
+
+            if (selectedFilter == 2) ...[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 100.0),
+                child: Text(
+                  '383 Results | House For Rent In Bangalore',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+                ),
+              ),
+
+              const SizedBox(height: 22),
+
+              // Property cards for RENT
+              ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: rentProperties.length,
+                itemBuilder: (context, index) {
+                  final p = rentProperties[index];
+                  return RentPropertyCard(
+                    title: p['title'],
+                    price: p['price'],
+                    image: p['image'],
+                    rating: p['rating'],
+                    area: p['area'],
+                    features: p['features'],
+                    location: p['location'],
+                    availability: p['availability'],
+                    ownerName: p['ownerName'],
+                    ownerType: p['ownerType'],
+                    similars: p['similars'],
+                    onContact: () {
+                      // Your callback here, e.g. open chat/contact modal
+                    },
+                    onViewPhone: () {
+                      // Your callback here, e.g. show phone number
+                    },
+                  );
+                },
+              ),
+            ],
+
+            
+
+            if (selectedFilter == 3) ...[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 100.0),
+                child: Text(
+                  '383 Results | House For Rent In Bangalore',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+                ),
+              ),
+
+              const SizedBox(height: 22),
+
+              // Property cards for RENT
+              ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: rentProperties.length,
+                itemBuilder: (context, index) {
+                  final p = rentProperties[index];
+                  return RentPropertyCard(
+                    title: p['title'],
+                    price: p['price'],
+                    image: p['image'],
+                    rating: p['rating'],
+                    area: p['area'],
+                    features: p['features'],
+                    location: p['location'],
+                    availability: p['availability'],
+                    ownerName: p['ownerName'],
+                    ownerType: p['ownerType'],
+                    similars: p['similars'],
+                    onContact: () {
+                      // Your callback here, e.g. open chat/contact modal
+                    },
+                    onViewPhone: () {
+                      // Your callback here, e.g. show phone number
+                    },
+                  );
+                },
+              ),
+            ],
+
+          
+
+            if (selectedFilter == 4) ...[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 100.0),
+                child: Text(
+                  '383 Results | House For Rent In Bangalore',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
+                ),
+              ),
+
+              const SizedBox(height: 22),
+
+              // Property cards for RENT
+              ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: rentProperties.length,
+                itemBuilder: (context, index) {
+                  final p = rentProperties[index];
+                  return RentPropertyCard(
+                    title: p['title'],
+                    price: p['price'],
+                    image: p['image'],
+                    rating: p['rating'],
+                    area: p['area'],
+                    features: p['features'],
+                    location: p['location'],
+                    availability: p['availability'],
+                    ownerName: p['ownerName'],
+                    ownerType: p['ownerType'],
+                    similars: p['similars'],
+                    onContact: () {
+                      // Your callback here, e.g. open chat/contact modal
+                    },
+                    onViewPhone: () {
+                      // Your callback here, e.g. show phone number
+                    },
+                  );
+                },
+              ),
+              SizedBox(height: 80,)
+            ],
+          ],
+        ),
       ),
     );
   }
 }
+
+// // Dropdown Widget for the top bar
+// class _DropdownSimple extends StatelessWidget {
+//   final String value;
+//   final List<String> items;
+//   final void Function(String?) onChanged;
+
+//   const _DropdownSimple(
+//       {required this.value, required this.items, required this.onChanged});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       height: 38,
+//       padding: const EdgeInsets.symmetric(horizontal: 4),
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         border: Border.all(color: Colors.grey.shade400),
+//         borderRadius: BorderRadius.circular(4),
+//       ),
+//       child: DropdownButton<String>(
+//         isExpanded: false,
+//         value: value,
+//         icon: const Icon(Icons.arrow_drop_down, size: 22),
+//         underline: SizedBox(),
+//         items: items
+//             .map((val) => DropdownMenuItem<String>(
+//                   value: val,
+//                   child: Text(val, style: TextStyle(fontSize: 13.5)),
+//                 ))
+//             .toList(),
+//         onChanged: onChanged,
+//       ),
+//     );
+//   }
+// }
 
 // Filter Chip Widget
 class _FilterChip extends StatelessWidget {

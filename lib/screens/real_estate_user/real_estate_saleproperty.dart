@@ -34,8 +34,9 @@ class SalePropertyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.white,
       elevation: 2,
-      margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 150, vertical: 20),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
       child: Padding(
         padding: const EdgeInsets.all(14.0),
