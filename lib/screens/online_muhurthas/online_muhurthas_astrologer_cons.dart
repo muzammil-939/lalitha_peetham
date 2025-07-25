@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_layout.dart';
 
 class OnlineMuhurthasAstrologerConsultation extends StatelessWidget {
@@ -106,6 +107,7 @@ class OnlineMuhurthasAstrologerConsultation extends StatelessWidget {
 
             // Astrologer Cards
             _buildAstrologerCard(
+              context: context,
               name: 'Astrologer Priya Sharma',
               languages: 'Hindi, English',
               experience: '15 years experience',
@@ -114,6 +116,7 @@ class OnlineMuhurthasAstrologerConsultation extends StatelessWidget {
             const SizedBox(height: 16),
 
             _buildAstrologerCard(
+              context: context,
               name: 'Astrologer Ravi Kumar',
               languages: 'Tamil, Telugu',
               experience: '10 years experience',
@@ -122,6 +125,7 @@ class OnlineMuhurthasAstrologerConsultation extends StatelessWidget {
             const SizedBox(height: 16),
 
             _buildAstrologerCard(
+              context: context,
               name: 'Astrologer Meera Patel',
               languages: 'Marathi, Gujarati',
               experience: '12 years experience',
@@ -130,6 +134,7 @@ class OnlineMuhurthasAstrologerConsultation extends StatelessWidget {
             const SizedBox(height: 16),
 
             _buildAstrologerCard(
+              context: context,
               name: 'Astrologer Aniket Das',
               languages: 'Bengali, Oriya',
               experience: '8 years experience',
@@ -172,6 +177,7 @@ class OnlineMuhurthasAstrologerConsultation extends StatelessWidget {
   }
 
   Widget _buildAstrologerCard({
+    required BuildContext context,
     required String name,
     required String languages,
     required String experience,
@@ -230,18 +236,21 @@ class OnlineMuhurthasAstrologerConsultation extends StatelessWidget {
           ),
 
           // Book Appointment Button
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-            decoration: BoxDecoration(
-              color: const Color(0xFFD4AF37),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: const Text(
-              'Book Appointment',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Colors.black87,
+          GestureDetector(
+            onTap: () => context.go('/online_muhurthas_astrologer_cons_book'),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              decoration: BoxDecoration(
+                color: const Color(0xFFD4AF37),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Text(
+                'Book Appointment',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black87,
+                ),
               ),
             ),
           ),
