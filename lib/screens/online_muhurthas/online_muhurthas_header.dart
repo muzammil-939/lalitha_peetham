@@ -54,7 +54,7 @@ class OnlineMuhurthasHeader extends StatelessWidget {
                         fit: BoxFit.scaleDown,
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'MY LALITHA PEETHAM',
+                          'MY LALITHA PEETHAM / ONLINE MUHURTHAS',
                           style: TextStyle(
                             fontSize: isMobile ? 16 : 18,
                             fontWeight: FontWeight.bold,
@@ -118,35 +118,35 @@ class OnlineMuhurthasHeader extends StatelessWidget {
   Widget _buildMobileNav(BuildContext context) {
     return Row(
       children: [
-        Expanded(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                _buildNavItem(context, 'SEARCH', 'null'),
-                const SizedBox(width: 20),
-                _buildNavItem(context, 'INBOX', 'null'),
-                const SizedBox(width: 20),
-              ],
-            ),
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.white, width: 1.5),
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: const Text(
-            'UPGRADE',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-              fontSize: 10,
-              letterSpacing: 0.3,
-            ),
-          ),
-        ),
+        // Expanded(
+        //   child: SingleChildScrollView(
+        //     scrollDirection: Axis.horizontal,
+        //     child: Row(
+        //       children: [
+        //         _buildNavItem(context, 'SEARCH', 'null'),
+        //         const SizedBox(width: 20),
+        //         _buildNavItem(context, 'INBOX', 'null'),
+        //         const SizedBox(width: 20),
+        //       ],
+        //     ),
+        //   ),
+        // ),
+        // Container(
+        //   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        //   decoration: BoxDecoration(
+        //     border: Border.all(color: Colors.white, width: 1.5),
+        //     borderRadius: BorderRadius.circular(4),
+        //   ),
+        //   child: const Text(
+        //     'UPGRADE',
+        //     style: TextStyle(
+        //       color: Colors.white,
+        //       fontWeight: FontWeight.w600,
+        //       fontSize: 10,
+        //       letterSpacing: 0.3,
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }
@@ -154,97 +154,93 @@ class OnlineMuhurthasHeader extends StatelessWidget {
   Widget _buildDesktopNav(BuildContext context, bool isTablet) {
     return Row(
       children: [
-        Expanded(
-          flex: 3,
-          child: Row(
-            children: [
-              SizedBox(width: isTablet ? 40 : 80),
-              Flexible(child: _buildNavItem(context, 'FLOWER DECORATION ', '')),
-              SizedBox(width: isTablet ? 20 : 40),
-              Flexible(
-                child: _buildNavItem(
-                  context,
-                  '(Contractor Portal)',
-                  '/matches',
-                ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(width: isTablet ? 20 : 50),
-        Expanded(
-          flex: 2,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Flexible(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white, width: 1.5),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Text(
-                    'UPGRADE NOW',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: isTablet ? 11 : 13,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(width: isTablet ? 15 : 30),
-              Flexible(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'HELP',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: isTablet ? 11 : 13,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                    const SizedBox(width: 5),
-                    const Icon(
-                      Icons.keyboard_arrow_down,
-                      color: Colors.white,
-                      size: 18,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(width: isTablet ? 15 : 30),
-              Container(
-                width: isTablet ? 30 : 35,
-                height: isTablet ? 30 : 35,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(isTablet ? 15 : 17.5),
-                  border: Border.all(color: Colors.white, width: 2),
-                  image: const DecorationImage(
-                    image: NetworkImage(
-                      'https://via.placeholder.com/35x35/8B4513/FFFFFF?text=P',
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 5),
-              const Icon(
-                Icons.keyboard_arrow_down,
-                color: Colors.white,
-                size: 18,
-              ),
-            ],
-          ),
-        ),
+        // Expanded(
+        //   flex: 3,
+        //   child: Row(
+        //     children: [
+        //       SizedBox(width: isTablet ? 40 : 80),
+        //       Flexible(child: _buildNavItem(context, 'ONLINE MUHURTHAS ', '')),
+        //       SizedBox(width: isTablet ? 20 : 40),
+        //       Flexible(
+        //         child: _buildNavItem(context, '(Contractor Portal)', 'null'),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        // SizedBox(width: isTablet ? 20 : 50),
+        // Expanded(
+        //   flex: 2,
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.end,
+        //     children: [
+        //       Flexible(
+        //         child: Container(
+        //           padding: const EdgeInsets.symmetric(
+        //             horizontal: 16,
+        //             vertical: 8,
+        //           ),
+        //           decoration: BoxDecoration(
+        //             border: Border.all(color: Colors.white, width: 1.5),
+        //             borderRadius: BorderRadius.circular(4),
+        //           ),
+        //           child: Text(
+        //             'UPGRADE NOW',
+        //             style: TextStyle(
+        //               color: Colors.white,
+        //               fontWeight: FontWeight.w600,
+        //               fontSize: isTablet ? 11 : 13,
+        //               letterSpacing: 0.5,
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //       SizedBox(width: isTablet ? 15 : 30),
+        //       Flexible(
+        //         child: Row(
+        //           mainAxisSize: MainAxisSize.min,
+        //           children: [
+        //             Text(
+        //               'HELP',
+        //               style: TextStyle(
+        //                 color: Colors.white,
+        //                 fontWeight: FontWeight.w600,
+        //                 fontSize: isTablet ? 11 : 13,
+        //                 letterSpacing: 0.5,
+        //               ),
+        //             ),
+        //             const SizedBox(width: 5),
+        //             const Icon(
+        //               Icons.keyboard_arrow_down,
+        //               color: Colors.white,
+        //               size: 18,
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //       SizedBox(width: isTablet ? 15 : 30),
+        //       Container(
+        //         width: isTablet ? 30 : 35,
+        //         height: isTablet ? 30 : 35,
+        //         decoration: BoxDecoration(
+        //           borderRadius: BorderRadius.circular(isTablet ? 15 : 17.5),
+        //           border: Border.all(color: Colors.white, width: 2),
+        //           image: const DecorationImage(
+        //             image: NetworkImage(
+        //               'https://via.placeholder.com/35x35/8B4513/FFFFFF?text=P',
+        //             ),
+        //             fit: BoxFit.cover,
+        //           ),
+        //         ),
+        //       ),
+        //       const SizedBox(width: 5),
+        //       const Icon(
+        //         Icons.keyboard_arrow_down,
+        //         color: Colors.white,
+        //         size: 18,
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ],
     );
   }
@@ -253,7 +249,7 @@ class OnlineMuhurthasHeader extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: _buildSubNavItem(context, 'Home', '/flower_deco_vendor_dash'),
+          child: _buildSubNavItem(context, 'Home', '/online_muhurthas_home'),
         ),
         Expanded(
           child: _buildSubNavItem(
@@ -309,7 +305,7 @@ class OnlineMuhurthasHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Expanded(
-          child: _buildSubNavItem(context, 'Home', '/flower_deco_vendor_dash'),
+          child: _buildSubNavItem(context, 'Home', '/online_muhurthas_home'),
         ),
         Expanded(
           child: _buildSubNavItem(
