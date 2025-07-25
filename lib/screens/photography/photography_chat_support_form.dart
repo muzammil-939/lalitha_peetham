@@ -39,11 +39,22 @@ class _PhotographyChatSupportFormState
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        _buildNavButton("My Bookings"),
+                        GestureDetector(
+                          onTap:
+                              () => context.go('/Photography_Bookings_Status'),
+                          child: _buildNavButton("My Bookings"),
+                        ),
                         SizedBox(width: 12),
-                        _buildNavButton("Payments"),
+                        GestureDetector(
+                          onTap:
+                              () => context.go('/photography_paymentsStatus'),
+                          child: _buildNavButton("Payments"),
+                        ),
                         SizedBox(width: 12),
-                        _buildNavButton("support", isActive: true),
+                        GestureDetector(
+                          onTap: () => context.go('/photography_faq_support'),
+                          child: _buildNavButton("support", isActive: true),
+                        ),
                       ],
                     ),
                     SizedBox(height: 60),
@@ -51,9 +62,20 @@ class _PhotographyChatSupportFormState
                     // Tab navigation
                     Row(
                       children: [
-                        _buildTabButton("chat support", isActive: true),
+                        GestureDetector(
+                          onTap:
+                              () =>
+                                  context.go('/photography_chat_support_form'),
+                          child: _buildTabButton(
+                            "chat support",
+                            isActive: true,
+                          ),
+                        ),
                         SizedBox(width: 30),
-                        _buildTabButton("fqs support"),
+                        GestureDetector(
+                          onTap: () => context.go('/photography_faq_support'),
+                          child: _buildTabButton("fqs support"),
+                        ),
                       ],
                     ),
                     SizedBox(height: 80),
@@ -344,7 +366,7 @@ class _PhotographyChatSupportFormState
     print('Form submitted: $formData');
 
     // You can add navigation to chat support or show success message
-  context.go('/photography_chart_support');
+    context.go('/photography_chat_support');
   }
 
   @override

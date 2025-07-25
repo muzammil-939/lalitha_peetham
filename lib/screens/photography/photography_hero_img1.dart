@@ -34,9 +34,7 @@ class PhotographyHeroImg1 extends StatelessWidget {
               ),
               SizedBox(height: 20),
               GestureDetector(
-                onTap: () {
-                  context.go('/photography_services');
-                },
+                onTap: () => context.go('/photography_services'),
                 child: Container(
                   width: 160,
                   height: 45,

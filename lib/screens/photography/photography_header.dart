@@ -31,15 +31,19 @@ class PhotographyHeader extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    _buildNavItem('Home'),
+                    _buildNavItem(context, 'Home', ''),
                     const SizedBox(width: 40),
-                    _buildNavItem('Services'),
+                    _buildNavItem(context, 'Services', '/photography_services'),
                     const SizedBox(width: 40),
-                    _buildNavItem('portfolio'),
+                    _buildNavItem(context, 'portfolio', ''),
                     const SizedBox(width: 40),
-                    _buildNavItem('Packages'),
+                    _buildNavItem(context, 'Packages', '/photography_services'),
                     const SizedBox(width: 40),
-                    _buildNavItem('Book Now'),
+                    _buildNavItem(
+                      context,
+                      'My Bookings',
+                      '/Photography_Bookings_Status',
+                    ),
                   ],
                 ),
                 const SizedBox(width: 40),
@@ -91,13 +95,18 @@ class PhotographyHeader extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem(String text) {
-    return Text(
-      text,
-      style: const TextStyle(
-        color: Colors.white,
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
+  Widget _buildNavItem(BuildContext context, String text, String path) {
+    return TextButton(
+      onPressed: () {
+        context.go(path);
+      },
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+        ),
       ),
     );
   }

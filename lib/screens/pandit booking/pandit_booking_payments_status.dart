@@ -77,7 +77,7 @@ class _PanditBookingPaymentsStatusState
           child: ClipRRect(
             borderRadius: BorderRadius.circular(0),
             child: Image.asset(
-              'assets/images/pandit_booking_home',
+              'assets/images/pandit_booking_home.png',
               height: 180,
               width: 280,
               fit: BoxFit.cover,
@@ -245,7 +245,7 @@ class _PanditBookingPaymentsStatusState
                                             ),
                                             image: DecorationImage(
                                               image: AssetImage(
-                                                'assets/images/pandit_booking_pooja1',
+                                                'assets/images/pandith_booking_pooja1.png',
                                               ), // Replace with your image
                                               fit: BoxFit.cover,
                                             ),

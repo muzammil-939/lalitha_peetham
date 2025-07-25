@@ -232,7 +232,7 @@ class PhotographyPayment extends StatelessWidget {
                           height: 50,
                           child: ElevatedButton(
                             onPressed: () {
-                              context.go('/Photography_Bookings_Status');
+                              context.go('');
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Color(0xFFE6B84A),

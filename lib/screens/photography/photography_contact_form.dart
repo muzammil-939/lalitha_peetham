@@ -311,7 +311,7 @@ class PhotographyContactForm extends StatelessWidget {
 
                   // Submit button
                   GestureDetector(
-                    onTap: () => context.go('/photography_services'),
+                    onTap: () => context.go('null'),
                     child: Container(
                       width: 120,
                       height: 45,

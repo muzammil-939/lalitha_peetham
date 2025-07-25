@@ -200,6 +200,7 @@ import 'package:lalitha_peetham/screens/photography/photography_bookings_status.
 import 'package:lalitha_peetham/screens/photography/photography_chat_support.dart';
 import 'package:lalitha_peetham/screens/photography/photography_chat_support_form.dart';
 import 'package:lalitha_peetham/screens/photography/photography_contact_form.dart';
+import 'package:lalitha_peetham/screens/photography/photography_faq_support.dart';
 import 'package:lalitha_peetham/screens/photography/photography_faq_support_wid.dart';
 import 'package:lalitha_peetham/screens/photography/photography_home.dart';
 import 'package:lalitha_peetham/screens/photography/photography_packages.dart';
@@ -551,15 +552,15 @@ class MyApp extends StatelessWidget {
           builder: (context, state) => const PhotographyPaymentsStatus(),
         ),
         GoRoute(
-          path: '/photography_faq_support_wid',
-          builder: (context, state) => const PhotographyFaqSupportWid(),
+          path: '/photography_faq_support',
+          builder: (context, state) => const PhotographyFaqSupport(),
         ),
         GoRoute(
-          path: '/photography_chart_support_form',
+          path: '/photography_chat_support_form',
           builder: (context, state) => const PhotographyChatSupportForm(),
         ),
         GoRoute(
-          path: '/photography_chart_support',
+          path: '/photography_chat_support',
           builder: (context, state) => const PhotographyChatSupport(),
         ),
 

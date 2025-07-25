@@ -34,11 +34,22 @@ class _PhotographyBookingsStatusState extends State<PhotographyBookingsStatus> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        _buildNavButton("My Bookings", isActive: true),
+                        GestureDetector(
+                          onTap:
+                              () => context.go('/Photography_Bookings_Status'),
+                          child: _buildNavButton("My Bookings", isActive: true),
+                        ),
                         SizedBox(width: 12),
-                        _buildNavButton("Payments"),
+                        GestureDetector(
+                          onTap:
+                              () => context.go('/photography_paymentsStatus'),
+                          child: _buildNavButton("Payments"),
+                        ),
                         SizedBox(width: 12),
-                        _buildNavButton("support"),
+                        GestureDetector(
+                          onTap: () => context.go('/photography_faq_support'),
+                          child: _buildNavButton("support"),
+                        ),
                       ],
                     ),
                     SizedBox(height: 60),

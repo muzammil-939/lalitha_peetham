@@ -24,7 +24,9 @@ class OnlineMuhurthasHome extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   image: const DecorationImage(
-                    image: AssetImage('online_muhurthas_home.png'),
+                    image: AssetImage(
+                      'assets/images/online_muhurthas_home.png',
+                    ),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -158,7 +160,7 @@ class OnlineMuhurthasHome extends StatelessWidget {
               children: [
                 Expanded(
                   child: _buildFeatureCard(
-                    'online_muhurthas_wed.png', // You'll need to add these images
+                    'assets/images/online_muhurthas_wed.png', // You'll need to add these images
                     'Wedding Muhurtam',
                     'Find the perfect time for your wedding.',
                   ),
