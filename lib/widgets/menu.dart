@@ -204,7 +204,7 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
         break;
 
       case 'Real Estate':
-        context.go('/real_estate_dashboard');
+        context.go('/real_estate_welcome_page');
         break;
 
       case 'Photography':

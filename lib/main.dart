@@ -189,6 +189,7 @@ import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_my_purchase.da
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_purchase_successful.dart';
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_upcomming_liveclasses.dart';
 import 'package:lalitha_peetham/screens/real_estate/rs_dashboard.dart';
+import 'package:lalitha_peetham/screens/real_estate_user/real_estate_welcome_page.dart';
 import 'package:lalitha_peetham/screens/yoga_screens/backpain_booking.dart';
 import 'package:lalitha_peetham/screens/yoga_screens/general_yoga.dart';
 import 'package:lalitha_peetham/screens/yoga_screens/mindful_meditation.dart';
@@ -1152,6 +1153,12 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/gemstone_booking_confirm',
           builder: (context, state) => GsBookingOnfirmPage(),
+        ),
+
+        //..........Real-Estate.........
+        GoRoute(
+          path: '/real_estate_welcome_page',
+          builder: (context, state) => RealEstateWelcomePage(),
         ),
         
       ],
