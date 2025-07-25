@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_layout.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_layout.dart';
 
 import '../photography/photography_faq_support_wid.dart';
 
-class PalmReadingChatSupport extends StatefulWidget {
-  const PalmReadingChatSupport({super.key});
+class PanditBookingChatSupport extends StatefulWidget {
+  const PanditBookingChatSupport({super.key});
 
   @override
-  State<PalmReadingChatSupport> createState() => _PalmReadingChatSupportState();
+  State<PanditBookingChatSupport> createState() =>
+      _PanditBookingChatSupportState();
 }
 
-class _PalmReadingChatSupportState extends State<PalmReadingChatSupport> {
+class _PanditBookingChatSupportState extends State<PanditBookingChatSupport> {
   @override
   Widget build(BuildContext context) {
-    return PalmReadingLayout(
+    return PanditBookingLayout(
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -62,7 +64,7 @@ class _PalmReadingChatSupportState extends State<PalmReadingChatSupport> {
           child: Column(
             children: const [
               Text(
-                "Personalized Palm Reading by Experts",
+                "Support",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -78,7 +80,7 @@ class _PalmReadingChatSupportState extends State<PalmReadingChatSupport> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(0),
             child: Image.asset(
-              'assets/images/vastupooja18.png',
+              'assets/images/pandit_booking_home',
               height: 180,
               width: 280,
               fit: BoxFit.cover,
@@ -119,7 +121,7 @@ class _PalmReadingChatSupportState extends State<PalmReadingChatSupport> {
             children: [
               SizedBox(height: 60),
               const Text(
-                "Access the Full List of Your Scheduled and \nCompleted Poojas",
+                "Support",
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 50),
@@ -128,11 +130,26 @@ class _PalmReadingChatSupportState extends State<PalmReadingChatSupport> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    _buildNavButton("My Bookings"),
+                    GestureDetector(
+                      onTap: () {
+                        context.go('/pandit_booking_booking_status');
+                      },
+                      child: _buildNavButton("My Bookings"),
+                    ),
                     SizedBox(width: 12),
-                    _buildNavButton("Payments"),
+                    GestureDetector(
+                      onTap: () {
+                        context.go('/pandit_booking_payments_history');
+                      },
+                      child: _buildNavButton("Payments"),
+                    ),
                     SizedBox(width: 12),
-                    _buildNavButton("support", isActive: true),
+                    GestureDetector(
+                      onTap: () {
+                        context.go('/pandit_booking_faq_support');
+                      },
+                      child: _buildNavButton("support", isActive: true),
+                    ),
                   ],
                 ),
               ),
@@ -150,7 +167,8 @@ class _PalmReadingChatSupportState extends State<PalmReadingChatSupport> {
                     Row(
                       children: [
                         GestureDetector(
-                          onTap: () => context.go('/palm_reading_chat_support'),
+                          onTap:
+                              () => context.go('/pandit_booking_chat_support'),
                           child: _buildTabButton(
                             "chat support",
                             isActive: true,
@@ -158,7 +176,8 @@ class _PalmReadingChatSupportState extends State<PalmReadingChatSupport> {
                         ),
                         SizedBox(width: 30),
                         GestureDetector(
-                          onTap: () => context.go('/palm_reading_faq_support'),
+                          onTap:
+                              () => context.go('/pandit_booking_faq_support'),
                           child: _buildTabButton("fqs support"),
                         ),
                       ],

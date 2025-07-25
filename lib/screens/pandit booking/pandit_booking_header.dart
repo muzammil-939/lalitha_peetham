@@ -22,10 +22,26 @@ class PanditBookingHeader extends StatelessWidget {
           ),
 
           // Right User Icon
-          const CircleAvatar(
-            radius: 22,
-            backgroundColor: Colors.white,
-            child: Icon(Icons.person, color: Colors.blue, size: 30),
+          Row(
+            children: [
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    context.go('/pandit_booking_booking_status');
+                  },
+                  child: Text(
+                    'More',
+                    style: TextStyle(fontSize: 16, color: Colors.black),
+                  ),
+                ),
+              ),
+              SizedBox(width: 30),
+              const CircleAvatar(
+                radius: 22,
+                backgroundColor: Colors.white,
+                child: Icon(Icons.person, color: Colors.blue, size: 30),
+              ),
+            ],
           ),
         ],
       ),

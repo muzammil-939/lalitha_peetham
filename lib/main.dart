@@ -89,6 +89,14 @@ import 'package:lalitha_peetham/screens/gemstones_selling/gs_order_summary.dart'
 import 'package:lalitha_peetham/screens/gemstones_selling/gs_product_page.dart';
 import 'package:lalitha_peetham/screens/gemstones_selling/gs_shop_all_products.dart';
 import 'package:lalitha_peetham/screens/gemstones_selling/gs_whishlist.dart';
+import 'package:lalitha_peetham/screens/hall_booking/hall_booking_aboutus.dart';
+import 'package:lalitha_peetham/screens/hall_booking/hall_booking_book_hall.dart';
+import 'package:lalitha_peetham/screens/hall_booking/hall_booking_bookingsummary.dart';
+import 'package:lalitha_peetham/screens/hall_booking/hall_booking_halls_search.dart';
+import 'package:lalitha_peetham/screens/hall_booking/hall_booking_home.dart';
+import 'package:lalitha_peetham/screens/hall_booking/hall_booking_inquire.dart';
+import 'package:lalitha_peetham/screens/hall_booking/hall_booking_my_bookings.dart';
+import 'package:lalitha_peetham/screens/hall_booking/hall_booking_venues.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/accepted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/deleted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/message_screen.dart';
@@ -122,6 +130,19 @@ import 'package:lalitha_peetham/screens/nitya_pooja_screens/nityapooja_subscript
 import 'package:lalitha_peetham/screens/nitya_pooja_screens/poojas_page.dart';
 import 'package:lalitha_peetham/screens/nitya_pooja_screens/proceed_to_final_payment.dart';
 import 'package:lalitha_peetham/screens/nitya_pooja_screens/review_check_out_page.dart';
+import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_astrologer_cons.dart';
+import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_astrologer_cons_book.dart';
+import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_call_request.dart';
+import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_contactus.dart';
+import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_event_specific.dart';
+import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_faq.dart';
+import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_finder.dart';
+import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_home.dart';
+import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_messages.dart';
+import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_notifications.dart';
+import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_payment_success.dart';
+import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_reminders.dart';
+import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_upcoming_muhurthams.dart';
 import 'package:lalitha_peetham/screens/online_pooja/about_satyanarayana_pooja.dart';
 import 'package:lalitha_peetham/screens/online_pooja/online_booking_page.dart';
 import 'package:lalitha_peetham/screens/online_pooja/online_pooja_support_section.dart';
@@ -156,9 +177,22 @@ import 'package:lalitha_peetham/screens/palm_reading/palm_reading_select_package
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_submit_info.dart';
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_upload_your_palm.dart';
 import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_booking_confirmed.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_booking_status.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_cancel_feedback.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_chat_support.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_choose_experts.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_faq_support.dart';
 import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_form.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_ganesh_pooja.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_home.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_offline_booking.dart';
 import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_packages.dart';
 import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_payment.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_payments_history.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_payments_status.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_reschedule_confirmation.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_reschedule_form.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_satyanarayana_pooja.dart';
 import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_summary.dart';
 import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_waiting.dart';
 import 'package:lalitha_peetham/screens/photography/photography_booking_confirm.dart';
@@ -241,7 +275,102 @@ class MyApp extends StatelessWidget {
         GoRoute(path: '/', builder: (context, state) => MainScreen()),
         //GoRoute(path: '*', builder: (context, state) => const NotFoundScreen()),
 
+        //HALL BOOKING
+        GoRoute(
+          path: '/hall_booking_home',
+          builder: (context, state) => const HallBookingHome(),
+        ),
+        GoRoute(
+          path: '/hall_booking_book_hall',
+          builder: (context, state) => HallBookingBookHall(),
+        ),
+        GoRoute(
+          path: '/hall_booking_venues',
+          builder: (context, state) => HallBookingVenues(),
+        ),
+        GoRoute(
+          path: '/hall_booking_hall_search',
+          builder: (context, state) => HallBookingHallsSearch(),
+        ),
+        GoRoute(
+          path: '/hall_booking_booking_summary',
+          builder: (context, state) => HallBookingBookingsummary(),
+        ),
+        GoRoute(
+          path: '/hall_booking_aboutus',
+          builder: (context, state) => const HallBookingAboutus(),
+        ),
+        GoRoute(
+          path: '/hall_booking_Inquire',
+          builder: (context, state) => HallBookingInquire(),
+        ),
+        GoRoute(
+          path: '/hall_booking_my_bookings',
+          builder: (context, state) => const HallBookingMyBookings(),
+        ),
+
+        //ONLINE MUHURTHA
+        GoRoute(
+          path: '/online_muhurthas_home',
+          builder: (context, state) => const OnlineMuhurthasHome(),
+        ),
+        GoRoute(
+          path: '/online_muhurthas_finder',
+          builder: (context, state) => const OnlineMuhurthasFinder(),
+        ),
+        GoRoute(
+          path: '/online_muhurthas_messages',
+          builder: (context, state) => OnlineMuhurthasMessages(),
+        ),
+        GoRoute(
+          path: '/online_muhurthas_notifications',
+          builder: (context, state) => const OnlineMuhurthasNotifications(),
+        ),
+        GoRoute(
+          path: '/online_muhurthas_payment_success',
+          builder: (context, state) => const OnlineMuhurthasPaymentSuccess(),
+        ),
+        GoRoute(
+          path: '/online_muhurthas_reminders',
+          builder: (context, state) => const OnlineMuhurthasReminders(),
+        ),
+        GoRoute(
+          path: '/online_muhurthas_upcoming_muhurthams',
+          builder:
+              (context, state) => const OnlineMuhurthasUpcomingMuhurthams(),
+        ),
+        GoRoute(
+          path: '/online_muhurthas_astrologer_cons',
+          builder:
+              (context, state) => const OnlineMuhurthasAstrologerConsultation(),
+        ),
+        GoRoute(
+          path: '/online_muhurthas_astrologer_cons_book',
+          builder:
+              (context, state) => const OnlineMuhurthasAstrologerConsBook(),
+        ),
+        GoRoute(
+          path: '/online_muhurthas_call_request',
+          builder: (context, state) => const OnlineMuhurthasCallRequest(),
+        ),
+        GoRoute(
+          path: '/online_muhurthas_contactus',
+          builder: (context, state) => const OnlineMuhurthasContactus(),
+        ),
+        GoRoute(
+          path: '/online_muhurthas_event_specific',
+          builder: (context, state) => const OnlineMuhurthasEventSpecific(),
+        ),
+        GoRoute(
+          path: '/online_muhurthas_faq',
+          builder: (context, state) => const OnlineMuhurthasFaq(),
+        ),
+
         //Pandit Booking
+        GoRoute(
+          path: '/pandit_booking_home',
+          builder: (context, state) => const PanditBookingHome(),
+        ),
         GoRoute(
           path: '/pandit_booking_packages',
           builder: (context, state) => const PanditBookingPackages(),
@@ -266,6 +395,58 @@ class MyApp extends StatelessWidget {
           path: '/pandit_booking_booking_confirmed',
           builder: (context, state) => const PanditBookingBookingConfirmed(),
         ),
+
+        //YET TO BE ASSIGNED
+        GoRoute(
+          path: '/pandit_booking_booking_status',
+          builder: (context, state) => const PanditBookingBookingStatus(),
+        ),
+        GoRoute(
+          path: '/pandit_booking_cancel_feedback',
+          builder: (context, state) => const PanditBookingCancelFeedback(),
+        ),
+        GoRoute(
+          path: '/pandit_booking_chat_support',
+          builder: (context, state) => const PanditBookingChatSupport(),
+        ),
+        GoRoute(
+          path: '/pandit_booking_choose_experts',
+          builder: (context, state) => const PanditBookingChooseExperts(),
+        ),
+        GoRoute(
+          path: '/pandit_booking_faq_support',
+          builder: (context, state) => const PanditBookingFaqSupport(),
+        ),
+        GoRoute(
+          path: '/pandit_booking_ganesh_pooja',
+          builder: (context, state) => const PanditBookingGaneshPooja(),
+        ),
+        GoRoute(
+          path: '/pandit_booking_satyanarayana_pooja',
+          builder: (context, state) => const PanditBookingSatyanarayanaPooja(),
+        ),
+        GoRoute(
+          path: '/pandit_booking_offline_booking',
+          builder: (context, state) => const PanditBookingOfflineBooking(),
+        ),
+        GoRoute(
+          path: '/pandit_booking_payments_history',
+          builder: (context, state) => const PanditBookingPaymentsHistory(),
+        ),
+        GoRoute(
+          path: '/pandit_booking_payment_status',
+          builder: (context, state) => const PanditBookingPaymentsStatus(),
+        ),
+        GoRoute(
+          path: '/pandit_booking_reschedule_confirmation',
+          builder:
+              (context, state) => const PanditBookingRescheduleConfirmation(),
+        ),
+        GoRoute(
+          path: '/pandit_booking_reschedule_form',
+          builder: (context, state) => const PanditBookingRescheduleForm(),
+        ),
+
         //PALM READING SECTION
         GoRoute(
           path: '/palm_reading_home',
@@ -1042,7 +1223,7 @@ class MyApp extends StatelessWidget {
           path: '/caterer_about_us',
           builder: (context, state) => CateringAboutUs(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/caterer_product_list',
           builder: (context, state) => CatererProductList(),
         ),
@@ -1054,13 +1235,13 @@ class MyApp extends StatelessWidget {
           path: '/caterer_saved_menue',
           builder: (context, state) => CatererSavedMenue(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/caterer_menue_details_page',
           builder: (context, state) => CatererMenueDetailsPage(),
         ),
 
-         //............CATERING.........
-         GoRoute(
+        //............CATERING.........
+        GoRoute(
           path: '/catering_welcome_screen',
           builder: (context, state) => CateringWelcomeScreen(),
         ),
@@ -1072,11 +1253,11 @@ class MyApp extends StatelessWidget {
           path: '/caterer_menue_page',
           builder: (context, state) => CatererMenuePage(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/caterer_packages_page',
           builder: (context, state) => CatererPackages(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/caterer_review_checkout',
           builder: (context, state) => CaterersReviewCheckout(),
         ),
@@ -1104,7 +1285,7 @@ class MyApp extends StatelessWidget {
           path: '/caterer_about_us',
           builder: (context, state) => CateringAboutUs(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/caterer_product_list',
           builder: (context, state) => CatererProductList(),
         ),
@@ -1116,7 +1297,7 @@ class MyApp extends StatelessWidget {
           path: '/caterer_saved_menue',
           builder: (context, state) => CatererSavedMenue(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/caterer_menue_details_page',
           builder: (context, state) => CatererMenueDetailsPage(),
         ),
@@ -1126,11 +1307,11 @@ class MyApp extends StatelessWidget {
           path: '/gemstone_selling_shop_allproducts',
           builder: (context, state) => GsShopAllProducts(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/gemstone_whishlist',
           builder: (context, state) => GsWhishlist(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/gemstone_product_page',
           builder: (context, state) => GsProductPage(),
         ),
@@ -1138,11 +1319,11 @@ class MyApp extends StatelessWidget {
           path: '/gemstone_add_to_cart',
           builder: (context, state) => GsAddToCart(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/gemstone_delivery_address',
           builder: (context, state) => GsDeliveryAddressPage(),
         ),
-         GoRoute(
+        GoRoute(
           path: '/gemstone_order_summary',
           builder: (context, state) => GsOrderSummary(),
         ),
@@ -1160,7 +1341,6 @@ class MyApp extends StatelessWidget {
           path: '/real_estate_welcome_page',
           builder: (context, state) => RealEstateWelcomePage(),
         ),
-        
       ],
     );
     return MaterialApp.router(

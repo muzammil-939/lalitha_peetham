@@ -77,7 +77,7 @@ class _PanditBookingPackagesState extends State<PanditBookingPackages> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(0),
             child: Image.asset(
-              'assets/images/vastupooja18.png',
+              'assets/images/pandit_booking_home',
               height: 180,
               width: 280,
               fit: BoxFit.cover,
@@ -143,7 +143,7 @@ class _PanditBookingPackagesState extends State<PanditBookingPackages> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               _buildServiceCard1(
-                                title: "Couples Compatibility Reading",
+                                title: "Basic Ganesh Pooja Package",
                                 price: "₹1199",
                                 features: [
                                   "Palm reading for two people",
@@ -160,7 +160,7 @@ class _PanditBookingPackagesState extends State<PanditBookingPackages> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               _buildServiceCard(
-                                title: "Basic Palm Insight",
+                                title: "Standard Pooja Package",
                                 price: "₹199",
                                 features: [
                                   "Single palm analysis (left or right)",
@@ -170,7 +170,7 @@ class _PanditBookingPackagesState extends State<PanditBookingPackages> {
                               ),
                               const SizedBox(width: 20),
                               _buildServiceCard(
-                                title: "Dual Hand Reading",
+                                title: "Premium Homam Package",
                                 price: "₹399",
                                 features: [
                                   "Analysis of both hands",
@@ -187,7 +187,7 @@ class _PanditBookingPackagesState extends State<PanditBookingPackages> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               _buildServiceCard(
-                                title: "Complete Life Path Reading",
+                                title: "Wedding Ritual Package",
                                 price: "₹699",
                                 features: [
                                   "Detailed reading of all 7 major lines",
@@ -198,7 +198,7 @@ class _PanditBookingPackagesState extends State<PanditBookingPackages> {
                               ),
                               const SizedBox(width: 20),
                               _buildServiceCard(
-                                title: "Premium Consultation",
+                                title: " Festival Special Combo",
                                 price: "₹999",
                                 features: [
                                   "One-on-one live session with expert",

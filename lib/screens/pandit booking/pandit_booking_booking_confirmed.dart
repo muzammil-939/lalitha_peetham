@@ -78,7 +78,7 @@ class _PanditBookingBookingConfirmedState
           child: ClipRRect(
             borderRadius: BorderRadius.circular(0),
             child: Image.asset(
-              'assets/images/vastupooja18.png',
+              'assets/images/pandit_booking_home',
               height: 180,
               width: 280,
               fit: BoxFit.cover,

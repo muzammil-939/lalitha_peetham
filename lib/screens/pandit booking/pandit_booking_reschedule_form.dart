@@ -4,14 +4,16 @@ import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_layout.dart';
 import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_layout.dart';
 
-class PanditBookingForm extends StatefulWidget {
-  const PanditBookingForm({super.key});
+class PanditBookingRescheduleForm extends StatefulWidget {
+  const PanditBookingRescheduleForm({super.key});
 
   @override
-  State<PanditBookingForm> createState() => _PanditBookingFormState();
+  State<PanditBookingRescheduleForm> createState() =>
+      _PanditBookingRescheduleFormState();
 }
 
-class _PanditBookingFormState extends State<PanditBookingForm> {
+class _PanditBookingRescheduleFormState
+    extends State<PanditBookingRescheduleForm> {
   @override
   Widget build(BuildContext context) {
     return PanditBookingLayout(
@@ -60,7 +62,7 @@ class _PanditBookingFormState extends State<PanditBookingForm> {
           child: Column(
             children: const [
               Text(
-                "Find the Perfect Pooja Service Tailored to Your Spiritual Needs",
+                "FILL OUT THE CORRECT INFORMATION TO \nPROCESS YOUR RESCHEDULE REQUEST",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -117,7 +119,7 @@ class _PanditBookingFormState extends State<PanditBookingForm> {
             children: [
               SizedBox(height: 60),
               const Text(
-                "Book Your Pandit in Just in Minutes – \nFill the Details Below",
+                "Pooja Reschedule Request Form",
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
@@ -456,41 +458,6 @@ class _PanditBookingFormState extends State<PanditBookingForm> {
 
                     SizedBox(height: 24),
 
-                    // Do You Need Materials - Single field
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Do You Need Materials',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Container(
-                          width: 350, // Fixed width instead of percentage
-                          height: 45,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFDFDDDD),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 14,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(height: 24),
-
                     // Additional Notes - Single field, full width
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -523,41 +490,6 @@ class _PanditBookingFormState extends State<PanditBookingForm> {
                       ],
                     ),
 
-                    SizedBox(height: 24),
-
-                    // Amount - Single field
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Amount',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Container(
-                          width: 350, // Fixed width instead of percentage
-                          height: 45,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFDFDDDD),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 14,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
                     SizedBox(height: 40),
 
                     // Continue Button
@@ -567,7 +499,9 @@ class _PanditBookingFormState extends State<PanditBookingForm> {
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () {
-                            context.go('/pandit_booking_payment');
+                            context.go(
+                              '/pandit_booking_reschedule_confirmation',
+                            );
                             // Handle continue button press
                           },
                           style: ElevatedButton.styleFrom(
@@ -579,7 +513,7 @@ class _PanditBookingFormState extends State<PanditBookingForm> {
                             elevation: 2,
                           ),
                           child: Text(
-                            'Continue',
+                            'Submit',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,

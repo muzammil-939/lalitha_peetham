@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class PalmReadingExpertCard extends StatelessWidget {
-  PalmReadingExpertCard({super.key});
+class PanditBookingExpertCard extends StatelessWidget {
+  PanditBookingExpertCard({super.key});
   final List<Map<String, dynamic>> astrologers = [
     {
       "name": "SHREEHARI",
@@ -160,7 +160,7 @@ class PalmReadingExpertCard extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                context.go('/palm_reading_follow_astrologers');
+                                context.go('/pandit_booking_choose_experts');
                               },
                             ),
                             const SizedBox(width: 8),

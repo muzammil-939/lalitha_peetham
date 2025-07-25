@@ -228,11 +228,19 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
         context.go('/catering_welcome_screen');
         break;
       case 'Pandit Booking':
-        context.go('/pandit_booking_packages');
+        context.go('/pandit_booking_home');
         break;
-        
+
       case 'Gemstone Selling':
         context.go('/gemstone_selling_shop_allproducts');
+        break;
+
+      case 'Function Hall Booking':
+        context.go('/hall_booking_home');
+        break;
+
+      case 'Online Muhurthas':
+        context.go('/online_muhurthas_home');
         break;
 
       // Add more cases as needed
