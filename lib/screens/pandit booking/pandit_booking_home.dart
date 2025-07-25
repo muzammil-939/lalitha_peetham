@@ -160,7 +160,7 @@ class _PanditBookingHomeState extends State<PanditBookingHome> {
                 topRight: Radius.circular(8),
               ),
               image: const DecorationImage(
-                image: AssetImage('assets/images/pandit_booking_home_2.png'),
+                image: AssetImage('assets/images/pandith_booking_home_2.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -271,7 +271,7 @@ class _PanditBookingHomeState extends State<PanditBookingHome> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(0),
             child: Image.asset(
-              'assets/images/pandith_booking_home.png',
+              'assets/images/pandit_booking_home.png',
               height: 180,
               width: 280,
               fit: BoxFit.cover,

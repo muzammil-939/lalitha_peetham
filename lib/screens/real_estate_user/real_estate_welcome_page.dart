@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lalitha_peetham/screens/flower_decoration/flower_help.dart';
 import 'package:lalitha_peetham/screens/real_estate_user/contact_with_seller.dart';
+import 'package:lalitha_peetham/screens/real_estate_user/real_estate_dropdown_widget.dart';
 import 'package:lalitha_peetham/screens/real_estate_user/real_estate_layout.dart';
 import 'package:lalitha_peetham/screens/real_estate_user/real_estate_rent_property_card.dart';
 import 'package:lalitha_peetham/screens/real_estate_user/real_estate_saleproperty.dart';
@@ -15,8 +16,10 @@ class RealEstateWelcomePage extends StatefulWidget {
 class _RealEstateWelcomePageState extends State<RealEstateWelcomePage> {
   String buyOrRent = "Buy";
   String propertyType = "Property Type";
-  String budget = "Budget";
-  String ownership = "Ownership";
+ 
+  String minBudget = '5 Lacs';
+  String maxBudget = '30 Lacs';
+  String ownership = 'Agent';
 
   int selectedFilter = 0;
 
@@ -218,22 +221,154 @@ Widget build(BuildContext context) {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    Expanded(
-                      flex: 2,
-                      child: _DropdownSimple(
-                        value: budget,
-                        items: ['Budget', '<50L', '50L-1Cr', '1Cr+'],
-                        onChanged: (val) => setState(() => budget = val!),
+                   
+        Expanded(
+          flex: 2,
+          child: CustomDropdown(
+            display: Container(
+              height: 38,
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color: Colors.grey.shade400),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    minBudget == '' && maxBudget == ''
+                        ? 'Budget'
+                        : '₹${minBudget} - ₹${maxBudget}',
+                    style: const TextStyle(fontSize: 13.5),
+                  ),
+                  const Icon(Icons.keyboard_arrow_down, size: 22),
+                ],
+              ),
+            ),
+            dropdownContent: (hide) => Container(
+              padding: const EdgeInsets.all(18),
+              margin: const EdgeInsets.only(top: 8),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.09),
+                    blurRadius: 14,
+                    offset: Offset(1, 4),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: BudgetColumn(
+                          title: "Min",
+                          options: ["5 Lacs", "10 Lacs", "15 Lacs", "20 Lacs", "25 Lacs", "30 Lacs"],
+                          selectedValue: minBudget,
+                          onChanged: (val) => setState(() => minBudget = val),
+                        ),
                       ),
+                      Expanded(
+                        child: BudgetColumn(
+                          title: "Max",
+                          options: ["30 Lacs", "40 Lacs", "50 Lacs", "60 Lacs", "70 Lacs", "80 Lacs"],
+                          selectedValue: maxBudget,
+                          onChanged: (val) => setState(() => maxBudget = val),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 14),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 44,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: Color(0xFFD7BF57)),
+                      onPressed: hide,
+                      child: const Text('DONE', style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
                     const SizedBox(width: 8),
                     Expanded(
                       flex: 2,
-                      child: _DropdownSimple(
-                        value: ownership,
-                        items: ['Ownership', 'Freehold', 'Leasehold'],
-                        onChanged: (val) => setState(() => ownership = val!),
-                      ),
+                      child: CustomDropdown(
+  display: Container(
+    height: 38,
+    padding: const EdgeInsets.symmetric(horizontal: 12),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      border: Border.all(color: Colors.grey.shade400),
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(ownership, style: const TextStyle(fontSize: 13.5)),
+        const Icon(Icons.keyboard_arrow_down, size: 22),
+      ],
+    ),
+  ),
+  dropdownContent: (hide) {
+    return Container(
+      padding: const EdgeInsets.all(18),
+      margin: const EdgeInsets.only(top: 8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(color: Colors.black.withOpacity(0.09),
+          blurRadius: 14, offset: Offset(1, 4)),
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Wrap(
+            spacing: 10,
+            children: ['Agent', 'Individual', 'Builder'].map((o) =>
+              ChoiceChip(
+                label: Text(o),
+                selected: ownership == o,
+                selectedColor: Colors.yellow[100],
+                backgroundColor: Colors.white,
+                onSelected: (_) {
+                  setState(() => ownership = o);
+                },
+              ),
+            ).toList(),
+          ),
+          const SizedBox(height: 18),
+          SizedBox(
+            width: double.infinity,
+            height: 44,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFFD7BF57),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7),
+                ),
+              ),
+              onPressed: hide,
+              child: const Text('DONE', style: TextStyle(fontWeight: FontWeight.bold)),
+            ),
+          ),
+        ],
+      ),
+    );
+  },
+)
+
                     ),
                   ],
                 ),
@@ -323,11 +458,11 @@ Widget build(BuildContext context) {
                   builderName: p['builder'],
                   similars: p['similars'],
                   onContact: () {
-  showDialog(
-    context: context,
-    builder: (context) => ContactWithSeller(),
-  );
-},
+                    showDialog(
+                      context: context,
+                      builder: (context) => ContactWithSeller(),
+                    );
+                  },
 
                   onViewPhone: () {
                     // Handle view phone number action

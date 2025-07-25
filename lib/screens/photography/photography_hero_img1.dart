@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class PhotographyHeroImg1 extends StatelessWidget {
   const PhotographyHeroImg1({super.key});
@@ -32,20 +33,25 @@ class PhotographyHeroImg1 extends StatelessWidget {
                 style: TextStyle(fontSize: 40, color: Colors.white),
               ),
               SizedBox(height: 20),
-              Container(
-                width: 160,
-                height: 45,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF5C761), // Golden/amber color
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Center(
-                  child: Text(
-                    'Get Started',
-                    style: TextStyle(
-                      color: Color(0xFF000000), // Dark brown text
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
+              GestureDetector(
+                onTap: () {
+                  context.go('/photography_services');
+                },
+                child: Container(
+                  width: 160,
+                  height: 45,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFF5C761), // Golden/amber color
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Get Started',
+                      style: TextStyle(
+                        color: Color(0xFF000000), // Dark brown text
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),

@@ -59,7 +59,7 @@ class _PanditBookingGaneshPoojaState extends State<PanditBookingGaneshPooja> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(0),
                     child: Image.asset(
-                      'assets/images/pandit_booking_pooja2',
+                      'assets/images/pandith_booking_pooja2.png',
                       height: 550,
                       width: 80,
                       fit: BoxFit.cover,
@@ -175,7 +175,7 @@ class _PanditBookingGaneshPoojaState extends State<PanditBookingGaneshPooja> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(0),
             child: Image.asset(
-              'assets/images/pandit_booking_home',
+              'assets/images/pandit_booking_home.png',
               height: 180,
               width: 280,
               fit: BoxFit.cover,
