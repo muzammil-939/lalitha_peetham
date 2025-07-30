@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class NityapoojaPackages extends StatefulWidget {
   const NityapoojaPackages({super.key});
@@ -10,6 +11,16 @@ class NityapoojaPackages extends StatefulWidget {
 }
 
 class _NityapoojaPackagesState extends State<NityapoojaPackages> {
+
+    double getResponsiveFontSize(BuildContext context,
+    {required double mobile, required double tablet, required double desktop}) {
+  final width = MediaQuery.of(context).size.width;
+  if (width >= 1200) return desktop;
+  if (width >= 800) return tablet;
+  return mobile;
+}
+
+
   @override
   Widget build(BuildContext context) {
     return VastupoojaLayout(
@@ -18,7 +29,7 @@ class _NityapoojaPackagesState extends State<NityapoojaPackages> {
           children: [
             buildherosection(),
             buildNityapoojaPackages(context),
-         
+            SizedBox(height: 80,)
 
           ],
         ),
@@ -50,14 +61,19 @@ class _NityapoojaPackagesState extends State<NityapoojaPackages> {
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children: [
               
               Text(
                 "Choose Your Nithya Pooja Package",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 45,
+                  fontSize: getResponsiveFontSize(
+                      context,
+                      mobile: 20,
+                      tablet: 30,
+                      desktop: 45,
+                    ),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -113,103 +129,105 @@ Widget buildNityapoojaPackages(BuildContext context) {
 
 
       // Main Content
-      Align(
-        alignment: Alignment.topCenter,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 40),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                "Nithya Pooja Subscription Packages",
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+      ResponsiveWrapper(
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 40),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  "Nithya Pooja Subscription Packages",
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 24),
-
-              // Yellow Card Background Container
-              Container(
-                width: 900,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Color(0xFFEAC63E),
-                  borderRadius: BorderRadius.circular(12),
+                const SizedBox(height: 24),
+        
+                // Yellow Card Background Container
+                Container(
+                  width: 900,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFEAC63E),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    children: [
+                      // Top Basic Plan Card (fixed width)
+                      buildPackageCard(
+                        title: "Basic Plan – Monthly Pooja",
+                        description:
+                            "Pooja performed daily at selected temple\nIncludes: Nama-Gotra sankalpam, Archana\nNo live access/only confirmation message\nLanguage: Hindi / Telugu / Tamil",
+                        price: "₹499/month",
+                        linkText: "Price: ₹499/month",
+                      ),
+                      const SizedBox(height: 24),
+        
+                      // Wrap with 2x2 Responsive Cards
+                      LayoutBuilder(
+                        builder: (context, constraints) {
+                          double cardWidth = constraints.maxWidth > 700 ? 350 : constraints.maxWidth / 1.1;
+                          return Wrap(
+                            spacing: 20,
+                            runSpacing: 20,
+                            alignment: WrapAlignment.center,
+                            children: [
+                              buildFeatureCardNumbered(
+                                title: "Standard Plan – Monthly + Prasadam",
+                                price: "₹999/month",
+                                features: [
+                                  "Daily pooja with name–gotra inclusion",
+                                  "Prasadam couriered every 15 days",
+                                  "Whatsapp update + pooja confirmation",
+                                ],
+                                width: cardWidth,
+                              ),
+                              buildFeatureCardNumbered(
+                                title: "Premium Plan – Video + Delivery",
+                                price: "₹1,499/month",
+                                features: [
+                                  "Personalized daily pooja",
+                                  "Pooja video/photo sent weekly",
+                                  "Monthly Prasadam courier included",
+                                  "Whatsapp support + dashboard tracking",
+                                ],
+                                width: cardWidth,
+                              ),
+                              buildFeatureCardNumbered(
+                                title: "Family Plan – 4 Members",
+                                price: "₹1,999/month",
+                                features: [
+                                  "Nithya pooja for up to 4 family members",
+                                  "Sankalpam + Archana",
+                                  "Prasadam sent monthly",
+                                ],
+                                width: cardWidth,
+                              ),
+                              buildFeatureCardNumbered(
+                                title: "Annual Shashwatha Pooja Plan",
+                                price: "₹7,499/year",
+                                features: [
+                                  "365-day pooja registration in chosen temple",
+                                  "1 full year sankalpam with your name",
+                                  "One-time special puja (Birthday or Sankranti)",
+                                  "Annual report + pooja details",
+                                  "Best Fest: Ganesh Chaturthi, Diwali, Navratri",
+                                ],
+                                width: cardWidth,
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-                child: Column(
-                  children: [
-                    // Top Basic Plan Card (fixed width)
-                    buildPackageCard(
-                      title: "Basic Plan – Monthly Pooja",
-                      description:
-                          "Pooja performed daily at selected temple\nIncludes: Nama-Gotra sankalpam, Archana\nNo live access/only confirmation message\nLanguage: Hindi / Telugu / Tamil",
-                      price: "₹499/month",
-                      linkText: "Price: ₹499/month",
-                    ),
-                    const SizedBox(height: 24),
-
-                    // Wrap with 2x2 Responsive Cards
-                    LayoutBuilder(
-                      builder: (context, constraints) {
-                        double cardWidth = constraints.maxWidth > 700 ? 350 : constraints.maxWidth / 1.1;
-                        return Wrap(
-                          spacing: 20,
-                          runSpacing: 20,
-                          alignment: WrapAlignment.center,
-                          children: [
-                            buildFeatureCardNumbered(
-                              title: "Standard Plan – Monthly + Prasadam",
-                              price: "₹999/month",
-                              features: [
-                                "Daily pooja with name–gotra inclusion",
-                                "Prasadam couriered every 15 days",
-                                "Whatsapp update + pooja confirmation",
-                              ],
-                              width: cardWidth,
-                            ),
-                            buildFeatureCardNumbered(
-                              title: "Premium Plan – Video + Delivery",
-                              price: "₹1,499/month",
-                              features: [
-                                "Personalized daily pooja",
-                                "Pooja video/photo sent weekly",
-                                "Monthly Prasadam courier included",
-                                "Whatsapp support + dashboard tracking",
-                              ],
-                              width: cardWidth,
-                            ),
-                            buildFeatureCardNumbered(
-                              title: "Family Plan – 4 Members",
-                              price: "₹1,999/month",
-                              features: [
-                                "Nithya pooja for up to 4 family members",
-                                "Sankalpam + Archana",
-                                "Prasadam sent monthly",
-                              ],
-                              width: cardWidth,
-                            ),
-                            buildFeatureCardNumbered(
-                              title: "Annual Shashwatha Pooja Plan",
-                              price: "₹7,499/year",
-                              features: [
-                                "365-day pooja registration in chosen temple",
-                                "1 full year sankalpam with your name",
-                                "One-time special puja (Birthday or Sankranti)",
-                                "Annual report + pooja details",
-                                "Best Fest: Ganesh Chaturthi, Diwali, Navratri",
-                              ],
-                              width: cardWidth,
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

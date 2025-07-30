@@ -345,7 +345,7 @@ class _UserNotificationsState extends State<UserNotifications> {
                             _buildServiceItem('ASTROLOGY', true),
                             _buildServiceItem('PANDIT BOOKING', true),
                             _buildServiceItem('ONLINE POOJA', true),
-                            _buildServiceItem('GEMSTONE SELLING', true),
+                            _buildServiceItem('E - STORE', true),
                             _buildServiceItem('ONLINE MUHURTHAS', true),
                             _buildServiceItem('REFERAL AND EVEN', true),
                             _buildServiceItem('MATRIMONY', false),

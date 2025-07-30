@@ -68,7 +68,7 @@ class HomeOurServices extends StatelessWidget {
                   _buildServiceCard(
                     context,
                     Icons.diamond_outlined,
-                    'Gemstone Selling',
+                    'E - STORE',
                   ),
                   _buildServiceCard(
                     context,

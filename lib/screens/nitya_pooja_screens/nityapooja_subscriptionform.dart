@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class NityapoojaSubscriptionform extends StatefulWidget {
   const NityapoojaSubscriptionform({super.key});
@@ -10,6 +11,15 @@ class NityapoojaSubscriptionform extends StatefulWidget {
 }
 
 class _NityapoojaSubscriptionformState extends State<NityapoojaSubscriptionform> {
+
+     double getResponsiveFontSize(BuildContext context,
+    {required double mobile, required double tablet, required double desktop}) {
+  final width = MediaQuery.of(context).size.width;
+  if (width >= 1200) return desktop;
+  if (width >= 800) return tablet;
+  return mobile;
+}
+
   @override
   Widget build(BuildContext context) {
     return  VastupoojaLayout(
@@ -51,14 +61,19 @@ class _NityapoojaSubscriptionformState extends State<NityapoojaSubscriptionform>
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children:[
               
               Text(
                 "Fill out the correct information to\nprocess your reschedule request",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 45,
+                  fontSize: getResponsiveFontSize(
+                    context,
+                    desktop: 45,
+                    tablet: 30,
+                    mobile: 20
+                    ),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -105,87 +120,89 @@ Widget buildNityapoojaEnquiryFormPage() {
           width: 80,
         ),
       ),
-      Center(
-        child: Column(
-          children: [
-            const SizedBox(height: 60),
-            const Text(
-              "Nithya Pooja Subscription Form",
-              style: TextStyle(fontSize: 33, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.left,
-            ),
-            const SizedBox(height: 60),
-            Container(
-              width: 800,
-              padding: const EdgeInsets.all(30),
-              decoration: BoxDecoration(
-                color: const Color(0xFFEAC63E),
-                borderRadius: BorderRadius.circular(8),
+      ResponsiveWrapper(
+        child: Center(
+          child: Column(
+            children: [
+              const SizedBox(height: 60),
+              const Text(
+                "Nithya Pooja Subscription Form",
+                style: TextStyle(fontSize: 33, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.left,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildTwoColumnRow("Full Name", "Contact Number"),
-                  buildTwoColumnRow("Email Address", "Gotra"),
-                  buildTwoColumnRow("Preferred Start Date", "Purpose of Pooja"),
-                  buildTwoColumnRow("Location", "Language"),
-                  buildTwoColumnRow("Time", "Star"),
-                  buildTwoColumnRow("Place of birth", "Date of birth"),
-                  const SizedBox(height: 30),
-                  const Text("Spouse details", style: TextStyle(fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 10),
-                  buildTwoColumnRow("Name", "Date of birth"),
-                  buildTwoColumnRow("Time", "Star"),
-                  buildSingleInput("Marriage date"),
-                  const SizedBox(height: 30),
-                  const Text("Children details", style: TextStyle(fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 10),
-                  buildTwoColumnRow("Name", "Date of birth"),
-                  buildTwoColumnRow("Time", "Star"),
-                  buildTwoColumnRow("Place of birth", "Upload Image"),
-                  const SizedBox(height: 20),
-                  const Text("Additional Notes"),
-                  const SizedBox(height: 8),
-                  TextField(
-                    maxLines: 4,
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade300,
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(6),
-                        borderSide: BorderSide.none,
+              const SizedBox(height: 60),
+              Container(
+                width: 800,
+                padding: const EdgeInsets.all(30),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFEAC63E),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildTwoColumnRow("Full Name", "Contact Number"),
+                    buildTwoColumnRow("Email Address", "Gotra"),
+                    buildTwoColumnRow("Preferred Start Date", "Purpose of Pooja"),
+                    buildTwoColumnRow("Location", "Language"),
+                    buildTwoColumnRow("Time", "Star"),
+                    buildTwoColumnRow("Place of birth", "Date of birth"),
+                    const SizedBox(height: 30),
+                    const Text("Spouse details", style: TextStyle(fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 10),
+                    buildTwoColumnRow("Name", "Date of birth"),
+                    buildTwoColumnRow("Time", "Star"),
+                    buildSingleInput("Marriage date"),
+                    const SizedBox(height: 30),
+                    const Text("Children details", style: TextStyle(fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 10),
+                    buildTwoColumnRow("Name", "Date of birth"),
+                    buildTwoColumnRow("Time", "Star"),
+                    buildTwoColumnRow("Place of birth", "Upload Image"),
+                    const SizedBox(height: 20),
+                    const Text("Additional Notes"),
+                    const SizedBox(height: 8),
+                    TextField(
+                      maxLines: 4,
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey.shade300,
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6),
+                          borderSide: BorderSide.none,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 30),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: SizedBox(
-                      width: 150,
-                      height: 45,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          context.go('/nityapooja_review_checkout_page');
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                    const SizedBox(height: 30),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: SizedBox(
+                        width: 150,
+                        height: 45,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            context.go('/nityapooja_review_checkout_page');
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          child: const Text(
+                            "Submit",
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
-                        child: const Text(
-                          "Submit",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 60),
-          ],
+              const SizedBox(height: 60),
+            ],
+          ),
         ),
       ),
     ],

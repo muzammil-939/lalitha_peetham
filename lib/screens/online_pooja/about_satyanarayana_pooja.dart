@@ -4,6 +4,7 @@ import 'package:lalitha_peetham/screens/online_pooja/satyanarayana_faq_widget.da
 import 'package:lalitha_peetham/screens/online_vastu_property/astrologer_contact_section.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastufaq_section_widget.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class AboutSatyanarayanaPooja extends StatefulWidget {
   const AboutSatyanarayanaPooja({super.key});
@@ -59,14 +60,19 @@ class _AboutSatyanarayanaPoojaState extends State<AboutSatyanarayanaPooja> {
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children: [
               
               Text(
                 "Complete the payment to confirm your\nbooking",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 45,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context,
+                    desktop: 45,
+                    tablet: 30,
+                    mobile: 20
+                  ),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -90,6 +96,9 @@ class _AboutSatyanarayanaPoojaState extends State<AboutSatyanarayanaPooja> {
   }
 
   Widget buildAboutSatyanarayanaContent() {
+  double width = ResponsiveHelper.screenWidth(context);
+  bool isMobile = ResponsiveHelper.isMobile(context);
+  bool isTablet = ResponsiveHelper.isTablet(context);
   return Stack(
       
       children: [
@@ -102,90 +111,102 @@ class _AboutSatyanarayanaPoojaState extends State<AboutSatyanarayanaPooja> {
         ),
       ),
             // 🌑 2. Optional Planet Image (positioned right)
-      Positioned(
-        top: 120,
-        right: 30,
+            Positioned(
+        top: isMobile ? 60 : 120,
+        right: isMobile ? 16 : 30,
         child: Image.asset(
-          'assets/images/vastupooja11.png', // Adjust path
-          height: 100,
-          width: 100,
+          'assets/images/vastupooja11.png',
+          height: isMobile ? 60 : isTablet ? 80 : 100,
+          width: isMobile ? 60 : isTablet ? 80 : 100,
         ),
       ),
-  Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 30),
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      // 🕉 Header Image and Title
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.asset(
-            'assets/images/online_pooja1.jpg', // Replace with actual path
-            height: 300,
-            width: 300,
-            fit: BoxFit.cover,
+            // Main Responsive Content
+      ResponsiveWrapper(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 30),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final isMobile = constraints.maxWidth < 600;
+
+              return isMobile
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          'assets/images/online_pooja1.jpg',
+                          height: 200,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(height: 20),
+                        buildSatyanarayanaTextBlock(context),
+                      ],
+                    )
+                  : Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          'assets/images/online_pooja1.jpg',
+                          height: 300,
+                          width: 300,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(width: 20),
+                        Expanded(child: buildSatyanarayanaTextBlock(context)),
+                      ],
+                    );
+            },
           ),
-          const SizedBox(width: 20),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "DISCOVER THE SPIRITUAL\nSIGNIFICANCE OF\nSATYANARAYANA POOJA",
-                  style: TextStyle(
-                    fontSize: 45,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: const [
-                    Icon(Icons.book, size: 18, color: Colors.deepPurple),
-                    SizedBox(width: 5),
-                    Text(
-                      "About Satyanarayana Puja",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12),
-                ElevatedButton(
-                  onPressed: () {
-                     context.go(
-                      '/online_booking'
-                     );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFDC9323),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-                  ),
-                  child: const Text(
-                    "Book Now",
-                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
+        ),
       ),
-    ]
-  )
-  )
-      ]
+    ],
   );
+}
+ 
   }
 
 
+Widget buildSatyanarayanaTextBlock(BuildContext context) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        "DISCOVER THE SPIRITUAL\nSIGNIFICANCE OF\nSATYANARAYANA POOJA",
+        style: TextStyle(
+          fontSize: ResponsiveFontsize.fontSize(
+            context,
+            mobile: 20,
+            tablet: 28,
+            desktop: 40,
+          ),
+          fontWeight: FontWeight.w900,
+        ),
+      ),
+      const SizedBox(height: 10),
+      Row(
+        children: const [
+          Icon(Icons.electric_bolt, size: 18, color: Colors.deepOrange),
+          SizedBox(width: 5),
+          Text(
+            "About Satyanarayana Puja",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+        ],
+      ),
+      const SizedBox(height: 12),
+      ResponsiveButton(
+        text: "Book Now",
+        onPressed: () => context.go('/online_booking'),
+        backgroundColor: const Color(0xFFDC9323),
+        textColor: Colors.black,
+      ),
+    ],
+  );
+}
       
  Widget buildContent() {
   return 
@@ -302,4 +323,3 @@ class _AboutSatyanarayanaPoojaState extends State<AboutSatyanarayanaPooja> {
 }
 
 
-}

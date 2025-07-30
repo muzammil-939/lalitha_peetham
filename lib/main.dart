@@ -81,14 +81,14 @@ import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flo
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_vendor_settings.dart';
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_deco_vendor_reviews.dart';
 import 'package:lalitha_peetham/screens/flower_decoration/flower_deco_vendor/flower_vendor_basicdetails.dart';
-import 'package:lalitha_peetham/screens/gemstones_selling/gs_add_to_cart.dart';
-import 'package:lalitha_peetham/screens/gemstones_selling/gs_booking_onfirm_page.dart';
-import 'package:lalitha_peetham/screens/gemstones_selling/gs_cmplt_final_payment.dart';
-import 'package:lalitha_peetham/screens/gemstones_selling/gs_delivery_address_page.dart';
-import 'package:lalitha_peetham/screens/gemstones_selling/gs_order_summary.dart';
-import 'package:lalitha_peetham/screens/gemstones_selling/gs_product_page.dart';
-import 'package:lalitha_peetham/screens/gemstones_selling/gs_shop_all_products.dart';
-import 'package:lalitha_peetham/screens/gemstones_selling/gs_whishlist.dart';
+import 'package:lalitha_peetham/screens/e_store/gs_add_to_cart.dart';
+import 'package:lalitha_peetham/screens/e_store/gs_booking_onfirm_page.dart';
+import 'package:lalitha_peetham/screens/e_store/gs_cmplt_final_payment.dart';
+import 'package:lalitha_peetham/screens/e_store/gs_delivery_address_page.dart';
+import 'package:lalitha_peetham/screens/e_store/gs_order_summary.dart';
+import 'package:lalitha_peetham/screens/e_store/gs_product_page.dart';
+import 'package:lalitha_peetham/screens/e_store/gs_shop_all_products.dart';
+import 'package:lalitha_peetham/screens/e_store/gs_whishlist.dart';
 import 'package:lalitha_peetham/screens/hall_booking/hall_booking_aboutus.dart';
 import 'package:lalitha_peetham/screens/hall_booking/hall_booking_book_hall.dart';
 import 'package:lalitha_peetham/screens/hall_booking/hall_booking_bookingsummary.dart';
@@ -225,6 +225,7 @@ import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_purchase_succe
 import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_upcomming_liveclasses.dart';
 import 'package:lalitha_peetham/screens/real_estate/rs_dashboard.dart';
 import 'package:lalitha_peetham/screens/real_estate_user/real_estate_welcome_page.dart';
+import 'package:lalitha_peetham/screens/refer&earn/refer_and_earn.dart';
 import 'package:lalitha_peetham/screens/yoga_screens/backpain_booking.dart';
 import 'package:lalitha_peetham/screens/yoga_screens/general_yoga.dart';
 import 'package:lalitha_peetham/screens/yoga_screens/mindful_meditation.dart';
@@ -869,6 +870,8 @@ class MyApp extends StatelessWidget {
           path: '/sannai_melam_order_confirm',
           builder: (context, state) => SannaiMelamOrderConfirmPage(),
         ),
+
+
         //event management
         GoRoute(
           path: '/em_welcome_screen',
@@ -992,6 +995,7 @@ class MyApp extends StatelessWidget {
           path: '/yoga_for_kids_select',
           builder: (context, state) => YogaForKidsSelect(),
         ),
+
         // POOJA VIDHANAM
         GoRoute(
           path: '/pv_home_screen',
@@ -1115,11 +1119,12 @@ class MyApp extends StatelessWidget {
           path: '/onlinepooja_SupportSection',
           builder: (context, state) => OnlinePoojaSupportSection(),
         ),
-
-        GoRoute(
+          GoRoute(
           path: '/pooja_service_confirm_page',
           builder: (context, state) => PoojaServiceConfirmPage(),
         ),
+
+      
 
         //...................NITYA POOJA SUBSCRITION...............
         GoRoute(
@@ -1171,6 +1176,7 @@ class MyApp extends StatelessWidget {
           path: '/nityapooja_offline_contact_page',
           builder: (context, state) => ContactOfflinePage(),
         ),
+        
         //...............astrology...........
         GoRoute(
           path: '/astrology_welcomescreen',
@@ -1303,9 +1309,9 @@ class MyApp extends StatelessWidget {
           builder: (context, state) => CatererMenueDetailsPage(),
         ),
 
-        //.........Gemstone Selling..........
+        //.........E - STORE..........
         GoRoute(
-          path: '/gemstone_selling_shop_allproducts',
+          path: '/e_store_shop_allproducts',
           builder: (context, state) => GsShopAllProducts(),
         ),
         GoRoute(
@@ -1341,6 +1347,12 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/real_estate_welcome_page',
           builder: (context, state) => RealEstateWelcomePage(),
+        ),
+
+         //..........Referal & Earn.........
+        GoRoute(
+          path: '/refer_and_earn',
+          builder: (context, state) => ReferandEarn(),
         ),
       ],
     );

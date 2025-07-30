@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class BookEPooja extends StatefulWidget {
   const BookEPooja({super.key});
@@ -28,11 +29,11 @@ class _BookEPoojaState extends State<BookEPooja> {
         child: Column(
           children: [
             buildherosection(),
-            buildtitleSection(),
+           buildTitleSection(context),
             const SizedBox(height: 80),
             buildTabNavigation(),
             const SizedBox(height: 30),
-            buildPoojaCardsGrid(),
+            buildPoojaCardsGrid(context),
             const SizedBox(height: 80),
           ],
         ),
@@ -65,14 +66,19 @@ class _BookEPoojaState extends State<BookEPooja> {
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children: [
               
               Text(
                 "Your Scheduled and Completed\nPoojas",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 45,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context,
+                    desktop: 45,
+                    tablet: 30,
+                    mobile: 20
+                  ),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -95,73 +101,72 @@ class _BookEPoojaState extends State<BookEPooja> {
     );
   }
 
-  Widget buildtitleSection() {
-    return Stack(
-      
-      children: [
-         // Background Image (Covering full screen)
+ Widget buildTitleSection(BuildContext context) {
+  double width = ResponsiveHelper.screenWidth(context);
+  bool isMobile = ResponsiveHelper.isMobile(context);
+
+  return Stack(
+    children: [
       Positioned.fill(
         child: Image.asset(
-          'assets/images/vastupooja4.png', // Make sure this path matches your asset folder
+          'assets/images/vastupooja4.png',
           fit: BoxFit.cover,
-         
         ),
       ),
-            // 🌑 2. Optional Planet Image (positioned right)
       Positioned(
-        top: 120,
-        right: 30,
+        top: isMobile ? 60 : 120,
+        right: isMobile ? 16 : 30,
         child: Image.asset(
-          'assets/images/vastupooja11.png', // Adjust path
-          height: 100,
-          width: 100,
+          'assets/images/vastupooja11.png',
+          height: isMobile ? 60 : 100,
+          width: isMobile ? 60 : 100,
         ),
       ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 150.0, vertical: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFD9D9D9),
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  width: 350,
-                  height: 45,
-                  child: Row(
-                    children: const [
-                      Icon(Icons.search, color: Colors.grey),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: "Search pooja's",
-                            border: InputBorder.none,
-                          ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 150, vertical: 25),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFD9D9D9),
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                width: isMobile ? width * 0.9 : 350,
+                height: 45,
+                child: Row(
+                  children: const [
+                    Icon(Icons.search, color: Colors.grey),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: "Search pooja's",
+                          border: InputBorder.none,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 30),
-              const Text(
-                "Explore a Curated Collection of Poojas for\nEvery Special Occasion and Spiritual Need",
-                style: TextStyle(
-                  fontSize: 45,
-                  fontWeight: FontWeight.w900,
-                ),
+            ),
+            const SizedBox(height: 30),
+            Text(
+              "Explore a Curated Collection of Poojas for\nEvery Special Occasion and Spiritual Need",
+              style: TextStyle(
+                fontSize: isMobile ? 24 : 45,
+                fontWeight: FontWeight.w900,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
 
   Widget buildTabNavigation() {
     return Wrap(
@@ -196,7 +201,9 @@ class _BookEPoojaState extends State<BookEPooja> {
     );
   }
 
-Widget buildPoojaCardsGrid() {
+Widget buildPoojaCardsGrid(BuildContext context) {
+  
+
   final bookEPoojaList = [
     {'image': 'assets/images/e_pooja1.jpg', 'title': 'Rudrabhishek Puja'},
     {'image': 'assets/images/e_pooja2.jpg', 'title': 'Satyanarayan Puja'},
@@ -234,8 +241,7 @@ Widget buildPoojaCardsGrid() {
   // ];
 
   List<Map<String, String>> currentList;
-
-  switch (selectedTabIndex) {
+    switch (selectedTabIndex) {
     case 0:
       currentList = bookEPoojaList;
       break;
@@ -246,131 +252,109 @@ Widget buildPoojaCardsGrid() {
       currentList = upcomingPoojaList;
       break;
     case 3:
-     return buildMyBookingsSection();
+     return buildMyBookingsSection(context);
      
     default:
       currentList = [];
   }
 
-  return
-   Stack(
-      alignment: Alignment.center,
-      children: [
-        Image.asset(
-          'assets/images/Vector (2).png',
-          width: 600,
-          height: 600,
-          fit: BoxFit.cover,
+  return Stack(
+    alignment: Alignment.center,
+    children: [
+      Image.asset(
+        'assets/images/Vector (2).png',
+        width: ResponsiveHelper.isMobile(context) ? 300 : 600,
+        height: ResponsiveHelper.isMobile(context) ? 300 : 600,
+        fit: BoxFit.cover,
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: ResponsiveHelper.isMobile(context) ? 16 : 100),
+        child: Wrap(
+          spacing: 24,
+          runSpacing: 32,
+          alignment: WrapAlignment.center,
+          children: currentList.map((pooja) {
+            return buildPoojaCard(
+              context: context,
+              imagePath: pooja['image']!,
+              title: pooja['title']!,
+            );
+          }).toList(),
         ),
-   Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 100),
-    child: Wrap(
-      spacing: 24,
-      runSpacing: 32,
-      alignment: WrapAlignment.center,
-      children: currentList.map((pooja) {
-        return buildPoojaCard(
-          imagePath: pooja['image']!,
-          title: pooja['title']!,
-        );
-      }).toList(),
-    ),
-  )
-      ]
-   );
+      )
+    ],
+  );
 }
 
 
-  Widget buildPoojaCard({required String imagePath, required String title}) {
-    return
-     Container(
-      width: 300,
-      height: 300,
-      decoration: BoxDecoration(
-        color: const Color(0xFFDFBC31),
-        borderRadius: BorderRadius.circular(0),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 6,
-            offset: Offset(0, 4),
+ Widget buildPoojaCard({required String imagePath, required String title, required BuildContext context}) {
+  bool isMobile = ResponsiveHelper.isMobile(context);
+  double cardWidth = isMobile ? ResponsiveHelper.screenWidth(context) * 0.9 : 300;
+
+  return Container(
+    width: cardWidth,
+    height: 300,
+    decoration: BoxDecoration(
+      color: const Color(0xFFDFBC31),
+      borderRadius: BorderRadius.circular(0),
+      boxShadow: const [
+        BoxShadow(
+          color: Colors.black12,
+          blurRadius: 6,
+          offset: Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      children: [
+        ClipRRect(
+          child: Image.asset(
+            imagePath,
+            height: 180,
+            width: double.infinity,
+            fit: BoxFit.cover,
           ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              ClipRRect(
-                child: Image.asset(
-                  imagePath,
-                  height: 180,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
+        ),
+        const SizedBox(height: 28),
+        Text(
+          title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+            color: Colors.black,
+          ),
+        ),
+        const SizedBox(height: 8),
+        InkWell(
+          onTap: () {
+            context.go('/about_satyanarayana_pooja');
+          },
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: const Text(
+              "Book Now",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 11,
+                fontWeight: FontWeight.w500,
               ),
-              // Positioned(
-              //   bottom: -20,
-              //   left: 0,
-              //   right: 0,
-              //   child: Center(
-              //     child: Container(
-              //       width: 40,
-              //       height: 40,
-              //       decoration: const BoxDecoration(
-              //         color: Colors.white,
-              //         shape: BoxShape.circle,
-              //       ),
-              //       child: const Icon(
-              //         Icons.play_circle_fill,
-              //         color: Colors.red,
-              //         size: 36,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-            ],
-          ),
-          const SizedBox(height: 28),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-              color: Colors.black,
             ),
           ),
-          const SizedBox(height: 8),
-          InkWell(
-  onTap: () {
-    // Your onPressed logic here
-    context.go('/about_satyanarayana_pooja');
+        )
+      ],
+    ),
+  );
+}
 
-  },
-  borderRadius: BorderRadius.circular(20),
-  child: Container(
-    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(20),
-    ),
-    child: const Text(
-      "Book Now",
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 11,
-        fontWeight: FontWeight.w500,
-      ),
-    ),
-  ),
-)
-        ],
-      ),
-    );
-  }
-  Widget buildMyBookingsSection() {
+  Widget buildMyBookingsSection(BuildContext context) {
+  double width = ResponsiveHelper.screenWidth(context);
+  bool isMobile = ResponsiveHelper.isMobile(context);
   final upcomingBookings = [
     {
       'image': 'assets/images/e_pooja2.jpg',
@@ -431,8 +415,8 @@ Widget buildPoojaCardsGrid() {
   final List bookingTabs = ['Upcoming Bookings', 'past bookings', 'cancelled bookings'];
   final List bookingsData = [upcomingBookings, pastBookings, cancelledBookings];
 
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 100),
+   return Padding(
+    padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 100),
     child: Container(
       padding: const EdgeInsets.all(25),
       decoration: BoxDecoration(
@@ -443,8 +427,8 @@ Widget buildPoojaCardsGrid() {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// Tab Buttons Row
-          Row(
+          Wrap(
+            spacing: 20,
             children: List.generate(bookingTabs.length, (index) {
               return GestureDetector(
                 onTap: () {
@@ -452,138 +436,214 @@ Widget buildPoojaCardsGrid() {
                     myBookingsTabIndex = index;
                   });
                 },
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 30),
-                  child: Text(
-                    bookingTabs[index],
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: myBookingsTabIndex == index ? FontWeight.bold : FontWeight.normal,
-                      decoration: myBookingsTabIndex == index ? TextDecoration.underline : TextDecoration.none,
-                    ),
+                child: Text(
+                  bookingTabs[index],
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: myBookingsTabIndex == index ? FontWeight.bold : FontWeight.normal,
+                    decoration: myBookingsTabIndex == index
+                        ? TextDecoration.underline
+                        : TextDecoration.none,
                   ),
                 ),
               );
             }),
           ),
-
-          const SizedBox(height: 30),
-
-          /// Booking Cards
+          const SizedBox(height: 20),
           Column(
             children: List.generate(bookingsData[myBookingsTabIndex].length, (i) {
               final booking = bookingsData[myBookingsTabIndex][i];
-              return buildBookingCard(booking);
+              return buildBookingCard(context, booking);
             }),
           ),
-
-         
           if (myBookingsTabIndex == 0) ...[
-          const SizedBox(height: 30),
-          /// Customer Support Footer
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Contact Our Customer Support For Quick Assistance. We’re Here To Help!",
-                style: TextStyle(fontSize: 14),
-              ),
-              const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: const Color(0xFFE4C74D),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            const SizedBox(height: 30),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Contact Our Customer Support For Quick Assistance. We’re Here To Help!",
+                  style: TextStyle(fontSize: 14),
                 ),
-                child: const Text("Customer Support"),
-              )
-            ],
-          )
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: const Color(0xFFE4C74D),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  ),
+                  child: const Text("Customer Support"),
+                )
+              ],
+            ),
           ]
         ],
       ),
-      
     ),
   );
 }
 
-Widget buildBookingCard(Map booking) {
+
+Widget buildBookingCard(BuildContext context, Map booking) {
+  bool isMobile = ResponsiveHelper.isMobile(context);
+  double cardWidth = ResponsiveHelper.screenWidth(context) * 0.9;
+
   return Container(
+    width: cardWidth,
     margin: const EdgeInsets.only(bottom: 30),
     decoration: BoxDecoration(
       color: const Color(0xFfE4C74D),
       borderRadius: BorderRadius.circular(0),
     ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Image.asset(
-          booking['image'],
-          width: 130,
-          height: 180,
-          fit: BoxFit.cover,
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text("Satyanarayan Puja", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                const SizedBox(height: 5),
-                Text("Booking id : ${booking['id']}"),
-                Text("Date       : ${booking['date']}"),
-                Text("Time       : ${booking['time']}"),
-                Text("Price      : ${booking['price']}"),
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(12),
-          child: booking['status'] == 'Booked'
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+    child: isMobile
+        ? Column(
+            children: [
+              Image.asset(
+                booking['image'],
+                width: double.infinity,
+                height: 180,
+                fit: BoxFit.cover,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.black,
-                      ),
-                      child: const Text("Reschedule"),
-                    ),
-                    const SizedBox(height: 40),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: const Text("Booked"),
+                    const Text("Satyanarayan Puja",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                    const SizedBox(height: 5),
+                    Text("Booking id : ${booking['id']}"),
+                    Text("Date       : ${booking['date']}"),
+                    Text("Time       : ${booking['time']}"),
+                    Text("Price      : ${booking['price']}"),
+                    const SizedBox(height: 10),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: booking['status'] == 'Booked'
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.white,
+                                    foregroundColor: Colors.black,
+                                  ),
+                                  child: const Text("Reschedule"),
+                                ),
+                                const SizedBox(height: 10),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: const Text("Booked"),
+                                ),
+                              ],
+                            )
+                          : Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                              decoration: BoxDecoration(
+                                color: booking['status'] == 'Completed'
+                                    ? Colors.white
+                                    : Colors.red,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                booking['status'],
+                                style: TextStyle(
+                                  color: booking['status'] == 'Completed'
+                                      ? Colors.black
+                                      : Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                     ),
                   ],
-                )
-              : Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: booking['status'] == 'Completed' ? Colors.white : Colors.red,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    booking['status'],
-                    style: TextStyle(
-                      color: booking['status'] == 'Completed' ? Colors.black : Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                ),
+              ),
+            ],
+          )
+        : Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.asset(
+                booking['image'],
+                width: 130,
+                height: 180,
+                fit: BoxFit.cover,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("Satyanarayan Puja",
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                      const SizedBox(height: 5),
+                      Text("Booking id : ${booking['id']}"),
+                      Text("Date       : ${booking['date']}"),
+                      Text("Time       : ${booking['time']}"),
+                      Text("Price      : ${booking['price']}"),
+                    ],
                   ),
                 ),
-        )
-      ],
-    ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12),
+                child: booking['status'] == 'Booked'
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: Colors.black,
+                            ),
+                            child: const Text("Reschedule"),
+                          ),
+                          const SizedBox(height: 40),
+                          Container(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Text("Booked"),
+                          ),
+                        ],
+                      )
+                    : Container(
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: booking['status'] == 'Completed'
+                              ? Colors.white
+                              : Colors.red,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          booking['status'],
+                          style: TextStyle(
+                            color: booking['status'] == 'Completed'
+                                ? Colors.black
+                                : Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+              )
+            ],
+          ),
   );
 }
+
 
 
 }

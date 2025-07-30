@@ -339,7 +339,7 @@ class MatchesHeader extends StatelessWidget {
           child: _buildSubNavItem(context, 'Today Matches', '/tdy_matches'),
         ),
         Expanded(child: _buildSubNavItem(context, 'My Matches', '/my_matches')),
-        Expanded(child: _buildSubNavItem(context, 'Near Me', '/Match_nearme')),
+        Expanded(child: _buildSubNavItem(context, 'Near Me', '')),///Match_nearme
       ],
     );
   }

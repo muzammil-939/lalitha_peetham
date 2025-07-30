@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class ProceedToFinalPayment extends StatefulWidget {
   const ProceedToFinalPayment({super.key});
@@ -48,14 +49,19 @@ class _ProceedToFinalPaymentState extends State<ProceedToFinalPayment> {
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children:  [
               SizedBox(height: 80,),
               Text(
                 "Find the Perfect Pooja Service Tailored\nto Your Spiritual Needs",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 22,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context,
+                    desktop: 45,
+                    tablet: 30,
+                    mobile: 20
+                  ),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -79,6 +85,17 @@ class _ProceedToFinalPaymentState extends State<ProceedToFinalPayment> {
   }
 
   Widget buildConfirmPaymentSection(BuildContext context) {
+      final screenWidth = MediaQuery.of(context).size.width;
+  final isMobile = screenWidth < 600;
+  final isTablet = screenWidth >= 600 && screenWidth < 1100;
+  final isDesktop = screenWidth >= 1100;
+
+  double horizontalPadding = isDesktop ? 150 : isTablet ? 60 : 16;
+  double headingFontSize = isDesktop ? 32 : isTablet ? 26 : 20;
+  double contentFontSize = isDesktop ? 14 : isTablet ? 13 : 12;
+  double logoSize = isMobile ? 20 : 25;
+  double imageBoxSize = isMobile ? 300 : 500;
+
   return Stack(
     children: [
       // Outer full-screen background image
@@ -97,23 +114,23 @@ class _ProceedToFinalPaymentState extends State<ProceedToFinalPayment> {
 
       // Top-right planet image
       Positioned(
-        top: 40,
-        right: 30,
+        top: isMobile ? 20 : 40,
+        right: isMobile ? 10 : 30,
         child: Image.asset(
           'assets/images/vastupooja11.png',
-          height: 60,
-          width: 60,
+          height: isMobile ? 40 : 60,
+          width: isMobile ? 40 : 60,
         ),
       ),
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 150.0, vertical: 60),
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 60),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+             Text(
               "Proceed to Final Payment",
               style: TextStyle(
-                fontSize: 32,
+                fontSize: headingFontSize,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Georgia',
               ),
@@ -135,8 +152,8 @@ class _ProceedToFinalPaymentState extends State<ProceedToFinalPayment> {
                 child: Opacity(
                   opacity: 0.1, // Adjust for subtle watermark effect
                   child: SizedBox(
-                    height: 550,
-                    width: 550,
+                   height: imageBoxSize,
+                        width: imageBoxSize,
                     child: Image.asset(
                       'assets/images/vector (2).png', // Make sure path is correct
                       fit: BoxFit.cover,
@@ -166,9 +183,9 @@ class _ProceedToFinalPaymentState extends State<ProceedToFinalPayment> {
                   const Divider(height: 30, color: Colors.black87),
                   SizedBox(height: 60,),
          
-                  const Text(
+                   Text(
                     "Payment Method",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize:contentFontSize),
                   ),
                   const SizedBox(height: 15),
          
@@ -181,31 +198,23 @@ class _ProceedToFinalPaymentState extends State<ProceedToFinalPayment> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                         backgroundColor: Color(0xFFCDCDCD),
-                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                     ResponsiveButton(
+                            text: "Back",
+                            textColor: Colors.black,
+                              backgroundColor: const Color(0xFFCDCDCD),                           
+                            onPressed: () {},
+                            
                           ),
-                        ),
-                        onPressed: () {},
-                        child: const Text("Back", style: TextStyle(color: Colors.black)),
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
-                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                          const SizedBox(width: 20),
+                          ResponsiveButton(
+                            text: 'Continue',
+                            textColor: Colors.black,                         
+                            backgroundColor: Colors.white,                        
+                            onPressed: () {
+                              context.go('/nityapooja_renewal_cmplt_page');
+                            },
+                           
                           ),
-                        ),
-                        onPressed: () {
-                          context.go('/nityapooja_renewal_cmplt_page');
-                        },
-                        child: const Text("Continue"),
-                      ),
                     ],
                   ),
                 ],

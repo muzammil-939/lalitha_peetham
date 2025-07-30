@@ -258,7 +258,7 @@ class InboxHeader extends StatelessWidget {
         Expanded(child: _buildSubNavItem(context, 'Received', '/inbox_received')),
         Expanded(child: _buildSubNavItem(context, 'Accepted', '/inbox_accepted')),
         Expanded(
-          child: _buildSubNavItem(context, 'Request', '/inbox_request'),
+          child: _buildSubNavItem(context, 'Request', ''),///inbox_request
         ),
         Expanded(child: _buildSubNavItem(context, 'Sent', '/inbox_sent')),
          Expanded(child: _buildSubNavItem(context, 'Deleted', '/inbox_deleted')),

@@ -252,7 +252,7 @@ class PvHeader extends StatelessWidget {
         Expanded(child: _buildSubNavItem(context, 'Courses', '/pv_courses')),
         Expanded(child: _buildSubNavItem(context, 'Live Classes', '/pv_live_classes')),
         Expanded(
-          child: _buildSubNavItem(context, 'My Purchase', '/pv_mypurchase'),
+          child: _buildSubNavItem(context, 'My Purchase', '/pv_my_purchase'),
         ),
         Expanded(child: _buildSubNavItem(context, 'Contact', '/pv_contact')),
         Expanded(child: _buildSubNavItem(context, 'Live Chat', '/pv_live_chart')),

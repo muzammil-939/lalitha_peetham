@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class NityapoojaRenewalCmpltPage extends StatefulWidget {
   const NityapoojaRenewalCmpltPage({super.key});
@@ -17,7 +18,7 @@ class _NityapoojaRenewalCmpltPageState extends State<NityapoojaRenewalCmpltPage>
         child: Column(
           children: [
             buildherosection(),
-            buildConfirmSection() ,
+            buildConfirmSection(context) ,
 
           ],
         ),
@@ -49,13 +50,18 @@ Widget buildherosection() {
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children: [
               Text(
                 "Booking Confirmed track your\npooja",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 32,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context,
+                    desktop: 45,
+                    tablet: 30,
+                    mobile: 20
+                  ), 
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -78,7 +84,21 @@ Widget buildherosection() {
     );
   }
 
- Widget buildConfirmSection() {
+ Widget buildConfirmSection(BuildContext context) {
+
+    final screenWidth = MediaQuery.of(context).size.width;
+  final isMobile = screenWidth < 600;
+  final isTablet = screenWidth >= 600 && screenWidth < 1100;
+  final isDesktop = screenWidth >= 1100;
+
+  final horizontalPadding = isDesktop ? 150.0 : isTablet ? 60.0 : 16.0;
+  final titleFontSize = isDesktop ? 28.0 : isTablet ? 24.0 : 20.0;
+  final bulletFontSize = isMobile ? 14.0 : 16.0;
+  final backgroundImageHeight = isMobile ? 350.0 : 500.0;
+  final planetSize = isMobile ? 40.0 : 60.0;
+  final watermarkSize = isMobile ? 300.0 : 550.0;
+  final spacing = isMobile ? 20.0 : 40.0;
+
   return Stack(
     children: [
       // 🌄 Background Image
@@ -101,21 +121,21 @@ Widget buildherosection() {
         right: 30,
         child: Image.asset(
           'assets/images/vastupooja11.png',
-          height: 60,
-          width: 60,
+         height: planetSize,
+          width: planetSize,
         ),
       ),
 
       // 📄 Main Content
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 150.0, vertical: 60),
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 60),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+             Text(
               "✅📄 Renewal Completed – Nithya Pooja",
               style: TextStyle(
-                fontSize: 35,
+                fontSize: titleFontSize,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Georgia',
               ),
@@ -136,8 +156,8 @@ Widget buildherosection() {
                     child: Opacity(
                       opacity: 0.1,
                       child: SizedBox(
-                        height: 550,
-                        width: 550,
+                       height: watermarkSize,
+                        width: watermarkSize,
                         child: Image.asset(
                           'assets/images/vector (2).png',
                           fit: BoxFit.cover,
@@ -157,15 +177,17 @@ Widget buildherosection() {
                       ),
                       const SizedBox(height: 5),
                       const Text("🎉 Your Nithya Pooja is Successfully Booked!"),
-                      const Text(
-                          "Thank you for subscribing to our Nithya Pooja service. Here's what you will receive:"),
-                      const SizedBox(height: 30),
+                      Text(
+                          "Thank you for subscribing to our Nithya Pooja service. Here's what you will receive:",
+                          style: TextStyle(fontSize: bulletFontSize), ),
+                     
+                       SizedBox(height: spacing),
 
                       // 📿 Pooja Details
                       const Text("Pooja Details",
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       const SizedBox(height: 10),
-                      buildBullet("Pooja Type: Lakshmi Nithya Pooja"),
+                      buildBullet("Pooja Type: Lakshmi Nithya Pooja",),
                       buildBullet("Temple/Deity: Sree Lalitha Peetham"),
                       buildBullet("Renewal Duration: 30 Days"),
                       buildBullet("New Start Date: 21 June 2025"),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class GaneshaFaqWidget extends StatelessWidget {
   GaneshaFaqWidget({super.key});
@@ -38,61 +39,63 @@ class GaneshaFaqWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 32),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "GANESHA PUJA - FAQs",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 32,
-              height: 1.4,
-              color: Color(0xFFD4AF37), // gold shade like in image
-            ),
-          ),
-          const SizedBox(height: 20),
-          ...faqs.map((faq) {
-            return Container(
-              margin: const EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                color: const Color(0xFFF5F2E7),
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(2, 2),
-                    blurRadius: 4,
-                  )
-                ],
+    return ResponsiveWrapper(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 32),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "GANESHA PUJA - FAQs",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 32,
+                height: 1.4,
+                color: Color(0xFFD4AF37), // gold shade like in image
               ),
-              child: Theme(
-                data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-                child: ExpansionTile(
-                  title: Text(
-                    faq["question"]!,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                    ),
-                  ),
-                  iconColor: Colors.black,
-                  collapsedIconColor: Colors.black,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-                      child: Text(
-                        faq["answer"]!,
-                        style: const TextStyle(fontSize: 14, height: 1.5),
-                      ),
-                    ),
+            ),
+            const SizedBox(height: 20),
+            ...faqs.map((faq) {
+              return Container(
+                margin: const EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF5F2E7),
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(2, 2),
+                      blurRadius: 4,
+                    )
                   ],
                 ),
-              ),
-            );
-          }).toList(),
-        ],
+                child: Theme(
+                  data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                  child: ExpansionTile(
+                    title: Text(
+                      faq["question"]!,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                      ),
+                    ),
+                    iconColor: Colors.black,
+                    collapsedIconColor: Colors.black,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                        child: Text(
+                          faq["answer"]!,
+                          style: const TextStyle(fontSize: 14, height: 1.5),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }).toList(),
+          ],
+        ),
       ),
     );
   }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lalitha_peetham/screens/gemstones_selling/gs_contact_widget.dart';
-import 'package:lalitha_peetham/screens/gemstones_selling/gs_related_products.dart';
+import 'package:lalitha_peetham/screens/e_store/gs_contact_widget.dart';
+import 'package:lalitha_peetham/screens/e_store/gs_related_products.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class GsAddToCart extends StatefulWidget {
   const GsAddToCart({super.key});
@@ -40,8 +41,8 @@ class _GsAddToCartState extends State<GsAddToCart> {
         child: Column(
           children: [
             buildHeroSection(),
-            buildWishlistcard(), 
-            SizedBox(height: 80,),
+            buildWishlistcard(context), 
+            SizedBox(height: 50,),
             GsContactWidget(),
             SizedBox(height: 80,),
             GsRelatedProducts(),
@@ -82,13 +83,14 @@ class _GsAddToCartState extends State<GsAddToCart> {
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children: [
               Text(
                 " Complete Your Spiritual Shopping",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 45,
+                  fontSize: ResponsiveFontsize.fontSize( 
+                    context, mobile: 20, tablet: 30, desktop: 40),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -110,68 +112,99 @@ class _GsAddToCartState extends State<GsAddToCart> {
       ],
     );
   }
-  
-  Widget buildWishlistcard() {
-    return Stack(
+  Widget buildWishlistcard(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final isTablet = ResponsiveHelper.isTablet(context);
+  final isDesktop = ResponsiveHelper.isDesktop(context);
+
+  final screenWidth = ResponsiveHelper.screenWidth(context);
+  final screenHeight = ResponsiveHelper.screenHeight(context);
+
+  return SizedBox(
+    width: screenWidth,
+    height: screenHeight, // ensure the stack fills screen
+    child: Stack(
       children: [
-        // 🌄 Background Decorations
+        // 🌄 Full Background Image
+               Positioned(
+  top: 0,
+  left: 0,
+  right: 0,
+  child: SizedBox(
+    height: MediaQuery.of(context).size.height * 0.8, // 40% of screen height
+    child: Image.asset(
+      'assets/images/vastupooja4.png',
+      fit: BoxFit.cover,
+    ),
+  ),
+),
+
+        // 🌕 Top-right Icon
         Positioned(
-          top: 0,
-          left: 0,
-          child: SizedBox(
-            height: 500,
-            width: 1500,
-            child: Image.asset(
-              'assets/images/vastupooja4.png',
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        Positioned(
-          top: 40,
-          right: 40,
+          top: isMobile ? 20 : 40,
+          right: isMobile ? 20 : 40,
           child: Image.asset(
             'assets/images/vastupooja11.png',
-            width: 60,
-            height: 60,
+            width: isMobile ? 40 : 60,
+            height: isMobile ? 40 : 60,
           ),
         ),
 
-        
-    Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 100.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 50,),
-              const Text(
-                "ADD TO CART",
-                style: TextStyle(
-                  fontFamily: "serif",
-                  fontWeight: FontWeight.bold,
-                  fontSize: 32,
+        // 📦 Foreground Content
+        SingleChildScrollView( // just in case content overflows on small screens
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: isMobile ? 16 : 24,
+              horizontal: isMobile ? 16 : (isTablet ? 40 : 200),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: isMobile ? 40 : 60),
+                Text(
+                  "ADD TO CART",
+                  style: TextStyle(
+                    fontFamily: "serif",
+                    fontWeight: FontWeight.bold,
+                    fontSize: isMobile ? 24 : 32,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: products
-                    .map((product) => Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: SizedBox(
-                              width: 150,
-                              child: ProductCard(product: product)),
-                          ),
-                        ))
-                    .toList(),
-              ),
-            ],
+                const SizedBox(height: 16),
+
+                // 🛒 Responsive Product Cards
+                isMobile
+                    ? Column(
+                        children: products
+                            .map((product) => Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: ProductCard(product: product),
+                                ))
+                            .toList(),
+                      )
+                    : Wrap(
+                        spacing: 16,
+                        runSpacing: 16,
+                        children: products
+                            .map(
+                              (product) => SizedBox(
+                                width: isTablet
+                                    ? (screenWidth / 2) - 60
+                                    : (screenWidth / 4) - 40,
+                                child: ProductCard(product: product),
+                              ),
+                            )
+                            .toList(),
+                      ),
+              ],
+            ),
           ),
-        )
-      ]
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
+
+
 
 }
 

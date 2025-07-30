@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class PoojaServiceConfirmPage extends StatefulWidget {
   const PoojaServiceConfirmPage({super.key});
@@ -48,13 +49,18 @@ class _PoojaServiceConfirmPageState extends State<PoojaServiceConfirmPage> {
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children:  [
               Text(
                 "YOUR POOJA SERVICE IS CONFIRMED. CHECK YOUR\nEMAIL/SMS FOR DETAILS",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 22,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context,
+                    desktop: 45,
+                    tablet: 30,
+                    mobile: 20
+                  ),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -79,6 +85,19 @@ class _PoojaServiceConfirmPageState extends State<PoojaServiceConfirmPage> {
   
 
 Widget buildConfirmSection() {
+      final screenWidth = MediaQuery.of(context).size.width;
+  final isMobile = screenWidth < 600;
+  final isTablet = screenWidth >= 600 && screenWidth < 1100;
+  final isDesktop = screenWidth >= 1100;
+
+  final horizontalPadding = isDesktop ? 150.0 : isTablet ? 60.0 : 16.0;
+  final titleFontSize = isDesktop ? 28.0 : isTablet ? 24.0 : 20.0;
+  final bulletFontSize = isMobile ? 14.0 : 16.0;
+  final backgroundImageHeight = isMobile ? 350.0 : 500.0;
+  final planetSize = isMobile ? 40.0 : 60.0;
+  final watermarkSize = isMobile ? 300.0 : 550.0;
+  final spacing = isMobile ? 20.0 : 40.0;
+
   return Stack(
     children: [
       // 🌄 Background Image
@@ -95,22 +114,22 @@ Widget buildConfirmSection() {
         right: 30,
         child: Image.asset(
           'assets/images/vastupooja11.png',
-          height: 60,
-          width: 60,
+          height: planetSize,
+          width: planetSize,
         ),
       ),
 
       // 📋 Main Content
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 60),
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 60),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // ✅ OUTSIDE HEADING
-            const Text(
+             Text(
               "Your pooja service is confirmed. Check your\nemail/SMS for details",
               style: TextStyle(
-                fontSize: 45,
+                fontSize: titleFontSize,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Georgia',
               ),
@@ -124,7 +143,24 @@ Widget buildConfirmSection() {
                 color: Color(0xFFE9BD3F),
                 borderRadius: BorderRadius.circular(0),
               ),
-              child: Column(
+              child:Stack(
+                children: [
+                  // Watermark Astrological Circle
+                  Center(
+                    child: Opacity(
+                      opacity: 0.1,
+                      child: SizedBox(
+                       height: watermarkSize,
+                        width: watermarkSize,
+                        child: Image.asset(
+                          'assets/images/vector (2).png',
+                          fit: BoxFit.cover,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ), 
+               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
@@ -194,7 +230,9 @@ Widget buildConfirmSection() {
                   )
                 ],
               ),
+                ]
             ),
+            )
           ],
         ),
       ),

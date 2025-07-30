@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class GsBookingOnfirmPage extends StatefulWidget {
   const GsBookingOnfirmPage({super.key});
@@ -56,13 +57,14 @@ class _GsBookingOnfirmPageState extends State<GsBookingOnfirmPage> {
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children: [
               Text(
                 " Complete Your Spiritual Shopping",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 45,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context, mobile: 20, tablet: 30, desktop: 40),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -86,6 +88,25 @@ class _GsBookingOnfirmPageState extends State<GsBookingOnfirmPage> {
   }
   
 Widget buildConfirmPaymentSection(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final isTablet = ResponsiveHelper.isTablet(context);
+  final isDesktop = ResponsiveHelper.isDesktop(context);
+
+  final double horizontalPadding = isMobile
+      ? 16
+      : isTablet
+          ? 50
+          : 150;
+
+  final double titleFontSize = isMobile
+      ? 20
+      : isTablet
+          ? 24
+          : 28;
+
+  final double imageHeight = isMobile ? 200 : 500;
+  final double imageWidth = isMobile ? double.infinity : 1500;
+
   return Stack(
     children: [
       // 🌄 Background Image
@@ -93,8 +114,8 @@ Widget buildConfirmPaymentSection(BuildContext context) {
         top: 0,
         left: 0,
         child: SizedBox(
-          height: 500,
-          width: 1500,
+          height: imageHeight,
+          width: imageWidth,
           child: Image.asset(
             'assets/images/vastupooja4.png',
             fit: BoxFit.cover,
@@ -108,20 +129,20 @@ Widget buildConfirmPaymentSection(BuildContext context) {
         right: 30,
         child: Image.asset(
           'assets/images/vastupooja11.png',
-          height: 60,
-          width: 60,
+          height: isMobile ? 40 : 60,
+          width: isMobile ? 40 : 60,
         ),
       ),
 
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 150.0, vertical: 60),
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 60),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               "Confirm Your Booking with Final Payment",
               style: TextStyle(
-                fontSize: 28,
+                fontSize: titleFontSize,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Georgia',
               ),
@@ -129,20 +150,20 @@ Widget buildConfirmPaymentSection(BuildContext context) {
             const SizedBox(height: 30),
 
             Container(
-              padding: const EdgeInsets.all(30),
+              padding: EdgeInsets.all(isMobile ? 16 : 30),
               decoration: BoxDecoration(
                 color: const Color(0xFFEAC63E),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Stack(
                 children: [
-                  // 🔆 Background watermark image
+                  // 🔆 Watermark background image
                   Center(
                     child: Opacity(
                       opacity: 0.08,
                       child: SizedBox(
-                        height: 550,
-                        width: 550,
+                        height: isMobile ? 250 : 550,
+                        width: isMobile ? 250 : 550,
                         child: Image.asset(
                           'assets/images/vector (2).png',
                           fit: BoxFit.cover,
@@ -155,74 +176,49 @@ Widget buildConfirmPaymentSection(BuildContext context) {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // 💠 White container with item image and pricing
+                      // 💠 Item card
                       Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         padding: const EdgeInsets.all(16),
-                        child: Row(
-                          children: [
-                            Container(
-                               height: 180,
-                              width: 250,
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFE4C74D),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Center(
-                                child: Image.asset(
-                                  'assets/images/gemstone3.png',
-                                  width: 90,
+                        child: isMobile
+                            ? Column(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/gemstone3.png',
+                                    width: 90,
                                     height: 90,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
-                                  Text(
-                                    'Durga Ammavaru Idol',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 18),
+                                    fit: BoxFit.cover,
                                   ),
-                                  SizedBox(height: 4),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        '300 ',
-                                        style: TextStyle(
-                                          decoration: TextDecoration.lineThrough,
-                                          color: Colors.grey,
-                                        ),
+                                  const SizedBox(height: 12),
+                                  buildProductDetails(isMobile),
+                                ],
+                              )
+                            : Row(
+                                children: [
+                                  Container(
+                                    height: 180,
+                                    width: 250,
+                                    padding: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFE4C74D),
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                    child: Center(
+                                      child: Image.asset(
+                                        'assets/images/gemstone3.png',
+                                        width: 90,
+                                        height: 90,
+                                        fit: BoxFit.cover,
                                       ),
-                                      Text(
-                                        '200',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                  SizedBox(height: 10),
-                                  Text('Idol Price: ₹200'),
-                                  Text('Delivery Cost: ₹30'),
-                                  Text(
-                                    'Total Cost: ₹230',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                  const SizedBox(width: 16),
+                                  Expanded(child: buildProductDetails(isMobile)),
                                 ],
                               ),
-                            )
-                          ],
-                        ),
                       ),
 
                       const SizedBox(height: 30),
@@ -255,12 +251,48 @@ Widget buildConfirmPaymentSection(BuildContext context) {
                         ],
                       )
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
           ],
         ),
+      ),
+    ],
+  );
+}
+
+// 👇 Helper to build product detail column
+Widget buildProductDetails(bool isMobile) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: const [
+      Text(
+        'Durga Ammavaru Idol',
+        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+      ),
+      SizedBox(height: 4),
+      Row(
+        children: [
+          Text(
+            '300 ',
+            style: TextStyle(
+              decoration: TextDecoration.lineThrough,
+              color: Colors.grey,
+            ),
+          ),
+          Text(
+            '200',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+        ],
+      ),
+      SizedBox(height: 10),
+      Text('Idol Price: ₹200'),
+      Text('Delivery Cost: ₹30'),
+      Text(
+        'Total Cost: ₹230',
+        style: TextStyle(fontWeight: FontWeight.bold),
       ),
     ],
   );

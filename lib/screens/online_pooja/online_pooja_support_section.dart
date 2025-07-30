@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class OnlinePoojaSupportSection extends StatefulWidget {
   const OnlinePoojaSupportSection({super.key});
@@ -65,14 +66,19 @@ bool isChatSelected = true;
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children: [
               
               Text(
                 "Your Scheduled and Completed\nPoojas",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 45,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context,
+                    desktop: 45,
+                    tablet: 30,
+                    mobile: 20
+                  ),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -97,9 +103,19 @@ bool isChatSelected = true;
 
 
   Widget buildYourScheduledAndCmpltPoojas(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final isTablet = ResponsiveHelper.isTablet(context);
+  final isDesktop = ResponsiveHelper.isDesktop(context);
+
+  double horizontalPadding = isMobile ? 16 : isTablet ? 50 : 150;
+  double topPlanet = isMobile ? 60 : isTablet ? 90 : 120;
+  double planetSize = isMobile ? 60 : isTablet ? 80 : 100;
+  double titleFontSize = isMobile ? 18 : isTablet ? 24 : 32;
+  double spacing = isMobile ? 16 : 30;
+
   return Stack(
     children: [
-      // Background Image
+      // Background
       Positioned.fill(
         child: Image.asset(
           'assets/images/vastupooja4.png',
@@ -107,66 +123,62 @@ bool isChatSelected = true;
         ),
       ),
 
-      // Planet Image (top-right)
+      // Planet
       Positioned(
-        top: 120,
+        top: topPlanet,
         right: 30,
         child: Image.asset(
           'assets/images/vastupooja11.png',
-          height: 100,
-          width: 100,
+          height: planetSize,
+          width: planetSize,
         ),
       ),
 
-      // Main content
+      // Content
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 150.0, vertical: 25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 30),
-
-            const Text(
-              "ACCESS THE FULL LIST OF YOUR SCHEDULED AND\nCOMPLETED POOJAS",
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w900,
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 25),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: spacing),
+              Text(
+                "ACCESS THE FULL LIST OF YOUR SCHEDULED AND\nCOMPLETED POOJAS",
+                style: TextStyle(
+                  fontSize: titleFontSize,
+                  fontWeight: FontWeight.w900,
+                ),
               ),
-            ),
-
-            const SizedBox(height: 30),
-
-            // Top Navigation Buttons
-            Wrap(
-              spacing: 15,
-              runSpacing: 12,
-              children: [
-                buildButton("My Bookings", isActive: false),
-                buildButton("Payments", isActive: false),
-                buildButton("Support", isActive: true),
-              ],
-            ),
-
-            const SizedBox(height: 30),
-
-            // Support Form Section
-            Container(
-              decoration: BoxDecoration(
-                color: const Color(0xFFEAC63E),
-                borderRadius: BorderRadius.circular(6),
+              SizedBox(height: spacing),
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  buildButton("My Bookings", isActive: false),
+                  buildButton("Payments", isActive: false),
+                  buildButton("Support", isActive: true),
+                ],
               ),
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: buildSupportTabs(),
+              SizedBox(height: spacing),
+              Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFEAC63E),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: buildSupportTabs(context),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     ],
   );
 }
+
 
 
   Widget buildButton(String label, {bool isActive = false}) {
@@ -189,7 +201,7 @@ bool isChatSelected = true;
     );
   }
   
-Widget buildChatSupportForm()  {
+Widget buildChatSupportForm(BuildContext context)  {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -251,23 +263,7 @@ Widget buildChatSupportForm()  {
             ),
           ),
           const SizedBox(width: 20),
-          Expanded(
-            child: GestureDetector(
-              onTap: () {
-                // TODO: Add image picker
-              },
-              child: Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFD9D9D9),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: const Center(
-                  child: Icon(Icons.add_circle_outline),
-                ),
-              ),
-            ),
-          ),
+         Expanded(child: uploadBox()),
         ],
       ),
 
@@ -314,55 +310,47 @@ Widget buildChatSupportForm()  {
     ],
   );
 }
-Widget buildSupportTabs() {
+Widget buildSupportTabs(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final spacing = isMobile ? 12.0 : 20.0;
+
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      // Tab Selector
       Row(
         children: [
           GestureDetector(
-            onTap: () {
-              setState(() {
-                isChatSelected = true;
-              });
-            },
+            onTap: () => setState(() => isChatSelected = true),
             child: Text(
               "Chat support",
               style: TextStyle(
-                fontSize: 14,
+                fontSize: isMobile ? 12 : 14,
                 fontWeight: FontWeight.w500,
-                decoration:
-                    isChatSelected ? TextDecoration.underline : TextDecoration.none,
+                decoration: isChatSelected ? TextDecoration.underline : null,
               ),
             ),
           ),
-          const SizedBox(width: 20),
+          SizedBox(width: spacing),
           GestureDetector(
-            onTap: () {
-              setState(() {
-                isChatSelected = false;
-              });
-            },
+            onTap: () => setState(() => isChatSelected = false),
             child: Text(
               "Faq's support",
               style: TextStyle(
-                fontSize: 14,
+                fontSize: isMobile ? 12 : 14,
                 fontWeight: FontWeight.w500,
-                decoration:
-                    !isChatSelected ? TextDecoration.underline : TextDecoration.none,
+                decoration: !isChatSelected ? TextDecoration.underline : null,
               ),
             ),
           ),
         ],
       ),
-      const SizedBox(height: 20),
-      isChatSelected ? buildChatSupportForm() : buildFaqSupportList(),
+      SizedBox(height: spacing),
+      isChatSelected ? buildChatSupportForm(context) : buildFaqSupportList(context),
     ],
   );
 }
 
-Widget buildFaqSupportList() {
+Widget buildFaqSupportList(BuildContext context) {
   final List<String> faqQuestions = [
     "Can I change the location after booking?",
     "What payment methods do you accept?",
@@ -420,5 +408,22 @@ Widget buildFaqSupportList() {
   );
 }
 
+Widget uploadBox() {
+  return GestureDetector(
+    onTap: () {
+      // TODO: Add image picker logic
+    },
+    child: Container(
+      height: 50,
+      decoration: BoxDecoration(
+        color: const Color(0xFFD9D9D9),
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: const Center(
+        child: Icon(Icons.add_circle_outline),
+      ),
+    ),
+  );
+}
 
 }

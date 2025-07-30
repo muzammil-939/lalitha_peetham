@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class OnlineBookingPage extends StatefulWidget {
   const OnlineBookingPage({super.key});
@@ -43,36 +44,36 @@ class _OnlineBookingPageState extends State<OnlineBookingPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildherosection(),
-            buildContentSection(),
+            buildContentSection(context),
             const SizedBox(height: 30),
             
-            buildTwoColumnDropdownRow(
+            buildTwoColumnDropdownRow(context,
               "Pooja Name", selectedPoojaName, ["Satyanarayan", "Lakshmi Pooja"],
               (val) => setState(() => selectedPoojaName = val),
               "Occasion", selectedOccasion, ["House Warming", "Birthday"],
               (val) => setState(() => selectedOccasion = val),
             ),
-            buildTwoColumnDropdownRow(
+            buildTwoColumnDropdownRow(context,
               "Deity", selectedDeity, ["Lord Vishnu", "Ganesha"],
               (val) => setState(() => selectedDeity = val),
               "Purpose", selectedPurpose, ["Well-being", "Prosperity"],
               (val) => setState(() => selectedPurpose = val),
             ),
-            buildTwoColumnDropdownRow(
+            buildTwoColumnDropdownRow(context,
               "Language", selectedLanguage, ["Telugu", "Hindi"],
               (val) => setState(() => selectedLanguage = val),
               "Ritual Type", selectedRitualType, ["Simple", "Elaborate"],
               (val) => setState(() => selectedRitualType = val),
             ),
             const SizedBox(height: 20),
-            buildSectionTitle("Sankalp Details"),
-            buildTwoColumnRow("Gotra", gotraController, "Family Members (Optional)", membersController),
+            buildSectionTitle(context,"Sankalp Details"),
+            buildTwoColumnRow(context,"Gotra", gotraController, "Family Members (Optional)", membersController),
             const SizedBox(height: 20),
-            buildSectionTitle("Pick Date & Time"),
-            buildTwoColumnRow("Date", dateController, "Time", timeController),
+            buildSectionTitle(context,"Pick Date & Time"),
+            buildTwoColumnRow(context,"Date", dateController, "Time", timeController),
             const SizedBox(height: 20),
-            buildSectionTitle("Add Offerings (Optional)"),
-            buildTwoColumnDropdownRow(
+            buildSectionTitle(context,"Add Offerings (Optional)"),
+            buildTwoColumnDropdownRow(context,
               "Items", selectedOfferingItem, ["Fruits", "Flowers"],
               (val) => setState(() => selectedOfferingItem = val),
               "Live Streaming Options", selectedStreaming, ["Yes", "No"],
@@ -85,7 +86,7 @@ class _OnlineBookingPageState extends State<OnlineBookingPage> {
                   const Spacer(),
                   Expanded(
                     flex: 1,
-                    child: buildDropdownField(
+                    child: buildDropdownField(context,
                       "Choose Platform",
                       selectedPlatform,
                       ["Zoom", "Google Meet"],
@@ -96,24 +97,24 @@ class _OnlineBookingPageState extends State<OnlineBookingPage> {
               ),
             ),
             const SizedBox(height: 20),
-            buildContactInfoSection(),
+            buildContactInfoSection(context),
             const SizedBox(height: 20),
-            buildSectionTitle("Additional Information"),
+            buildSectionTitle(context,"Additional Information"),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 12),
               child: TextFormField(
                 controller: additionalInfoController,
                 maxLines: 3,
                 decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  filled: true,
+                   border: OutlineInputBorder(),
+                   filled: true,
                   fillColor: Color(0xFFF1F1F1),
                 ),
               ),
             ),
-            buildSectionTitle("Payment Summary"),
-            buildTwoColumnRow("Pooja Charges", poojaCostController, "Offerings Add-On", addonCostController),
-            buildTwoColumnRow("Streaming Option", streamCostController, "Total Cost", totalCostController),
+            buildSectionTitle(context,"Payment Summary"),
+            buildTwoColumnRow(context,"Pooja Charges", poojaCostController, "Offerings Add-On", addonCostController),
+            buildTwoColumnRow(context,"Streaming Option", streamCostController, "Total Cost", totalCostController),
             const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 100.0),
@@ -143,7 +144,7 @@ class _OnlineBookingPageState extends State<OnlineBookingPage> {
   }
 
   // Shared Widgets
-       Widget buildherosection() {
+  Widget buildherosection() {
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -167,14 +168,19 @@ class _OnlineBookingPageState extends State<OnlineBookingPage> {
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children: [
               
               Text(
                 "Your Scheduled and Completed\nPoojas",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 45,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context,
+                    desktop: 45,
+                    tablet: 30,
+                    mobile: 20
+                  ),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -197,187 +203,239 @@ class _OnlineBookingPageState extends State<OnlineBookingPage> {
     ); 
        }
 
-  Widget buildContentSection() {
-    return 
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "EXPERIENCE DIVINE RITUALS YOUR\nWAY — PERSONALIZED E-POOJAS",
-            style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            "WITH FLEXIBLE OPTIONS AND EASY\nONLINE BOOKING",
-            style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 50,),
-          buildTabs()
-        ],
-      ),
-    );
-    
-  }
+Widget buildContentSection(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final horizontalPadding = isMobile ? 16.0 : 100.0;
+  final titleFontSize = isMobile ? 24.0 : 45.0;
 
-  Widget buildTabs() {
-    
-    return  Wrap(
-      spacing: 15,
-      runSpacing: 12,
-      children: [
-        buildButton("Book E-Pooja", isActive: true),
-        buildButton("Browse Poojas", isActive: false),
-        buildButton("Upcoming Poojas", isActive: false),
-        buildButton("My Bookings", isActive: false),
-      ],
-    );
-  }
-
-  Widget buildButton(String label, {bool isActive = false}) {
-    return Container(
-      width: 220,
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-      decoration: BoxDecoration(
-        color: isActive ? Colors.white : Colors.grey.shade300,
-        borderRadius: BorderRadius.circular(6),
-        border: isActive
-            ? Border.all(color: Colors.grey.shade300)
-            : Border.all(color: Colors.transparent),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          fontWeight: FontWeight.w500,
-          color: isActive ? Colors.black : Colors.black87,
-        ),
-      ),
-    );
-  }
-
-  Widget buildSectionTitle(String title) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 12),
-        child: Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-      );
-
-  Widget buildField(String label, TextEditingController controller) {
-    return Column(
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+    child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-        const SizedBox(height: 4),
-        TextFormField(
-          controller: controller,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.grey.shade200,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
-              borderSide: BorderSide.none,
-            ),
-          ),
+        Text(
+          "EXPERIENCE DIVINE RITUALS YOUR\nWAY — PERSONALIZED E-POOJAS",
+          style: TextStyle(fontSize: titleFontSize, fontWeight: FontWeight.bold),
         ),
+        Text(
+          "WITH FLEXIBLE OPTIONS AND EASY\nONLINE BOOKING",
+          style: TextStyle(fontSize: titleFontSize, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: isMobile ? 20 : 50),
+        buildTabs(context),
       ],
-    );
-  }
+    ),
+  );
+}
 
-  Widget buildDropdownField(String label, String? selectedValue, List<String> items, Function(String?) onChanged) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-        const SizedBox(height: 4),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade200,
+Widget buildTabs(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+
+  return Wrap(
+    spacing: isMobile ? 10 : 15,
+    runSpacing: 12,
+    children: [
+      buildButton("Book E-Pooja", isActive: true),
+      buildButton("Browse Poojas"),
+      buildButton("Upcoming Poojas"),
+      buildButton("My Bookings"),
+    ],
+  );
+}
+
+Widget buildButton(String label, {bool isActive = false}) {
+  return Container(
+    width: 220,
+    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+    decoration: BoxDecoration(
+      color: isActive ? Colors.white : Colors.grey.shade300,
+      borderRadius: BorderRadius.circular(6),
+      border: Border.all(color: isActive ? Colors.grey.shade300 : Colors.transparent),
+    ),
+    child: Text(
+      label,
+      style: TextStyle(
+        fontWeight: FontWeight.w500,
+        color: isActive ? Colors.black : Colors.black87,
+      ),
+    ),
+  );
+}
+
+Widget buildSectionTitle(BuildContext context, String title) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 100, vertical: 12),
+    child: Text(title, style: TextStyle(fontSize: isMobile ? 18 : 20, fontWeight: FontWeight.bold)),
+  );
+}
+
+Widget buildField(BuildContext context, String label, TextEditingController controller) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(label, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+      const SizedBox(height: 4),
+      TextFormField(
+        controller: controller,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.grey.shade200,
+          border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
-          ),
-          child: DropdownButton<String>(
-            value: selectedValue,
-            isExpanded: true,
-            underline: const SizedBox(),
-            onChanged: onChanged,
-            items: items.map((value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value, style: const TextStyle(fontSize: 14)),
-              );
-            }).toList(),
+            borderSide: BorderSide.none,
           ),
         ),
-      ],
-    );
-  }
-
-  Widget buildTwoColumnRow(String label1, TextEditingController controller1, String label2, TextEditingController controller2) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 12),
-      child: Row(
-        children: [
-          Expanded(child: buildField(label1, controller1)),
-          const SizedBox(width: 20),
-          Expanded(child: buildField(label2, controller2)),
-        ],
       ),
-    );
-  }
+    ],
+  );
+}
 
-  Widget buildTwoColumnDropdownRow(
-    String label1,
-    String? value1,
-    List<String> options1,
-    Function(String?) onChanged1,
-    String label2,
-    String? value2,
-    List<String> options2,
-    Function(String?) onChanged2,
-  ) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 12),
-      child: Row(
-        children: [
-          Expanded(child: buildDropdownField(label1, value1, options1, onChanged1)),
-          const SizedBox(width: 20),
-          Expanded(child: buildDropdownField(label2, value2, options2, onChanged2)),
-        ],
+Widget buildDropdownField(
+  BuildContext context,
+  String label,
+  String? selectedValue,
+  List<String> items,
+  Function(String?) onChanged,
+) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(label, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+      const SizedBox(height: 4),
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        decoration: BoxDecoration(
+          color: Colors.grey.shade200,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: DropdownButton<String>(
+          value: selectedValue,
+          isExpanded: true,
+          underline: const SizedBox(),
+          onChanged: onChanged,
+          items: items.map((value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value, style: const TextStyle(fontSize: 14)),
+            );
+          }).toList(),
+        ),
       ),
-    );
-  }
+    ],
+  );
+}
 
-  Widget buildSingleField(String label, TextEditingController controller) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 12),
-      child: buildField(label, controller),
-    );
-  }
+Widget buildTwoColumnRow(
+  BuildContext context,
+  String label1,
+  TextEditingController controller1,
+  String label2,
+  TextEditingController controller2,
+) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final padding = isMobile ? 16.0 : 100.0;
 
-    Widget buildContactInfoSection() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100.0,vertical: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          buildSectionTitle("Contact Info"),
-          Row(
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: padding, vertical: 12),
+    child: isMobile
+        ? Column(
             children: [
-              Expanded(child: buildField("Booking Person Name", nameController, )),
+              buildField(context, label1, controller1),
+              const SizedBox(height: 12),
+              buildField(context, label2, controller2),
+            ],
+          )
+        : Row(
+            children: [
+              Expanded(child: buildField(context, label1, controller1)),
               const SizedBox(width: 20),
-              Expanded(child: buildField("Mobile Number", phoneController, )),
+              Expanded(child: buildField(context, label2, controller2)),
             ],
           ),
-          const SizedBox(height: 20),
-          Row(
+  );
+}
+
+Widget buildTwoColumnDropdownRow(
+  BuildContext context,
+  String label1,
+  String? value1,
+  List<String> options1,
+  Function(String?) onChanged1,
+  String label2,
+  String? value2,
+  List<String> options2,
+  Function(String?) onChanged2,
+) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final padding = isMobile ? 16.0 : 100.0;
+
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: padding, vertical: 12),
+    child: isMobile
+        ? Column(
+            children: [
+              buildDropdownField(context, label1, value1, options1, onChanged1),
+              const SizedBox(height: 12),
+              buildDropdownField(context, label2, value2, options2, onChanged2),
+            ],
+          )
+        : Row(
+            children: [
+              Expanded(child: buildDropdownField(context, label1, value1, options1, onChanged1)),
+              const SizedBox(width: 20),
+              Expanded(child: buildDropdownField(context, label2, value2, options2, onChanged2)),
+            ],
+          ),
+  );
+}
+
+Widget buildSingleField(BuildContext context, String label, TextEditingController controller) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: isMobile ? 16.0 : 100.0, vertical: 12),
+    child: buildField(context, label, controller),
+  );
+}
+
+Widget buildContactInfoSection(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final padding = isMobile ? 16.0 : 100.0;
+
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: padding, vertical: 12),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        buildSectionTitle(context, "Contact Info"),
+        isMobile
+            ? Column(
+                children: [
+                  buildField(context, "Booking Person Name", nameController),
+                  const SizedBox(height: 12),
+                  buildField(context, "Mobile Number", phoneController),
+                ],
+              )
+            : Row(
+                children: [
+                  Expanded(child: buildField(context, "Booking Person Name", nameController)),
+                  const SizedBox(width: 20),
+                  Expanded(child: buildField(context, "Mobile Number", phoneController)),
+                ],
+              ),
+        const SizedBox(height: 20),
+        Row(
             children: [
               Expanded(
                 flex: 1,
-                child: buildField("Email", emailController, ),
+                child: buildField(context,"Email", emailController, ),
               ),
               const Spacer(),
             ],
           ),
-        ],
-      ),
-    );
-  }
+      ],
+    ),
+  );
+}
+
 }

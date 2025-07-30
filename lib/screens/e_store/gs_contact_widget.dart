@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
-class AstrologerContactSection extends StatelessWidget {
-  const AstrologerContactSection({super.key});
+class GsContactWidget extends StatelessWidget {
+  const GsContactWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveWrapper(
+    return 
+    
+    ResponsiveWrapper(
       child: Center(
         child: Container(
           color: const Color(0xFFF0C948), // Approx yellow shade
@@ -23,7 +25,7 @@ class AstrologerContactSection extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text(
-                      'Connect With An Astrologer On Call\nOr Chat For More Personalised\nDetailed Predictions.',
+                      'Connect with an Astrologer on Call or\nChat for more personalised\ndetailed predictions.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 18,
@@ -39,7 +41,7 @@ class AstrologerContactSection extends StatelessWidget {
                       },
                       icon: const Icon(Icons.phone_in_talk, size: 18),
                       label: const Text(
-                        "Talk To Astrologer",
+                        "Talk to Astrologer",
                         style: TextStyle(letterSpacing: 1.2),
                       ),
                       style: ElevatedButton.styleFrom(

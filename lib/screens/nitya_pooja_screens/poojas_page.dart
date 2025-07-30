@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/nitya_pooja_screens/niyapooja_contact_widget.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/astrologer_contact_section.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class PoojasPage extends StatefulWidget {
   const PoojasPage({super.key});
@@ -12,7 +13,16 @@ class PoojasPage extends StatefulWidget {
 }
 
 class _PoojasPageState extends State<PoojasPage> {
-  final List<Map<String, String>> poojas = [
+
+double getResponsiveFontSize(BuildContext context,
+    {required double mobile, required double tablet, required double desktop}) {
+  final width = MediaQuery.of(context).size.width;
+  if (width >= 1200) return desktop;
+  if (width >= 800) return tablet;
+  return mobile;
+}
+
+  final List<Map<String, String>> poojaList = [
     {'image': 'assets/images/e_pooja1.jpg', 'title': 'Rudrabhishek Puja'},
     {'image': 'assets/images/e_pooja2.jpg', 'title': 'Satyanarayan Puja'},
     {'image': 'assets/images/e_pooja3.jpg', 'title': 'Rahu Puja'},
@@ -21,27 +31,27 @@ class _PoojasPageState extends State<PoojasPage> {
     {'image': 'assets/images/e_pooja6.jpg', 'title': 'Durga Pooja'},
   ];
 
-  @override
-  Widget build(BuildContext context) {
-    return VastupoojaLayout(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            buildHeroSection(),
-            buildTitleSection(),
-            const SizedBox(height: 40),
-            buildPoojaCardsGrid(poojas),
-            const SizedBox(height: 150),
-            NiyapoojaContactWidget(),
-            const SizedBox(height: 150),
-            buildPoojaCardsGrid(poojas),
-            const SizedBox(height: 80),
-            
-          ],
-        ),
+@override
+Widget build(BuildContext context) {
+  return VastupoojaLayout(
+    child: SingleChildScrollView(
+      child: Column(
+        children: [
+          buildHeroSection(), // If full-width hero is needed
+          buildTitleSection(context),
+          const SizedBox(height: 40),
+          buildPoojaCardsGrid(context,poojaList),
+          const SizedBox(height: 150),
+           NiyapoojaContactWidget(),
+          const SizedBox(height: 150),
+           buildPoojaCardsGrid(context,poojaList,),
+          const SizedBox(height: 80),
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
+
 
     Widget  buildHeroSection() {
     return Stack(
@@ -67,14 +77,19 @@ class _PoojasPageState extends State<PoojasPage> {
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children: [
               
               Text(
                 "Find the Perfect Pooja Service Tailored\nto Your Spiritual Needs",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 45,
+                      fontSize: getResponsiveFontSize(
+                      context,
+                      mobile: 20,
+                      tablet: 30,
+                      desktop: 45,
+                    ),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -96,134 +111,149 @@ class _PoojasPageState extends State<PoojasPage> {
       ],
     );
   }
-  Widget buildTitleSection() {
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: Image.asset(
-            'assets/images/vastupooja4.png',
-            fit: BoxFit.cover,
-          ),
+
+Widget buildTitleSection(BuildContext context) {
+  final screenWidth = MediaQuery.of(context).size.width;
+  final isMobile = screenWidth < 600;
+  final isTablet = screenWidth >= 600 && screenWidth < 1024;
+  final horizontalPadding = isMobile ? 16.0 : isTablet ? 40.0 : 150.0;
+
+  return Stack(
+    children: [
+      Positioned.fill(
+        child: Image.asset(
+          'assets/images/vastupooja4.png',
+          fit: BoxFit.cover,
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 40),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFD9D9D9),
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  width: 350,
-                  height: 45,
-                  child: Row(
-                    children: const [
-                      Icon(Icons.search, color: Colors.grey),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: "Search pooja's",
-                            border: InputBorder.none,
-                          ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 40),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFD9D9D9),
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                width: isMobile ? double.infinity : 350,
+                height: 45,
+                child: Row(
+                  children: const [
+                    Icon(Icons.search, color: Colors.grey),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: "Search pooja's",
+                          border: InputBorder.none,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 30),
-              const Text(
-                "Explore a Curated Collection of Poojas for Every Special\nOccasion and Spiritual Need",
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w800,
-                ),
+            ),
+            const SizedBox(height: 30),
+            Text(
+              "Explore a Curated Collection of Poojas for Every Special\nOccasion and Spiritual Need",
+              style: TextStyle(
+                fontSize: isMobile ? 20 : isTablet ? 26 : 32,
+                fontWeight: FontWeight.w800,
               ),
-            ],
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
+Widget buildPoojaCardsGrid(BuildContext context, List<Map<String, String>> poojaList) {
+  final screenWidth = MediaQuery.of(context).size.width;
+  final horizontalPadding = screenWidth < 600 ? 16.0 : screenWidth < 1024 ? 40.0 : 150.0;
+
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+    child: Wrap(
+      spacing: 20,
+      runSpacing: 30,
+      alignment: WrapAlignment.center,
+      children: poojaList.map((pooja) {
+        return buildPoojaCard(
+          context: context,
+          imagePath: pooja['image']!,
+          title: pooja['title']!,
+        );
+      }).toList(),
+    ),
+  );
+}
+Widget buildPoojaCard({
+  required BuildContext context,
+  required String imagePath,
+  required String title,
+}) {
+  final screenWidth = MediaQuery.of(context).size.width;
+  final cardWidth = screenWidth < 400 ? screenWidth * 0.9 : 250.0;
+
+  return Container(
+    width: cardWidth,
+    height: 270,
+    decoration: BoxDecoration(
+      color: const Color(0xFFDFBC31),
+      boxShadow: const [
+        BoxShadow(
+          color: Colors.black12,
+          blurRadius: 6,
+          offset: Offset(0, 4),
+        ),
+      ],
+    ),
+    child: Column(
+      children: [
+        Image.asset(
+          imagePath,
+          height: 150,
+          width: double.infinity,
+          fit: BoxFit.cover,
+        ),
+        const SizedBox(height: 16),
+        Text(
+          title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+            color: Colors.black,
+          ),
+        ),
+        const SizedBox(height: 12),
+        InkWell(
+          onTap: () => context.go('/about_ganesh_poojas_page'),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: const Text(
+              "Book Now",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 11,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ),
         ),
       ],
-    );
-  }
+    ),
+  );
+}
 
-  Widget buildPoojaCardsGrid(List<Map<String, String>> poojaList) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100),
-      child: Wrap(
-        spacing: 30,
-        runSpacing: 40,
-        alignment: WrapAlignment.center,
-        children: poojaList.map((pooja) {
-          return buildPoojaCard(
-            imagePath: pooja['image']!,
-            title: pooja['title']!,
-          );
-        }).toList(),
-      ),
-    );
-  }
 
-  Widget buildPoojaCard({required String imagePath, required String title}) {
-    return Container(
-      width: 250,
-      height: 270,
-      decoration: BoxDecoration(
-        color: const Color(0xFFDFBC31),
-        borderRadius: BorderRadius.circular(0),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 6,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Image.asset(
-            imagePath,
-            height: 150,
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
-          const SizedBox(height: 16),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-              color: Colors.black,
-            ),
-          ),
-          const SizedBox(height: 12),
-          InkWell(
-            onTap: () => context.go('/about_ganesh_poojas_page'),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: const Text(
-                "Book Now",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 11,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
- 
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lalitha_peetham/screens/gemstones_selling/gs_contact_widget.dart';
-import 'package:lalitha_peetham/screens/gemstones_selling/gs_related_products.dart';
+import 'package:lalitha_peetham/screens/e_store/gs_contact_widget.dart';
+import 'package:lalitha_peetham/screens/e_store/gs_related_products.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class GsWhishlist extends StatefulWidget {
   const GsWhishlist({super.key});
@@ -40,8 +41,8 @@ class _GsWhishlistState extends State<GsWhishlist> {
         child: Column(
           children: [
             buildHeroSection(),
-            buildWishlistcard(), 
-            SizedBox(height: 80,),
+            buildWishlistcard(context), 
+            SizedBox(height: 20,),
             GsContactWidget(),
             SizedBox(height: 80,),
             GsRelatedProducts(),
@@ -82,13 +83,14 @@ class _GsWhishlistState extends State<GsWhishlist> {
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children:  [
               Text(
                 "Wishlist of Grace & Devotion",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 45,
+                  fontSize: ResponsiveFontsize.fontSize(context,
+                   mobile:20, tablet: 30, desktop: 45),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -110,22 +112,43 @@ class _GsWhishlistState extends State<GsWhishlist> {
       ],
     );
   }
-  Widget buildWishlistcard() {
-    return Stack(
+  
+ Widget buildWishlistcard(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final isTablet = ResponsiveHelper.isTablet(context);
+  final isDesktop = ResponsiveHelper.isDesktop(context);
+
+  double screenWidth = MediaQuery.of(context).size.width;
+  double screenHeight = MediaQuery.of(context).size.height;
+
+  double horizontalPadding = isMobile ? 16 : isTablet ? 40 : 150;
+  double titleFontSize = isMobile ? 22 : 32;
+  double cardWidth = isMobile
+      ? screenWidth * 0.9
+      : isTablet
+          ? screenWidth / 2.5
+          : screenWidth / 4.5;
+
+  return SizedBox(
+    height: screenHeight,
+    width: screenWidth,
+    child: Stack(
       children: [
-        // 🌄 Background Decorations
+        // ✅ Full-screen background
         Positioned(
-          top: 0,
-          left: 0,
-          child: SizedBox(
-            height: 500,
-            width: 1500,
-            child: Image.asset(
-              'assets/images/vastupooja4.png',
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
+  top: 0,
+  left: 0,
+  right: 0,
+  child: SizedBox(
+    height: MediaQuery.of(context).size.height * 0.8, // 40% of screen height
+    child: Image.asset(
+      'assets/images/vastupooja4.png',
+      fit: BoxFit.cover,
+    ),
+  ),
+),
+
+        // 🌑 Top-right planet image
         Positioned(
           top: 40,
           right: 40,
@@ -136,40 +159,45 @@ class _GsWhishlistState extends State<GsWhishlist> {
           ),
         ),
 
-        
-    Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 100.0),
+        // 📦 Main Content
+        SingleChildScrollView(
+          padding: EdgeInsets.symmetric(
+            vertical: 20.0,
+            horizontal: horizontalPadding,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              SizedBox(height: 50,),
+              Text(
                 "WISHLIST",
                 style: TextStyle(
                   fontFamily: "serif",
                   fontWeight: FontWeight.bold,
-                  fontSize: 32,
+                  fontSize: titleFontSize,
                 ),
               ),
               const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+
+              Wrap(
+                spacing: 16,
+                runSpacing: 16,
                 children: products
-                    .map((product) => Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: SizedBox(
-                              width: 150,
-                              child: ProductCard(product: product)),
-                          ),
-                        ))
+                    .map(
+                      (product) => SizedBox(
+                        width: cardWidth,
+                        child: ProductCard(product: product),
+                      ),
+                    )
                     .toList(),
               ),
             ],
           ),
-        )
-      ]
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
 
 }
 
@@ -187,20 +215,34 @@ class ProductCard extends StatelessWidget {
   final Product product;
   const ProductCard({required this.product, super.key});
 
- @override
+  @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    double imageHeight = 150;
+    double imagePadding = 8;
+    double textFontSize = 16;
+    double priceFontSize = 14;
+    double buttonPadding = 12;
+
+    if (screenWidth < 600) {
+      imageHeight = 120;
+      textFontSize = 14;
+      priceFontSize = 12;
+      buttonPadding = 10;
+    }
+
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
       elevation: 2,
-      color: Color(0xFFE9E9E9),
+      color: const Color(0xFFE9E9E9),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Image Container with Yellow BG
           Container(
-            height: 150,
-            margin: EdgeInsets.all(16),
-            padding: const EdgeInsets.all(8),
+            height: imageHeight,
+            margin: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(imagePadding),
             color: const Color(0xFFE4C74D),
             child: Center(
               child: Image.asset(product.imagePath, height: 80, width: 90),
@@ -211,49 +253,46 @@ class ProductCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Product Name + Heart
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       product.type,
-                      style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: textFontSize),
                     ),
                     const Icon(Icons.favorite_border_outlined, size: 18),
                   ],
                 ),
                 const SizedBox(height: 4),
-                // Price and Old Price
                 Row(
                   children: [
                     Text(
                       "₹${product.price}",
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: priceFontSize),
                     ),
                     const SizedBox(width: 6),
                     Text(
                       "₹${product.oldPrice}",
-                      style: const TextStyle(
+                      style: TextStyle(
                         decoration: TextDecoration.lineThrough,
                         color: Colors.grey,
-                        fontSize: 13,
+                        fontSize: priceFontSize,
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 18),
-                // Buy Button
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFECC04A),
                       foregroundColor: Colors.black,
-                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      padding: EdgeInsets.symmetric(vertical: buttonPadding),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
                     ),
                     onPressed: () {
-                      context.go('/gemstone_product_page');
+                       context.go('/gemstone_product_page');
                     },
                     child: const Text('Buy', style: TextStyle(color: Colors.black)),
                   ),

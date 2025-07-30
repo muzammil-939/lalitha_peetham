@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class GsShopAllProducts extends StatefulWidget {
   const GsShopAllProducts({super.key});
@@ -57,13 +58,16 @@ class _GsShopAllProductsState extends State<GsShopAllProducts> {
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children:  [
               Text(
                 "Explore Yantras, Gems & Pooja Kits",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 45,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context,
+                    mobile: 20, tablet: 30, desktop: 45
+                    ),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -168,178 +172,211 @@ class _ShopAllProductsState extends State<ShopAllProducts> {
       imagePath: 'assets/images/gemstone2.png',
     )),
   };
-
 @override
 Widget build(BuildContext context) {
   final selectedProducts = categoryProducts[selectedCategory] ?? [];
+
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final isTablet = ResponsiveHelper.isTablet(context);
+  final isDesktop = ResponsiveHelper.isDesktop(context);
+
+  final screenWidth = MediaQuery.of(context).size.width;
+  final horizontalPadding = isMobile ? 16.0 : isTablet ? 32.0 : 100.0;
+
+  // Final card width for all product cards
+  final cardWidth = isMobile
+      ? screenWidth * 0.85
+      : isTablet
+          ? (screenWidth - 2 * horizontalPadding - 16) / 2
+          : 230.0;
 
   final top4Products = selectedProducts.take(4).toList();
   final bottom3Products = selectedProducts.skip(4).take(3).toList();
 
   return Stack(
-      children: [
-        // 🌄 Background Decorations
-        Positioned(
-          top: 0,
-          left: 0,
-          child: SizedBox(
-            height: 500,
-            width: 1500,
-            child: Image.asset(
-              'assets/images/vastupooja4.png',
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        Positioned(
-          top: 40,
-          right: 40,
+    children: [
+      // Background
+      Positioned(
+        top: 0,
+        left: 0,
+        child: SizedBox(
+          width: screenWidth,
           child: Image.asset(
-            'assets/images/vastupooja11.png',
-            width: 60,
-            height: 60,
+            'assets/images/vastupooja4.png',
+            fit: BoxFit.cover,
           ),
         ),
-
-         Positioned.fill(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Opacity(
-              opacity: 0.8,
-              child: Image.asset(
-                'assets/images/Vector (2).png',
-                width: 500,
-                height: 500,
-                fit: BoxFit.contain,
-                //color: Colors.amber[800],
-              ),
+      ),
+      Positioned(
+        top: 40,
+        right: 40,
+        child: Image.asset(
+          'assets/images/vastupooja11.png',
+          width: 60,
+          height: 60,
+        ),
+      ),
+      Positioned.fill(
+        child: Align(
+          alignment: Alignment.bottomCenter,
+          child: Opacity(
+            opacity: 0.8,
+            child: Image.asset(
+              'assets/images/Vector (2).png',
+              width: 500,
+              height: 500,
+              fit: BoxFit.contain,
             ),
           ),
         ),
-  
-  Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 100.0),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(height: 80,),
-        // ⏪ Sidebar
-        Container(
-          width: 250,
-          margin: const EdgeInsets.all(16),
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFFEAC63E)),
-            borderRadius: BorderRadius.circular(8),
-            color: Colors.white,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: categories.map((c) {
-              final isSelected = selectedCategory == c;
-              return Container(
-                margin: const EdgeInsets.symmetric(vertical: 5),
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: isSelected ? const Color(0xFFEAC63E) : Color(0xFFBAB4B4),
-                    side: BorderSide(color: Colors.grey.shade400),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      selectedCategory = c;
-                    });
-                  },
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      c,
-                      style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
-                    ),
-                  ),
+      ),
+
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 100),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Mobile Sidebar
+            if (isMobile)
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.only(bottom: 20),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xFFEAC63E)),
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.white,
                 ),
-              );
-            }).toList(),
-          ),
-        ),
-
-        const SizedBox(width: 30),
-
-        // ⏩ Product Section
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Top 4 Cards: 2x2 Layout
-              Column(
-                children: [
-                  Row(
-                    children: List.generate(2, (i) {
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 16.0, bottom: 20),
-                        child: SizedBox(
-                          width: 230,
-                          child: ProductCard(product: top4Products[i]),
+                child: Column(
+                  children: categories.map((c) {
+                    final isSelected = selectedCategory == c;
+                    return Container(
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: isSelected
+                              ? const Color(0xFFEAC63E)
+                              : const Color(0xFFBAB4B4),
+                          side: BorderSide(color: Colors.grey.shade400),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
                         ),
-                      );
-                    }),
-                  ),
-                  Row(
-                    children: List.generate(2, (i) {
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 16.0, bottom: 20),
-                        child: SizedBox(
-                          width: 230,
-                          child: ProductCard(product: top4Products[i + 2]),
+                        onPressed: () => setState(() => selectedCategory = c),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            c,
+                            style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
+                          ),
                         ),
-                      );
-                    }),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 20),
-
-              // Bottom 3 Cards aligned left below sidebar
-              Row(
-                children: List.generate(bottom3Products.length, (index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(right: 16.0, bottom: 20),
-                    child: SizedBox(
-                      width: 230,
-                      child: ProductCard(product: bottom3Products[index]),
-                    ),
-                  );
-                }),
-              ),
-
-              const SizedBox(height: 30),
-
-              // View More Button
-              Align(
-                alignment: Alignment.bottomRight,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFEAC63E),
-                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: const Text('View More', style: TextStyle(color: Colors.black)),
+                      ),
+                    );
+                  }).toList(),
                 ),
               ),
-            ],
-          ),
+
+            // Main Layout
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Tablet/Desktop Sidebar
+                if (!isMobile)
+                  Container(
+                    width: isTablet ? 200 : 250,
+                    margin: const EdgeInsets.only(right: 30),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color(0xFFEAC63E)),
+                      borderRadius: BorderRadius.circular(8),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: categories.map((c) {
+                        final isSelected = selectedCategory == c;
+                        return Container(
+                          margin: const EdgeInsets.symmetric(vertical: 5),
+                          child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              backgroundColor: isSelected
+                                  ? const Color(0xFFEAC63E)
+                                  : const Color(0xFFBAB4B4),
+                              side: BorderSide(color: Colors.grey.shade400),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                            ),
+                            onPressed: () => setState(() => selectedCategory = c),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                c,
+                                style: const TextStyle(color: Colors.black87, fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+
+                // Products Area
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Top 4 products
+                      Wrap(
+                        spacing: 56,
+                        runSpacing: 20,
+                        children: top4Products.map((product) {
+                          return SizedBox(
+                            width: cardWidth,
+                            child: ProductCard(product: product),
+                          );
+                        }).toList(),
+                      ),
+
+                      const SizedBox(height: 30),
+
+                      // Bottom 3 products
+                      Wrap(
+                        spacing: 16,
+                        runSpacing: 20,
+                        children: bottom3Products.map((product) {
+                          return SizedBox(
+                            width: cardWidth,
+                            child: ProductCard(product: product),
+                          );
+                        }).toList(),
+                      ),
+
+                      const SizedBox(height: 30),
+
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFEAC63E),
+                            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: const Text('View More', style: TextStyle(color: Colors.black)),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
-      ],
-    ),
-  )
-      ]
+      ),
+    ],
   );
 }
+
 
 }
 

@@ -18,7 +18,7 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
     'Online Pooja',
     'Real Estate',
     'Function Hall Booking',
-    'Gemstone Selling',
+    'E - STORE',
     'Catering',
     'Photography',
     'Flower Decoration',
@@ -231,8 +231,8 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
         context.go('/pandit_booking_home');
         break;
 
-      case 'Gemstone Selling':
-        context.go('/gemstone_selling_shop_allproducts');
+      case 'E - STORE':
+        context.go('/e_store_shop_allproducts');
         break;
 
       case 'Function Hall Booking':
@@ -291,7 +291,7 @@ class _DropdownGridOverlayState extends State<_DropdownGridOverlay>
     'Online Pooja',
     'Real Estate',
     'Function Hall Booking',
-    'Gemstone Selling',
+    'E - STORE',
     'Catering',
     'Photography',
     'Flower Decoration',

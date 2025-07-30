@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class SatyanarayanaFaqWidget extends StatelessWidget {
   SatyanarayanaFaqWidget({super.key});
@@ -40,55 +41,57 @@ class SatyanarayanaFaqWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal:100.0, vertical: 32),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "SATYANARAYANA POOJA - FAQs",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 32,
-              height: 1.4,
+    return ResponsiveWrapper(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal:100.0, vertical: 32),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "SATYANARAYANA POOJA - FAQs",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 32,
+                height: 1.4,
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-          ...faqs.map((faq) {
-            return Container(
-              margin: const EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                color: const Color(0xFFE8D372),
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(2, 2),
-                    blurRadius: 4,
-                  )
-                ],
-              ),
-              child: ExpansionTile(
-                title: Text(
-                  faq["question"]!,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  ),
+            const SizedBox(height: 20),
+            ...faqs.map((faq) {
+              return Container(
+                margin: const EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE8D372),
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(2, 2),
+                      blurRadius: 4,
+                    )
+                  ],
                 ),
-                iconColor: Colors.black,
-                collapsedIconColor: Colors.black,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 8),
-                    child: Text(faq["answer"]!),
+                child: ExpansionTile(
+                  title: Text(
+                    faq["question"]!,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
                   ),
-                ],
-              ),
-            );
-          }).toList(),
-        ],
+                  iconColor: Colors.black,
+                  collapsedIconColor: Colors.black,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 8),
+                      child: Text(faq["answer"]!),
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
+          ],
+        ),
       ),
     );
   }

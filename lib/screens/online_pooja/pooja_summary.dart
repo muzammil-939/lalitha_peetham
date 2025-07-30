@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class PoojaSummary extends StatefulWidget {
   const PoojaSummary({super.key});
@@ -42,26 +43,26 @@ class _PoojaSummaryState extends State<PoojaSummary> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildherosection(),
-            buildContentSection(),
+            buildContentSection(context,),
             const SizedBox(height: 30),
            // buildTabs(),
             const SizedBox(height: 30),
-            buildSectionTitle("POOJA SUMMARY"),
-            buildTwoColumnRow("Pooja Name", poojaNameController, "Satyanarayan Pooja", "Occasion", occasionController, "House Warming"),
-            buildTwoColumnRow("Deity", deityController, "Lord Vishnu", "Purpose", purposeController, "Prosperity And Family Well-Being"),
-            buildTwoColumnRow("Language", languageController, "Telugu", "Ritual Type", ritualTypeController, "Simple"),
+            buildSectionTitle(context,"POOJA SUMMARY"),
+            buildTwoColumnRow(context,"Pooja Name", poojaNameController, "Satyanarayan Pooja", "Occasion", occasionController, "House Warming"),
+            buildTwoColumnRow(context,"Deity", deityController, "Lord Vishnu", "Purpose", purposeController, "Prosperity And Family Well-Being"),
+            buildTwoColumnRow(context,"Language", languageController, "Telugu", "Ritual Type", ritualTypeController, "Simple"),
             const SizedBox(height: 20),
-            buildSectionTitle("Sankalp Details"),
-            buildTwoColumnRow("Gotra", gotraController, "Bharadwaja", "Family Members (Optional)", membersController, "5 Members"),
+            buildSectionTitle(context,"Sankalp Details"),
+            buildTwoColumnRow(context,"Gotra", gotraController, "Bharadwaja", "Family Members (Optional)", membersController, "5 Members"),
             const SizedBox(height: 20),
-            buildSectionTitle("Pick Date & Time"),
-            buildTwoColumnRow("Date", dateController, "24-05-25", "Time", timeController, "6:00 Am To 10:00 Am"),
+            buildSectionTitle(context,"Pick Date & Time"),
+            buildTwoColumnRow(context,"Date", dateController, "24-05-25", "Time", timeController, "6:00 Am To 10:00 Am"),
             const SizedBox(height: 20),
-            buildAddOfferingsSection(),
+            buildAddOfferingsSection(context,),
             const SizedBox(height: 20),
-            buildContactInfoSection(),
+            buildContactInfoSection(context,),
             const SizedBox(height: 20),
-            buildSectionTitle("Additional Information"),
+            buildSectionTitle(context,"Additional Information"),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 100.0,vertical: 12),
               child: TextFormField(
@@ -70,13 +71,14 @@ class _PoojaSummaryState extends State<PoojaSummary> {
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: "Enter",
+                  fillColor: Color(0xFFF1F1F1),
                 ),
               ),
             ),
             const SizedBox(height: 20),
-            buildSectionTitle("Payment Summary"),
-            buildTwoColumnRow("Pooja Charges", poojaCostController, "₹1500", "Offerings Add-On", addonCostController, "300"),
-            buildTwoColumnRow("Streaming Option", streamCostController, "Free", "Total Cost", totalCostController, "1800"),
+            buildSectionTitle(context,"Payment Summary"),
+            buildTwoColumnRow(context,"Pooja Charges", poojaCostController, "₹1500", "Offerings Add-On", addonCostController, "300"),
+            buildTwoColumnRow(context,"Streaming Option", streamCostController, "Free", "Total Cost", totalCostController, "1800"),
             const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 100.0),
@@ -105,7 +107,7 @@ class _PoojaSummaryState extends State<PoojaSummary> {
     );
   }
 
-       Widget buildherosection() {
+ Widget buildherosection() {
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -129,14 +131,19 @@ class _PoojaSummaryState extends State<PoojaSummary> {
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children:  [
               
               Text(
                 "Book Customized E-Poojas Online – Your\nRitual, Your Way",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 45,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context,
+                    desktop: 45,
+                    tablet: 30,
+                    mobile: 20
+                  ),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -159,170 +166,224 @@ class _PoojaSummaryState extends State<PoojaSummary> {
     );
   }
 
+Widget buildContentSection(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final horizontalPadding = isMobile ? 16.0 : 100.0;
+  final headingSize = isMobile ? 22.0 : 45.0;
 
-  Widget buildContentSection() {
-    return 
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "EXPERIENCE DIVINE RITUALS YOUR\nWAY — PERSONALIZED E-POOJAS",
-            style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
-          ),
-          Text(
-            "WITH FLEXIBLE OPTIONS AND EASY\nONLINE BOOKING",
-            style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 50,),
-          buildTabs()
-        ],
-      ),
-    );
-    
-  }
-
-  Widget buildTabs() {
-    
-    return  Wrap(
-      spacing: 15,
-      runSpacing: 12,
-      children: [
-        buildButton("Book E-Pooja", isActive: true),
-        buildButton("Browse Poojas", isActive: false),
-        buildButton("Upcoming Poojas", isActive: false),
-        buildButton("My Bookings", isActive: false),
-      ],
-    );
-  }
-    Widget buildButton(String label, {bool isActive = false}) {
-    return Container(
-      width: 220,
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-      decoration: BoxDecoration(
-        color: isActive ? Colors.white : Colors.grey.shade300,
-        borderRadius: BorderRadius.circular(6),
-        border: isActive
-            ? Border.all(color: Colors.grey.shade300)
-            : Border.all(color: Colors.transparent),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          fontWeight: FontWeight.w500,
-          color: isActive ? Colors.black : Colors.black87,
-        ),
-      ),
-    );
-  }
-
-  Widget buildSectionTitle(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 100),
-      child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-    );
-  }
-
-  Widget buildTwoColumnRow(String label1, TextEditingController controller1, String hint1,
-      String label2, TextEditingController controller2, String hint2) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100.0,vertical: 12),
-      child: Row(
-        children: [
-          Expanded(child: buildField(label1, controller1, hintText: hint1)),
-          const SizedBox(width: 20),
-          Expanded(child: buildField(label2, controller2, hintText: hint2)),
-        ],
-      ),
-    );
-  }
-
-  Widget buildSingleField(String label, TextEditingController controller, String hintText) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100,vertical: 12),
-      child: buildField(label, controller, hintText: hintText),
-    );
-  }
-
-  Widget buildField(String label, TextEditingController controller, {String? hintText}) {
-    return Column(
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+    child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-        const SizedBox(height: 4),
-        TextFormField(
-          controller: controller,
-          decoration: InputDecoration(
-            hintText: hintText,
-            filled: true,
-            fillColor: Colors.grey.shade200,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
-              borderSide: BorderSide.none,
-            ),
-          ),
-        )
+        Text(
+          "EXPERIENCE DIVINE RITUALS YOUR\nWAY — PERSONALIZED E-POOJAS",
+          style: TextStyle(fontSize: headingSize, fontWeight: FontWeight.bold),
+        ),
+        Text(
+          "WITH FLEXIBLE OPTIONS AND EASY\nONLINE BOOKING",
+          style: TextStyle(fontSize: headingSize, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: isMobile ? 30 : 50),
+        buildTabs(context),
       ],
-    );
-  }
+    ),
+  );
+}
 
-  Widget buildAddOfferingsSection() {
-    return 
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100.0,vertical: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          buildSectionTitle("Add Offerings (Optional)"),
-          Row(
-            children: [
-              Expanded(child: buildField("Items", offeringsController, hintText: "Fruits")),
-              const SizedBox(width: 20),
-              Expanded(child: buildField("Live Streaming Options", liveStreamController, hintText: "Yes")),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              const Spacer(),
-              Expanded(
-                flex: 1,
-                child: buildField("Choose Platform", platformController, hintText: "Zoom"),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+Widget buildTabs(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  return Wrap(
+    spacing: isMobile ? 10 : 15,
+    runSpacing: 12,
+    children: [
+      buildButton("Book E-Pooja", isActive: true),
+      buildButton("Browse Poojas"),
+      buildButton("Upcoming Poojas"),
+      buildButton("My Bookings"),
+    ],
+  );
+}
 
-  Widget buildContactInfoSection() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 100.0,vertical: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          buildSectionTitle("Contact Info"),
-          Row(
-            children: [
-              Expanded(child: buildField("Booking Person Name", nameController, hintText: "Ramesh Kuma")),
-              const SizedBox(width: 20),
-              Expanded(child: buildField("Mobile Number", phoneController, hintText: "+91-XXXXXX")),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: buildField("Email", emailController, hintText: "Ramesh@gmail.com"),
-              ),
-              const Spacer(),
-            ],
-          ),
-        ],
+Widget buildButton(String label, {bool isActive = false}) {
+  return Container(
+    width: 220,
+    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+    decoration: BoxDecoration(
+      color: isActive ? Colors.white : Colors.grey.shade300,
+      borderRadius: BorderRadius.circular(6),
+      border: Border.all(
+        color: isActive ? Colors.grey.shade300 : Colors.transparent,
       ),
-    );
-  }
+    ),
+    child: Text(
+      label,
+      style: TextStyle(
+        fontWeight: FontWeight.w500,
+        color: isActive ? Colors.black : Colors.black87,
+      ),
+    ),
+  );
+}
+
+Widget buildSectionTitle(BuildContext context, String title) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 100, vertical: 12),
+    child: Text(
+      title,
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: isMobile ? 18 : 20),
+    ),
+  );
+}
+
+Widget buildTwoColumnRow(
+  BuildContext context,
+  String label1,
+  TextEditingController controller1,
+  String hint1,
+  String label2,
+  TextEditingController controller2,
+  String hint2,
+) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 100, vertical: 12),
+    child: isMobile
+        ? Column(
+            children: [
+              buildField(context, label1, controller1, hintText: hint1),
+              const SizedBox(height: 12),
+              buildField(context, label2, controller2, hintText: hint2),
+            ],
+          )
+        : Row(
+            children: [
+              Expanded(child: buildField(context, label1, controller1, hintText: hint1)),
+              const SizedBox(width: 20),
+              Expanded(child: buildField(context, label2, controller2, hintText: hint2)),
+            ],
+          ),
+  );
+}
+
+Widget buildSingleField(
+  BuildContext context,
+  String label,
+  TextEditingController controller,
+  String hintText,
+) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 100, vertical: 12),
+    child: buildField(context, label, controller, hintText: hintText),
+  );
+}
+
+Widget buildField(
+  BuildContext context,
+  String label,
+  TextEditingController controller, {
+  String? hintText,
+}) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        label,
+        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+      ),
+      const SizedBox(height: 4),
+      TextFormField(
+        controller: controller,
+        decoration: InputDecoration(
+          hintText: hintText,
+          filled: true,
+          fillColor: Colors.grey.shade200,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4),
+            borderSide: BorderSide.none,
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+Widget buildAddOfferingsSection(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 100, vertical: 12),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        buildSectionTitle(context, "Add Offerings (Optional)"),
+        isMobile
+            ? Column(
+                children: [
+                  buildField(context, "Items", offeringsController, hintText: "Fruits"),
+                  const SizedBox(height: 12),
+                  buildField(context, "Live Streaming Options", liveStreamController, hintText: "Yes"),
+                ],
+              )
+            : Row(
+                children: [
+                  Expanded(child: buildField(context, "Items", offeringsController, hintText: "Fruits")),
+                  const SizedBox(width: 20),
+                  Expanded(child: buildField(context, "Live Streaming Options", liveStreamController, hintText: "Yes")),
+                ],
+              ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            const Spacer(),
+            Expanded(
+              flex: 1,
+              child: buildField(context, "Choose Platform", platformController, hintText: "Zoom"),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+Widget buildContactInfoSection(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 100, vertical: 12),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        buildSectionTitle(context, "Contact Info"),
+        isMobile
+            ? Column(
+                children: [
+                  buildField(context, "Booking Person Name", nameController, hintText: "Ramesh Kuma"),
+                  const SizedBox(height: 12),
+                  buildField(context, "Mobile Number", phoneController, hintText: "+91-XXXXXX"),
+                ],
+              )
+            : Row(
+                children: [
+                  Expanded(child: buildField(context, "Booking Person Name", nameController, hintText: "Ramesh Kuma")),
+                  const SizedBox(width: 20),
+                  Expanded(child: buildField(context, "Mobile Number", phoneController, hintText: "+91-XXXXXX")),
+                ],
+              ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: buildField(context, "Email", emailController, hintText: "Ramesh@gmail.com")),
+         const Spacer(),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
 }

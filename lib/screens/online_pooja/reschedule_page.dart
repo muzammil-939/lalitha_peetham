@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class ReschedulePage extends StatefulWidget {
   const ReschedulePage({super.key});
@@ -18,7 +19,7 @@ class _ReschedulePageState extends State<ReschedulePage> {
           children: [
              buildherosection(),
             
-            buildVastuBookingEnquiryFormPage(),
+            buildVastuBookingEnquiryFormPage(context),
              SizedBox(height: 80),
 
           ],
@@ -51,14 +52,19 @@ class _ReschedulePageState extends State<ReschedulePage> {
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children:  [
               
               Text(
                 "Fill out the correct information to\nprocess your reschedule request",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 45,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context,
+                    desktop: 45,
+                    tablet: 30,
+                    mobile: 20
+                  ),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -81,7 +87,15 @@ class _ReschedulePageState extends State<ReschedulePage> {
     );
   }
 
-Widget buildVastuBookingEnquiryFormPage() {
+Widget buildVastuBookingEnquiryFormPage(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final isTablet = ResponsiveHelper.isTablet(context);
+  final isDesktop = ResponsiveHelper.isDesktop(context);
+
+  double containerWidth = isMobile ? double.infinity : (isTablet ? 500 : 700);
+  double headingFontSize = isMobile ? 22 : (isTablet ? 28 : 35);
+  double topPadding = isMobile ? 20 : 60;
+
   return Stack(
     children: [
       // 🌄 Full Background Image
@@ -92,111 +106,129 @@ Widget buildVastuBookingEnquiryFormPage() {
         ),
       ),
 
-      // 🌑 Planet Image (top-right)
-      Positioned(
-        top: 100,
-        right: 40,
-        child: Image.asset(
-          'assets/images/vastupooja11.png',
-          height: 80,
-          width: 80,
+      // 🌑 Planet Image
+      if (!isMobile)
+        Positioned(
+          top: 100,
+          right: 40,
+          child: Image.asset(
+            'assets/images/vastupooja11.png',
+            height: 80,
+            width: 80,
+          ),
         ),
-      ),
 
       // 🌟 Foreground Content
       Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(height: 60,),
-            const Text(
-              "Pooja Reschedule Request Form",
-              style: TextStyle(
-                fontSize: 35,
-                fontWeight: FontWeight.bold,
+        child: Padding(
+          padding:EdgeInsets.symmetric(
+              horizontal: isMobile ? 16 : 40, vertical: topPadding),
+          child: Column(
+            children: [
+              Text(
+                "Pooja Reschedule Request Form",
+                style: TextStyle(
+                  fontSize: headingFontSize,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 80),
-
-            Container(
-              width: 700,
-              padding: const EdgeInsets.all(30),
-              decoration: BoxDecoration(
-                color: const Color(0xFFFFDD66),
-                borderRadius: BorderRadius.circular(0),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildTwoColumnRow("Full Name", "Contact Number"),
-                  buildTwoColumnRow("Email Address", "Puja Type", isRightDropdown: true),
-                  buildTwoColumnRow("Date", "Time"),
-                  buildTwoColumnRow("Location", "Language"),
-
-                  const SizedBox(height: 20),
-                  const Text("Additional Notes"),
-                  const SizedBox(height: 8),
-                  TextField(
-                    maxLines: 4,
-                    decoration: InputDecoration(
-                      fillColor: Colors.grey.shade300,
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(0),
-                        borderSide: BorderSide.none,
+              const SizedBox(height: 40),
+          
+              Container(
+                width: containerWidth,
+                padding: const EdgeInsets.all(30),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFDD66),
+                  borderRadius: BorderRadius.circular(0),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    buildTwoColumnRow(context, "Full Name", "Contact Number"),
+                    buildTwoColumnRow(context, "Email Address", "Puja Type", isRightDropdown: true),
+                    buildTwoColumnRow(context, "Date", "Time"),
+                    buildTwoColumnRow(context, "Location", "Language"),
+          
+                    const SizedBox(height: 20),
+                    const Text("Additional Notes"),
+                    const SizedBox(height: 8),
+                    TextField(
+                      maxLines: 4,
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey.shade300,
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(0),
+                          borderSide: BorderSide.none,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 30),
-
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: SizedBox(
-                      width: 140,
-                      height: 45,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          context.go('/onlinepooja_SupportSection');
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                    const SizedBox(height: 30),
+          
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: SizedBox(
+                        width: 140,
+                        height: 45,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            context.go('/onlinepooja_SupportSection');
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          child: const Text(
+                            "Submit",
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
-                        child: const Text(
-                          "Submit",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     ],
   );
 }
 
-Widget buildTwoColumnRow(String label1, String label2, {bool isRightDropdown = false}) {
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 16.0),
-    child: Row(
+Widget buildTwoColumnRow(BuildContext context, String label1, String label2, {bool isRightDropdown = false}) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+
+  if (isMobile) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(child: buildInput(label1)),
-        const SizedBox(width: 20),
-        Expanded(
-          child: isRightDropdown ? buildDropdown(label2) : buildInput(label2),
-        ),
+        buildInput(label1),
+        const SizedBox(height: 16),
+        isRightDropdown ? buildDropdown(label2) : buildInput(label2),
+        const SizedBox(height: 16),
       ],
-    ),
-  );
+    );
+  } else {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Row(
+        children: [
+          Expanded(child: buildInput(label1)),
+          const SizedBox(width: 20),
+          Expanded(
+            child: isRightDropdown ? buildDropdown(label2) : buildInput(label2),
+          ),
+        ],
+      ),
+    );
+  }
 }
+
 
 
 Widget buildInput(String label) {

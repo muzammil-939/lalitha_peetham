@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class NityapoojaBookingsPage extends StatefulWidget {
   const NityapoojaBookingsPage({super.key});
@@ -34,12 +35,21 @@ class _NityapoojaBookingsPageState extends State<NityapoojaBookingsPage> {
         child: Column(
           children: [
             buildHeroSection(),
-            buildTitleSection(),
-            const SizedBox(height: 80),
-            buildTabNavigation(),
-            const SizedBox(height: 30),
-            buildTabContent(),
-            const SizedBox(height: 50),
+            const ResponsiveTitleSection(),
+          ResponsiveTabNavigation(
+            selectedTabIndex: selectedTabIndex,
+            onTabSelected: (index) {
+              setState(() => selectedTabIndex = index);
+            },
+            tabTitles: tabTitles,
+          ),
+          ResponsiveTabContent(
+            selectedTabIndex: selectedTabIndex,
+            buildMyBookingTabs: () => buildMybookingtabs(context),
+
+            buildPaymentTabs:()=> buildpaymenttabs(context),
+            buildSupportTabs:()=> buildSupportTabs(context),
+          ),
           ],
         ),
       ),
@@ -70,13 +80,18 @@ class _NityapoojaBookingsPageState extends State<NityapoojaBookingsPage> {
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children: [
               Text(
                 "Your Scheduled and Completed\nPoojas",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 45,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context,
+                    desktop: 45,
+                    tablet: 30,
+                    mobile: 20
+                  ), 
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -99,229 +114,120 @@ class _NityapoojaBookingsPageState extends State<NityapoojaBookingsPage> {
     );
   }
 
-  Widget buildTitleSection() {
-    return Stack(
-      children: [
-        Positioned(
-          child: SizedBox(
-            height: 350,
-            width: 1500,
-            child: Image.asset(
-              'assets/images/vastupooja4.png',
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        Positioned(
-          top: 120,
-          right: 30,
-          child: Image.asset(
-            'assets/images/vastupooja11.png',
-            height: 100,
-            width: 100,
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 150.0, vertical: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              SizedBox(height: 30),
-              Text(
-                "Access the Full List of Your Scheduled and\nActive Poojas",
-                style: TextStyle(
-                  fontSize: 45,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
 
-  Widget buildTabNavigation() {
-    return Wrap(
-      spacing: 15,
-      children: List.generate(tabTitles.length, (index) {
-        return GestureDetector(
-          onTap: () {
-            setState(() {
-              selectedTabIndex = index;
-            });
-          },
-          child: Container(
-            width: 280,
-            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-            decoration: BoxDecoration(
-              color: selectedTabIndex == index ? Colors.white : Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(2),
-              border: Border.all(
-                color: selectedTabIndex == index ? Colors.grey.shade400 : Colors.transparent,
-              ),
-            ),
-            child: Text(
-              tabTitles[index],
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                color: selectedTabIndex == index ? Colors.black : Colors.black87,
-              ),
-            ),
-          ),
-        );
-      }),
-    );
-  }
+Widget responsiveContainer({
+  required BuildContext context,
+  required Widget child,
+  Color color = const Color(0xFFEAC63E),
+  double horizontalPadding = 20,
+  double verticalPadding = 20,
+}) {
+  final screenWidth = MediaQuery.of(context).size.width;
 
-  Widget buildTabContent() {
-    switch (selectedTabIndex) {
-      case 0:
-        return buildMybookingtabs();
-      case 1:
-        return buildpaymenttabs();
-      case 2:
-        return buildSupportTabs();
-      default:
-        return const SizedBox.shrink();
-    }
-  }
+  double horizontalMargin = screenWidth < 600
+      ? 10
+      : screenWidth < 900
+          ? 40
+          : 100;
 
-Widget buildMybookingtabs() {
   return Container(
-   margin: const EdgeInsets.symmetric(horizontal: 150,vertical: 20),
-    padding: const EdgeInsets.all(20),
+    margin: EdgeInsets.symmetric(horizontal: horizontalMargin, vertical: 20),
+    padding: EdgeInsets.symmetric(
+      horizontal: horizontalPadding,
+      vertical: verticalPadding,
+    ),
     decoration: BoxDecoration(
-      color: const Color(0xFFEAC63E),
+      color: color,
       borderRadius: BorderRadius.circular(0),
     ),
-     child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      const SizedBox(height: 10),
-      // Booking Tab Selector
-      Row(
-        children: [
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                myBookingsTabIndex = 0;
-              });
-            },
-            child: Text(
-              "Active",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                decoration: myBookingsTabIndex == 0 ? TextDecoration.underline : null,
-              ),
-            ),
-          ),
-          const SizedBox(width: 30),
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                myBookingsTabIndex = 1;
-              });
-            },
-            child: Text(
-              "Expired",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                decoration: myBookingsTabIndex == 1 ? TextDecoration.underline : null,
-              ),
-            ),
-          ),
-        ],
-      ),
-      SizedBox(height: 30,),
-       buildBookingCard(isExpired: myBookingsTabIndex == 1),
-  
-     ]
-        
-    )   
+    child: child,
   );
 }
 
+Widget _buildTabToggle({
+  required BuildContext context,
+  required List<String> tabs,
+  required int selectedIndex,
+  required void Function(int index) onTap,
+}) {
+  return Wrap(
+    spacing: 20,
+    runSpacing: 10,
+    children: List.generate(tabs.length, (index) {
+      return GestureDetector(
+        onTap: () => onTap(index),
+        child: Text(
+          tabs[index],
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            decoration:
+                selectedIndex == index ? TextDecoration.underline : null,
+          ),
+        ),
+      );
+    }),
+  );
+}
 
+Widget buildMybookingtabs(BuildContext context) {
+  final screenWidth = MediaQuery.of(context).size.width;
+  final isMobile = screenWidth < 600;
 
-
-Widget buildBookingCard({required bool isExpired}) {
-  return Container(
-    padding: const EdgeInsets.all(18),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(0),
-    ),
+  return responsiveContainer(
+    context: context,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            // Image
-            ClipRRect(
-              borderRadius: BorderRadius.circular(0),
-              child: Image.asset(
-                'assets/images/durga.jpg',
-                height: 150,
-                width: 150,
-                fit: BoxFit.cover,
-              ),
-            ),
-            const SizedBox(width: 16),
-            // Booking Info
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text("Temple: Tirumala Balaji Temple", style: TextStyle(fontSize: 13)),
-                  Text("Performed By: Pandit Ravi Kumar", style: TextStyle(fontSize: 13)),
-                  Text("Duration: 30 Days", style: TextStyle(fontSize: 13)),
-                  Text("Start Date: 15-May-2025", style: TextStyle(fontSize: 13)),
-                  Text("End Date: 13-Jun-2025", style: TextStyle(fontSize: 13)),
-                  Text("Time: Daily at 6:00 AM", style: TextStyle(fontSize: 13)),
-                  Text("Purpose: Family Peace & Health", style: TextStyle(fontSize: 13)),
-                ],
-              ),
-            ),
-            // Amount tag
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                
-                color: const Color(0xFFECCE5C),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: const Text(
-                "full Amount: ₹ 8,999",
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500,color: Colors.black),
-              ),
-            )
-          ],
+        const SizedBox(height: 10),
+        _buildTabToggle(
+          context: context,
+          tabs: ["Active", "Expired"],
+          selectedIndex: myBookingsTabIndex,
+          onTap: (index) => setState(() => myBookingsTabIndex = index),
         ),
+        const SizedBox(height: 30),
+        buildBookingCard(context, isExpired: myBookingsTabIndex == 1, isMobile: isMobile),
+      ],
+    ),
+  );
+}
+
+Widget buildBookingCard(BuildContext context, {required bool isExpired,required bool isMobile}) {
+  final screenWidth = MediaQuery.of(context).size.width;
+  final isMobile = screenWidth < 600;
+
+  return Container(
+    padding: const EdgeInsets.all(18),
+    decoration: BoxDecoration(color: Colors.white),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        isMobile
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: _buildBookingInfo(context, isExpired, isMobile),
+              )
+            : Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: _buildBookingInfo(context, isExpired, isMobile),
+              ),
         const SizedBox(height: 20),
         if (!isExpired) ...[
-          Row(
+          const Row(
             children: [
-              const Text("Total Amount: ₹ 8,999"),
-              TextButton(
-                onPressed: () {},
-                child: const Text("Download Invoice (PDF)", style: TextStyle(decoration: TextDecoration.underline)),
-              ),
+              Text("Total Amount: ₹ 8,999"),
+              Spacer(),
+              Text("Download Invoice (PDF)", style: TextStyle(decoration: TextDecoration.underline)),
             ],
           ),
-          Row(
+          const Row(
             children: [
-              const Text("Invoice ID: INV-2025-0610-001"),
-              TextButton(
-                onPressed: () {},
-                child: const Text("Contact Billing Support", style: TextStyle(decoration: TextDecoration.underline)),
-              ),
+              Text("Invoice ID: INV-2025-0610-001"),
+              Spacer(),
+              Text("Contact Billing Support", style: TextStyle(decoration: TextDecoration.underline)),
             ],
           ),
-          
-          
           const SizedBox(height: 10),
           Align(
             alignment: Alignment.centerRight,
@@ -335,151 +241,168 @@ Widget buildBookingCard({required bool isExpired}) {
             ),
           )
         ] else ...[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          const SizedBox(height: 10),
+          Wrap(
+            spacing: 12,
+            runSpacing: 12,
             children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: const Color(0xFFECCE5C),
-                  elevation: 0,
-                ),
-                onPressed: () {
-                  context.go('/nityapooja_renewaldetails_page');
-                },
-                child: const Text("renew"),
+              ResponsiveButton(
+                onPressed: () => context.go('/nityapooja_renewaldetails_page'),
+                text: "Renew",
+                textColor: Colors.black,
+                backgroundColor: const Color(0xFFECCE5C),
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.black,
-                  backgroundColor: const Color(0xFFECCE5C),
-                  elevation: 0,
-                ),
+              ResponsiveButton(
                 onPressed: () {},
-                child: const Text("change package"),
+                text: "Change Package",
+                textColor: Colors.black,
+                backgroundColor: const Color(0xFFECCE5C),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
                 decoration: BoxDecoration(
-                  color: Color(0xFFEA5045),
+                  color: const Color(0xFFEA5045),
                   borderRadius: BorderRadius.circular(4),
                 ),
-                child: const Text("expired", style: TextStyle(color: Colors.white)),
-              )
+                child: const Text("Expired", style: TextStyle(color: Colors.white)),
+              ),
             ],
           )
-        ]
+        ],
       ],
     ),
   );
 }
 
 
-Widget buildpaymenttabs() {
-  return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 100),
-    padding: const EdgeInsets.all(20),
-    decoration: BoxDecoration(
-      color: const Color(0xFFEAC63E),
-      borderRadius: BorderRadius.circular(0),
-    ),
+List<Widget> _buildBookingInfo(BuildContext context, bool isExpired, bool isMobile) {
+  final infoColumn = Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: const [
+      Text("Temple: Tirumala Balaji Temple", style: TextStyle(fontSize: 13)),
+      Text("Performed By: Pandit Ravi Kumar", style: TextStyle(fontSize: 13)),
+      Text("Duration: 30 Days", style: TextStyle(fontSize: 13)),
+      Text("Start Date: 15-May-2025", style: TextStyle(fontSize: 13)),
+      Text("End Date: 13-Jun-2025", style: TextStyle(fontSize: 13)),
+      Text("Time: Daily at 6:00 AM", style: TextStyle(fontSize: 13)),
+      Text("Purpose: Family Peace & Health", style: TextStyle(fontSize: 13)),
+    ],
+  );
+
+  return isMobile
+      ? [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: Image.asset(
+              'assets/images/durga.jpg',
+              height: 150,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 16),
+          infoColumn,
+          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(
+              color: const Color(0xFFECCE5C),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: const Text(
+              "Full Amount: ₹ 8,999",
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
+            ),
+          ),
+        ]
+      : [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: Image.asset(
+              'assets/images/durga.jpg',
+              height: 150,
+              width: 150,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(child: infoColumn),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(
+              color: const Color(0xFFECCE5C),
+              borderRadius: BorderRadius.circular(6),
+            ),
+            child: const Text(
+              "Full Amount: ₹ 8,999",
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
+            ),
+          ),
+        ];
+}
+
+Widget buildpaymenttabs(BuildContext context) {
+  final screenWidth = MediaQuery.of(context).size.width;
+  final isMobile = screenWidth < 600;
+
+  return responsiveContainer(
+    context: context,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            GestureDetector(
-              onTap: () => setState(() => isDetailedPaymentSelected = true),
-              child: Text(
-                "payments",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  decoration: isDetailedPaymentSelected ? TextDecoration.underline : TextDecoration.none,
-                ),
-              ),
-            ),
-            const SizedBox(width: 10),
-            GestureDetector(
-              onTap: () => setState(() => isDetailedPaymentSelected = false),
-              child: Text(
-                "payments status",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  decoration: !isDetailedPaymentSelected ? TextDecoration.underline : TextDecoration.none,
-                ),
-              ),
-            ),
-          ],
+        _buildTabToggle(
+          context: context,
+          tabs: ["Payments", "Payment Status"],
+          selectedIndex: isDetailedPaymentSelected ? 0 : 1,
+          onTap: (index) =>
+              setState(() => isDetailedPaymentSelected = index == 0),
         ),
         const SizedBox(height: 20),
-        isDetailedPaymentSelected ? buildPaymentCardDetails() : buildPaymentSuccessStatus(),
+        isDetailedPaymentSelected
+            ? buildPaymentCardDetails(context, isMobile: isMobile)
+            : buildPaymentSuccessStatus(context),
       ],
     ),
   );
 }
-Widget buildPaymentCardDetails() {
+Widget buildPaymentCardDetails(BuildContext context, {required bool isMobile}) {
   return Container(
+    width: double.infinity,
     padding: const EdgeInsets.all(20),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(0),
-    ),
+    decoration: const BoxDecoration(color: Colors.white),
     child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Image.asset(
-            'assets/images/durga.jpg',
-              height: 100,
-              width: 100,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(width: 20),
-            Expanded(
-              child: Column(
+        isMobile
+            ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text("Temple: Tirumala Balaji Temple"),
-                  Text("Performed By: Pandit Ravi Kumar"),
-                  Text("Duration: 30 Days"),
-                  Text("Start Date: 15-May-2025"),
-                  Text("End Date: 13-Jun-2025"),
-                  Text("Time: Daily at 6:00 AM"),
-                  Text("Purpose: Family Peace & Health"),
+                children: [
+                  buildPaymentImage(),
+                  const SizedBox(height: 12),
+                  buildPaymentTextInfo(),
+                  const SizedBox(height: 12),
+                  buildAmountBadge(),
+                ],
+              )
+            : Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildPaymentImage(),
+                  const SizedBox(width: 20),
+                  Expanded(child: buildPaymentTextInfo()),
+                  const SizedBox(width: 20),
+                  buildAmountBadge(),
                 ],
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              decoration: BoxDecoration(
-                color: Color(0xFFE4B5B5),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: const Text(
-                "full  Amount: ₹ 8,999",
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-          ],
-        ),
         const SizedBox(height: 20),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("Total Amount: ₹9,999"),
-            Text("Download Invoice (PDF)", style: TextStyle(decoration: TextDecoration.underline)),
-          ],
-        ),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("Invoice ID:  INV-2025-0610-001"),
-            Text("Contact Billing Support", style: TextStyle(decoration: TextDecoration.underline)),
-          ],
-        ),
-        const SizedBox(height: 10),
+
+        // ✅ Invoice Info
+        isMobile ? buildInvoiceColumn() : buildInvoiceRow(),
+
+        const SizedBox(height: 20),
         const Align(alignment: Alignment.centerLeft, child: Text("Payment Status: Paid")),
         const SizedBox(height: 10),
+
         Align(
           alignment: Alignment.centerRight,
           child: Container(
@@ -495,39 +418,129 @@ Widget buildPaymentCardDetails() {
     ),
   );
 }
-Widget buildPaymentSuccessStatus() {
+Widget buildPaymentImage() {
+  return Image.asset(
+    'assets/images/durga.jpg',
+    height: 150,
+    width: 150,
+    fit: BoxFit.cover,
+  );
+}
+
+Widget buildPaymentTextInfo() {
+  return const Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text("Temple: Tirumala Balaji Temple"),
+      Text("Performed By: Pandit Ravi Kumar"),
+      Text("Duration: 30 Days"),
+      Text("Start Date: 15-May-2025"),
+      Text("End Date: 13-Jun-2025"),
+      Text("Time: Daily at 6:00 AM"),
+      Text("Purpose: Family Peace & Health"),
+    ],
+  );
+}
+
+Widget buildAmountBadge() {
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+    decoration: BoxDecoration(
+      color: Color(0xFFE4B5B5),
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: const Text("Full Amount: ₹ 8,999", style: TextStyle(color: Colors.black)),
+  );
+}
+
+Widget buildInvoiceColumn() {
+  return const Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text("Total Amount: ₹9,999"),
+      SizedBox(height: 8),
+      Text("Download Invoice (PDF)", style: TextStyle(decoration: TextDecoration.underline)),
+      SizedBox(height: 8),
+      Text("Invoice ID: INV-2025-0610-001"),
+      SizedBox(height: 8),
+      Text("Contact Billing Support", style: TextStyle(decoration: TextDecoration.underline)),
+    ],
+  );
+}
+
+Widget buildInvoiceRow() {
+  return const Column(
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text("Total Amount: ₹9,999"),
+          Text("Download Invoice (PDF)", style: TextStyle(decoration: TextDecoration.underline)),
+        ],
+      ),
+      SizedBox(height: 8),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text("Invoice ID: INV-2025-0610-001"),
+          Text("Contact Billing Support", style: TextStyle(decoration: TextDecoration.underline)),
+        ],
+      ),
+    ],
+  );
+}
+
+Widget buildPaymentSuccessStatus(BuildContext context) {
+  final screenWidth = MediaQuery.of(context).size.width;
+  final isMobile = screenWidth < 600;
+
   return Container(
     padding: const EdgeInsets.all(20),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(0),
-    ),
+    decoration: const BoxDecoration(color: Colors.white),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Image.asset(
-              'assets/images/durga.jpg',
-              height: 100,
-              width: 100,
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(width: 20),
-            Expanded(
-              child: Column(
+        isMobile
+            ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text("Pooja Type: Lakshmi Nithya Pooja"),
-                  Text("Duration: 30 Days"),
-                  Text("Start Date: 20 June 2025"),
-                  Text("Temple/Deity: Sree Lalitha Peetham, Hyderabad"),
-                  Text("End date: 10 July 2025"),
+                children: [
+                  Image.asset(
+                    'assets/images/durga.jpg',
+                    height: 150,
+                    width: 150,
+                    fit: BoxFit.cover,
+                  ),
+                  const SizedBox(height: 12),
+                  const Text("Pooja Type: Lakshmi Nithya Pooja"),
+                  const Text("Duration: 30 Days"),
+                  const Text("Start Date: 20 June 2025"),
+                  const Text("Temple/Deity: Sree Lalitha Peetham, Hyderabad"),
+                  const Text("End date: 10 July 2025"),
+                ],
+              )
+            : Row(
+                children: [
+                  Image.asset(
+                    'assets/images/durga.jpg',
+                    height: 150,
+                    width: 150,
+                    fit: BoxFit.cover,
+                  ),
+                  const SizedBox(width: 20),
+                  const Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Pooja Type: Lakshmi Nithya Pooja"),
+                        Text("Duration: 30 Days"),
+                        Text("Start Date: 20 June 2025"),
+                        Text("Temple/Deity: Sree Lalitha Peetham, Hyderabad"),
+                        Text("End date: 10 July 2025"),
+                      ],
+                    ),
+                  )
                 ],
               ),
-            ),
-          ],
-        ),
         const SizedBox(height: 20),
         const Text("Payment Status: Paid"),
         const Text("• Payment Mode: UPI (Google Pay)"),
@@ -546,96 +559,36 @@ Widget buildPaymentSuccessStatus() {
           style: TextStyle(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 10),
-        Align(
-          alignment: Alignment.center,
-          child: GestureDetector(
-            onTap: () {
-              
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
-              decoration: BoxDecoration(
-                color: Color(0xFFF7D85F),
-                borderRadius: BorderRadius.circular(40),
-              ),
-              child: const Text("Contact", style: TextStyle(fontSize: 16)),
-            ),
-          ),
-        )
+        const Center(child: ContactButton()),
       ],
     ),
   );
 }
 
-
-  Widget buildSupportTabs() {
-  return Container(
-     margin: const EdgeInsets.symmetric(horizontal: 100),
-     decoration: BoxDecoration(
-        color: const Color(0xFFEAC63E),
-        borderRadius: BorderRadius.circular(0),
-      ),
-      width: double.infinity,
-
-    child: Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Tab Selector
-          Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isChatSelected = true;
-                  });
-                },
-                child: Text(
-                  "Chat support",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    decoration:
-                        isChatSelected ? TextDecoration.underline : TextDecoration.none,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 20),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isChatSelected = false;
-                  });
-                },
-                child: Text(
-                  "Faq's support",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    decoration:
-                        !isChatSelected ? TextDecoration.underline : TextDecoration.none,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          isChatSelected ? buildChatSupportForm() : buildFaqSupportList(),
-        ],
-      ),
+Widget buildSupportTabs(BuildContext context) {
+  return responsiveContainer(
+    context: context,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildTabToggle(
+          context: context,
+          tabs: ["Chat Support", "FAQ's Support"],
+          selectedIndex: isChatSelected ? 0 : 1,
+          onTap: (index) =>
+              setState(() => isChatSelected = index == 0),
+        ),
+        const SizedBox(height: 20),
+        isChatSelected ? buildChatSupportForm() : buildFaqSupportList(),
+      ],
     ),
   );
 }
 
-
- Widget buildChatSupportForm()  {
+Widget buildChatSupportForm() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-     
-
-      // Description
       const Text(
         "Upload A Screenshot And Write Your Problem Below – You’ll Be Redirected To Chat Support",
         style: TextStyle(
@@ -646,9 +599,12 @@ Widget buildPaymentSuccessStatus() {
       const SizedBox(height: 25),
 
       // Full Name & Email
-      Row(
+      Wrap(
+        spacing: 20,
+        runSpacing: 20,
         children: [
-          Expanded(
+          SizedBox(
+            width: 400,
             child: TextField(
               controller: fullNameController,
               decoration: const InputDecoration(
@@ -659,8 +615,8 @@ Widget buildPaymentSuccessStatus() {
               ),
             ),
           ),
-          const SizedBox(width: 20),
-          Expanded(
+          SizedBox(
+            width: 400,
             child: TextField(
               controller: emailController,
               decoration: const InputDecoration(
@@ -673,13 +629,15 @@ Widget buildPaymentSuccessStatus() {
           ),
         ],
       ),
-
       const SizedBox(height: 20),
 
       // Issue Section & Upload
-      Row(
+      Wrap(
+        spacing: 20,
+        runSpacing: 20,
         children: [
-          Expanded(
+          SizedBox(
+            width: 400,
             child: TextField(
               controller: issueController,
               decoration: const InputDecoration(
@@ -690,22 +648,18 @@ Widget buildPaymentSuccessStatus() {
               ),
             ),
           ),
-          const SizedBox(width: 20),
-          Expanded(
-            child: GestureDetector(
-              onTap: () {
-                // TODO: Add image picker
-              },
-              child: Container(
-                height: 50,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFD9D9D9),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: const Center(
-                  child: Icon(Icons.add_circle_outline),
-                ),
+          GestureDetector(
+            onTap: () {
+              // TODO: Implement image upload
+            },
+            child: Container(
+              width: 400,
+              height: 50,
+              decoration: BoxDecoration(
+                color: const Color(0xFFD9D9D9),
+                borderRadius: BorderRadius.circular(4),
               ),
+              child: const Center(child: Icon(Icons.add_circle_outline)),
             ),
           ),
         ],
@@ -713,7 +667,7 @@ Widget buildPaymentSuccessStatus() {
 
       const SizedBox(height: 20),
 
-      // Comment
+      // Comment Box
       TextField(
         controller: commentController,
         maxLines: 3,
@@ -731,30 +685,25 @@ Widget buildPaymentSuccessStatus() {
       Align(
         alignment: Alignment.center,
         child: ElevatedButton(
+          onPressed: () {
+            //context.go('/pooja_service_confirm_page');
+          },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFFFFFFFF),
+            backgroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
           ),
-          onPressed: () {
-            // TODO: Submit logic
-            context.go('/pooja_service_confirm_page');
-          },
           child: const Text(
             "Submit",
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.black,
-            ),
+            style: TextStyle(fontSize: 18, color: Colors.black),
           ),
         ),
       ),
     ],
   );
 }
-
 Widget buildFaqSupportList() {
   final List<String> faqQuestions = [
     "Can I change the location after booking?",
@@ -774,20 +723,15 @@ Widget buildFaqSupportList() {
     children: [
       const Text(
         "FAQ",
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
       const SizedBox(height: 6),
       const Text(
         "Got questions? I’ve got answers!",
-        style: TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w600,
-        ),
+        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
       ),
       const SizedBox(height: 25),
+
       ...faqQuestions.map(
         (question) => Padding(
           padding: const EdgeInsets.only(bottom: 12.0),
@@ -796,10 +740,7 @@ Widget buildFaqSupportList() {
             collapsedBackgroundColor: const Color(0xFFD9D9D9),
             tilePadding: const EdgeInsets.symmetric(horizontal: 12),
             childrenPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            title: Text(
-              question,
-              style: const TextStyle(fontSize: 14),
-            ),
+            title: Text(question, style: const TextStyle(fontSize: 14)),
             children: const [
               Text(
                 'This is a sample answer. Replace with your actual FAQ answer.',
@@ -813,4 +754,195 @@ Widget buildFaqSupportList() {
   );
 }
 
+
+}
+
+class ContactButton extends StatelessWidget {
+  const ContactButton({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        // handle contact support
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
+        decoration: BoxDecoration(
+          color: Color(0xFFF7D85F),
+          borderRadius: BorderRadius.circular(40),
+        ),
+        child: const Text("Contact", style: TextStyle(fontSize: 16)),
+      ),
+    );
+  }
+}
+
+
+
+class ResponsiveUtils {
+  static bool isMobile(double width) => width < 600;
+  static bool isTablet(double width) => width >= 600 && width < 1024;
+  static bool isDesktop(double width) => width >= 1024;
+}
+class ResponsiveTitleSection extends StatelessWidget {
+  const ResponsiveTitleSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+
+        final bool isMobile = ResponsiveUtils.isMobile(width);
+        final bool isTablet = ResponsiveUtils.isTablet(width);
+
+        final imageHeight = isMobile ? 200.0 : isTablet ? 300.0 : 350.0;
+        final fontSize = isMobile ? 20.0 : isTablet ? 32.0 : 45.0;
+        final paddingX = isMobile ? 16.0 : isTablet ? 50.0 : 150.0;
+        final topOffset = isMobile ? 60.0 : isTablet ? 100.0 : 120.0;
+        final iconSize = isMobile ? 60.0 : 100.0;
+
+        return Stack(
+          children: [
+            SizedBox(
+              height: imageHeight,
+              width: double.infinity,
+              child: Image.asset(
+                'assets/images/vastupooja4.png',
+                fit: BoxFit.cover,
+              ),
+            ),
+            Positioned(
+              top: topOffset,
+              right: 30,
+              child: Image.asset(
+                'assets/images/vastupooja11.png',
+                height: iconSize,
+                width: iconSize,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: paddingX, vertical: 25),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 30),
+                  Text(
+                    "Access the Full List of Your Scheduled and\nActive Poojas",
+                    style: TextStyle(
+                      fontSize: fontSize,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+class ResponsiveTabNavigation extends StatelessWidget {
+  final int selectedTabIndex;
+  final Function(int) onTabSelected;
+  final List<String> tabTitles;
+
+  const ResponsiveTabNavigation({
+    super.key,
+    required this.selectedTabIndex,
+    required this.onTabSelected,
+    required this.tabTitles,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final isMobile = ResponsiveUtils.isMobile(constraints.maxWidth);
+
+        return Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: isMobile ? 16 : 50,
+            vertical: 20,
+          ),
+          child: Wrap(
+            spacing: 15,
+            runSpacing: 10,
+            children: List.generate(tabTitles.length, (index) {
+              final bool isSelected = selectedTabIndex == index;
+              return GestureDetector(
+                onTap: () => onTabSelected(index),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: isSelected ? Colors.white : Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(2),
+                    border: Border.all(
+                      color: isSelected ? Colors.grey.shade400 : Colors.transparent,
+                    ),
+                  ),
+                  width: isMobile ? double.infinity : 250,
+                  child: Text(
+                    tabTitles[index],
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: isSelected ? Colors.black : Colors.black87,
+                    ),
+                  ),
+                ),
+              );
+            }),
+          ),
+        );
+      },
+    );
+  }
+}
+class ResponsiveTabContent extends StatelessWidget {
+  final int selectedTabIndex;
+  final Widget Function() buildMyBookingTabs;
+  final Widget Function() buildPaymentTabs;
+  final Widget Function() buildSupportTabs;
+
+  const ResponsiveTabContent({
+    super.key,
+    required this.selectedTabIndex,
+    required this.buildMyBookingTabs,
+    required this.buildPaymentTabs,
+    required this.buildSupportTabs,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final width = constraints.maxWidth;
+        final double paddingX = width < 600 ? 16 : width < 1024 ? 32 : 100;
+
+        late final Widget content;
+
+        switch (selectedTabIndex) {
+          case 0:
+            content = buildMyBookingTabs();
+            break;
+          case 1:
+            content = buildPaymentTabs();
+            break;
+          case 2:
+            content = buildSupportTabs();
+            break;
+          default:
+            content = const SizedBox.shrink();
+        }
+
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: paddingX, vertical: 20),
+          child: content,
+        );
+      },
+    );
+  }
 }

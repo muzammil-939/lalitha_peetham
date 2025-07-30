@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class PaymentSummaryPage extends StatefulWidget {
   const PaymentSummaryPage({super.key});
@@ -51,7 +52,7 @@ class _PaymentSummaryPageState extends State<PaymentSummaryPage> {
         child: Column(
           children: [
             buildherosection(),
-             buildPaymentSummaryPage(),
+             buildPaymentSummaryPage(context),
              SizedBox(height: 80,),
           ],
         ),
@@ -82,14 +83,19 @@ class _PaymentSummaryPageState extends State<PaymentSummaryPage> {
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children:  [
               
               Text(
                 "Complete the payment to confirm your\nbooking",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 45,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context,
+                    desktop: 45,
+                    tablet: 30,
+                    mobile: 20
+                  ),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -111,39 +117,23 @@ class _PaymentSummaryPageState extends State<PaymentSummaryPage> {
       ],
     );
   }
+Widget buildTextField(
+    BuildContext context, String label, String hint, TextEditingController controller) {
+  final screenWidth = MediaQuery.of(context).size.width;
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final fieldWidth = isMobile
+      ? screenWidth
+      : screenWidth > 1200
+          ? screenWidth * 0.25
+          : screenWidth * 0.35;
 
-  Widget buildTextField(String label, String hint, TextEditingController controller) {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 5),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: TextField(
-              controller: controller,
-              decoration: InputDecoration(
-                hintText: hint,
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-                border: InputBorder.none,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget buildSingleField(String label, String hint, TextEditingController controller) {
-    return Column(
+  return Container(
+    width: fieldWidth,
+    margin: const EdgeInsets.only(bottom: 10),
+    child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
+        Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: isMobile ? 14 : 16)),
         const SizedBox(height: 5),
         Container(
           decoration: BoxDecoration(
@@ -152,127 +142,140 @@ class _PaymentSummaryPageState extends State<PaymentSummaryPage> {
           ),
           child: TextField(
             controller: controller,
-            decoration: InputDecoration(
-              hintText: hint,
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+            decoration: const InputDecoration(
+              hintText: "",
+              contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 12),
               border: InputBorder.none,
             ),
           ),
         ),
       ],
-    );
-  }
+    ),
+  );
+}
 
-  Widget buildSectionTitle(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      child: Text(
-        title,
-        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-      ),
-    );
-  }
+Widget buildSectionTitle(BuildContext context, String title) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 20),
+    child: Text(
+      title,
+      style: TextStyle(fontWeight: FontWeight.bold, fontSize: isMobile ? 20 : 28),
+    ),
+  );
+}
 
-  Widget buildPaymentButton(String logoAsset, String text) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade300,
-        borderRadius: BorderRadius.circular(6),
-      ),
-      height: 45,
-      child: Row(
-        children: [
-          Image.asset(logoAsset, height: 25),
-          const SizedBox(width: 15),
-          Text(text, style: const TextStyle(fontSize: 16)),
-        ],
-      ),
-    );
-  }
 
-  Widget buildPaymentSummaryPage() {
-    return  Stack(
+
+Widget buildPaymentButton(BuildContext context, String logoAsset, String text) {
+  final screenWidth = MediaQuery.of(context).size.width;
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final buttonWidth = isMobile ? screenWidth : screenWidth * 0.50;
+
+  return Container(
+    width: buttonWidth,
+    margin: const EdgeInsets.only(bottom: 10),
+    padding: const EdgeInsets.symmetric(horizontal: 10),
+    decoration: BoxDecoration(
+      color: Colors.grey.shade300,
+      borderRadius: BorderRadius.circular(6),
+    ),
+    height: 45,
+    child: Row(
+      children: [
+        Image.asset(logoAsset, height: 24),
+        const SizedBox(width: 15),
+        Text(text, style: TextStyle(fontSize: isMobile ? 14 : 16)),
+      ],
+    ),
+  );
+}
+
+Widget buildPaymentSummaryPage(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final screenWidth = MediaQuery.of(context).size.width;
+  final horizontalPadding = isMobile ? 20.0 : screenWidth * 0.2;
+
+  return Stack(
     children: [
-      // Background Image (Covering full screen)
+      // Background
       Positioned.fill(
         child: Image.asset(
-          'assets/images/vastupooja4.png', // Make sure this path matches your asset folder
+          'assets/images/vastupooja4.png',
           fit: BoxFit.cover,
         ),
       ),
-            // 🌑 2. Optional Planet Image (positioned right)
-      Positioned(
-        top: 120,
-        right: 30,
+      // Right floating image
+       Positioned(
+        top: isMobile ? 60 : 120,
+        right: isMobile ? 16 : 30,
         child: Image.asset(
-          'assets/images/vastupooja11.png', // Adjust path
-          height: 100,
-          width: 100,
+          'assets/images/vastupooja11.png',
+          height: isMobile ? 60 : 100,
+          width: isMobile ? 60 : 100,
         ),
       ),
-    
-    Padding(
-           padding: const EdgeInsets.symmetric(horizontal: 200.0),
-           child: Column(
+      // Main Content
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 30),
+        child: SingleChildScrollView(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              buildSectionTitle(context, "Payment Summary"),
 
-              buildSectionTitle("Payment Summary"),
-              Row(
+              Wrap(
+                spacing: 20,
+                runSpacing: 20,
                 children: [
-                  buildTextField("Pooja Charges", "₹1000", poojaChargesController),
-                  const SizedBox(width: 10),
-                  buildTextField("Offerings Add-On", "300", totalCostController),
+                  buildTextField(context, "Pooja Charges", "₹1000", poojaChargesController),
+                  buildTextField(context, "Offerings Add-On", "300", totalCostController),
                 ],
               ),
               const SizedBox(height: 15),
-               Row(
+              Wrap(
+                spacing: 20,
+                runSpacing: 20,
                 children: [
-                  buildTextField("Streamming Options", "Free", poojaChargesController),
-                  const SizedBox(width: 10),
-                  buildTextField("Total Cost", "₹1000", totalCostController),
+                  buildTextField(context, "Streaming Options", "Free", poojaChargesController),
+                  buildTextField(context, "Total Cost", "₹1000", totalCostController),
                 ],
               ),
 
               const SizedBox(height: 45),
 
-              buildSectionTitle("PAYMENT MEETHOD"),
-              buildPaymentButton('assets/images/vastupooja12.png', 'Payment'),
-              buildPaymentButton('assets/images/vastupooja13.png', 'Payment'),
-              buildPaymentButton('assets/images/vastupooja14.png', 'Payment'),
-              buildPaymentButton('assets/images/vastupooja15.png', 'Payment'),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xffDC9323),
-                      foregroundColor: Colors.black,
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    onPressed: () {
-                      // Handle pay logic
-                      context.go('/request_forpandit_page');
+              buildSectionTitle(context, "PAYMENT METHOD"),
+              buildPaymentButton(context, 'assets/images/vastupooja12.png', 'Payment'),
+              buildPaymentButton(context, 'assets/images/vastupooja13.png', 'Payment'),
+              buildPaymentButton(context, 'assets/images/vastupooja14.png', 'Payment'),
+              buildPaymentButton(context, 'assets/images/vastupooja15.png', 'Payment'),
 
-                    },
-                    child: const Text("Pay", style: TextStyle(fontSize: 16)),
+              const SizedBox(height: 30),
+              Align(
+                alignment: Alignment.center,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xffDC9323),
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
                   ),
-                ],
+                  onPressed: () {
+                    context.go('/request_forpandit_page');
+                  },
+                  child: const Text("Pay", style: TextStyle(fontSize: 16)),
+                ),
               ),
             ],
           ),
-         ),
-    ]
-    );
-      
-  }
+        ),
+      ),
+    ],
+  );
+}
+
+
 }
 
