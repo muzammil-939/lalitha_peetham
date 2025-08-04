@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/nitya_pooja_screens/niyapooja_contact_widget.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/astrologer_contact_section.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/menu.dart';
+import 'package:lalitha_peetham/widgets/modules_colors.dart';
 import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class PoojasPage extends StatefulWidget {
@@ -22,6 +24,20 @@ double getResponsiveFontSize(BuildContext context,
   return mobile;
 }
 
+ void _openMenu(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, _) => DropdownGridMenu(),
+        transitionDuration: const Duration(milliseconds: 300),
+        transitionsBuilder:
+            (context, animation, _, child) =>
+                FadeTransition(opacity: animation, child: child),
+        opaque: false,
+      ),
+    );
+  }
+
   final List<Map<String, String>> poojaList = [
     {'image': 'assets/images/e_pooja1.jpg', 'title': 'Rudrabhishek Puja'},
     {'image': 'assets/images/e_pooja2.jpg', 'title': 'Satyanarayan Puja'},
@@ -37,7 +53,7 @@ Widget build(BuildContext context) {
     child: SingleChildScrollView(
       child: Column(
         children: [
-          buildHeroSection(), // If full-width hero is needed
+          buildherosection(), // If full-width hero is needed
           buildTitleSection(context),
           const SizedBox(height: 40),
           buildPoojaCardsGrid(context,poojaList),
@@ -53,7 +69,38 @@ Widget build(BuildContext context) {
 }
 
 
-    Widget  buildHeroSection() {
+    Widget buildherosection() {
+      final size = MediaQuery.of(context).size;
+    final isMediumScreen = size.width > 800;
+    final isSmallScreen = size.width < 600;
+    final isVerySmallScreen = size.width < 400;
+    
+
+    double getMenuIconSize() {
+      if (isVerySmallScreen) return 24;
+      if (isSmallScreen) return 26;
+      if (isMediumScreen) return 28;
+      return 30;
+    }
+
+    double getMenuFontSize() {
+      if (isVerySmallScreen) return 18;
+      if (isSmallScreen) return 20;
+      if (isMediumScreen) return 22;
+      return 24;
+    }
+
+    double getMenuLetterSpacing() {
+      if (isVerySmallScreen) return 1;
+      if (isSmallScreen) return 1.5;
+      return 2;
+    }
+
+        double getMenuWidth() {
+      if (isVerySmallScreen) return 200;
+      if (isSmallScreen) return 250;
+      return 300;
+    }
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -63,17 +110,40 @@ Widget build(BuildContext context) {
           height: 600,
           fit: BoxFit.cover,
         ),
-        Positioned(
-          top: 40,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.menu, color: Colors.white),
-              SizedBox(width: 6),
-              Text("Menu", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
-            ],
+       // Menu button positioned at top
+          Positioned(
+            top: 40,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: GestureDetector(
+                onTap: () => _openMenu(context),
+                child: SizedBox(
+                  width: getMenuWidth(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.menu,
+                        color: Colors.white,
+                        size: getMenuIconSize(),
+                      ),
+                      SizedBox(width: isVerySmallScreen ? 6 : 8),
+                      Text(
+                        'MENU',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: getMenuFontSize(),
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: getMenuLetterSpacing(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
-        ),
         Positioned(
           top: 120,
           child: Column(
@@ -204,7 +274,8 @@ Widget buildPoojaCard({
     width: cardWidth,
     height: 270,
     decoration: BoxDecoration(
-      color: const Color(0xFFDFBC31),
+      // color: NityapoojaColors.cards,
+      color: NityapoojaColors.cards,
       boxShadow: const [
         BoxShadow(
           color: Colors.black12,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class PanditBookingFaqSupportWid extends StatefulWidget {
   const PanditBookingFaqSupportWid({super.key});
@@ -12,17 +13,41 @@ class _PanditBookingFaqSupportWidState
     extends State<PanditBookingFaqSupportWid> {
   @override
   Widget build(BuildContext context) {
+    final isMobile = ResponsiveHelper.isMobile(context);
+    final isTablet = ResponsiveHelper.isTablet(context);
+    final isDesktop = ResponsiveHelper.isDesktop(context);
+
+    final horizontalPadding = isMobile
+        ? 20.0
+        : isTablet
+            ? 60.0
+            : 150.0;
+
+    final verticalPadding = isMobile
+        ? 40.0
+        : isTablet
+            ? 70.0
+            : 100.0;
+
+    final headingFontSize = isMobile ? 24.0 : isTablet ? 28.0 : 32.0;
+    final subtitleFontSize = isMobile ? 16.0 : isTablet ? 18.0 : 20.0;
+    final questionFontSize = isMobile ? 14.0 : isTablet ? 15.0 : 16.0;
+    final spacingBetweenItems = isMobile ? 12.0 : 16.0;
+
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 150, vertical: 100),
+      padding: EdgeInsets.symmetric(
+        horizontal: horizontalPadding,
+        vertical: verticalPadding,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // FAQ Header
-          const Text(
+          Text(
             'FAQ',
             style: TextStyle(
-              fontSize: 32,
+              fontSize: headingFontSize,
               fontWeight: FontWeight.bold,
               color: Colors.black,
               height: 1.2,
@@ -31,40 +56,40 @@ class _PanditBookingFaqSupportWidState
           const SizedBox(height: 8),
 
           // Subtitle
-          const Text(
+          Text(
             'Got questions? I\'ve got answers!',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: subtitleFontSize,
               fontWeight: FontWeight.w500,
               color: Colors.black,
               height: 1.3,
             ),
           ),
 
-          const SizedBox(height: 48),
+          const SizedBox(height: 40),
 
           // FAQ Items
           Column(
             children: [
-              _buildFAQItem('Can I change the location after booking?'),
-              const SizedBox(height: 16),
-              _buildFAQItem('What payment methods do you accept?'),
-              const SizedBox(height: 16),
-              _buildFAQItem('Is there an extra charge for travel?'),
-              const SizedBox(height: 16),
-              _buildFAQItem('Can I book a pandit offline?'),
-              const SizedBox(height: 16),
-              _buildFAQItem(' Do you provide samagri (puja materials)?'),
-              const SizedBox(height: 16),
-              _buildFAQItem('How much should I pay in advance?'),
-              const SizedBox(height: 16),
-              _buildFAQItem('Will I get a confirmation after booking?'),
-              const SizedBox(height: 16),
-              _buildFAQItem('Can I cancel or reschedule my booking?'),
-              const SizedBox(height: 16),
-              _buildFAQItem('What languages do your pandits speak?'),
-              const SizedBox(height: 16),
-              _buildFAQItem('Do you have experienced and certified pandits?'),
+              _buildFAQItem('Can I change the location after booking?', questionFontSize),
+              SizedBox(height: spacingBetweenItems),
+              _buildFAQItem('What payment methods do you accept?', questionFontSize),
+              SizedBox(height: spacingBetweenItems),
+              _buildFAQItem('Is there an extra charge for travel?', questionFontSize),
+              SizedBox(height: spacingBetweenItems),
+              _buildFAQItem('Can I book a pandit offline?', questionFontSize),
+              SizedBox(height: spacingBetweenItems),
+              _buildFAQItem('Do you provide samagri (puja materials)?', questionFontSize),
+              SizedBox(height: spacingBetweenItems),
+              _buildFAQItem('How much should I pay in advance?', questionFontSize),
+              SizedBox(height: spacingBetweenItems),
+              _buildFAQItem('Will I get a confirmation after booking?', questionFontSize),
+              SizedBox(height: spacingBetweenItems),
+              _buildFAQItem('Can I cancel or reschedule my booking?', questionFontSize),
+              SizedBox(height: spacingBetweenItems),
+              _buildFAQItem('What languages do your pandits speak?', questionFontSize),
+              SizedBox(height: spacingBetweenItems),
+              _buildFAQItem('Do you have experienced and certified pandits?', questionFontSize),
             ],
           ),
         ],
@@ -72,11 +97,11 @@ class _PanditBookingFaqSupportWidState
     );
   }
 
-  Widget _buildFAQItem(String question) {
+  Widget _buildFAQItem(String question, double fontSize) {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: const Color(0xbfffffff), // Gray-300 equivalent
+        color: const Color(0xbfffffff),
         borderRadius: BorderRadius.circular(8),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
@@ -86,8 +111,8 @@ class _PanditBookingFaqSupportWidState
           Expanded(
             child: Text(
               question,
-              style: const TextStyle(
-                fontSize: 16,
+              style: TextStyle(
+                fontSize: fontSize,
                 fontWeight: FontWeight.w500,
                 color: Colors.black,
                 height: 1.4,

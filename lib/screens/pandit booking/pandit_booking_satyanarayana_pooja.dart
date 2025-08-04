@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_layout.dart';
 import 'package:lalitha_peetham/screens/pandit%20booking/pandith_contact_section.dart';
+import 'package:lalitha_peetham/widgets/menu.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class PanditBookingSatyanarayanaPooja extends StatefulWidget {
   const PanditBookingSatyanarayanaPooja({super.key});
@@ -13,6 +15,22 @@ class PanditBookingSatyanarayanaPooja extends StatefulWidget {
 
 class _PanditBookingSatyanarayanaPoojaState
     extends State<PanditBookingSatyanarayanaPooja> {
+
+      
+  void _openMenu(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, _) => DropdownGridMenu(),
+        transitionDuration: const Duration(milliseconds: 300),
+        transitionsBuilder:
+            (context, animation, _, child) =>
+                FadeTransition(opacity: animation, child: child),
+        opaque: false,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return PanditBookingLayout(
@@ -21,7 +39,7 @@ class _PanditBookingSatyanarayanaPoojaState
           children: [
             buildherosection(),
             SizedBox(height: 80),
-            buildAboutInfoSection(),
+            buildAboutInfoSection(context),
             SizedBox(height: 80),
             _buildAboutInfo(),
             SizedBox(height: 100),
@@ -33,102 +51,39 @@ class _PanditBookingSatyanarayanaPoojaState
     );
   }
 
-  Widget buildAboutInfoSection() {
-    return SizedBox(
-      height: 550,
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/vastupooja4.png',
+   Widget buildherosection() {
+          final size = MediaQuery.of(context).size;
+    final isMediumScreen = size.width > 800;
+    final isSmallScreen = size.width < 600;
+    final isVerySmallScreen = size.width < 400;
+    
 
-              fit: BoxFit.cover,
-            ),
-          ),
+    double getMenuIconSize() {
+      if (isVerySmallScreen) return 24;
+      if (isSmallScreen) return 26;
+      if (isMediumScreen) return 28;
+      return 30;
+    }
 
-          // Foreground content with padding
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 150.0,
-              vertical: 30,
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Left side
-                Expanded(
-                  flex: 2,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(0),
-                    child: Image.asset(
-                      'assets/images/pandith_booking_pooja1.png',
-                      height: 550,
-                      width: 80,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+    double getMenuFontSize() {
+      if (isVerySmallScreen) return 18;
+      if (isSmallScreen) return 20;
+      if (isMediumScreen) return 22;
+      return 24;
+    }
 
-                const SizedBox(width: 50),
+    double getMenuLetterSpacing() {
+      if (isVerySmallScreen) return 1;
+      if (isSmallScreen) return 1.5;
+      return 2;
+    }
 
-                // Right side
-                Expanded(
-                  flex: 2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        "Discover the Spiritual \nSignificance of Satyanarayana \nPooja",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          height: 1.4,
-                        ),
-                      ),
-                      SizedBox(height: 12),
-                      Text(
-                        "🕉️ About Satyanarayana Puja",
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          height: 1.4,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      GestureDetector(
-                        onTap: () => context.go('/pandit_booking_packages'),
-                        child: Container(
-                          width: 300,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFDC9323),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'View Packages',
-                              style: TextStyle(
-                                color: Color(0xFF000000), // Dark brown text
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+        double getMenuWidth() {
+      if (isVerySmallScreen) return 200;
+      if (isSmallScreen) return 250;
+      return 300;
+    }
 
-  Widget buildherosection() {
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -138,34 +93,51 @@ class _PanditBookingSatyanarayanaPoojaState
           height: 600,
           fit: BoxFit.cover,
         ),
-        Positioned(
-          top: 40,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.menu, color: Colors.white),
-              SizedBox(width: 6),
-              Text(
-                "Menu",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
+         // Menu button positioned at top
+          Positioned(
+            top: 40,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: GestureDetector(
+                onTap: () => _openMenu(context),
+                child: SizedBox(
+                  width: getMenuWidth(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.menu,
+                        color: Colors.white,
+                        size: getMenuIconSize(),
+                      ),
+                      SizedBox(width: isVerySmallScreen ? 6 : 8),
+                      Text(
+                        'MENU',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: getMenuFontSize(),
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: getMenuLetterSpacing(),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ],
+            ),
           ),
-        ),
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children: [
               Text(
                 "JOURNEY INTO DEVOTION: DISCOVER THE \nDEEPER PURPOSE OF GANESH POOJA",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 38,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context, mobile: 20, tablet: 30, desktop: 45),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -188,10 +160,119 @@ class _PanditBookingSatyanarayanaPoojaState
     );
   }
 
+Widget buildAboutInfoSection(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final isTablet = ResponsiveHelper.isTablet(context);
+
+  return SizedBox(
+    height: isMobile ? 600 : 550,
+    child: Stack(
+      children: [
+        Positioned.fill(
+          child: Image.asset(
+            'assets/images/vastupooja4.png',
+            fit: BoxFit.cover,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: isMobile ? 16 : isTablet ? 40 : 150,
+            vertical: isMobile ? 20 : 30,
+          ),
+          child: isMobile
+              ? Column(
+                  children: [
+                    Image.asset(
+                      'assets/images/pandith_booking_pooja1.png',
+                      height: 200,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                    SizedBox(height: 20),
+                    _buildAboutTextContent(context),
+                  ],
+                )
+              : Row(
+                  children: [
+                    // Left image
+                    Expanded(
+                      flex: 2,
+                      child: ClipRRect(
+                        child: Image.asset(
+                          'assets/images/pandith_booking_pooja1.png',
+                          height: 550,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 50),
+                    // Right text
+                    Expanded(flex: 2, child: _buildAboutTextContent(context)),
+                  ],
+                ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget _buildAboutTextContent(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      Text(
+        "Discover the Spiritual \nSignificance of Satyanarayana \nPooja",
+        style: TextStyle(
+          fontSize: isMobile ? 18 : 24,
+          fontWeight: FontWeight.bold,
+          height: 1.4,
+        ),
+      ),
+      SizedBox(height: 12),
+      Text(
+        "🕉️ About Satyanarayana Puja",
+        style: TextStyle(
+          fontSize: isMobile ? 18 : 24,
+          fontWeight: FontWeight.bold,
+          height: 1.4,
+        ),
+      ),
+      SizedBox(height: 20),
+      GestureDetector(
+        onTap: () => context.go('/pandit_booking_packages'),
+        child: Container(
+          width: isMobile ? double.infinity : 300,
+          height: 60,
+          decoration: BoxDecoration(
+            color: Color(0xFFDC9323),
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Center(
+            child: Text(
+              'View Packages',
+              style: TextStyle(
+                color: Color(0xFF000000),
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+ 
   Widget _buildAboutInfo() {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final horizontalPadding = isMobile ? 16.0 : 200.0;
+
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 200),
+    padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -431,9 +512,13 @@ class _PanditBookingSatyanarayanaPoojaState
   }
 
   Widget buildPanditBookingFaqWid() {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final horizontalPadding = isMobile ? 16.0 : 200.0;
+  final verticalPadding = isMobile ? 40.0 : 100.0;
+
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 200, vertical: 100),
+       padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

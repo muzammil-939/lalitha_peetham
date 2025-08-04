@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_layout.dart';
 import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_layout.dart';
+import 'package:lalitha_peetham/widgets/menu.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 import '../photography/photography_faq_support_wid.dart';
 
@@ -15,6 +17,21 @@ class PanditBookingChatSupport extends StatefulWidget {
 }
 
 class _PanditBookingChatSupportState extends State<PanditBookingChatSupport> {
+
+       void _openMenu(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, _) => DropdownGridMenu(),
+        transitionDuration: const Duration(milliseconds: 300),
+        transitionsBuilder:
+            (context, animation, _, child) =>
+                FadeTransition(opacity: animation, child: child),
+        opaque: false,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return PanditBookingLayout(
@@ -31,7 +48,38 @@ class _PanditBookingChatSupportState extends State<PanditBookingChatSupport> {
     );
   }
 
-  Widget buildherosection() {
+   Widget buildherosection() {
+      final size = MediaQuery.of(context).size;
+    final isMediumScreen = size.width > 800;
+    final isSmallScreen = size.width < 600;
+    final isVerySmallScreen = size.width < 400;
+    
+
+    double getMenuIconSize() {
+      if (isVerySmallScreen) return 24;
+      if (isSmallScreen) return 26;
+      if (isMediumScreen) return 28;
+      return 30;
+    }
+
+    double getMenuFontSize() {
+      if (isVerySmallScreen) return 18;
+      if (isSmallScreen) return 20;
+      if (isMediumScreen) return 22;
+      return 24;
+    }
+
+    double getMenuLetterSpacing() {
+      if (isVerySmallScreen) return 1;
+      if (isSmallScreen) return 1.5;
+      return 2;
+    }
+
+        double getMenuWidth() {
+      if (isVerySmallScreen) return 200;
+      if (isSmallScreen) return 250;
+      return 300;
+    }
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -41,34 +89,51 @@ class _PanditBookingChatSupportState extends State<PanditBookingChatSupport> {
           height: 600,
           fit: BoxFit.cover,
         ),
-        Positioned(
-          top: 40,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.menu, color: Colors.white),
-              SizedBox(width: 6),
-              Text(
-                "Menu",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
+         // Menu button positioned at top
+          Positioned(
+            top: 40,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: GestureDetector(
+                onTap: () => _openMenu(context),
+                child: SizedBox(
+                  width: getMenuWidth(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.menu,
+                        color: Colors.white,
+                        size: getMenuIconSize(),
+                      ),
+                      SizedBox(width: isVerySmallScreen ? 6 : 8),
+                      Text(
+                        'MENU',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: getMenuFontSize(),
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: getMenuLetterSpacing(),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ],
+            ),
           ),
-        ),
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children:  [
               Text(
                 "Support",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 38,
+                   fontSize: ResponsiveFontsize.fontSize(
+                    context, mobile: 20, tablet: 30, desktop: 45),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -91,269 +156,129 @@ class _PanditBookingChatSupportState extends State<PanditBookingChatSupport> {
     );
   }
 
-  Widget buildVastuBookingEnquiryFormPage(BuildContext context) {
-    return Stack(
-      children: [
-        // 🌄 Full Background Image
-        Positioned.fill(
-          child: Image.asset(
-            'assets/images/vastupooja4.png',
-            fit: BoxFit.cover,
-          ),
-        ),
+Widget buildVastuBookingEnquiryFormPage(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final isTablet = ResponsiveHelper.isTablet(context);
+  final screenWidth = ResponsiveHelper.screenWidth(context);
 
-        // 🌑 Planet Image (top-right)
-        Positioned(
-          top: 100,
-          right: 40,
-          child: Image.asset(
-            'assets/images/vastupooja11.png',
-            height: 80,
-            width: 80,
-          ),
-        ),
+  double formWidth = isMobile ? screenWidth * 0.9 : (isTablet ? 700 : 900);
+  double headingFontSize = isMobile ? 24 : 30;
+  double textFontSize = isMobile ? 14 : 16;
+  double buttonWidth = isMobile ? double.infinity : 200;
 
-        // 🌟 Foreground Content
-        Center(
+  return Stack(
+    children: [
+      // 🌄 Background Image
+      Positioned.fill(
+        child: Image.asset(
+          'assets/images/vastupooja4.png',
+          fit: BoxFit.cover,
+        ),
+      ),
+
+      // 🌑 Planet Image
+      Positioned(
+        top: 100,
+        right: 40,
+        child: Image.asset(
+          'assets/images/vastupooja11.png',
+          height: 80,
+          width: 80,
+        ),
+      ),
+
+      // 🌟 Foreground Content
+      Center(
+        child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 60),
-              const Text(
+              const SizedBox(height: 60),
+              Text(
                 "Support",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: headingFontSize,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 40),
+
+              // Nav Buttons
               SizedBox(
-                width: 900,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                width: formWidth,
+                child: Wrap(
+                  spacing: 12,
+                  runSpacing: 12,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        context.go('/pandit_booking_booking_status');
-                      },
-                      child: _buildNavButton("My Bookings"),
-                    ),
-                    SizedBox(width: 12),
-                    GestureDetector(
-                      onTap: () {
-                        context.go('/pandit_booking_payments_history');
-                      },
-                      child: _buildNavButton("Payments"),
-                    ),
-                    SizedBox(width: 12),
-                    GestureDetector(
-                      onTap: () {
-                        context.go('/pandit_booking_faq_support');
-                      },
-                      child: _buildNavButton("support", isActive: true),
-                    ),
+                    _buildNavButton("My Bookings", onTap: () => context.go('/pandit_booking_booking_status')),
+                    _buildNavButton("Payments", onTap: () => context.go('/pandit_booking_payments_history')),
+                    _buildNavButton("support", isActive: true, onTap: () => context.go('/pandit_booking_faq_support')),
                   ],
                 ),
               ),
 
-              SizedBox(height: 60),
+              const SizedBox(height: 40),
+
+              // Support Form Container
               Container(
-                width: 900,
-                padding: const EdgeInsets.all(50),
-                decoration: BoxDecoration(color: const Color(0xFFFFDD66)),
+                width: formWidth,
+                padding: EdgeInsets.all(isMobile ? 20 : 40),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFDD66),
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 40),
-                    // Tab navigation
+                    // Tabs
                     Row(
                       children: [
                         GestureDetector(
-                          onTap:
-                              () => context.go('/pandit_booking_chat_support'),
-                          child: _buildTabButton(
-                            "chat support",
-                            isActive: true,
-                          ),
+                          onTap: () => context.go('/pandit_booking_chat_support'),
+                          child: _buildTabButton("chat support", isActive: true),
                         ),
-                        SizedBox(width: 30),
+                        const SizedBox(width: 30),
                         GestureDetector(
-                          onTap:
-                              () => context.go('/pandit_booking_faq_support'),
+                          onTap: () => context.go('/pandit_booking_faq_support'),
                           child: _buildTabButton("fqs support"),
                         ),
                       ],
                     ),
-                    SizedBox(height: 80),
 
-                    // SUPPORT FORM
+                    const SizedBox(height: 40),
+
                     Text(
                       "Upload A Screenshot And Write Your Problem Below – You'll Be Redirected\nTo Chat Support",
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18,
+                        fontSize: textFontSize,
                         fontWeight: FontWeight.w400,
                         height: 1.4,
                       ),
                     ),
-                    SizedBox(height: 40),
+                    const SizedBox(height: 30),
 
-                    // Form fields row
-                    Row(
-                      children: [
-                        // Left column
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    // Form Layout
+                    isMobile
+                        ? Column(
                             children: [
-                              // Full Name field
-                              Text(
-                                'Full Name',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              Container(
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFC4C4C4),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 16,
-                                      vertical: 12,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 30),
-
-                              // Issue Section field
-                              Text(
-                                'Issue Section',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              Container(
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFC4C4C4),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 16,
-                                      vertical: 12,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              _buildFormLeftColumn(textFontSize),
+                              const SizedBox(height: 20),
+                              _buildFormRightColumn(textFontSize),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              Expanded(child: _buildFormLeftColumn(textFontSize)),
+                              const SizedBox(width: 60),
+                              Expanded(child: _buildFormRightColumn(textFontSize)),
                             ],
                           ),
-                        ),
 
-                        SizedBox(width: 80), // Space between columns
-                        // Right column
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Email field
-                              Text(
-                                'Email',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              Container(
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFC4C4C4),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 16,
-                                      vertical: 12,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 30),
+                    const SizedBox(height: 30),
 
-                              // Upload Image field
-                              Text(
-                                'Upload Image',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              Container(
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFC4C4C4),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                child: InkWell(
-                                  onTap: () {
-                                    // Handle image upload
-                                  },
-                                  child: Center(
-                                    child: Container(
-                                      width: 28,
-                                      height: 28,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        border: Border.all(
-                                          color: Colors.black54,
-                                          width: 2,
-                                        ),
-                                      ),
-                                      child: Icon(
-                                        Icons.add,
-                                        color: Colors.black54,
-                                        size: 18,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(height: 30),
-
-                    // Comment field
-                    Text(
-                      'Comment',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    SizedBox(height: 8),
+                    // Comment Field
+                    Text('Comment', style: TextStyle(fontSize: textFontSize, fontWeight: FontWeight.w500)),
+                    const SizedBox(height: 8),
                     Container(
                       height: 80,
                       decoration: BoxDecoration(
@@ -363,35 +288,31 @@ class _PanditBookingChatSupportState extends State<PanditBookingChatSupport> {
                       child: TextField(
                         maxLines: null,
                         expands: true,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.all(16),
                         ),
                       ),
                     ),
 
-                    SizedBox(height: 40),
+                    const SizedBox(height: 30),
 
-                    // Submit button
+                    // Submit Button
                     Center(
-                      child: Container(
-                        width: 200,
+                      child: SizedBox(
+                        width: buttonWidth,
                         height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(25),
-                        ),
                         child: TextButton(
-                          onPressed: () {
-                            // Handle submit action
-                            // _handleSubmit();
-                          },
                           style: TextButton.styleFrom(
+                            backgroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25),
                             ),
                           ),
-                          child: Text(
+                          onPressed: () {
+                            // Submit logic
+                          },
+                          child: const Text(
                             'Submit',
                             style: TextStyle(
                               color: Colors.black,
@@ -403,34 +324,91 @@ class _PanditBookingChatSupportState extends State<PanditBookingChatSupport> {
                       ),
                     ),
 
-                    SizedBox(height: 60),
+                    const SizedBox(height: 40),
                   ],
                 ),
               ),
             ],
           ),
         ),
-      ],
-    );
-  }
-
-  Widget _buildTabButton(String text, {bool isActive = false}) {
-    return Text(
-      text,
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 18,
-        fontWeight: FontWeight.w500,
-        decoration: isActive ? TextDecoration.underline : TextDecoration.none,
-        decorationColor: Colors.black,
-        decorationThickness: 2,
       ),
-    );
-  }
+    ],
+  );
+}
+Widget _buildFormLeftColumn(double fontSize) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildInputField(label: 'Full Name', fontSize: fontSize),
+      const SizedBox(height: 30),
+      _buildInputField(label: 'Issue Section', fontSize: fontSize),
+    ],
+  );
+}
 
-  Widget _buildNavButton(String text, {bool isActive = false}) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+Widget _buildFormRightColumn(double fontSize) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildInputField(label: 'Email', fontSize: fontSize),
+      const SizedBox(height: 30),
+      Text('Upload Image', style: TextStyle(fontSize: fontSize)),
+      const SizedBox(height: 8),
+      Container(
+        height: 45,
+        decoration: BoxDecoration(
+          color: Color(0xFFC4C4C4),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: InkWell(
+          onTap: () {
+            // Image upload logic
+          },
+          child: Center(
+            child: Container(
+              width: 28,
+              height: 28,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.black54, width: 2),
+              ),
+              child: Icon(Icons.add, color: Colors.black54, size: 18),
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+Widget _buildInputField({required String label, required double fontSize}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(label, style: TextStyle(fontSize: fontSize)),
+      const SizedBox(height: 8),
+      Container(
+        height: 45,
+        decoration: BoxDecoration(
+          color: Color(0xFFC4C4C4),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: const TextField(
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+Widget _buildNavButton(String text, {bool isActive = false, required VoidCallback onTap}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
       decoration: BoxDecoration(
         color: isActive ? Colors.white : Colors.grey[300],
         borderRadius: BorderRadius.circular(12),
@@ -444,14 +422,31 @@ class _PanditBookingChatSupportState extends State<PanditBookingChatSupport> {
       ),
       child: Text(
         text,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.black87,
           fontSize: 14,
           fontWeight: FontWeight.w500,
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
+Widget _buildTabButton(String text, {bool isActive = false}) {
+  return Text(
+    text,
+    style: TextStyle(
+      color: Colors.black,
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      decoration: isActive ? TextDecoration.underline : TextDecoration.none,
+      decorationColor: Colors.black,
+      decorationThickness: 2,
+    ),
+  );
+}
+
+
 }
 
 class PalmReadingServicesUI extends StatelessWidget {

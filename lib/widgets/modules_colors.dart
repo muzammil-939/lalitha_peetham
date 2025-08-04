@@ -11,9 +11,7 @@ class NityapoojaColors {
   static const Color title = Colors.black; // Black
   static const Color button = Colors.white;
   static const Color herotext = Colors.white;
-  static const Color black = Colors.black;
-  static const Color error = Colors.red;
-  static const Color success = Color(0xFF4CAF50); // Green
+
 
   // Add more colors as needed...
 }

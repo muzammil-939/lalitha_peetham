@@ -40,9 +40,14 @@ class OnlineMuhurthasHeader extends StatelessWidget {
                     Container(
                       width: isMobile ? 40 : 50,
                       height: isMobile ? 40 : 50,
-                      child: Image.asset(
-                        'assets/images/Logo.jpg',
-                        fit: BoxFit.cover,
+                      child: GestureDetector(
+                        onTap: () {
+                          context.go('/');
+                        },
+                        child: Image.asset(
+                          'assets/images/Logo.jpg',
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     SizedBox(width: isMobile ? 8 : 12),

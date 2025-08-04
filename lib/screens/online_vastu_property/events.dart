@@ -611,7 +611,7 @@ Widget buildZodiacCard(Map<String, dynamic> sign) {
         alignment: Alignment.center,
         children: [
           Image.asset(
-            'assets/images/vector(1).png', // <- yellow blob image
+            'assets/images/Vector (1).png', // <- yellow blob image
             width: 65,
             height: 65,
             fit: BoxFit.contain,

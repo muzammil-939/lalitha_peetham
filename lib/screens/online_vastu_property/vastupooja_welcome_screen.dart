@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/astrologer_contact_section.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastufaq_section_widget.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/modules_colors.dart';
 import 'vastu_hero_section.dart';
 
 
@@ -203,7 +204,7 @@ Widget buildVastuGuidelinesTable() {
           },
           children: [
             TableRow(
-              decoration: BoxDecoration(color: const Color(0xFFDFBC31)),
+              decoration: BoxDecoration(color: NityapoojaColors.cards),
               children: [
                 _buildCell("DIRECTION", headerStyle, isHeader: true),
                 _buildCell("RULING ELEMENT", headerStyle, isHeader: true),
@@ -214,7 +215,7 @@ Widget buildVastuGuidelinesTable() {
             ),
             for (var row in rows)
               TableRow(
-                decoration: BoxDecoration(color: const Color(0xFFDFBC31)),
+                decoration: BoxDecoration(color: NityapoojaColors.cards),
                 children: [
                   _buildCell(row["direction"]!, cellStyle),
                   _buildCell(row["element"]!, cellStyle),

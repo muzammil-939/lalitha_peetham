@@ -245,7 +245,7 @@ class _PanditBookingChooseExpertsState
                                 ),
                               ),
                               onPressed: () {
-                                context.go('/book_a_session_vastupooja');
+                               // context.go('/book_a_session_vastupooja');
                               },
                             ),
                             const SizedBox(width: 8),

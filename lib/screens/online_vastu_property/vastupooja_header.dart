@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class VastupoojaHeader extends StatelessWidget {
   const VastupoojaHeader({super.key});
@@ -12,11 +13,16 @@ class VastupoojaHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // Left Logo
-          SizedBox(
-            height: 50,
-            child: Image.asset(
-              'assets/images/Logo.jpg', // Replace with your logo asset path
-              fit: BoxFit.contain,
+          GestureDetector(
+            onTap: () {
+              context.go('/');
+            },
+            child: SizedBox(
+              height: 50,
+              child: Image.asset(
+                'assets/images/Logo.jpg', // Replace with your logo asset path
+                fit: BoxFit.contain,
+              ),
             ),
           ),
 

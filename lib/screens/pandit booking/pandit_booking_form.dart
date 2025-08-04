@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_layout.dart';
 import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_layout.dart';
+import 'package:lalitha_peetham/widgets/menu.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class PanditBookingForm extends StatefulWidget {
   const PanditBookingForm({super.key});
@@ -12,6 +14,21 @@ class PanditBookingForm extends StatefulWidget {
 }
 
 class _PanditBookingFormState extends State<PanditBookingForm> {
+
+  void _openMenu(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, _) => DropdownGridMenu(),
+        transitionDuration: const Duration(milliseconds: 300),
+        transitionsBuilder:
+            (context, animation, _, child) =>
+                FadeTransition(opacity: animation, child: child),
+        opaque: false,
+      ),
+    );
+  }
+  
   @override
   Widget build(BuildContext context) {
     return PanditBookingLayout(
@@ -19,7 +36,7 @@ class _PanditBookingFormState extends State<PanditBookingForm> {
         child: Column(
           children: [
             buildherosection(),
-            buildVastuBookingEnquiryFormPage(),
+            buildVastuBookingEnquiryFormPage(context),
             SizedBox(height: 80),
           ],
         ),
@@ -28,6 +45,38 @@ class _PanditBookingFormState extends State<PanditBookingForm> {
   }
 
   Widget buildherosection() {
+     final size = MediaQuery.of(context).size;
+    final isMediumScreen = size.width > 800;
+    final isSmallScreen = size.width < 600;
+    final isVerySmallScreen = size.width < 400;
+    
+
+    double getMenuIconSize() {
+      if (isVerySmallScreen) return 24;
+      if (isSmallScreen) return 26;
+      if (isMediumScreen) return 28;
+      return 30;
+    }
+
+    double getMenuFontSize() {
+      if (isVerySmallScreen) return 18;
+      if (isSmallScreen) return 20;
+      if (isMediumScreen) return 22;
+      return 24;
+    }
+
+    double getMenuLetterSpacing() {
+      if (isVerySmallScreen) return 1;
+      if (isSmallScreen) return 1.5;
+      return 2;
+    }
+
+        double getMenuWidth() {
+      if (isVerySmallScreen) return 200;
+      if (isSmallScreen) return 250;
+      return 300;
+    }
+
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -37,34 +86,52 @@ class _PanditBookingFormState extends State<PanditBookingForm> {
           height: 600,
           fit: BoxFit.cover,
         ),
-        Positioned(
-          top: 40,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.menu, color: Colors.white),
-              SizedBox(width: 6),
-              Text(
-                "Menu",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
+        // Menu button positioned at top
+          Positioned(
+            top: 40,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: GestureDetector(
+                onTap: () => _openMenu(context),
+                child: SizedBox(
+                  width: getMenuWidth(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.menu,
+                        color: Colors.white,
+                        size: getMenuIconSize(),
+                      ),
+                      SizedBox(width: isVerySmallScreen ? 6 : 8),
+                      Text(
+                        'MENU',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: getMenuFontSize(),
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: getMenuLetterSpacing(),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children: [
               Text(
-                "Find the Perfect Pooja Service Tailored to Your Spiritual Needs",
+                "Find the Perfect Pooja Service Tailored to\nYour Spiritual Needs",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 38,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context, mobile: 20, tablet: 30, desktop: 45),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -87,488 +154,166 @@ class _PanditBookingFormState extends State<PanditBookingForm> {
     );
   }
 
-  Widget buildVastuBookingEnquiryFormPage() {
-    return Stack(
-      children: [
-        // 🌄 Full Background Image
-        Positioned.fill(
-          child: Image.asset(
-            'assets/images/vastupooja4.png',
-            fit: BoxFit.cover,
-          ),
-        ),
+ Widget buildVastuBookingEnquiryFormPage(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final isTablet = ResponsiveHelper.isTablet(context);
+  final isDesktop = ResponsiveHelper.isDesktop(context);
 
-        // 🌑 Planet Image (top-right)
-        Positioned(
-          top: 100,
-          right: 40,
-          child: Image.asset(
-            'assets/images/vastupooja11.png',
-            height: 80,
-            width: 80,
-          ),
-        ),
+  double containerWidth = isMobile ? MediaQuery.of(context).size.width * 0.9 : 800;
+  double formFieldWidth = isMobile ? double.infinity : 350;
+  double spacing = isMobile ? 12 : 24;
+  double titleFontSize = isMobile ? 20 : 30;
 
-        // 🌟 Foreground Content
-        Center(
+  return Stack(
+    children: [
+      // 🌄 Full Background Image
+      Positioned.fill(
+        child: Image.asset(
+          'assets/images/vastupooja4.png',
+          fit: BoxFit.cover,
+        ),
+      ),
+
+      // 🌑 Planet Image
+      Positioned(
+        top: isMobile ? 30 : 100,
+        right: isMobile ? 20 : 40,
+        child: Image.asset(
+          'assets/images/vastupooja11.png',
+          height: isMobile ? 50 : 80,
+          width: isMobile ? 50 : 80,
+        ),
+      ),
+
+      // 🌟 Foreground Content
+      Center(
+        child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 60),
-              const Text(
+              SizedBox(height: isMobile ? 30 : 60),
+              Text(
                 "Book Your Pandit in Just in Minutes – \nFill the Details Below",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: titleFontSize,
+                  fontWeight: FontWeight.bold,
+                ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 80),
+              SizedBox(height: isMobile ? 40 : 80),
 
-              // Fixed Form Container
+              // 🟨 Responsive Form Container
               Container(
-                width: 800,
-                padding: const EdgeInsets.all(30),
+                width: containerWidth,
+                padding: EdgeInsets.all(isMobile ? 16 : 30),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
+                    colors: [Color(0xFFE6C85D), Color(0xFFD4B54A)],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Color(0xFFE6C85D), Color(0xFFD4B54A)],
                   ),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20),
+                    SizedBox(height: spacing),
 
-                    // First Row - Full Name and Contact Number
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    // 👤 Name & 📞 Contact
+                    isMobile
+                        ? Column(
                             children: [
-                              Text(
-                                'Full Name',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              Container(
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFDFDDDD),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                      vertical: 14,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              buildInputField('Full Name'),
+                              SizedBox(height: spacing),
+                              buildInputField('Contact Number'),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              Expanded(child: buildInputField('Full Name')),
+                              SizedBox(width: 20),
+                              Expanded(child: buildInputField('Contact Number')),
                             ],
                           ),
-                        ),
-                        SizedBox(width: 20),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+
+                    SizedBox(height: spacing),
+
+                    // 📧 Email & 🕉️ Puja Type
+                    isMobile
+                        ? Column(
                             children: [
-                              Text(
-                                'Contact Number',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              Container(
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFDFDDDD),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                      vertical: 14,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              buildInputField('Email Address'),
+                              SizedBox(height: spacing),
+                              buildDropdownField('Puja Type'),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              Expanded(child: buildInputField('Email Address')),
+                              SizedBox(width: 20),
+                              Expanded(child: buildDropdownField('Puja Type')),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
 
-                    SizedBox(height: 24),
+                    SizedBox(height: spacing),
 
-                    // Second Row - Email Address and Puja Type
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    // 📅 Date & ⏰ Time
+                    isMobile
+                        ? Column(
                             children: [
-                              Text(
-                                'Email Address',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              Container(
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFDFDDDD),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                      vertical: 14,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              buildInputField('Date'),
+                              SizedBox(height: spacing),
+                              buildInputField('Time'),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              Expanded(child: buildInputField('Date')),
+                              SizedBox(width: 20),
+                              Expanded(child: buildInputField('Time')),
                             ],
                           ),
-                        ),
-                        SizedBox(width: 20),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+
+                    SizedBox(height: spacing),
+
+                    // 📍 Location & Language
+                    isMobile
+                        ? Column(
                             children: [
-                              Text(
-                                'Puja Type',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              Container(
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFDFDDDD),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                child: DropdownButtonFormField<String>(
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                      vertical: 8,
-                                    ),
-                                  ),
-                                  dropdownColor: Color(0xFFDFDDDD),
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: Colors.black54,
-                                  ),
-                                  items: [
-                                    DropdownMenuItem(
-                                      value: 'Ganesh Puja',
-                                      child: Text('Ganesh Puja'),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 'Lakshmi Puja',
-                                      child: Text('Lakshmi Puja'),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 'Saraswati Puja',
-                                      child: Text('Saraswati Puja'),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 'Durga Puja',
-                                      child: Text('Durga Puja'),
-                                    ),
-                                  ],
-                                  onChanged: (value) {},
-                                ),
-                              ),
+                              buildInputField('Location'),
+                              SizedBox(height: spacing),
+                              buildInputField('Language'),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              Expanded(child: buildInputField('Location')),
+                              SizedBox(width: 20),
+                              Expanded(child: buildInputField('Language')),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
 
-                    SizedBox(height: 24),
+                    SizedBox(height: spacing),
 
-                    // Third Row - Date and Time
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Date',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              Container(
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFDFDDDD),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                      vertical: 14,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: 20),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Time',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              Container(
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFDFDDDD),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                      vertical: 14,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    // 📦 Materials
+                    buildInputField('Do You Need Materials', width: formFieldWidth),
+                    SizedBox(height: spacing),
 
-                    SizedBox(height: 24),
+                    // 📝 Notes
+                    buildInputField('Additional Notes', height: 80, isMultiline: true),
+                    SizedBox(height: spacing),
 
-                    // Fourth Row - Location and Language
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Location',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              Container(
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFDFDDDD),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                      vertical: 14,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(width: 20),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Language',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                              SizedBox(height: 8),
-                              Container(
-                                height: 45,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFDFDDDD),
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                      vertical: 14,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    // 💰 Amount
+                    buildInputField('Amount', width: formFieldWidth),
+                    SizedBox(height: spacing + 16),
 
-                    SizedBox(height: 24),
-
-                    // Do You Need Materials - Single field
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Do You Need Materials',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Container(
-                          width: 350, // Fixed width instead of percentage
-                          height: 45,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFDFDDDD),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 14,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(height: 24),
-
-                    // Additional Notes - Single field, full width
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Additional Notes',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Container(
-                          width: double.infinity,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFDFDDDD),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: TextField(
-                            maxLines: null,
-                            expands: true,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.all(12),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(height: 24),
-
-                    // Amount - Single field
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Amount',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Container(
-                          width: 350, // Fixed width instead of percentage
-                          height: 45,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFDFDDDD),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 14,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(height: 40),
-
-                    // Continue Button
+                    // 🚀 Continue Button
                     Center(
-                      child: Container(
+                      child: SizedBox(
                         width: 200,
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () {
                             context.go('/pandit_booking_payment');
-                            // Handle continue button press
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
@@ -576,7 +321,6 @@ class _PanditBookingFormState extends State<PanditBookingForm> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25),
                             ),
-                            elevation: 2,
                           ),
                           child: Text(
                             'Continue',
@@ -588,15 +332,88 @@ class _PanditBookingFormState extends State<PanditBookingForm> {
                         ),
                       ),
                     ),
-
-                    SizedBox(height: 30),
+                    SizedBox(height: spacing),
                   ],
                 ),
               ),
             ],
           ),
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
+Widget buildInputField(String label,
+    {double? width, double height = 45, bool isMultiline = false}) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        label,
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: Colors.black87,
+        ),
+      ),
+      SizedBox(height: 8),
+      Container(
+        width: width,
+        height: isMultiline ? height : 45,
+        decoration: BoxDecoration(
+          color: Color(0xFFDFDDDD),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: TextField(
+          maxLines: isMultiline ? null : 1,
+          expands: isMultiline,
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.all(12),
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+Widget buildDropdownField(String label) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        label,
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: Colors.black87,
+        ),
+      ),
+      SizedBox(height: 8),
+      Container(
+        height: 45,
+        decoration: BoxDecoration(
+          color: Color(0xFFDFDDDD),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: DropdownButtonFormField<String>(
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          ),
+          dropdownColor: Color(0xFFDFDDDD),
+          icon: Icon(Icons.keyboard_arrow_down, color: Colors.black54),
+          items: const [
+            DropdownMenuItem(value: 'Ganesh Puja', child: Text('Ganesh Puja')),
+            DropdownMenuItem(value: 'Lakshmi Puja', child: Text('Lakshmi Puja')),
+            DropdownMenuItem(value: 'Saraswati Puja', child: Text('Saraswati Puja')),
+            DropdownMenuItem(value: 'Durga Puja', child: Text('Durga Puja')),
+          ],
+          onChanged: (value) {},
+        ),
+      ),
+    ],
+  );
+}
+
 }

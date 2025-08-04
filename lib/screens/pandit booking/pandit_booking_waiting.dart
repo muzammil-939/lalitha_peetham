@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 import 'package:lalitha_peetham/screens/palm_reading/palm_reading_layout.dart';
 import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_layout.dart';
+import 'package:lalitha_peetham/widgets/menu.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class PanditBookingWaiting extends StatefulWidget {
   const PanditBookingWaiting({super.key});
@@ -12,6 +14,21 @@ class PanditBookingWaiting extends StatefulWidget {
 }
 
 class _PanditBookingWaitingState extends State<PanditBookingWaiting> {
+
+   void _openMenu(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, _) => DropdownGridMenu(),
+        transitionDuration: const Duration(milliseconds: 300),
+        transitionsBuilder:
+            (context, animation, _, child) =>
+                FadeTransition(opacity: animation, child: child),
+        opaque: false,
+      ),
+    );
+  }
+  
   @override
   Widget build(BuildContext context) {
     return PanditBookingLayout(
@@ -28,6 +45,37 @@ class _PanditBookingWaitingState extends State<PanditBookingWaiting> {
   }
 
   Widget buildherosection() {
+             final size = MediaQuery.of(context).size;
+    final isMediumScreen = size.width > 800;
+    final isSmallScreen = size.width < 600;
+    final isVerySmallScreen = size.width < 400;
+    
+
+    double getMenuIconSize() {
+      if (isVerySmallScreen) return 24;
+      if (isSmallScreen) return 26;
+      if (isMediumScreen) return 28;
+      return 30;
+    }
+
+    double getMenuFontSize() {
+      if (isVerySmallScreen) return 18;
+      if (isSmallScreen) return 20;
+      if (isMediumScreen) return 22;
+      return 24;
+    }
+
+    double getMenuLetterSpacing() {
+      if (isVerySmallScreen) return 1;
+      if (isSmallScreen) return 1.5;
+      return 2;
+    }
+
+        double getMenuWidth() {
+      if (isVerySmallScreen) return 200;
+      if (isSmallScreen) return 250;
+      return 300;
+    }
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -37,34 +85,51 @@ class _PanditBookingWaitingState extends State<PanditBookingWaiting> {
           height: 600,
           fit: BoxFit.cover,
         ),
-        Positioned(
-          top: 40,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.menu, color: Colors.white),
-              SizedBox(width: 6),
-              Text(
-                "Menu",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
+         // Menu button positioned at top
+          Positioned(
+            top: 40,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: GestureDetector(
+                onTap: () => _openMenu(context),
+                child: SizedBox(
+                  width: getMenuWidth(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.menu,
+                        color: Colors.white,
+                        size: getMenuIconSize(),
+                      ),
+                      SizedBox(width: isVerySmallScreen ? 6 : 8),
+                      Text(
+                        'MENU',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: getMenuFontSize(),
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: getMenuLetterSpacing(),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ],
+            ),
           ),
-        ),
         Positioned(
           top: 120,
           child: Column(
-            children: const [
+            children: [
               Text(
-                "Find the Perfect Pooja Service Tailored to Your Spiritual Needs",
+                "Find the Perfect Pooja Service Tailored to\nYour Spiritual Needs",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 38,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context, mobile: 20, tablet: 30, desktop: 45),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -110,76 +175,78 @@ class _PanditBookingWaitingState extends State<PanditBookingWaiting> {
         ),
 
         // 🌟 Foreground Content
-        Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 60),
-              const Text(
-                "Request for Pandits",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 80),
-
-              // Fixed Form Container
-              Container(
-                width: 800,
-                padding: const EdgeInsets.all(30),
-                decoration: BoxDecoration(
-                  color: Color(0xffEAC63E),
-                  borderRadius: BorderRadius.circular(8),
+        ResponsiveWrapper(
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 60),
+                const Text(
+                  "Request for Pandits",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: double.infinity,
-
-                      padding: EdgeInsets.all(50),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 100,
-                              bottom: 50,
-                            ),
-                            child: Text(
-                              "Thank you for contacting Sree Lalitha Peetham. We will assist you shortly with the best available pandits",
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                                letterSpacing: 1.25,
+                const SizedBox(height: 80),
+          
+                // Fixed Form Container
+                Container(
+                  width: 800,
+                  padding: const EdgeInsets.all(30),
+                  decoration: BoxDecoration(
+                    color: Color(0xffEAC63E),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: double.infinity,
+          
+                        padding: EdgeInsets.all(50),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 100,
+                                bottom: 50,
                               ),
-                            ),
-                          ),
-                          Container(
-                            height: 48,
-                            width: 150,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFB8B8B8),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Center(
                               child: Text(
-                                "Back",
+                                "Thank you for contacting Sree Lalitha Peetham. We will assist you shortly with the best available pandits",
                                 style: TextStyle(
-                                  color: Color(0xFF333333),
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                  letterSpacing: 1.25,
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                            Container(
+                              height: 48,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFB8B8B8),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "Back",
+                                  style: TextStyle(
+                                    color: Color(0xFF333333),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],

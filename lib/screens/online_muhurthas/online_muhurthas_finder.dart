@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class OnlineMuhurthasFinder extends StatefulWidget {
   const OnlineMuhurthasFinder({super.key});
@@ -14,6 +15,12 @@ class _OnlineMuhurthasFinderState extends State<OnlineMuhurthasFinder> {
 
   @override
   Widget build(BuildContext context) {
+final isMobile = ResponsiveHelper.isMobile(context);
+final isTablet = ResponsiveHelper.isTablet(context);
+final isDesktop = ResponsiveHelper.isDesktop(context);
+final screenWidth = ResponsiveHelper.screenWidth(context);
+final screenHeight = ResponsiveHelper.screenHeight(context);
+
     return OnlineMuhurthasLayout(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(150, 60, 250, 60),
