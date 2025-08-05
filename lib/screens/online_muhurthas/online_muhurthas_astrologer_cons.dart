@@ -1,108 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class OnlineMuhurthasAstrologerConsultation extends StatelessWidget {
   const OnlineMuhurthasAstrologerConsultation({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = ResponsiveHelper.isMobile(context);
+    final isTablet = ResponsiveHelper.isTablet(context);
+    final isDesktop = ResponsiveHelper.isDesktop(context);
+    final width = ResponsiveHelper.screenWidth(context);
+
+    // Adjust padding responsively
+    EdgeInsets contentPadding = EdgeInsets.symmetric(
+      horizontal: isMobile ? 16 : isTablet ? 60 : 200,
+      vertical: isMobile ? 24 : 60,
+    );
+
+    double cardWidth = isMobile ? double.infinity : 350;
+
     return OnlineMuhurthasLayout(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 200, vertical: 60),
+        padding: contentPadding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Title
-            const Text(
+            Text(
               'Consult with Verified Astrologers',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: isMobile ? 20 : 24,
                 fontWeight: FontWeight.w600,
                 color: Colors.black87,
               ),
             ),
             const SizedBox(height: 32),
 
-            // Language Dropdown
-            Container(
-              width: 350,
-              height: 48,
-              decoration: BoxDecoration(
-                color: const Color(0xFFF5F5F5),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: const Color(0xFFE0E0E0)),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Select Language',
-                    style: TextStyle(fontSize: 16, color: Colors.black87),
-                  ),
-                  Icon(
-                    Icons.keyboard_arrow_down,
-                    color: Colors.black54,
-                    size: 24,
-                  ),
-                ],
-              ),
-            ),
+            // Dropdowns (Language, Expertise, Sort By)
+            _buildDropdownBox('Select Language', cardWidth),
             const SizedBox(height: 16),
-
-            // Expertise Dropdown
-            Container(
-              width: 350,
-              height: 48,
-              decoration: BoxDecoration(
-                color: const Color(0xFFF5F5F5),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: const Color(0xFFE0E0E0)),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Select Expertise',
-                    style: TextStyle(fontSize: 16, color: Colors.black87),
-                  ),
-                  Icon(
-                    Icons.keyboard_arrow_down,
-                    color: Colors.black54,
-                    size: 24,
-                  ),
-                ],
-              ),
-            ),
+            _buildDropdownBox('Select Expertise', cardWidth),
             const SizedBox(height: 16),
-
-            // Sort By Dropdown
-            Container(
-              width: 350,
-              height: 48,
-              decoration: BoxDecoration(
-                color: const Color(0xFFF5F5F5),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: const Color(0xFFE0E0E0)),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Sort By',
-                    style: TextStyle(fontSize: 16, color: Colors.black87),
-                  ),
-                  Icon(
-                    Icons.keyboard_arrow_down,
-                    color: Colors.black54,
-                    size: 24,
-                  ),
-                ],
-              ),
-            ),
+            _buildDropdownBox('Sort By', cardWidth),
             const SizedBox(height: 32),
 
             // Astrologer Cards
@@ -114,7 +54,6 @@ class OnlineMuhurthasAstrologerConsultation extends StatelessWidget {
               imagePath: 'assets/images/priya.jpg',
             ),
             const SizedBox(height: 16),
-
             _buildAstrologerCard(
               context: context,
               name: 'Astrologer Ravi Kumar',
@@ -123,7 +62,6 @@ class OnlineMuhurthasAstrologerConsultation extends StatelessWidget {
               imagePath: 'assets/images/ravi.jpg',
             ),
             const SizedBox(height: 16),
-
             _buildAstrologerCard(
               context: context,
               name: 'Astrologer Meera Patel',
@@ -132,7 +70,6 @@ class OnlineMuhurthasAstrologerConsultation extends StatelessWidget {
               imagePath: 'assets/images/meera.jpg',
             ),
             const SizedBox(height: 16),
-
             _buildAstrologerCard(
               context: context,
               name: 'Astrologer Aniket Das',
@@ -142,36 +79,59 @@ class OnlineMuhurthasAstrologerConsultation extends StatelessWidget {
             ),
             const SizedBox(height: 40),
 
-            // Consultation Types Section
-            const Text(
+            Text(
               'Consultation Types',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: isMobile ? 20 : 24,
                 fontWeight: FontWeight.w600,
                 color: Colors.black87,
               ),
             ),
             const SizedBox(height: 24),
 
-            // Consultation Type Cards
             _buildConsultationTypeCard(
               icon: Icons.calendar_today,
               title: 'Muhurtam Suggesti...',
             ),
             const SizedBox(height: 12),
-
             _buildConsultationTypeCard(
               icon: Icons.people,
               title: 'Horoscope Matching',
             ),
             const SizedBox(height: 12),
-
             _buildConsultationTypeCard(
               icon: Icons.help_outline,
               title: 'Personal Q&A',
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildDropdownBox(String label, double width) {
+    return Container(
+      width: width,
+      height: 48,
+      decoration: BoxDecoration(
+        color: const Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xFFE0E0E0)),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(fontSize: 16, color: Colors.black87),
+          ),
+          const Icon(
+            Icons.keyboard_arrow_down,
+            color: Colors.black54,
+            size: 24,
+          ),
+        ],
       ),
     );
   }
@@ -200,7 +160,6 @@ class OnlineMuhurthasAstrologerConsultation extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
-          // Profile Image
           Container(
             width: 48,
             height: 48,
@@ -211,8 +170,6 @@ class OnlineMuhurthasAstrologerConsultation extends StatelessWidget {
             child: const Icon(Icons.person, color: Colors.grey, size: 24),
           ),
           const SizedBox(width: 16),
-
-          // Astrologer Info
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -230,12 +187,11 @@ class OnlineMuhurthasAstrologerConsultation extends StatelessWidget {
                 Text(
                   '$languages | $experience',
                   style: const TextStyle(fontSize: 14, color: Colors.black54),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
           ),
-
-          // Book Appointment Button
           GestureDetector(
             onTap: () => context.go('/online_muhurthas_astrologer_cons_book'),
             child: Container(
@@ -280,17 +236,8 @@ class OnlineMuhurthasAstrologerConsultation extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       child: Row(
         children: [
-          Container(
-            width: 28,
-            height: 28,
-            decoration: BoxDecoration(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(4),
-            ),
-            child: Icon(icon, color: Colors.black87, size: 20),
-          ),
+          Icon(icon, color: Colors.black87, size: 20),
           const SizedBox(width: 16),
-
           Expanded(
             child: Text(
               title,
@@ -299,9 +246,9 @@ class OnlineMuhurthasAstrologerConsultation extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 color: Colors.black87,
               ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
-
           const Icon(Icons.arrow_forward, color: Colors.black54, size: 20),
         ],
       ),

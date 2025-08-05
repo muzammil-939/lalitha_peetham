@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class OnlineMuhurthasUpcomingMuhurthams extends StatefulWidget {
   const OnlineMuhurthasUpcomingMuhurthams({Key? key}) : super(key: key);
@@ -16,250 +17,279 @@ class _OnlineMuhurthasUpcomingMuhurthamsState
   DateTime selectedDate = DateTime(2024, 7, 20);
   String selectedTime = '10:00 AM';
 
-  @override
-  Widget build(BuildContext context) {
-    return OnlineMuhurthasLayout(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 200, vertical: 60),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Breadcrumb
-            Row(
-              children: [
+@override
+Widget build(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final isTablet = ResponsiveHelper.isTablet(context);
+  final isDesktop = ResponsiveHelper.isDesktop(context);
+
+  final horizontalPadding = isMobile
+      ? 16.0
+      : isTablet
+          ? 40.0
+          : 200.0;
+
+  final verticalPadding = isMobile
+      ? 20.0
+      : isTablet
+          ? 40.0
+          : 60.0;
+
+  final calendarSpacing = isMobile ? 16.0 : 80.0;
+  final buttonWidth = isMobile ? double.infinity : 300.0;
+  final titleFontSize = isMobile ? 24.0 : 32.0;
+
+  return OnlineMuhurthasLayout(
+    child: Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: horizontalPadding,
+        vertical: verticalPadding,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Breadcrumb
+          Row(
+            children: [
+              Text(
+                'Muhurtam',
+                style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+              ),
+              Text(
+                ' / ',
+                style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+              ),
+              const Text(
+                'Marriage',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+
+          // Title
+          Text(
+            'Marriage Muhurtam',
+            style: TextStyle(
+              fontSize: titleFontSize,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 40),
+
+          // Select Consultation Type
+          const Text(
+            'Select Consultation Type',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 20),
+
+          _buildConsultationOption(
+            'Standard Consultation',
+            'Get a detailed analysis of auspicious dates and times for your marriage.',
+            true,
+          ),
+          const SizedBox(height: 16),
+          _buildConsultationOption(
+            'Premium Consultation',
+            'Receive personalized guidance and support from our expert astrologers.',
+            false,
+          ),
+          const SizedBox(height: 40),
+
+          // Select Date and Time
+          const Text(
+            'Select Date and Time',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // Calendar Section
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.chevron_left, size: 24),
+              ),
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: _buildCalendar(
+                        'July 2024',
+                        _getJulyDays(),
+                        highlightedDay: 5,
+                        selectedDay: 20,
+                      ),
+                    ),
+                    SizedBox(width: calendarSpacing),
+                    Expanded(
+                      child: _buildCalendar(
+                        'August 2024',
+                        _getAugustDays(),
+                        highlightedDay: 29,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.chevron_right, size: 24),
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+
+          // Time Selection
+          Container(
+            width: isMobile ? double.infinity : 200,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey[300]!),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
                 Text(
-                  'Muhurtam',
-                  style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                  'Select Time',
+                  style: TextStyle(fontSize: 16, color: Colors.black87),
                 ),
-                Text(
-                  ' / ',
-                  style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                ),
-                const Text(
-                  'Marriage',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                Icon(Icons.keyboard_arrow_down, color: Colors.black54),
               ],
             ),
-            const SizedBox(height: 24),
+          ),
+          const SizedBox(height: 40),
 
-            // Title
-            const Text(
-              'Marriage Muhurtam',
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
+          // Booking Summary
+          const Text(
+            'Booking Summary',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
             ),
-            const SizedBox(height: 40),
+          ),
+          const SizedBox(height: 20),
 
-            // Select Consultation Type
-            const Text(
-              'Select Consultation Type',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            // Consultation Options
-            _buildConsultationOption(
-              'Standard Consultation',
-              'Get a detailed analysis of auspicious dates and times for your marriage.',
-              true,
-            ),
-            const SizedBox(height: 16),
-            _buildConsultationOption(
-              'Premium Consultation',
-              'Receive personalized guidance and support from our expert astrologers.',
-              false,
-            ),
-            const SizedBox(height: 40),
-
-            // Select Date and Time
-            const Text(
-              'Select Date and Time',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 24),
-
-            // Calendar Section
-            Row(
-              children: [
-                // Left Arrow
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.chevron_left, size: 24),
-                ),
-
-                // Calendars
-                Expanded(
-                  child: Row(
-                    children: [
-                      // July 2024 Calendar
-                      Expanded(
-                        child: _buildCalendar(
-                          'July 2024',
-                          _getJulyDays(),
-                          highlightedDay: 5,
-                          selectedDay: 20,
-                        ),
-                      ),
-                      const SizedBox(width: 80),
-
-                      // August 2024 Calendar
-                      Expanded(
-                        child: _buildCalendar(
-                          'August 2024',
-                          _getAugustDays(),
-                          highlightedDay: 29,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                // Right Arrow
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.chevron_right, size: 24),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-
-            // Time Selection
-            Container(
-              width: 200,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey[300]!),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Select Time',
-                    style: TextStyle(fontSize: 16, color: Colors.black87),
-                  ),
-                  const Icon(Icons.keyboard_arrow_down, color: Colors.black54),
-                ],
-              ),
-            ),
-            const SizedBox(height: 40),
-
-            // Booking Summary
-            const Text(
-              'Booking Summary',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            // Summary Details
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Left Column
-                Column(
+          // Responsive Summary Section
+          isMobile
+              ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Consultation Type',
-                      style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                    ),
-                    const Text(
-                      'Standard Consultation',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                      ),
-                    ),
+                    _buildSummaryColumn1(),
                     const SizedBox(height: 20),
-                    Text(
-                      'Time',
-                      style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                    ),
-                    const Text(
-                      '10:00 AM',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                      ),
-                    ),
+                    _buildSummaryColumn2(),
                   ],
-                ),
-                const SizedBox(width: 80),
-
-                // Right Column
-                Column(
+                )
+              : Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Date',
-                      style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                    ),
-                    const Text(
-                      'July 20, 2024',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black,
-                      ),
-                    ),
+                    _buildSummaryColumn1(),
+                    const SizedBox(width: 80),
+                    _buildSummaryColumn2(),
                   ],
                 ),
-              ],
-            ),
-            const SizedBox(height: 40),
+          const SizedBox(height: 40),
 
-            // Proceed to Payment Button
-            SizedBox(
-              width: 300,
-              height: 50,
-              child: ElevatedButton(
-                onPressed: () {
-                  context.go('/online_muhurthas_payment_success');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFD4AF37),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  elevation: 0,
+          // Proceed to Payment Button
+          SizedBox(
+            width: buttonWidth,
+            height: 50,
+            child: ElevatedButton(
+              onPressed: () {
+                context.go('/online_muhurthas_payment_success');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFD4AF37),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
                 ),
-                child: const Text(
-                  'Proceed to Payment',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
+                elevation: 0,
+              ),
+              child: const Text(
+                'Proceed to Payment',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
                 ),
               ),
             ),
-          ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _buildSummaryColumn1() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        'Consultation Type',
+        style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+      ),
+      const Text(
+        'Standard Consultation',
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: Colors.black,
         ),
       ),
-    );
-  }
+      const SizedBox(height: 20),
+      Text(
+        'Time',
+        style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+      ),
+      const Text(
+        '10:00 AM',
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: Colors.black,
+        ),
+      ),
+    ],
+  );
+}
+
+Widget _buildSummaryColumn2() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        'Date',
+        style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+      ),
+      const Text(
+        'July 20, 2024',
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: Colors.black,
+        ),
+      ),
+    ],
+  );
+}
 
   Widget _buildConsultationOption(
     String title,

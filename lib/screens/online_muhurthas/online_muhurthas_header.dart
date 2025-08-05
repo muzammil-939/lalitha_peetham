@@ -250,60 +250,27 @@ class OnlineMuhurthasHeader extends StatelessWidget {
     );
   }
 
-  Widget _buildMobileSubNav(BuildContext context) {
-    return Row(
+Widget _buildMobileSubNav(BuildContext context) {
+  return SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: Row(
       children: [
-        Expanded(
-          child: _buildSubNavItem(context, 'Home', '/online_muhurthas_home'),
-        ),
-        Expanded(
-          child: _buildSubNavItem(
-            context,
-            'Muhurtam Finder',
-            '/online_muhurthas_finder',
-          ),
-        ),
-        Expanded(
-          child: _buildSubNavItem(
-            context,
-            'Upcoming Muhurtams',
-            '/online_muhurthas_upcoming_muhurthams',
-          ),
-        ),
-        Expanded(
-          child: _buildSubNavItem(
-            context,
-            'Event-specific Muhurtams',
-            '/online_muhurthas_event_specific',
-          ),
-        ),
-        Expanded(
-          child: _buildSubNavItem(
-            context,
-            'Astrologer Consultation',
-            '/online_muhurthas_astrologer_cons',
-          ),
-        ),
-        Expanded(
-          child: _buildSubNavItem(context, 'FAQ', '/online_muhurthas_faq'),
-        ),
-        Expanded(
-          child: _buildSubNavItem(
-            context,
-            'Contact',
-            '/online_muhurthas_contactus',
-          ),
-        ),
-        Expanded(
-          child: _buildSubNavItem(
-            context,
-            'More',
-            '/online_muhurthas_reminders',
-          ),
-        ),
-      ],
-    );
-  }
+        _buildSubNavItem(context, 'Home', '/online_muhurthas_home'),
+        _buildSubNavItem(context, 'Muhurtam Finder', '/online_muhurthas_finder'),
+        _buildSubNavItem(context, 'Upcoming Muhurtams', '/online_muhurthas_upcoming_muhurthams'),
+        _buildSubNavItem(context, 'Event-specific Muhurtams', '/online_muhurthas_event_specific'),
+        _buildSubNavItem(context, 'Astrologer Consultation', '/online_muhurthas_astrologer_cons'),
+        _buildSubNavItem(context, 'FAQ', '/online_muhurthas_faq'),
+        _buildSubNavItem(context, 'Contact', '/online_muhurthas_contactus'),
+        _buildSubNavItem(context, 'More', '/online_muhurthas_reminders'),
+      ].map((item) => Padding(
+        padding: const EdgeInsets.only(right: 12),
+        child: item,
+      )).toList(),
+    ),
+  );
+}
+
 
   Widget _buildDesktopSubNav(BuildContext context) {
     return Row(

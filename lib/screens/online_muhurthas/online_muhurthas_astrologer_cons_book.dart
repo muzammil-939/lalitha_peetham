@@ -1,119 +1,176 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart'; 
+
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class OnlineMuhurthasAstrologerConsBook extends StatelessWidget {
   const OnlineMuhurthasAstrologerConsBook({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = ResponsiveHelper.isMobile(context);
+    final isTablet = ResponsiveHelper.isTablet(context);
+    final isDesktop = ResponsiveHelper.isDesktop(context);
+
+    final horizontalPadding = isMobile
+        ? 16.0
+        : isTablet
+            ? 60.0
+            : 200.0;
+
+    final verticalPadding = isMobile ? 24.0 : 60.0;
+
+    final contentWidth = isMobile
+        ? double.infinity
+        : isTablet
+            ? 700.0
+            : 1000.0;
+
     return OnlineMuhurthasLayout(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 200, vertical: 60),
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontalPadding,
+          vertical: verticalPadding,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              width: 1000,
-              height: 120,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // Profile Image
-                  Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: const DecorationImage(
-                        image: NetworkImage('assets/images/em6.jpg'),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(width: 20),
-
-                  // Text Content
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Astrologer Meera Sharma',
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF2D3748),
-                            height: 1.2,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        const Text(
-                          '15 years of experience',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xFF718096),
-                            height: 1.3,
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        const Text(
-                          'Speaks Hindi, English',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: Color(0xFF718096),
-                            height: 1.3,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(width: 16),
-
-                  // Book Appointment Button
-                  GestureDetector(
-                    onTap:
-                        () => context.go(
-                          '/online_muhurthas_astrologer_cons_book',
-                        ),
-                    child: Container(
-                      height: 50,
-                      width: 400,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFD4BB26),
-                        borderRadius: BorderRadius.circular(18),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'Book Appointment',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            // Responsive profile header
+            ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: contentWidth),
+              child: isMobile
+                  ? _buildColumnProfileHeader(context)
+                  : _buildRowProfileHeader(context),
             ),
-            _buildReviews(),
+            const SizedBox(height: 32),
+            _buildReviews(context),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildReviews() {
+  Widget _buildRowProfileHeader(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        _buildProfileImage(),
+        const SizedBox(width: 20),
+        // Info
+        Expanded(child: _buildProfileTexts()),
+        const SizedBox(width: 16),
+        // Book Button
+        SizedBox(
+          width: 400,
+          height: 50,
+          child: _buildBookButton(context),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildColumnProfileHeader(BuildContext context) {
+    return Column(
+      children: [
+        _buildProfileImage(),
+        const SizedBox(height: 12),
+        _buildProfileTexts(),
+        const SizedBox(height: 20),
+        SizedBox(
+          width: double.infinity,
+          height: 50,
+          child: _buildBookButton(context),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildProfileImage() {
+    return Container(
+      width: 80,
+      height: 80,
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        image: DecorationImage(
+          image: AssetImage('assets/images/em6.jpg'),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProfileTexts() {
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Astrologer Meera Sharma',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF2D3748),
+            height: 1.2,
+          ),
+        ),
+        SizedBox(height: 4),
+        Text(
+          '15 years of experience',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF718096),
+            height: 1.3,
+          ),
+        ),
+        SizedBox(height: 2),
+        Text(
+          'Speaks Hindi, English',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFF718096),
+            height: 1.3,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBookButton(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () => context.go('/online_muhurthas_astrologer_cons_book'),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xFFD4BB26),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+        ),
+      ),
+      child: const Text(
+        'Book Appointment',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildReviews(BuildContext context) {
+    double rightPadding = ResponsiveHelper.isMobile(context)
+        ? 16
+        : ResponsiveHelper.isTablet(context)
+            ? 60
+            : 200;
+
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.only(right: 200, top: 75, bottom: 100),
+      padding: EdgeInsets.only(right: rightPadding, top: 75, bottom: 100),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -131,58 +188,44 @@ class OnlineMuhurthasAstrologerConsBook extends StatelessWidget {
               _buildRatingRow("1.0", 0, 0.0),
             ],
           ),
-
           const SizedBox(height: 25),
-
-          // Overall Rating Stars
+          // Overall Rating
           Row(
             children: List.generate(
               5,
               (index) => const Icon(Icons.star, color: Colors.amber, size: 16),
             ),
           ),
-
           const SizedBox(height: 32),
-
-          // Review 1
           _buildReviewItem(
             "These 45 minutes changed my life – I feel calmer and more in control every day.",
             "July 2, 2020 03:29 PM",
             "DARRELL STEWART",
-            "assets/images/profile1.jpg", // Replace with actual asset path
+            "assets/images/profile1.jpg",
             128,
           ),
-
           const SizedBox(height: 24),
-
-          // Review 2
           _buildReviewItem(
             "Stress used to rule my day. Now, I handle things with peace and clarity.",
             "July 2, 2020 1:04 PM",
             "DARLENE ROBERTSON",
-            "assets/images/profile2.jpg", // Replace with actual asset path
+            "assets/images/profile2.jpg",
             82,
           ),
-
           const SizedBox(height: 24),
-
-          // Review 3
           _buildReviewItem(
             "I've tried many apps, but nothing matched the live, personal experience here.",
             "June 26, 2020 10:03 PM",
             "KATHRYN MURPHY",
-            "assets/images/profile3.jpg", // Replace with actual asset path
+            "assets/images/profile3.jpg",
             9,
           ),
-
           const SizedBox(height: 24),
-
-          // Review 4
           _buildReviewItem(
             "Consistent, soothing, and effective – I'm a different person now.",
             "July 7, 2020 10:14 AM",
             "RONALD RICHARDS",
-            "assets/images/profile4.jpg", // Replace with actual asset path
+            "assets/images/profile4.jpg",
             124,
           ),
         ],
@@ -253,17 +296,13 @@ class OnlineMuhurthasAstrologerConsBook extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Five stars
         Row(
           children: List.generate(
             5,
             (index) => const Icon(Icons.star, color: Colors.amber, size: 14),
           ),
         ),
-
         const SizedBox(height: 12),
-
-        // Review text
         Text(
           reviewText,
           style: const TextStyle(
@@ -273,10 +312,7 @@ class OnlineMuhurthasAstrologerConsBook extends StatelessWidget {
             height: 1.4,
           ),
         ),
-
         const SizedBox(height: 8),
-
-        // Date
         Text(
           date,
           style: TextStyle(
@@ -285,29 +321,15 @@ class OnlineMuhurthasAstrologerConsBook extends StatelessWidget {
             fontWeight: FontWeight.w400,
           ),
         ),
-
         const SizedBox(height: 16),
-
-        // Profile row
         Row(
           children: [
-            // Profile image
             CircleAvatar(
               radius: 16,
               backgroundColor: Colors.grey[300],
               backgroundImage: AssetImage(profileImage),
-              onBackgroundImageError: (exception, stackTrace) {
-                // Handle image loading error
-              },
-              child:
-                  profileImage.isEmpty
-                      ? Icon(Icons.person, size: 16, color: Colors.grey[600])
-                      : null,
             ),
-
             const SizedBox(width: 12),
-
-            // Name
             Expanded(
               child: Text(
                 name,
@@ -319,16 +341,10 @@ class OnlineMuhurthasAstrologerConsBook extends StatelessWidget {
                 ),
               ),
             ),
-
-            // Like button and count
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  Icons.thumb_up_outlined,
-                  size: 16,
-                  color: Colors.grey[600],
-                ),
+                Icon(Icons.thumb_up_outlined, size: 16, color: Colors.grey[600]),
                 const SizedBox(width: 6),
                 Text(
                   likes.toString(),
@@ -339,11 +355,7 @@ class OnlineMuhurthasAstrologerConsBook extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 16),
-                Icon(
-                  Icons.thumb_down_outlined,
-                  size: 16,
-                  color: Colors.grey[600],
-                ),
+                Icon(Icons.thumb_down_outlined, size: 16, color: Colors.grey[600]),
               ],
             ),
           ],
