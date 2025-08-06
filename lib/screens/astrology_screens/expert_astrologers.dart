@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class ExpertAstrologers extends StatelessWidget {
    ExpertAstrologers({super.key});
@@ -53,7 +54,12 @@ class ExpertAstrologers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double cardWidth = MediaQuery.of(context).size.width / 3.5;
+
+      final isMobile = ResponsiveHelper.isMobile(context);
+    final isTablet = ResponsiveHelper.isTablet(context);
+    final screenWidth = ResponsiveHelper.screenWidth(context);
+    double cardWidth = isMobile ? screenWidth / 1.1 :isTablet ? screenWidth / 2.3 : screenWidth / 3.5 ;
+    
 
     return  Stack(
     children: [
@@ -62,8 +68,8 @@ class ExpertAstrologers extends StatelessWidget {
         top: 0,
         left: 0,
         child: SizedBox(
-          height: 350,
-          width: 1500,
+          height: isMobile ? 200 :isTablet? 300: 350,
+          width: screenWidth,
           child: Image.asset(
             'assets/images/vastupooja4.png',
             fit: BoxFit.cover,
@@ -73,26 +79,27 @@ class ExpertAstrologers extends StatelessWidget {
 
       // 🪐 Planet Image
       Positioned(
-        top: 40,
-        right: 30,
+        top: isMobile ? 20: 40,
+        right: isMobile ? 10 : 30,
         child: Image.asset(
           'assets/images/vastupooja11.png',
-          height: 60,
-          width: 60,
+          height: isMobile ? 40 : 60,
+          width:  isMobile ? 40 : 60,
         ),
       ),
     Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50),
+      padding: EdgeInsets.symmetric(horizontal:isMobile ? 16 : 50),
       child: Column(
         children: [
-          SizedBox(height: 80,),
+           SizedBox(height: isMobile ? 60 : 80),
 
         
-          const Text(
+          Text(
             "Your Secure Astrology Connection",
             textAlign: TextAlign.start,
             style: TextStyle(
-              fontSize: 45,
+              fontSize: ResponsiveFontsize.fontSize(
+                context, mobile: 20, tablet: 30, desktop: 45),
               fontWeight: FontWeight.bold,
               
             ),

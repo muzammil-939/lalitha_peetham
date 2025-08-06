@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class SimillarAstrologers extends StatelessWidget {
    SimillarAstrologers({super.key});
@@ -34,10 +35,18 @@ class SimillarAstrologers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double cardWidth = MediaQuery.of(context).size.width / 3.5;
+    final isMobile = ResponsiveHelper.isMobile(context);
+    final isTablet = ResponsiveHelper.isTablet(context);
+    final screenWidth = ResponsiveHelper.screenWidth(context);
+     // Responsive card width
+    double cardWidth = isMobile
+        ? screenWidth / 1.1
+        : isTablet
+            ? screenWidth / 2.3
+            : screenWidth / 3.5;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50),
+      padding:  EdgeInsets.symmetric(horizontal: isMobile ? 16 :50),
       child: Column(
         children: [
 

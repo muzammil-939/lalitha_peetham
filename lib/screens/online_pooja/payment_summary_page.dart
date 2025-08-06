@@ -81,6 +81,8 @@ class _PaymentSummaryPageState extends State<PaymentSummaryPage> {
     final isSmallScreen = size.width < 600;
     final isVerySmallScreen = size.width < 400;
     
+  final isMobile = ResponsiveHelper.isMobile(context);
+    final isTablet = ResponsiveHelper.isTablet(context);
 
     double getMenuIconSize() {
       if (isVerySmallScreen) return 24;
@@ -113,7 +115,7 @@ class _PaymentSummaryPageState extends State<PaymentSummaryPage> {
         Image.asset(
           'assets/images/vastupooja1.png',
           width: double.infinity,
-          height: 600,
+          height: isMobile ? 300 :isTablet? 400: 600,
           fit: BoxFit.cover,
         ),
          // Menu button positioned at top
@@ -151,7 +153,7 @@ class _PaymentSummaryPageState extends State<PaymentSummaryPage> {
             ),
           ),
         Positioned(
-          top: 120,
+          top:isMobile?80: 120,
           child: Column(
             children:  [
               
@@ -178,8 +180,8 @@ class _PaymentSummaryPageState extends State<PaymentSummaryPage> {
             borderRadius: BorderRadius.circular(0),
             child: Image.asset(
               'assets/images/vastupooja18.png',
-              height: 180,
-              width: 280,
+              height: isMobile ? 100 : isTablet ? 120 : 180,
+               width: isMobile ? 150 : isTablet ? 180 : 280,
               fit: BoxFit.cover,
             ),
           ),

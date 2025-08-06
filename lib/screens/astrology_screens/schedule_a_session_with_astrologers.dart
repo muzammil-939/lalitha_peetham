@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/menu.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class ScheduleASessionWithAstrologers extends StatefulWidget {
   const ScheduleASessionWithAstrologers({super.key});
@@ -10,6 +12,21 @@ class ScheduleASessionWithAstrologers extends StatefulWidget {
 }
 
 class _ScheduleASessionWithAstrologersState extends State<ScheduleASessionWithAstrologers> {
+
+  void _openMenu(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, _) => DropdownGridMenu(),
+        transitionDuration: const Duration(milliseconds: 300),
+        transitionsBuilder:
+            (context, animation, _, child) =>
+                FadeTransition(opacity: animation, child: child),
+        opaque: false,
+      ),
+    );
+  }
+  
    // Astrologer details
   final fullNameController = TextEditingController();
   final experienceController = TextEditingController();
@@ -59,37 +76,96 @@ class _ScheduleASessionWithAstrologersState extends State<ScheduleASessionWithAs
     );
   }
    Widget buildherosection() {
+      final size = MediaQuery.of(context).size;
+    final isMediumScreen = size.width > 800;
+    final isSmallScreen = size.width < 600;
+    final isVerySmallScreen = size.width < 400;
+    
+
+    double getMenuIconSize() {
+      if (isVerySmallScreen) return 24;
+      if (isSmallScreen) return 26;
+      if (isMediumScreen) return 28;
+      return 30;
+    }
+
+    double getMenuFontSize() {
+      if (isVerySmallScreen) return 18;
+      if (isSmallScreen) return 20;
+      if (isMediumScreen) return 22;
+      return 24;
+    }
+
+    double getMenuLetterSpacing() {
+      if (isVerySmallScreen) return 1;
+      if (isSmallScreen) return 1.5;
+      return 2;
+    }
+
+        double getMenuWidth() {
+      if (isVerySmallScreen) return 200;
+      if (isSmallScreen) return 250;
+      return 300;
+    }
+    final isMobile = ResponsiveHelper.isMobile(context);
+    final isTablet = ResponsiveHelper.isTablet(context);
+
     return Stack(
       alignment: Alignment.center,
       children: [
         Image.asset(
           'assets/images/vastupooja1.png',
           width: double.infinity,
-          height: 600,
+          height: isMobile ? 300 : isTablet ? 400 : 600,
           fit: BoxFit.cover,
         ),
-        Positioned(
-          top: 40,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.menu, color: Colors.white),
-              SizedBox(width: 6),
-              Text("Menu", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
-            ],
+        // Menu button positioned at top
+          Positioned(
+            top: 40,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: GestureDetector(
+                onTap: () => _openMenu(context),
+                child: SizedBox(
+                  width: getMenuWidth(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.menu,
+                        color: Colors.white,
+                        size: getMenuIconSize(),
+                      ),
+                      SizedBox(width: isVerySmallScreen ? 6 : 8),
+                      Text(
+                        'MENU',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: getMenuFontSize(),
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: getMenuLetterSpacing(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+            ),
           ),
-        ),
         Positioned(
-          top: 120,
+          top: isMobile ? 80 : 120,
           child: Column(
-            children: const [
+            children: [
               
               Text(
                 "Book Customized E-Poojas Online – Your\nRitual, Your Way",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 45,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context, mobile: 20, tablet: 30, desktop: 45),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -102,8 +178,8 @@ class _ScheduleASessionWithAstrologersState extends State<ScheduleASessionWithAs
             borderRadius: BorderRadius.circular(0),
             child: Image.asset(
               'assets/images/online_pooja2.jpg',
-              height: 180,
-              width: 280,
+              height: isMobile ? 100 : isTablet ? 120: 180,
+              width: isMobile ? 150 : isTablet ? 180 : 280,
               fit: BoxFit.cover,
             ),
           ),
@@ -139,43 +215,11 @@ class _ScheduleASessionWithAstrologersState extends State<ScheduleASessionWithAs
     );
   }
 
-  Widget buildSingleField(String label, String hint, TextEditingController controller,{double width = 300}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
-        const SizedBox(height: 5),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.grey.shade300,
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: TextField(
-            controller: controller,
-            decoration: InputDecoration(
-              hintText: hint,
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-              border: InputBorder.none,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget buildSectionTitle(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      child: Text(
-        title,
-        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-      ),
-    );
-  }
-
 
  Widget buildScheduleASessionWithAstrologers() {
+    final isMobile = ResponsiveHelper.isMobile(context);
+  final isTablet = ResponsiveHelper.isTablet(context);
+  final screenWidth = ResponsiveHelper.screenWidth(context);
   return Stack(
     children: [
       // Background Vector Image
@@ -183,8 +227,8 @@ class _ScheduleASessionWithAstrologersState extends State<ScheduleASessionWithAs
         top: 0,
         left: 0,
         child: SizedBox(
-          height: 350,
-          width: 1500,
+          height: isMobile ? 200 : isTablet ? 300 : 350,
+          width:  screenWidth,
           child: Image.asset(
             'assets/images/vastupooja4.png',
             fit: BoxFit.cover,
@@ -193,40 +237,45 @@ class _ScheduleASessionWithAstrologersState extends State<ScheduleASessionWithAs
       ),
 
       // Top Planet Decoration
-      Positioned(
-        top: 40,
-        right: 30,
-        child: Image.asset(
-          'assets/images/vastupooja11.png',
-          height: 60,
-          width: 60,
-        ),
-      ),
+     Positioned(
+  top: isMobile ? 20 : 40,
+  right: isMobile ? 10 : 30,
+  child: Image.asset(
+    'assets/images/vastupooja11.png',
+    height: isMobile ? 40 : 60,
+    width: isMobile ? 40 : 60,
+  ),
+),
 
-      // Watermark Vector
-      Positioned(
-        top: 0,
-        bottom: 60,
-        right: 380,
-        child: Opacity(
-          opacity: 0.8,
-          child: Image.asset(
-            'assets/images/Vector (2).png',
-            width: 500,
-            height: 500,
-            fit: BoxFit.contain,
+     // Background Watermark (Vector Image)
+        Positioned(
+          top: 0,
+          bottom: isMobile ? 60 : isTablet ? 60:  60,
+          right: isMobile ?150 : isTablet ? 250: 380,
+          child: Align(
+            alignment: Alignment.center,
+            child: Opacity(
+              opacity: 0.8,
+              child: Image.asset(
+                'assets/images/Vector (2).png',
+                width: isMobile ? 250 : isTablet ? 300 : 450,
+                height: isMobile ? 250 : isTablet ? 300 : 450,
+                fit: BoxFit.contain,
+                //color: Colors.amber[800],
+              ),
+            ),
           ),
         ),
-      ),
 
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 200.0, vertical: 60),
+        padding: EdgeInsets.symmetric(horizontal:  isMobile ? 16 : isTablet ? 40 : 200.0, vertical: 60),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               "SCHEDULE A SESSION WITH THE\nASTROLOGER",
-              style: TextStyle(fontSize: 42, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: ResponsiveFontsize.fontSize(
+                context, mobile: 20, tablet: 30, desktop: 40), fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
 
@@ -327,7 +376,7 @@ class _ScheduleASessionWithAstrologersState extends State<ScheduleASessionWithAs
                 const Expanded(child: SizedBox()), // Keeps the layout aligned
               ],
             ),
-           // buildSingleField("Session Price", "\$999", TextEditingController()),
+           
 
             const SizedBox(height: 60),
 
@@ -339,7 +388,7 @@ class _ScheduleASessionWithAstrologersState extends State<ScheduleASessionWithAs
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xffDC9323),
                     foregroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 14),
+                    padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),

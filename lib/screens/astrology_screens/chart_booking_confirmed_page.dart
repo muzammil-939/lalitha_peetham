@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
+import 'package:lalitha_peetham/widgets/menu.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class ChartBookingConfirmedPage extends StatefulWidget {
   const ChartBookingConfirmedPage({super.key});
@@ -11,6 +13,21 @@ class ChartBookingConfirmedPage extends StatefulWidget {
 }
 
 class _ChartBookingConfirmedPageState extends State<ChartBookingConfirmedPage> {
+
+   void _openMenu(BuildContext context) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, _) => DropdownGridMenu(),
+        transitionDuration: const Duration(milliseconds: 300),
+        transitionsBuilder:
+            (context, animation, _, child) =>
+                FadeTransition(opacity: animation, child: child),
+        opaque: false,
+      ),
+    );
+  }
+  
   @override
   Widget build(BuildContext context) {
     return VastupoojaLayout(
@@ -29,37 +46,96 @@ class _ChartBookingConfirmedPageState extends State<ChartBookingConfirmedPage> {
   }
 
   Widget buildherosection() {
+      final size = MediaQuery.of(context).size;
+    final isMediumScreen = size.width > 800;
+    final isSmallScreen = size.width < 600;
+    final isVerySmallScreen = size.width < 400;
+    
+
+    double getMenuIconSize() {
+      if (isVerySmallScreen) return 24;
+      if (isSmallScreen) return 26;
+      if (isMediumScreen) return 28;
+      return 30;
+    }
+
+    double getMenuFontSize() {
+      if (isVerySmallScreen) return 18;
+      if (isSmallScreen) return 20;
+      if (isMediumScreen) return 22;
+      return 24;
+    }
+
+    double getMenuLetterSpacing() {
+      if (isVerySmallScreen) return 1;
+      if (isSmallScreen) return 1.5;
+      return 2;
+    }
+
+        double getMenuWidth() {
+      if (isVerySmallScreen) return 200;
+      if (isSmallScreen) return 250;
+      return 300;
+    }
+    final isMobile = ResponsiveHelper.isMobile(context);
+    final isTablet = ResponsiveHelper.isTablet(context);
+
     return Stack(
       alignment: Alignment.center,
       children: [
         Image.asset(
           'assets/images/vastupooja1.png',
           width: double.infinity,
-          height: 600,
+          height: isMobile ? 300 : isTablet ? 400 : 600,
           fit: BoxFit.cover,
         ),
-        Positioned(
-          top: 40,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.menu, color: Colors.white),
-              SizedBox(width: 6),
-              Text("Menu", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
-            ],
+        // Menu button positioned at top
+          Positioned(
+            top: 40,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: GestureDetector(
+                onTap: () => _openMenu(context),
+                child: SizedBox(
+                  width: getMenuWidth(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.menu,
+                        color: Colors.white,
+                        size: getMenuIconSize(),
+                      ),
+                      SizedBox(width: isVerySmallScreen ? 6 : 8),
+                      Text(
+                        'MENU',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: getMenuFontSize(),
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: getMenuLetterSpacing(),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+            ),
           ),
-        ),
         Positioned(
-          top: 120,
+          top: isMobile ? 80 : 120,
           child: Column(
-            children: const [
+            children: [
               
               Text(
                 "Your booking has been confirmed. Here\nare the details",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 45,
+                  fontSize: ResponsiveFontsize.fontSize(
+                    context, mobile: 20, tablet: 30, desktop: 45),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -72,8 +148,8 @@ class _ChartBookingConfirmedPageState extends State<ChartBookingConfirmedPage> {
             borderRadius: BorderRadius.circular(0),
             child: Image.asset(
               'assets/images/online_pooja2.jpg',
-              height: 180,
-              width: 280,
+              height: isMobile ? 100 : isTablet ? 120: 180,
+              width: isMobile ? 150 : isTablet ? 180 : 280,
               fit: BoxFit.cover,
             ),
           ),
@@ -92,59 +168,64 @@ class BookingConfirmationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+  final isTablet = ResponsiveHelper.isTablet(context);
+  final screenWidth = ResponsiveHelper.screenWidth(context);
+
     return Stack(
       children: [
         // 🌄 Background Image
-        Positioned(
-          top: 0,
-          left: 0,
-          child: SizedBox(
-            height: 350,
-            width: 1500,
-            child: Image.asset(
-              'assets/images/vastupooja4.png',
-              fit: BoxFit.cover,
-            ),
+         Positioned(
+        top: 0,
+        left: 0,
+        child: SizedBox(
+         height: isMobile ? 200 : isTablet ? 300 : 350,
+          width:  screenWidth,
+          child: Image.asset(
+            'assets/images/vastupooja4.png',
+            fit: BoxFit.cover,
           ),
         ),
+      ),
 
         // 🪐 Planet Image
         Positioned(
-          top: 40,
-          right: 30,
-          child: Image.asset(
-            'assets/images/vastupooja11.png',
-            height: 60,
-            width: 60,
-          ),
-        ),
+  top: isMobile ? 20 : 40,
+  right: isMobile ? 10 : 30,
+  child: Image.asset(
+    'assets/images/vastupooja11.png',
+    height: isMobile ? 40 : 60,
+    width: isMobile ? 40 : 60,
+  ),
+),
 
         // 🌌 Background Watermark Vector
         Positioned(
           top: 0,
           bottom: 0,
-          right: 380,
+          right: isMobile ? 150 : isTablet ? 200 : 380,
           child: Opacity(
             opacity: 0.8,
             child: Image.asset(
               'assets/images/Vector (2).png',
-              width: 500,
-              height: 500,
+                width: isMobile ? 250 : isTablet ? 300 : 450,
+                height: isMobile ? 250 : isTablet ? 300 : 450,
               fit: BoxFit.contain,
             ),
           ),
         ),
 
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 200, vertical: 50),
+          padding: EdgeInsets.symmetric(horizontal:isMobile ? 16 : isTablet ?60 : 200, vertical: 50),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                 Text(
                   "BOOKING CONFIRMED",
                   style: TextStyle(
-                    fontSize: 45,
+                    fontSize: ResponsiveFontsize.fontSize(
+                      context, mobile: 20, tablet: 30, desktop: 40),
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
@@ -165,10 +246,11 @@ class BookingConfirmationPage extends StatelessWidget {
                     const SizedBox(width: 24),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           "Name: Sreehari",
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                          style: TextStyle(fontSize: ResponsiveFontsize.fontSize(
+                            context, mobile: 12, tablet: 14, desktop: 18), fontWeight: FontWeight.w600),
                         ),
                         Text("Experience: 15+ Years"),
                         Text("Languages: Hindi, English, Tamil"),
@@ -178,9 +260,10 @@ class BookingConfirmationPage extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 30),
-                const Text(
+                Text(
                   "Specializations:",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  style: TextStyle(fontSize: ResponsiveFontsize.fontSize(
+                            context, mobile: 12, tablet: 14, desktop: 18), fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 10),
                 const BulletPoint(text: "Vedic Astrology"),
@@ -249,12 +332,14 @@ class BulletPoint extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("• ",
-              style: TextStyle(fontSize: 16, height: 1.4, color: Colors.black)),
+        Text("• ",
+              style: TextStyle(fontSize: ResponsiveFontsize.fontSize(
+                            context, mobile: 12, tablet: 14, desktop: 18), height: 1.4, color: Colors.black)),
           Expanded(
             child: Text(
               text,
-              style: const TextStyle(fontSize: 16, height: 1.4),
+              style:  TextStyle(fontSize: ResponsiveFontsize.fontSize(
+                            context, mobile: 12, tablet: 14, desktop: 18), height: 1.4),
             ),
           ),
         ],

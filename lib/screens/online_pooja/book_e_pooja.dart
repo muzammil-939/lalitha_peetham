@@ -92,13 +92,17 @@ class _BookEPoojaState extends State<BookEPooja> {
       if (isSmallScreen) return 250;
       return 300;
     }
+
+    final isMobile = ResponsiveHelper.isMobile(context);
+    final isTablet = ResponsiveHelper.isTablet(context);
+
     return Stack(
       alignment: Alignment.center,
       children: [
-        Image.asset(
+         Image.asset(
           'assets/images/vastupooja1.png',
           width: double.infinity,
-          height: 600,
+          height: isMobile ? 300 : isTablet ? 400 : 600,
           fit: BoxFit.cover,
         ),
          // Menu button positioned at top
@@ -136,7 +140,7 @@ class _BookEPoojaState extends State<BookEPooja> {
             ),
           ),
         Positioned(
-          top: 120,
+          top: isMobile ? 80 : 120,
           child: Column(
             children: [
               
@@ -163,8 +167,8 @@ class _BookEPoojaState extends State<BookEPooja> {
             borderRadius: BorderRadius.circular(0),
             child: Image.asset(
               'assets/images/vastupooja16.png',
-              height: 180,
-              width: 280,
+              height: isMobile ? 100 : isTablet ? 120 : 180,
+               width: isMobile ? 150 : isTablet ? 180 : 280,
               fit: BoxFit.cover,
             ),
           ),

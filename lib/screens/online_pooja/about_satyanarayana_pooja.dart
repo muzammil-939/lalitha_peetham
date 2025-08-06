@@ -51,12 +51,14 @@ class _AboutSatyanarayanaPoojaState extends State<AboutSatyanarayanaPooja> {
     );
   }
 
-       Widget buildherosection() {
+ Widget buildherosection() {
       final size = MediaQuery.of(context).size;
     final isMediumScreen = size.width > 800;
     final isSmallScreen = size.width < 600;
     final isVerySmallScreen = size.width < 400;
     
+    final isMobile = ResponsiveHelper.isMobile(context);
+    final isTablet = ResponsiveHelper.isTablet(context);
 
     double getMenuIconSize() {
       if (isVerySmallScreen) return 24;
@@ -83,13 +85,15 @@ class _AboutSatyanarayanaPoojaState extends State<AboutSatyanarayanaPooja> {
       if (isSmallScreen) return 250;
       return 300;
     }
+
+    
     return Stack(
       alignment: Alignment.center,
       children: [
         Image.asset(
           'assets/images/vastupooja1.png',
           width: double.infinity,
-          height: 600,
+          height: isMobile ? 300 :isTablet? 400: 600,
           fit: BoxFit.cover,
         ),
          // Menu button positioned at top
@@ -127,7 +131,7 @@ class _AboutSatyanarayanaPoojaState extends State<AboutSatyanarayanaPooja> {
             ),
           ),
         Positioned(
-          top: 120,
+         top:isMobile?80: 120,
           child: Column(
             children: [
               
@@ -154,8 +158,8 @@ class _AboutSatyanarayanaPoojaState extends State<AboutSatyanarayanaPooja> {
             borderRadius: BorderRadius.circular(0),
             child: Image.asset(
               'assets/images/online_pooja2.jpg',
-              height: 180,
-              width: 280,
+             height: isMobile ? 100 : isTablet ? 120 : 180,
+               width: isMobile ? 150 : isTablet ? 180 : 280,
               fit: BoxFit.cover,
             ),
           ),

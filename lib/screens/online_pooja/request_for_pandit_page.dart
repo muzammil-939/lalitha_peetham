@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 import 'package:lalitha_peetham/widgets/menu.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class RequestForPanditPage extends StatefulWidget {
   const RequestForPanditPage({super.key});
@@ -48,7 +49,8 @@ class _RequestForPanditPageState extends State<RequestForPanditPage> {
     final isMediumScreen = size.width > 800;
     final isSmallScreen = size.width < 600;
     final isVerySmallScreen = size.width < 400;
-    
+      final isMobile = ResponsiveHelper.isMobile(context);
+    final isTablet = ResponsiveHelper.isTablet(context);
 
     double getMenuIconSize() {
       if (isVerySmallScreen) return 24;
@@ -81,7 +83,7 @@ class _RequestForPanditPageState extends State<RequestForPanditPage> {
         Image.asset(
           'assets/images/vastupooja1.png',
           width: double.infinity,
-          height: 600,
+          height:isMobile ? 300 :isTablet?400 : 600,
           fit: BoxFit.cover,
         ),
          // Menu button positioned at top
@@ -119,7 +121,7 @@ class _RequestForPanditPageState extends State<RequestForPanditPage> {
             ),
           ),
         Positioned(
-          top: 120,
+          top:isMobile?80: 120,
           child: Column(
             children: const [
               
@@ -141,8 +143,8 @@ class _RequestForPanditPageState extends State<RequestForPanditPage> {
             borderRadius: BorderRadius.circular(0),
             child: Image.asset(
               'assets/images/vastupooja18.png',
-              height: 180,
-              width: 280,
+              height: isMobile ? 100 : isTablet ? 120 : 180,
+               width: isMobile ? 150 : isTablet ? 180 : 280,
               fit: BoxFit.cover,
             ),
           ),
