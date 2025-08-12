@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lalitha_peetham/screens/matrimony/matimony_page_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
 class YourPatnersPreferences extends StatefulWidget {
   const YourPatnersPreferences({super.key});
@@ -11,18 +12,25 @@ class YourPatnersPreferences extends StatefulWidget {
 class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
   @override
   Widget build(BuildContext context) {
+        
+    double sectionSpacing = ResponsiveHelper.isMobile(context) ? 24 : 50;
+
+    final isMobile = ResponsiveHelper.isMobile(context);
+    final isTablet = ResponsiveHelper.isTablet(context);
+
     return MatriPageLayout(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 80.0),
+        padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : isTablet ? 40 : 80.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 30),
+             SizedBox(height: sectionSpacing / 2),
             // Header Section
             Text(
               'YOUR PARTNER PREFERENCES',
               style: TextStyle(
-                fontSize: 30,
+                fontSize: ResponsiveFontsize.fontSize(
+                  context, mobile: 14, tablet: 25, desktop: 30),
                 fontWeight: FontWeight.bold,
                 color: Colors.orange[700],
                 letterSpacing: 1.2,
@@ -32,7 +40,8 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
             Text(
               'You Will See Matches Based On Preferences You Have Set',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: ResponsiveFontsize.fontSize(
+                  context, mobile: 12, tablet: 14, desktop: 16) ,
                 fontWeight: FontWeight.w500,
                 color: Colors.black,
               ),
@@ -45,20 +54,20 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
             const SizedBox(height: 24),
 
             // Basic Details Section
-            _buildSectionCard(
+            _buildSectionCard(context,
               title: 'BASIC DETAILS',
               children: [
-                _buildPreferenceItem(
+                _buildPreferenceItem(context,
                   icon: Icons.edit_note,
                   label: 'Age Range',
                   value: '26 To 29',
                 ),
-                _buildPreferenceItem(
+                _buildPreferenceItem(context,
                   icon: Icons.height,
                   label: 'Height Range',
                   value: '5\'0" To 5\'11"',
                 ),
-                _buildPreferenceItem(
+                _buildPreferenceItem(context,
                   icon: Icons.people,
                   label: 'Marital Status',
                   value: 'Never Married',
@@ -69,21 +78,21 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
             const SizedBox(height: 50),
 
             // Community
-            _buildSectionCard(
+            _buildSectionCard(context,
               title: 'COMMUNITY',
               children: [
-                _buildPreferenceItem(
+                _buildPreferenceItem(context,
                   icon: Icons.menu_book,
                   label: 'Religion',
                   value: '26 To 29',
                 ),
-                _buildPreferenceItem(
+                _buildPreferenceItem(context,
                   icon: Icons.groups,
                   label: 'Community',
                   value:
                       'Mudaliyar - Arcot, Vellalar, Agamudayar\nArcot, Thuluva Vellala.',
                 ),
-                _buildPreferenceItem(
+                _buildPreferenceItem(context,
                   icon: Icons.language,
                   label: 'Mother Tongue',
                   value: 'Tamil',
@@ -94,22 +103,22 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
             const SizedBox(height: 50),
 
             // Location Section
-            _buildSectionCard(
+            _buildSectionCard(context,
               title: 'LOCATION',
               children: [
-                _buildPreferenceItem(
+                _buildPreferenceItem(context,
                   icon: Icons.public,
                   label: 'Country Living In',
                   value: 'India',
                   showArrow: true,
                 ),
-                _buildPreferenceItem(
+                _buildPreferenceItem(context,
                   icon: Icons.location_on,
                   label: 'State Living In',
                   value: 'Pondicherry, Tamil Nadu.',
                   showArrow: true,
                 ),
-                _buildPreferenceItem(
+                _buildPreferenceItem(context,
                   icon: Icons.location_city,
                   label: 'City / District',
                   value:
@@ -127,15 +136,15 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
                         Text(
                           'Suggested For You',
                           style: TextStyle(
-                            fontSize: 14,
+                             fontSize: ResponsiveHelper.isMobile(context) ? 12 : 14,
                             color: Colors.grey[600],
                           ),
                         ),
                         const SizedBox(height: 8),
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: ResponsiveHelper.isMobile(context) ? 12 : 16,
+                            vertical: ResponsiveHelper.isMobile(context) ? 6 : 8,
                           ),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.orange[300]!),
@@ -147,15 +156,15 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
                               Text(
                                 'BENGALURU / BENGALORE',
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize:  ResponsiveHelper.isMobile(context) ? 10 : 12,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.orange[700],
                                 ),
                               ),
-                              const SizedBox(width: 8),
+                              SizedBox(width: ResponsiveHelper.isMobile(context) ? 6 : 8),
                               Icon(
                                 Icons.add_circle_outline,
-                                size: 16,
+                                size: ResponsiveHelper.isMobile(context) ? 14 : 16,
                                 color: Colors.orange[700],
                               ),
                             ],
@@ -170,29 +179,29 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
             const SizedBox(height: 50),
 
             // Education & Career Section
-            _buildSectionCard(
+            _buildSectionCard(context,
               title: 'EDUCATION & CAREER',
               children: [
-                _buildPreferenceItem(
+                _buildPreferenceItem(context,
                   icon: Icons.school,
                   label: 'Qualification',
                   value: 'Bachelor / Undergraduate, Doctorate',
                   showArrow: true,
                 ),
-                _buildPreferenceItem(
+                _buildPreferenceItem(context,
                   icon: Icons.work,
                   label: 'Working With',
                   value: 'Private Company, Government',
                   showArrow: true,
                 ),
-                _buildPreferenceItem(
+                _buildPreferenceItem(context,
                   icon: Icons.business,
                   label: 'Profession',
                   value:
                       'IT & Software Engineering,\nArtists, Animation & Web Designers\nArchitecture & Design, Airline & Aviation',
                   showArrow: true,
                 ),
-                _buildPreferenceItem(
+                _buildPreferenceItem(context,
                   icon: Icons.monetization_on,
                   label: 'Annual Income',
                   value: 'INR 4 Lakhs To 10 Lakhs',
@@ -204,16 +213,16 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
             const SizedBox(height: 50),
 
             // Other Details Section
-            _buildSectionCard(
+            _buildSectionCard(context,
               title: 'OTHER DETAILS',
               children: [
-                _buildPreferenceItem(
+                _buildPreferenceItem(context,
                   icon: Icons.person,
                   label: 'Profile Managed by',
                   value: 'Open To All',
                   showArrow: true,
                 ),
-                _buildPreferenceItem(
+                _buildPreferenceItem(context,
                   icon: Icons.restaurant,
                   label: 'Diet',
                   value: 'Open To All',
@@ -229,23 +238,21 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
     );
   }
 
-  Widget _buildSectionCard({
-    required String title,
-    required List<Widget> children,
-  }) {
+   Widget _buildSectionCard(BuildContext context,
+      {required String title, required List<Widget> children}) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFF5E6B8), // Light yellow/beige color
+        color: const Color(0xFFF5E6B8),
         borderRadius: BorderRadius.circular(0),
       ),
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(ResponsiveHelper.isMobile(context) ? 12 : 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: ResponsiveHelper.isMobile(context) ? 14 : 16,
               fontWeight: FontWeight.w600,
               color: Colors.grey[700],
               letterSpacing: 0.5,
@@ -258,74 +265,74 @@ class _YourPatnersPreferencesState extends State<YourPatnersPreferences> {
     );
   }
 
-  Widget _buildPreferenceItem({
+  Widget _buildPreferenceItem(
+    BuildContext context, {
     required IconData icon,
     required String label,
     required String value,
     bool showArrow = false,
     bool isLast = false,
   }) {
+    double iconSize = ResponsiveHelper.isMobile(context) ? 40 : 50;
+    double iconInnerSize = ResponsiveHelper.isMobile(context) ? 20 : 24;
+
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(vertical: 16),
+          padding: EdgeInsets.symmetric(
+              vertical: ResponsiveHelper.isMobile(context) ? 12 : 16),
           child: Row(
             children: [
-              // Icon Circle
               Container(
-                width: 50,
-                height: 50,
+                width: iconSize,
+                height: iconSize,
                 decoration: BoxDecoration(
                   color: Colors.orange[700],
                   shape: BoxShape.circle,
                 ),
-                child: Icon(icon, color: Colors.white, size: 24),
+                child: Icon(icon, color: Colors.white, size: iconInnerSize),
               ),
-              const SizedBox(width: 16),
-              // Label
+              SizedBox(width: ResponsiveHelper.isMobile(context) ? 12 : 16),
               Expanded(
                 flex: 2,
                 child: Text(
                   label,
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: ResponsiveHelper.isMobile(context) ? 14 : 16,
                     fontWeight: FontWeight.w500,
                     color: Colors.grey[700],
                   ),
                 ),
               ),
-              // Value
               Expanded(
                 flex: 3,
                 child: Text(
                   value,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: ResponsiveHelper.isMobile(context) ? 12 : 14,
                     color: Colors.grey[600],
                     height: 1.3,
                   ),
                   textAlign: TextAlign.left,
                 ),
               ),
-              // Arrow Icon
               Icon(
                 showArrow ? Icons.chevron_right : Icons.keyboard_arrow_down,
                 color: Colors.grey[600],
-                size: 24,
+                size: ResponsiveHelper.isMobile(context) ? 20 : 24,
               ),
             ],
           ),
         ),
-        // Divider line (except for last item)
         if (!isLast)
           Divider(
             height: 1,
             thickness: 1,
             color: Colors.grey[400],
-            indent: 66, // Start after icon + spacing
-            endIndent: 0,
+            indent: iconSize + (ResponsiveHelper.isMobile(context) ? 12 : 16),
           ),
       ],
     );
   }
 }
+

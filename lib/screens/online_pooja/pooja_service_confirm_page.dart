@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lalitha_peetham/screens/online_pooja/e_pooja_layout.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 import 'package:lalitha_peetham/widgets/menu.dart';
 import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
@@ -29,12 +30,12 @@ class _PoojaServiceConfirmPageState extends State<PoojaServiceConfirmPage> {
 
   @override
   Widget build(BuildContext context) {
-    return VastupoojaLayout(
+    return EPoojaLayout(
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildherosection(),
+          //  buildherosection(),
             buildConfirmSection(),
           ],
         ),
@@ -173,23 +174,23 @@ Widget buildConfirmSection() {
   return Stack(
     children: [
       // 🌄 Background Image
-      Positioned.fill(
-        child: Image.asset(
-          'assets/images/vastupooja4.png',
-          fit: BoxFit.cover,
-        ),
-      ),
+      // Positioned.fill(
+      //   child: Image.asset(
+      //     'assets/images/vastupooja4.png',
+      //     fit: BoxFit.cover,
+      //   ),
+      // ),
 
-      // 🪐 Planet Image (Top-right)
-      Positioned(
-        top: 40,
-        right: 30,
-        child: Image.asset(
-          'assets/images/vastupooja11.png',
-          height: planetSize,
-          width: planetSize,
-        ),
-      ),
+      // // 🪐 Planet Image (Top-right)
+      // Positioned(
+      //   top: 40,
+      //   right: 30,
+      //   child: Image.asset(
+      //     'assets/images/vastupooja11.png',
+      //     height: planetSize,
+      //     width: planetSize,
+      //   ),
+      // ),
 
       // 📋 Main Content
       Padding(
@@ -199,7 +200,7 @@ Widget buildConfirmSection() {
           children: [
             // ✅ OUTSIDE HEADING
              Text(
-              "Your pooja service is confirmed. Check your\nemail/SMS for details",
+              "Your pooja service is scheduled. Check your\nemail/SMS for details",
               style: TextStyle(
                 fontSize: titleFontSize,
                 fontWeight: FontWeight.bold,

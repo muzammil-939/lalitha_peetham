@@ -143,16 +143,18 @@ import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_notifi
 import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_payment_success.dart';
 import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_reminders.dart';
 import 'package:lalitha_peetham/screens/online_muhurthas/online_muhurthas_upcoming_muhurthams.dart';
-import 'package:lalitha_peetham/screens/online_pooja/about_satyanarayana_pooja.dart';
+import 'package:lalitha_peetham/screens/online_pooja/about_rahu_pooja.dart';
+import 'package:lalitha_peetham/screens/online_pooja/my_bookings_page.dart';
 import 'package:lalitha_peetham/screens/online_pooja/online_booking_page.dart';
 import 'package:lalitha_peetham/screens/online_pooja/online_pooja_support_section.dart';
 import 'package:lalitha_peetham/screens/online_pooja/payment_summary_page.dart';
+import 'package:lalitha_peetham/screens/online_pooja/pooja_reschedule_confirmed_page.dart';
 import 'package:lalitha_peetham/screens/online_pooja/pooja_service_confirm_page.dart';
 import 'package:lalitha_peetham/screens/online_pooja/pooja_summary.dart';
 import 'package:lalitha_peetham/screens/online_pooja/reschedule_page.dart';
 import 'package:lalitha_peetham/screens/online_pooja/request_for_pandit_page.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/book_a_session_vastupooja.dart';
-import 'package:lalitha_peetham/screens/online_pooja/book_e_pooja.dart';
+import 'package:lalitha_peetham/screens/online_pooja/up_coming_pooja.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/checkout_expert_vastupooja.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/cmplt_payment_confirm_booking.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/confirm_your_vastu_booking.dart';
@@ -226,6 +228,13 @@ import 'package:lalitha_peetham/screens/pooja_vidhanam_screens/pv_upcomming_live
 import 'package:lalitha_peetham/screens/real_estate/rs_dashboard.dart';
 import 'package:lalitha_peetham/screens/real_estate_user/real_estate_welcome_page.dart';
 import 'package:lalitha_peetham/screens/refer&earn/refer_and_earn.dart';
+import 'package:lalitha_peetham/screens/upcoming_poojas_screens/booking_confirmation_screen.dart';
+import 'package:lalitha_peetham/screens/upcoming_poojas_screens/booking_details_page.dart';
+import 'package:lalitha_peetham/screens/upcoming_poojas_screens/booking_summary.dart';
+import 'package:lalitha_peetham/screens/upcoming_poojas_screens/ganesh_chathurthi_pooja.dart';
+import 'package:lalitha_peetham/screens/upcoming_poojas_screens/upcoming_pooja_welcomescreen.dart';
+import 'package:lalitha_peetham/screens/upcoming_poojas_screens/view_details_of_siddiviyaka_temple_page.dart';
+import 'package:lalitha_peetham/screens/upcoming_poojas_screens/your_booking_upcoming_pooja.dart';
 import 'package:lalitha_peetham/screens/yoga_screens/backpain_booking.dart';
 import 'package:lalitha_peetham/screens/yoga_screens/general_yoga.dart';
 import 'package:lalitha_peetham/screens/yoga_screens/mindful_meditation.dart';
@@ -1088,14 +1097,20 @@ class MyApp extends StatelessWidget {
           builder: (context, state) => SupportPage(),
         ),
 
-        //.........Online Pooja.......
+        //.........E - Pooja.......
         GoRoute(
-          path: '/booking_e_pooja',
-          builder: (context, state) => BookEPooja(),
+          path: '/upcoming_pooja',
+          builder: (context, state) => UpcomingPoojasScreen(),
         ),
+
         GoRoute(
-          path: '/about_satyanarayana_pooja',
-          builder: (context, state) => AboutSatyanarayanaPooja(),
+          path: '/mybookings_page',
+          builder: (context, state) => MyBookingsPage(),
+        ),
+
+        GoRoute(
+          path: '/about_rahu_pooja',
+          builder: (context, state) => AboutRahuPooja(),
         ),
         GoRoute(
           path: '/online_booking',
@@ -1124,6 +1139,10 @@ class MyApp extends StatelessWidget {
           GoRoute(
           path: '/pooja_service_confirm_page',
           builder: (context, state) => PoojaServiceConfirmPage(),
+        ),
+         GoRoute(
+          path: '/reschedule_confirm_page',
+          builder: (context, state) => PoojaRescheduleConfirmedPage(),
         ),
 
       
@@ -1355,6 +1374,36 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/refer_and_earn',
           builder: (context, state) => ReferandEarn(),
+        ),
+
+        //..........Upcoming Poojas.......
+        GoRoute(
+          path: '/upcoming_pooja_welcome_screen',
+          builder: (context, state) => UpcomingPoojaWelcomescreen(),
+        ),
+        GoRoute(
+          path: '/view_details_of_siddivinayaka_temple',
+          builder: (context, state) => ViewDetailsTemplePage(),
+        ),
+        GoRoute(
+          path: '/ganesh_chathuthi_pooja',
+          builder: (context, state) => GaneshChathurthiPooja(),
+        ),
+         GoRoute(
+          path: '/your_booking_upcoming_pooja',
+          builder: (context, state) => YourBookingUpcomingPooja(),
+        ),
+        GoRoute(
+          path: '/booking_confirmation_screen',
+          builder: (context, state) => BookingConfirmationScreen(),
+        ),
+        GoRoute(
+          path: '/booking_summary',
+          builder: (context, state) => BookingSummary(),
+        ),
+        GoRoute(
+          path: '/booking_deatils_page',
+          builder: (context, state) => BookingDetailsPage(),
         ),
       ],
     );

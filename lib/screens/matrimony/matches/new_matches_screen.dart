@@ -1,9 +1,8 @@
-
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:lalitha_peetham/screens/matrimony/matches/filtered_section_widget.dart';
 import 'package:lalitha_peetham/screens/matrimony/matches/matches_header_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart'; 
 
 class NewMatchesScreen extends StatefulWidget {
   const NewMatchesScreen({super.key});
@@ -20,227 +19,369 @@ class _NewMatchesScreenState extends State<NewMatchesScreen> {
   String annualIncome = 'All';
   String marritalStatus = 'All';
 
- @override
-Widget build(BuildContext context) {
-  return MatchesHeaderLayout(
-    child: Padding(
-     padding: const EdgeInsets.symmetric(horizontal: 150),
-      child: Row(
+  @override
+  Widget build(BuildContext context) {
+    final isMobile = ResponsiveHelper.isMobile(context);
+    final isTablet = ResponsiveHelper.isTablet(context);
+    final isDesktop = ResponsiveHelper.isDesktop(context);
+
+    // Responsive values
+    final horizontalPadding = isMobile ? 12.0 : isTablet ? 28.0 : 150.0;
+    final sidebarWidth = isMobile ? double.infinity : (isTablet ? 220.0 : 250.0);
+    final gapBetween = isMobile ? 12.0 : 30.0;
+    final headerTopPadding = isMobile ? 12.0 : 20.0;
+    final cardPadding = isMobile ? 10.0 : 12.0;
+    final profileImageWidth = isMobile ? 110.0 : isTablet ? 150.0 : 180.0;
+    final profileImageHeight = isMobile ? 140.0 : isTablet ? 180.0 : 200.0;
+    final smallFont = isMobile ? 11.0 : 13.0;
+    final regularFont = isMobile ? 12.0 : 14.0;
+    final titleFont = isMobile ? 14.0 : 16.0;
+    final dottedBoxWidth = isMobile ? double.infinity : 300.0;
+    final dottedBoxHorizontalPadding = isMobile ? 12.0 : 35.0;
+    final dottedBoxVerticalPadding = isMobile ? 16.0 : 30.0;
+    final connectBtnHorizPadding = isMobile ? 14.0 : 18.0;
+    final connectBtnVertPadding = isMobile ? 8.0 : 8.0;
+
+    return MatchesHeaderLayout(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: isMobile
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: headerTopPadding),
+                    // Sidebar (compact on mobile)
+                    _buildSidebar(context, sidebarWidth, titleFont, smallFont),
+                    SizedBox(height: gapBetween),
+                    // Main content
+                    _buildMainArea(
+                      context,
+                      profileImageWidth,
+                      profileImageHeight,
+                      cardPadding,
+                      smallFont,
+                      regularFont,
+                      titleFont,
+                      dottedBoxWidth,
+                      dottedBoxHorizontalPadding,
+                      dottedBoxVerticalPadding,
+                      connectBtnHorizPadding,
+                      connectBtnVertPadding,
+                    ),
+                  ],
+                )
+              : Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Sidebar
+                    SizedBox(
+                      width: sidebarWidth,
+                      child:
+                          _buildSidebar(context, sidebarWidth, titleFont, smallFont),
+                    ),
+                    SizedBox(width: gapBetween),
+                    // Main scrollable area
+                    Expanded(
+                      child: _buildMainArea(
+                        context,
+                        profileImageWidth,
+                        profileImageHeight,
+                        cardPadding,
+                        smallFont,
+                        regularFont,
+                        titleFont,
+                        dottedBoxWidth,
+                        dottedBoxHorizontalPadding,
+                        dottedBoxVerticalPadding,
+                        connectBtnHorizPadding,
+                        connectBtnVertPadding,
+                      ),
+                    ),
+                  ],
+                ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSidebar(
+      BuildContext context, double width, double titleFont, double smallFont) {
+    return Container(
+      color: Colors.white,
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Sidebar (fixed)
-          Container(
-            width: 250,
-            color: Colors.white,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-               FilterSection(
-                  title: 'REFINE SEARCH',
-                  options: ['All', 'Blue Tick Profile'],
-                  selectedValue: selectedRefineFilter,
-                  onChanged: (value) => setState(() => selectedRefineFilter = value),
-                ),
-                FilterSection(
-                  title: 'PHOTO SETTINGS',
-                  options: ['All', 'Visible To All', 'Protected Pho...(4)'],
-                  selectedValue: selectedPhotoFilter,
-                  onChanged: (value) => setState(() => selectedPhotoFilter = value),
-                ),
-                FilterSection(
-                  title: 'RECENTLY JOINED',
-                  options: ['All', 'With In A Day', 'With In A Week', 'With In A Month'],
-                  selectedValue: selectedRecentlyJoined,
-                  onChanged: (value) => setState(() => selectedRecentlyJoined = value),
-                ),
-                FilterSection(
-                  title: 'ACTIVE MEMBERS',
-                  options: ['All', 'With In A Day', 'With In A Week', 'With In A Month'],
-                  selectedValue: activeMembers,
-                  onChanged: (value) => setState(() => activeMembers = value),
-                ),
-               FilterSection(
-                  title: 'ANNUAL INCOME',
-                  options: ['All', '2 To 4 Lakh', '4 To 5 Lakh', '5 To 6 Lakh'],
-                  selectedValue: annualIncome,
-                  onChanged: (value) => setState(() => annualIncome = value),
-                ),
-                FilterSection(
-                  title: 'MARRITAL STATUS',
-                  options: ['All', 'Never Married', 'Divorced', 'Awaiting Divorce', 'Widowed'],
-                  selectedValue: marritalStatus,
-                  onChanged: (value) => setState(() => marritalStatus = value),
-                ),
-              ],
-            ),
+          FilterSection(
+            title: 'REFINE SEARCH',
+            options: ['All', 'Blue Tick Profile'],
+            selectedValue: selectedRefineFilter,
+            onChanged: (value) => setState(() => selectedRefineFilter = value),
           ),
-          SizedBox(width: 30,),
-      
-          // Main Scrollable Area (cards)
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.only(top: 20,),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text(
-                    'New Members Who Match Most Of Your Preferences',
-                    style: TextStyle(fontSize: 16, color: Colors.grey, fontWeight: FontWeight.w500),
-                  ),
-                  const SizedBox(height: 20),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 3,
-                    itemBuilder: (context, index) => _buildProfileCard(),
-                  ),
-                ],
-              ),
-            ),
+          FilterSection(
+            title: 'PHOTO SETTINGS',
+            options: ['All', 'Visible To All', 'Protected Pho...(4)'],
+            selectedValue: selectedPhotoFilter,
+            onChanged: (value) => setState(() => selectedPhotoFilter = value),
+          ),
+          FilterSection(
+            title: 'RECENTLY JOINED',
+            options: ['All', 'With In A Day', 'With In A Week', 'With In A Month'],
+            selectedValue: selectedRecentlyJoined,
+            onChanged: (value) => setState(() => selectedRecentlyJoined = value),
+          ),
+          FilterSection(
+            title: 'ACTIVE MEMBERS',
+            options: ['All', 'With In A Day', 'With In A Week', 'With In A Month'],
+            selectedValue: activeMembers,
+            onChanged: (value) => setState(() => activeMembers = value),
+          ),
+          FilterSection(
+            title: 'ANNUAL INCOME',
+            options: ['All', '2 To 4 Lakh', '4 To 5 Lakh', '5 To 6 Lakh'],
+            selectedValue: annualIncome,
+            onChanged: (value) => setState(() => annualIncome = value),
+          ),
+          FilterSection(
+            title: 'MARRITAL STATUS',
+            options: [
+              'All',
+              'Never Married',
+              'Divorced',
+              'Awaiting Divorce',
+              'Widowed'
+            ],
+            selectedValue: marritalStatus,
+            onChanged: (value) => setState(() => marritalStatus = value),
           ),
         ],
       ),
-    ),
-  );
-}
+    );
+  }
 
-Widget _buildProfileCard() {
-  return Container(
-    margin: const EdgeInsets.symmetric(vertical: 10,),
-    padding: const EdgeInsets.all(12),
-    decoration: BoxDecoration(
-      color: const Color(0xFFFFF9E4), // Light cream background
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: Colors.grey.shade300),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildMainArea(
+    BuildContext context,
+    double imgW,
+    double imgH,
+    double cardPadding,
+    double smallFont,
+    double regularFont,
+    double titleFont,
+    double dottedWidth,
+    double dottedHPad,
+    double dottedVPad,
+    double connectHoriz,
+    double connectVert,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Profile Image
-            Container(
-              width: 180,
-              height: 200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(6),
-                image: const DecorationImage(
-                  image: NetworkImage(
-                      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            const SizedBox(width: 12),
-            // Profile Info
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'SH78488320',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFB8860B), // golden brown
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Row(
-                    children: const [
-                      Icon(Icons.circle, size: 8, color: Colors.green),
-                      SizedBox(width: 4),
-                      Text('Online 1h Ago', style: TextStyle(fontSize: 11)),
-                      SizedBox(width: 8),
-                      Icon(Icons.favorite_border, size: 14, color: Colors.grey),
-                      SizedBox(width: 2),
-                      Text('You & Him', style: TextStyle(fontSize: 11, color: Colors.grey)),
-                      SizedBox(width: 8),
-                      Icon(Icons.star_border, size: 14, color: Colors.grey),
-                      SizedBox(width: 2),
-                      Text('Astro', style: TextStyle(fontSize: 11, color: Colors.grey)),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  const Text("28 Yrs, 5'3\"", style: TextStyle(fontSize: 13)),
-                  const Text("Tamil, Agamudayar", style: TextStyle(fontSize: 13)),
-                  const Text("Chennai, Tamil Nadu", style: TextStyle(fontSize: 13)),
-                  const Text("B.Eng (Hons)", style: TextStyle(fontSize: 13)),
-                  const Text("Occupation: Company Secretary", style: TextStyle(fontSize: 13)),
-                ],
-              ),
-            ),
-          ],
+        SizedBox(height: 8),
+        Text(
+          'New Members Who Match Most Of Your Preferences',
+          style: TextStyle(
+              fontSize: regularFont,
+              color: Colors.grey,
+              fontWeight: FontWeight.w500),
+          textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 18),
 
-        // Description Box
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            DottedBorder(
-            borderType: BorderType.RRect,
-            radius: Radius.circular(4),
-            color: Color(0xFFD4AF37),
-            strokeWidth: 1,
-            dashPattern: [4, 3],
-            child: Container(
-              padding: EdgeInsets.symmetric(vertical: 30,horizontal: 35),
-              width: 300,
-              color: Colors.white,
-              child: Text(
-                'My Son Has Completed Bachelors In Medicine At Present. I Am Working As A Doctor In ESIC(HARYANA)... More',
-                style: TextStyle(fontSize: 12, color: Colors.black87),
-              ),
-            ),
-                  ),
-          ],
+        // list of profile cards
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: 3,
+          itemBuilder: (context, index) => _buildProfileCard(
+            imgW,
+            imgH,
+            cardPadding,
+            smallFont,
+            regularFont,
+            titleFont,
+            dottedWidth,
+            dottedHPad,
+            dottedVPad,
+            connectHoriz,
+            connectVert,
+          ),
         ),
-        const SizedBox(height: 16),
+      ],
+    );
+  }
 
-        // Footer: Connect Button
-        Center(
-          child: Column(
+  Widget _buildProfileCard(
+    double imgW,
+    double imgH,
+    double cardPadding,
+    double smallFont,
+    double regularFont,
+    double titleFont,
+    double dottedWidth,
+    double dottedHPad,
+    double dottedVPad,
+    double connectHoriz,
+    double connectVert,
+  ) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: cardPadding),
+      padding: EdgeInsets.all(cardPadding),
+      decoration: BoxDecoration(
+        color: const Color(0xFFFFF9E4),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.grey.shade300),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // top row: image + info
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'LIKED THIS PROFILE?',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFD4AF37),
-                  letterSpacing: 0.5,
+              // profile image
+              Container(
+                width: imgW,
+                height: imgH,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  image: const DecorationImage(
+                    image: NetworkImage(
+                        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=400&fit=crop'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-              const SizedBox(height: 8),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFD4AF37),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
+              SizedBox(width: 12),
+              // info
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.check, color: Colors.white, size: 16),
-                    SizedBox(width: 6),
                     Text(
-                      'Connect Now',
+                      'SH78488320',
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
+                        fontSize: titleFont,
+                        fontWeight: FontWeight.bold,
+                        color: const Color(0xFFB8860B),
                       ),
                     ),
+                    SizedBox(height: 6),
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 8,
+                      runSpacing: 4,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.circle, size: 8, color: Colors.green),
+                            const SizedBox(width: 4),
+                            Text('Online 1h Ago', style: TextStyle(fontSize: smallFont)),
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.favorite_border, size: 14, color: Colors.grey),
+                            const SizedBox(width: 4),
+                            Text('You & Him', style: TextStyle(fontSize: smallFont, color: Colors.grey)),
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.star_border, size: 14, color: Colors.grey),
+                            const SizedBox(width: 4),
+                            Text('Astro', style: TextStyle(fontSize: smallFont, color: Colors.grey)),
+                          ],
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Text("28 Yrs, 5'3\"", style: TextStyle(fontSize: regularFont)),
+                    Text("Tamil, Agamudayar", style: TextStyle(fontSize: regularFont)),
+                    Text("Chennai, Tamil Nadu", style: TextStyle(fontSize: regularFont)),
+                    Text("B.Eng (Hons)", style: TextStyle(fontSize: regularFont)),
+                    Text("Occupation: Company Secretary", style: TextStyle(fontSize: regularFont)),
                   ],
                 ),
               ),
             ],
           ),
-        ),
-      ],
-    ),
-  );
-}
 
+          SizedBox(height: 12),
+
+          // Description dotted box
+          Center(
+            child: DottedBorder(
+              borderType: BorderType.RRect,
+              radius: const Radius.circular(4),
+              color: const Color(0xFFD4AF37),
+              strokeWidth: 1,
+              dashPattern: const [4, 3],
+              child: Container(
+                width: dottedWidth,
+                color: Colors.white,
+                padding: EdgeInsets.symmetric(
+                  horizontal: dottedHPad,
+                  vertical: dottedVPad,
+                ),
+                child: Text(
+                  'My Son Has Completed Bachelors In Medicine At Present. I Am Working As A Doctor In ESIC(HARYANA)... More',
+                  style: TextStyle(fontSize: smallFont, color: Colors.black87),
+                ),
+              ),
+            ),
+          ),
+
+          SizedBox(height: 16),
+
+          // Footer connect button
+          Center(
+            child: Column(
+              children: [
+                Text(
+                  'LIKED THIS PROFILE?',
+                  style: TextStyle(
+                    fontSize: smallFont,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFFD4AF37),
+                    letterSpacing: 0.5,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: connectHoriz,
+                    vertical: connectVert,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFD4AF37),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      Icon(Icons.check, color: Colors.white, size: 16),
+                      SizedBox(width: 6),
+                      Text(
+                        'Connect Now',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

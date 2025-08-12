@@ -254,19 +254,21 @@ class MatriHeader extends StatelessWidget {
   }
 
   Widget _buildMobileSubNav(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: _buildSubNavItem(context, 'Dashboard', '/matri_dashboard'),
-        ),
-        Expanded(child: _buildSubNavItem(context, 'Profile', '/matri_profile')),
-        Expanded(child: _buildSubNavItem(context, 'Photos', '/matri_photos')),
-        Expanded(
-          child: _buildSubNavItem(context, 'Preferences', '/preferences'),
-        ),
-        Expanded(child: _buildSubNavItem(context, 'Settings', '/settings')),
-        Expanded(child: _buildMoreDropdown(context, true)),
-      ],
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: [
+          _buildSubNavItem(context, 'Dashboard', '/matri_dashboard'),
+          _buildSubNavItem(context, 'Profile', '/matri_profile'),
+          _buildSubNavItem(context, 'Photos', '/matri_photos'),
+          _buildSubNavItem(context, 'Preferences', '/preferences'),
+          _buildSubNavItem(context, 'Settings', '/settings'),
+          _buildMoreDropdown(context, true),
+        ].map((item) => Padding(
+        padding: const EdgeInsets.only(right: 12),
+        child: item,
+      )).toList(),
+      ),
     );
   }
 

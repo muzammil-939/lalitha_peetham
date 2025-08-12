@@ -35,7 +35,7 @@ class _PanditBookingWaitingState extends State<PanditBookingWaiting> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            buildherosection(),
+            //buildherosection(),
             buildVastuBookingEnquiryFormPage(),
             SizedBox(height: 80),
           ],
@@ -221,20 +221,27 @@ class _PanditBookingWaitingState extends State<PanditBookingWaiting> {
                                 ),
                               ),
                             ),
-                            Container(
-                              height: 48,
-                              width: 150,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFB8B8B8),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Back",
-                                  style: TextStyle(
-                                    color: Color(0xFF333333),
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
+                            GestureDetector(
+                              onTap: () {
+                                context.go('/pandit_booking_summary');
+                                
+                                
+                              },
+                              child: Container(
+                                height: 48,
+                                width: 150,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFB8B8B8),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "Back",
+                                    style: TextStyle(
+                                      color: Color(0xFF333333),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
                               ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lalitha_peetham/screens/matrimony/matimony_page_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
+
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -23,28 +25,51 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = ResponsiveHelper.isMobile(context);
+    final isTablet = ResponsiveHelper.isTablet(context);
+    final isDesktop = ResponsiveHelper.isDesktop(context);
+
+    // Responsive base values
+    final horizontalPadding = isMobile ? 16.0 : isTablet ? 40.0 : 80.0;
+    final sectionVerticalSpacing = isMobile ? 16.0 : 20.0;
+    final headerTopSpace = isMobile ? 18.0 : 30.0;
+    final headerFontSize = isMobile ? 20.0 : isTablet ? 25.0 : 30.0;
+    final titleFontSize = isMobile ? 14.0 : 16.0;
+    final subtitleFontSize = isMobile ? 12.0 : 13.0;
+    final cardPadding = isMobile ? 12.0 : 20.0;
+    final smallIconSize = isMobile ? 14.0 : 16.0;
+    final regularIconSize = isMobile ? 18.0 : 20.0;
+    final radioScale = isMobile ? 0.9 : 1.0;
+    final submitBtnWidth = isMobile ? 160.0 : isTablet ? 200.0 : 240.0;
+    final dividerMargin = isMobile ? 12.0 : 20.0;
+
     return MatriPageLayout(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 80.0),
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 30),
+            SizedBox(height: headerTopSpace),
             Text(
               'SETTINGS',
               style: TextStyle(
-                fontSize: 30,
+                fontSize: headerFontSize,
                 fontWeight: FontWeight.bold,
                 color: Colors.orange[700],
                 letterSpacing: 1.2,
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: sectionVerticalSpacing * 2),
 
             // Account Settings
             _buildExpandableSection(
+              context,
               title: 'ACCOUNT SETTINGS',
               isExpanded: _isAccountSettingsExpanded,
+              paddingHorizontal: horizontalPadding,
+              paddingVertical: cardPadding,
+              titleFontSize: titleFontSize,
+              iconSize: regularIconSize,
               onTap: () {
                 setState(() {
                   _isAccountSettingsExpanded = !_isAccountSettingsExpanded;
@@ -53,12 +78,17 @@ class _SettingsPageState extends State<SettingsPage> {
               child: Container(), // Add account settings content here
             ),
 
-            const SizedBox(height: 20),
+            SizedBox(height: sectionVerticalSpacing),
 
             // My Contact Settings
             _buildExpandableSection(
+              context,
               title: 'MY CONTACT SETTINGS',
               isExpanded: _isMyContactSettingsExpanded,
+              paddingHorizontal: horizontalPadding,
+              paddingVertical: cardPadding,
+              titleFontSize: titleFontSize,
+              iconSize: regularIconSize,
               onTap: () {
                 setState(() {
                   _isMyContactSettingsExpanded = !_isMyContactSettingsExpanded;
@@ -66,16 +96,17 @@ class _SettingsPageState extends State<SettingsPage> {
               },
               child: Container(
                 color: Colors.white,
-                padding: const EdgeInsets.all(20),
+                padding: EdgeInsets.all(cardPadding),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Contact Number',
-                          style: TextStyle(fontSize: 16, color: Colors.grey),
+                          style: TextStyle(
+                              fontSize: titleFontSize, color: Colors.grey),
                         ),
                         TextButton(
                           onPressed: () {
@@ -85,27 +116,27 @@ class _SettingsPageState extends State<SettingsPage> {
                             'Edit',
                             style: TextStyle(
                               color: Colors.orange[700],
-                              fontSize: 16,
+                              fontSize: titleFontSize,
                             ),
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: sectionVerticalSpacing / 2),
                     Row(
                       children: [
-                        const Text(
+                        Text(
                           '91-7868911991',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: titleFontSize,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        const SizedBox(width: 10),
+                        SizedBox(width: 10),
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: isMobile ? 8 : 10,
+                            vertical: isMobile ? 4 : 6,
                           ),
                           decoration: BoxDecoration(
                             color: Colors.orange[100],
@@ -117,14 +148,14 @@ class _SettingsPageState extends State<SettingsPage> {
                               Icon(
                                 Icons.check_circle,
                                 color: Colors.orange[700],
-                                size: 16,
+                                size: smallIconSize,
                               ),
-                              const SizedBox(width: 4),
+                              SizedBox(width: 6),
                               Text(
                                 'Verified',
                                 style: TextStyle(
                                   color: Colors.orange[700],
-                                  fontSize: 12,
+                                  fontSize: subtitleFontSize,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -138,12 +169,17 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
 
-            const SizedBox(height: 20),
+            SizedBox(height: sectionVerticalSpacing),
 
             // Contact Display Status
             _buildExpandableSection(
+              context,
               title: 'CONTACT DISPLAY STATUS',
               isExpanded: _isContactDisplayStatusExpanded,
+              paddingHorizontal: horizontalPadding,
+              paddingVertical: cardPadding,
+              titleFontSize: titleFontSize,
+              iconSize: regularIconSize,
               onTap: () {
                 setState(() {
                   _isContactDisplayStatusExpanded =
@@ -152,86 +188,99 @@ class _SettingsPageState extends State<SettingsPage> {
               },
               child: Container(
                 color: const Color(0xFFF5F1E8),
-                padding: const EdgeInsets.all(24),
+                padding: EdgeInsets.all(isMobile ? 14 : 24),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Radio Options
                     _buildRadioOption(
+                      context,
                       'Only Premium Members',
                       'Only Premium Members',
+                      titleFontSize: subtitleFontSize,
+                      radioScale: radioScale,
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12),
                     _buildRadioOption(
+                      context,
                       'Only Premium Members Like',
                       'Only Premium Members Like',
+                      titleFontSize: subtitleFontSize,
+                      radioScale: radioScale,
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12),
                     _buildRadioOption(
+                      context,
                       'No One( Matches Won\'t Be Able To Call You )',
                       'No One( Matches Won\'t Be Able To Call You )',
+                      titleFontSize: subtitleFontSize,
+                      radioScale: radioScale,
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12),
                     Row(
                       children: [
-                        Radio<String>(
-                          value:
-                              'Only Visible To All Your Matches (Expires With Membership)',
-                          groupValue: _selectedContactDisplayStatus,
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              _selectedContactDisplayStatus = newValue!;
-                            });
-                          },
-                          activeColor: Colors.orange[700],
+                        Transform.scale(
+                          scale: radioScale,
+                          child: Radio<String>(
+                            value:
+                                'Only Visible To All Your Matches (Expires With Membership)',
+                            groupValue: _selectedContactDisplayStatus,
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                _selectedContactDisplayStatus = newValue!;
+                              });
+                            },
+                            activeColor: Colors.orange[700],
+                          ),
                         ),
                         Expanded(
                           child: Row(
                             children: [
-                              const Text(
-                                'Only Visible To All Your Matches (Expires With Membership)',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: Color(0xFF8B8B8B),
-                                  fontWeight: FontWeight.w400,
+                              Flexible(
+                                child: Text(
+                                  'Only Visible To All Your Matches (Expires With Membership)',
+                                  style: TextStyle(
+                                    fontSize: subtitleFontSize,
+                                    color: const Color(0xFF8B8B8B),
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
-                              const SizedBox(width: 8),
+                              SizedBox(width: 8),
                               Icon(
                                 Icons.help_outline,
                                 color: Colors.grey[400],
-                                size: 18,
+                                size: smallIconSize,
                               ),
                             ],
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 32),
+                    SizedBox(height: isMobile ? 18 : 32),
 
                     // Submit Button
                     Center(
                       child: Container(
-                        width: 200,
+                        width: submitBtnWidth,
                         child: ElevatedButton(
                           onPressed: () {
                             // Handle submit action
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(
-                              0xFFD4A574,
-                            ), // Golden color from reference
-                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            backgroundColor: const Color(0xFFD4A574),
+                            padding: EdgeInsets.symmetric(
+                                vertical: isMobile ? 10 : 12),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25),
                             ),
                             elevation: 0,
                           ),
-                          child: const Text(
+                          child: Text(
                             'SUBMIT',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 16,
+                              fontSize: isMobile ? 14 : 16,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 1.0,
                             ),
@@ -244,21 +293,22 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
 
-            const SizedBox(height: 20),
+            SizedBox(height: sectionVerticalSpacing),
 
             // Privacy Notice Text (between cards as requested)
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              padding: EdgeInsets.symmetric(
+                  horizontal: isMobile ? 12 : 20, vertical: isMobile ? 10 : 15),
               child: Row(
                 children: [
-                  Icon(Icons.lock, color: Colors.orange[700], size: 16),
-                  const SizedBox(width: 8),
+                  Icon(Icons.lock, color: Colors.orange[700], size: smallIconSize),
+                  SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       'Lalitha Peetham.com Doesn\'t Share Personal Details / Contact Information With Third Parties',
                       style: TextStyle(
                         color: Colors.orange[700],
-                        fontSize: 13,
+                        fontSize: isMobile ? 12 : 13,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -267,138 +317,170 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
 
-            const SizedBox(height: 20),
+            SizedBox(height: sectionVerticalSpacing),
 
             // Combined Settings Card (Contact Filters to Messages)
             Container(
               decoration: BoxDecoration(
-                color: const Color(
-                  0xFFF5F1E8,
-                ), // Light beige color matching the design
+                color: const Color(0xFFF5F1E8),
                 borderRadius: BorderRadius.circular(0),
               ),
               child: Column(
                 children: [
-                  // Contact Filters
                   _buildSectionWithDivider(
+                    context,
                     title: 'CONTACT FILTERS',
                     isExpanded: _isContactFiltersExpanded,
+                    paddingHorizontal: horizontalPadding,
+                    paddingVertical: cardPadding,
+                    titleFontSize: titleFontSize,
+                    iconSize: regularIconSize,
                     onTap: () {
                       setState(() {
                         _isContactFiltersExpanded = !_isContactFiltersExpanded;
                       });
                     },
-                    child: Container(), // Add contact filters content here
+                    child: Container(),
                     showDivider: true,
+                    dividerMargin: dividerMargin,
                   ),
 
-                  // Astro Details
                   _buildSectionWithDivider(
+                    context,
                     title: 'ASTRO DETAILS',
                     isExpanded: _isAstroDetailsExpanded,
+                    paddingHorizontal: horizontalPadding,
+                    paddingVertical: cardPadding,
+                    titleFontSize: titleFontSize,
+                    iconSize: regularIconSize,
                     onTap: () {
                       setState(() {
                         _isAstroDetailsExpanded = !_isAstroDetailsExpanded;
                       });
                     },
-                    child: Container(), // Add astro details content here
+                    child: Container(),
                     showDivider: true,
+                    dividerMargin: dividerMargin,
                   ),
 
-                  // Email & SMS Alert
                   _buildSectionWithDivider(
+                    context,
                     title: 'EMAIL & SMS ALERT',
                     isExpanded: _isEmailSmsAlertExpanded,
+                    paddingHorizontal: horizontalPadding,
+                    paddingVertical: cardPadding,
+                    titleFontSize: titleFontSize,
+                    iconSize: regularIconSize,
                     onTap: () {
                       setState(() {
                         _isEmailSmsAlertExpanded = !_isEmailSmsAlertExpanded;
                       });
                     },
-                    child: Container(), // Add email & sms alert content here
+                    child: Container(),
                     showDivider: true,
+                    dividerMargin: dividerMargin,
                   ),
 
-                  // Privacy Options
                   _buildSectionWithDivider(
+                    context,
                     title: 'PRIVACY OPTIONS',
                     isExpanded: _isPrivacyOptionsExpanded,
+                    paddingHorizontal: horizontalPadding,
+                    paddingVertical: cardPadding,
+                    titleFontSize: titleFontSize,
+                    iconSize: regularIconSize,
                     onTap: () {
                       setState(() {
                         _isPrivacyOptionsExpanded = !_isPrivacyOptionsExpanded;
                       });
                     },
-                    child: Container(), // Add privacy options content here
+                    child: Container(),
                     showDivider: true,
+                    dividerMargin: dividerMargin,
                   ),
 
-                  // Hide and Delete Profile
                   _buildSectionWithDivider(
+                    context,
                     title: 'HIDE AND DELETE PROFILE',
                     isExpanded: _isHideDeleteProfileExpanded,
+                    paddingHorizontal: horizontalPadding,
+                    paddingVertical: cardPadding,
+                    titleFontSize: titleFontSize,
+                    iconSize: regularIconSize,
                     onTap: () {
                       setState(() {
-                        _isHideDeleteProfileExpanded =
-                            !_isHideDeleteProfileExpanded;
+                        _isHideDeleteProfileExpanded = !_isHideDeleteProfileExpanded;
                       });
                     },
-                    child:
-                        Container(), // Add hide and delete profile content here
+                    child: Container(),
                     showDivider: true,
+                    dividerMargin: dividerMargin,
                   ),
 
-                  // Messages (last item, no divider)
                   _buildSectionWithDivider(
+                    context,
                     title: 'MESSAGES',
                     isExpanded: _isMessagesExpanded,
+                    paddingHorizontal: horizontalPadding,
+                    paddingVertical: cardPadding,
+                    titleFontSize: titleFontSize,
+                    iconSize: regularIconSize,
                     onTap: () {
                       setState(() {
                         _isMessagesExpanded = !_isMessagesExpanded;
                       });
                     },
-                    child: Container(), // Add messages content here
-                    showDivider: false, // No divider for the last item
+                    child: Container(),
+                    showDivider: false,
+                    dividerMargin: dividerMargin,
                   ),
                 ],
               ),
             ),
 
-            const SizedBox(height: 40),
+            SizedBox(height: isMobile ? 24 : 40),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildSectionWithDivider({
+  Widget _buildSectionWithDivider(
+    BuildContext context, {
     required String title,
     required bool isExpanded,
     required VoidCallback onTap,
     required Widget child,
     required bool showDivider,
+    required double paddingHorizontal,
+    required double paddingVertical,
+    required double titleFontSize,
+    required double iconSize,
+    required double dividerMargin,
   }) {
     return Column(
       children: [
         InkWell(
           onTap: onTap,
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            padding:
+                EdgeInsets.symmetric(horizontal: paddingHorizontal, vertical: paddingVertical),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontSize: 16,
+                  style: TextStyle(
+                    fontSize: titleFontSize,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF6B5B73), // Dark grayish color
+                    color: const Color(0xFF6B5B73),
                     letterSpacing: 0.5,
                   ),
                 ),
                 Icon(
-                  isExpanded
-                      ? Icons.keyboard_arrow_up
-                      : Icons.keyboard_arrow_down,
+                  isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                   color: const Color(0xFF6B5B73),
+                  size: iconSize,
                 ),
               ],
             ),
@@ -407,23 +489,28 @@ class _SettingsPageState extends State<SettingsPage> {
         if (isExpanded) child,
         if (showDivider)
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20),
+            margin: EdgeInsets.symmetric(horizontal: dividerMargin),
             height: 1,
-            color: const Color(0xFFD0C4A8), // Light divider color
+            color: const Color(0xFFD0C4A8),
           ),
       ],
     );
   }
 
-  Widget _buildExpandableSection({
+  Widget _buildExpandableSection(
+    BuildContext context, {
     required String title,
     required bool isExpanded,
     required VoidCallback onTap,
     required Widget child,
+    required double paddingHorizontal,
+    required double paddingVertical,
+    required double titleFontSize,
+    required double iconSize,
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFF5F1E8), // Light beige color matching the design
+        color: const Color(0xFFF5F1E8),
         borderRadius: BorderRadius.circular(0),
       ),
       child: Column(
@@ -431,24 +518,24 @@ class _SettingsPageState extends State<SettingsPage> {
           InkWell(
             onTap: onTap,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              padding:
+                  EdgeInsets.symmetric(horizontal: paddingHorizontal, vertical: paddingVertical),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
-                      fontSize: 16,
+                    style: TextStyle(
+                      fontSize: titleFontSize,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF6B5B73), // Dark grayish color
+                      color: const Color(0xFF6B5B73),
                       letterSpacing: 0.5,
                     ),
                   ),
                   Icon(
-                    isExpanded
-                        ? Icons.keyboard_arrow_up
-                        : Icons.keyboard_arrow_down,
+                    isExpanded ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                     color: const Color(0xFF6B5B73),
+                    size: iconSize,
                   ),
                 ],
               ),
@@ -460,25 +547,34 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Widget _buildRadioOption(String value, String title) {
+  Widget _buildRadioOption(
+    BuildContext context,
+    String value,
+    String title, {
+    required double titleFontSize,
+    required double radioScale,
+  }) {
     return Row(
       children: [
-        Radio<String>(
-          value: value,
-          groupValue: _selectedContactDisplayStatus,
-          onChanged: (String? newValue) {
-            setState(() {
-              _selectedContactDisplayStatus = newValue!;
-            });
-          },
-          activeColor: Colors.orange[700],
+        Transform.scale(
+          scale: radioScale,
+          child: Radio<String>(
+            value: value,
+            groupValue: _selectedContactDisplayStatus,
+            onChanged: (String? newValue) {
+              setState(() {
+                _selectedContactDisplayStatus = newValue!;
+              });
+            },
+            activeColor: Colors.orange[700],
+          ),
         ),
         Expanded(
           child: Text(
             title,
-            style: const TextStyle(
-              fontSize: 15,
-              color: Color(0xFF8B8B8B),
+            style: TextStyle(
+              fontSize: titleFontSize,
+              color: const Color(0xFF8B8B8B),
               fontWeight: FontWeight.w400,
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lalitha_peetham/screens/matrimony/matimony_page_layout.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart'; 
 
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({super.key});
@@ -18,68 +19,90 @@ class _NotificationsPageState extends State<NotificationsPage> {
       name: 'Yuvarajan L',
       message: 'Has Sent You To Interest',
       time: 'Few Minutes Ago',
-      profileImage:
-          'assets/images/profile1.jpg', // Replace with actual asset path
+      profileImage: 'assets/images/profile1.jpg',
     ),
     NotificationItem(
       name: 'Yuvarajan L',
       message: 'Has Sent You To Interest',
       time: 'Few Minutes Ago',
-      profileImage:
-          'assets/images/profile2.jpg', // Replace with actual asset path
+      profileImage: 'assets/images/profile2.jpg',
     ),
     NotificationItem(
       name: 'Yuvarajan L',
       message: 'Has Sent You To Interest',
       time: 'Few Hours Ago',
-      profileImage:
-          'assets/images/profile3.jpg', // Replace with actual asset path
+      profileImage: 'assets/images/profile3.jpg',
     ),
     NotificationItem(
       name: 'Yuvarajan L',
       message: 'Has Sent You To Intrest',
       time: 'Yesterday',
-      profileImage:
-          'assets/images/profile4.jpg', // Replace with actual asset path
+      profileImage: 'assets/images/profile4.jpg',
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = ResponsiveHelper.isMobile(context);
+    final isTablet = ResponsiveHelper.isTablet(context);
+    final isDesktop = ResponsiveHelper.isDesktop(context);
+
+    // Responsive values (tweak as needed)
+    final horizontalPadding = isMobile ? 12.0 : isTablet ? 28.0 : 80.0;
+    final topSpacing = isMobile ? 18.0 : 30.0;
+    final headerFontSize = isMobile ? 20.0 : isTablet ? 26.0 : 30.0;
+    final cardCornerRadius = isMobile ? 8.0 : 10.0;
+    final cardInnerPadding = isMobile ? 12.0 : isTablet ? 16.0 : 20.0;
+    final sectionSpacing = isMobile ? 16.0 : 20.0;
+    final titleFont = isMobile ? 14.0 : 16.0;
+    final subtitleFont = isMobile ? 12.0 : 14.0;
+    final smallFont = isMobile ? 11.0 : 12.0;
+    final avatarRadius = isMobile ? 22.0 : 25.0;
+    final avatarIconSize = isMobile ? 26.0 : 30.0;
+    final gapBetweenAvatarAndText = isMobile ? 12.0 : 15.0;
+    final checkboxScale = isMobile ? 0.85 : 1.0;
+    final iconSize = isMobile ? 18.0 : 20.0;
+    final paginationButtonSize = isMobile ? 32.0 : 36.0;
+    final paginationFont = isMobile ? 12.0 : 14.0;
+    final borderColor = Colors.orange[200]!;
+
     return MatriPageLayout(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 80.0),
+        padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 30),
+            SizedBox(height: topSpacing),
 
-            // Header Section
+            // Header
             Text(
               'NOTIFICATIONS',
               style: TextStyle(
-                fontSize: 30,
+                fontSize: headerFontSize,
                 fontWeight: FontWeight.bold,
                 color: Colors.orange[700],
                 letterSpacing: 1.2,
               ),
             ),
 
-            const SizedBox(height: 30),
+            SizedBox(height: sectionSpacing),
 
             // Include Declined Notifications Toggle
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+              padding: EdgeInsets.symmetric(
+                horizontal: cardInnerPadding,
+                vertical: cardInnerPadding - 4,
+              ),
               decoration: BoxDecoration(
-                color: const Color(0xFFF5E6A3), // Light yellow background
-                borderRadius: BorderRadius.circular(8),
+                color: const Color(0xFFF5E6A3),
+                borderRadius: BorderRadius.circular(cardCornerRadius),
               ),
               child: Row(
                 children: [
                   Text(
                     'INCLUDE DECLINED NOTIFICATIONS',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: titleFont,
                       fontWeight: FontWeight.w600,
                       color: Colors.brown[700],
                       letterSpacing: 0.5,
@@ -87,7 +110,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                   ),
                   const Spacer(),
                   Transform.scale(
-                    scale: 0.8,
+                    scale: checkboxScale,
                     child: Checkbox(
                       value: includeDeclinedNotifications,
                       onChanged: (value) {
@@ -97,35 +120,33 @@ class _NotificationsPageState extends State<NotificationsPage> {
                       },
                       activeColor: Colors.orange[700],
                       checkColor: Colors.white,
-                      side: BorderSide(color: Colors.brown[400]!, width: 1.5),
+                      side:
+                          BorderSide(color: Colors.brown[400]!, width: 1.2),
                     ),
                   ),
                 ],
               ),
             ),
 
-            const SizedBox(height: 20),
+            SizedBox(height: sectionSpacing),
 
             // Notifications Card
             Container(
               decoration: BoxDecoration(
-                color: const Color(0xFFF5E6A3), // Light yellow background
-                borderRadius: BorderRadius.circular(8),
+                color: const Color(0xFFF5E6A3),
+                borderRadius: BorderRadius.circular(cardCornerRadius),
               ),
               child: Column(
                 children: [
-                  // All Notifications Dropdown Header
+                  // Header / Dropdown row
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 15,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: cardInnerPadding,
+                      vertical: cardInnerPadding,
                     ),
                     decoration: BoxDecoration(
                       border: Border(
-                        bottom: BorderSide(
-                          color: Colors.orange[200]!,
-                          width: 1,
-                        ),
+                        bottom: BorderSide(color: borderColor, width: 1),
                       ),
                     ),
                     child: Row(
@@ -133,7 +154,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                         Text(
                           selectedFilter.toUpperCase(),
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: titleFont,
                             fontWeight: FontWeight.w600,
                             color: Colors.orange[700],
                             letterSpacing: 0.5,
@@ -143,54 +164,51 @@ class _NotificationsPageState extends State<NotificationsPage> {
                         Icon(
                           Icons.keyboard_arrow_down,
                           color: Colors.orange[700],
-                          size: 20,
+                          size: iconSize,
                         ),
                       ],
                     ),
                   ),
 
-                  // Notifications List
+                  // Notifications list entries
                   ...notifications.asMap().entries.map((entry) {
-                    int index = entry.key;
-                    NotificationItem notification = entry.value;
-                    bool isLast = index == notifications.length - 1;
+                    final index = entry.key;
+                    final notification = entry.value;
+                    final isLast = index == notifications.length - 1;
 
                     return Container(
-                      padding: const EdgeInsets.all(20),
+                      padding: EdgeInsets.all(cardInnerPadding),
                       decoration: BoxDecoration(
-                        border:
-                            isLast
-                                ? null
-                                : Border(
-                                  bottom: BorderSide(
-                                    color: Colors.orange[200]!,
-                                    width: 1,
-                                  ),
-                                ),
+                        border: isLast
+                            ? null
+                            : Border(
+                                bottom: BorderSide(color: borderColor, width: 1),
+                              ),
                       ),
                       child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          // Profile Image
+                          // Avatar
                           CircleAvatar(
-                            radius: 25,
+                            radius: avatarRadius,
                             backgroundColor: Colors.grey[300],
                             child: ClipOval(
                               child: Container(
-                                width: 50,
-                                height: 50,
+                                width: avatarRadius * 2,
+                                height: avatarRadius * 2,
                                 color: Colors.grey[400],
-                                child: const Icon(
+                                child: Icon(
                                   Icons.person,
                                   color: Colors.white,
-                                  size: 30,
+                                  size: avatarIconSize,
                                 ),
                               ),
                             ),
                           ),
 
-                          const SizedBox(width: 15),
+                          SizedBox(width: gapBetweenAvatarAndText),
 
-                          // Notification Content
+                          // Content
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -198,16 +216,16 @@ class _NotificationsPageState extends State<NotificationsPage> {
                                 Text(
                                   notification.name,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: titleFont,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.orange[700],
                                   ),
                                 ),
-                                const SizedBox(height: 4),
+                                SizedBox(height: isMobile ? 4 : 6),
                                 Text(
                                   notification.message,
                                   style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: subtitleFont,
                                     color: Colors.brown[600],
                                   ),
                                 ),
@@ -215,11 +233,13 @@ class _NotificationsPageState extends State<NotificationsPage> {
                             ),
                           ),
 
-                          // Timestamp
+                          SizedBox(width: 12),
+
+                          // Time
                           Text(
                             notification.time,
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: smallFont,
                               color: Colors.brown[500],
                               fontWeight: FontWeight.w500,
                             ),
@@ -229,41 +249,46 @@ class _NotificationsPageState extends State<NotificationsPage> {
                     );
                   }).toList(),
 
-                  // Pagination inside the card
+                  // Pagination
                   Container(
-                    padding: const EdgeInsets.all(20),
+                    padding: EdgeInsets.all(cardInnerPadding),
                     decoration: BoxDecoration(
                       border: Border(
-                        top: BorderSide(color: Colors.orange[200]!, width: 1),
+                        top: BorderSide(color: borderColor, width: 1),
                       ),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Previous button
+                        // Prev
                         Container(
-                          width: 35,
-                          height: 35,
+                          width: paginationButtonSize,
+                          height: paginationButtonSize,
                           decoration: BoxDecoration(
                             color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: BorderRadius.circular(6),
                           ),
                           child: Icon(
                             Icons.chevron_left,
                             color: Colors.grey[600],
-                            size: 20,
+                            size: iconSize,
                           ),
                         ),
 
-                        const SizedBox(width: 8),
+                        SizedBox(width: isMobile ? 6 : 8),
 
-                        // Page numbers
-                        ...List.generate(5, (index) {
-                          int pageNumber = index + 1;
-                          bool isSelected = pageNumber == currentPage;
+                        // Page numbers (example)
+                        ...List.generate(5, (idx) {
+                          final pageNumber = idx + 1;
+                          final isSelected = pageNumber == currentPage;
+                          final displayText = pageNumber == 4
+                              ? '...'
+                              : pageNumber == 5
+                                  ? '10'
+                                  : pageNumber.toString();
 
                           return Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 2),
+                            margin: EdgeInsets.symmetric(horizontal: isMobile ? 2 : 4),
                             child: GestureDetector(
                               onTap: () {
                                 setState(() {
@@ -271,29 +296,19 @@ class _NotificationsPageState extends State<NotificationsPage> {
                                 });
                               },
                               child: Container(
-                                width: 35,
-                                height: 35,
+                                width: paginationButtonSize,
+                                height: paginationButtonSize,
                                 decoration: BoxDecoration(
-                                  color:
-                                      isSelected
-                                          ? Colors.orange[700]
-                                          : Colors.grey[300],
-                                  borderRadius: BorderRadius.circular(4),
+                                  color: isSelected ? Colors.orange[700] : Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(6),
                                 ),
                                 child: Center(
                                   child: Text(
-                                    pageNumber == 4
-                                        ? '...'
-                                        : pageNumber == 5
-                                        ? '10'
-                                        : pageNumber.toString(),
+                                    displayText,
                                     style: TextStyle(
-                                      color:
-                                          isSelected
-                                              ? Colors.white
-                                              : Colors.grey[700],
+                                      color: isSelected ? Colors.white : Colors.grey[700],
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 14,
+                                      fontSize: paginationFont,
                                     ),
                                   ),
                                 ),
@@ -302,20 +317,20 @@ class _NotificationsPageState extends State<NotificationsPage> {
                           );
                         }),
 
-                        const SizedBox(width: 8),
+                        SizedBox(width: isMobile ? 6 : 8),
 
-                        // Next button
+                        // Next
                         Container(
-                          width: 35,
-                          height: 35,
+                          width: paginationButtonSize,
+                          height: paginationButtonSize,
                           decoration: BoxDecoration(
                             color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(4),
+                            borderRadius: BorderRadius.circular(6),
                           ),
                           child: Icon(
                             Icons.chevron_right,
                             color: Colors.grey[600],
-                            size: 20,
+                            size: iconSize,
                           ),
                         ),
                       ],
@@ -325,7 +340,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
               ),
             ),
 
-            const SizedBox(height: 40),
+            SizedBox(height: isMobile ? 24 : 40),
           ],
         ),
       ),

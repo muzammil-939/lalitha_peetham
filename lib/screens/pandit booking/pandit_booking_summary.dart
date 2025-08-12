@@ -35,7 +35,7 @@ class _PanditBookingSummaryState extends State<PanditBookingSummary> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            buildherosection(),
+           // buildherosection(),
             buildVastuBookingEnquiryFormPage(context),
             SizedBox(height: 80),
           ],
@@ -329,7 +329,7 @@ class _PanditBookingSummaryState extends State<PanditBookingSummary> {
                             height: buttonHeight,
                             child: ElevatedButton(
                               onPressed: () {
-                                context.go('/pandit_booking_booking_confirmed');
+                                context.go('/pandit_booking_payment');
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,

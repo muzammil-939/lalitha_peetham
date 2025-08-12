@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
-import 'package:lalitha_peetham/screens/palm_reading/palm_reading_layout.dart';
-import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_expert_card.dart';
-import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_faq_support_wid.dart';
 import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_layout.dart';
 import 'package:lalitha_peetham/screens/pandit%20booking/pandith_contact_section.dart';
-import 'package:lalitha_peetham/widgets/menu.dart';
+import 'package:lalitha_peetham/screens/pandit%20booking/pandit_booking_expert_card.dart';
 import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
-
-import '../palm_reading/palm_reading_expert_card.dart';
-import '../photography/photography_faq_support_wid.dart';
 
 class PanditBookingHome extends StatefulWidget {
   const PanditBookingHome({super.key});
@@ -21,407 +14,385 @@ class PanditBookingHome extends StatefulWidget {
 
 class _PanditBookingHomeState extends State<PanditBookingHome> {
 
-    void _openMenu(BuildContext context) {
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, _) => DropdownGridMenu(),
-        transitionDuration: const Duration(milliseconds: 300),
-        transitionsBuilder:
-            (context, animation, _, child) =>
-                FadeTransition(opacity: animation, child: child),
-        opaque: false,
+String selectedPooja = 'Select pooja';
+
+  @override
+  Widget build(BuildContext context) {
+    final isMobile = ResponsiveHelper.isMobile(context);
+
+    return PanditBookingLayout(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: isMobile ? 40 : 80),
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 32),
+              child: Column(
+                children: [
+                  
+      Text(
+        "Explore a Curated Collection of Poojas for Every Special\nOccasion and Spiritual Need",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: isMobile ? 20 : 32,
+          fontWeight: FontWeight.bold,
+          height: 1.3,
+        ),
+      ),
+      SizedBox(height: isMobile ? 30 : 50),
+                   // ✅ Replaced search bar
+      Align(
+        alignment: Alignment.center,
+        child: Container(
+          width: isMobile ? double.infinity : 250,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          decoration: BoxDecoration(
+            color: Color(0xFFCBCBCB),
+            
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: selectedPooja,
+              dropdownColor: Color(0xFFCBCBCB),
+              icon: const Icon(Icons.arrow_drop_down),
+              style: const TextStyle(color: Colors.black),
+              items: ['Select pooja', 'Satyanarayana varatham', 'Gruha pradesham',
+               'Vivaham','Namakarannam','Bhumi pooja','New shop opening','Rudrabi seham']
+                  .map((pooja) => DropdownMenuItem(
+                        value: pooja,
+                        child: Text(pooja),
+                      ))
+                  .toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectedPooja = value!;
+                });
+              },
+            ),
+          ),
+        ),
+      ),
+      SizedBox(height: isMobile ? 30 : 50),
+
+
+                  
+
+                  
+                ],
+              ),
+            ),
+            buildPoojaPackageSelectionPage(context),
+            SizedBox(height: isMobile ? 50 : 100),
+
+            PandithContactSection(),
+
+            SizedBox(height: isMobile ? 50 : 100),
+
+            PanditBookingExpertCard(),
+
+            SizedBox(height: isMobile ? 50 : 100),
+          ],
+        ),
       ),
     );
   }
-
-@override
-Widget build(BuildContext context) {
+Widget buildPoojaPackageSelectionPage(BuildContext context) {
   final isMobile = ResponsiveHelper.isMobile(context);
   final isTablet = ResponsiveHelper.isTablet(context);
-  final isDesktop = ResponsiveHelper.isDesktop(context);
 
-  final poojaCards = [
-    _buildPoojaCard(context, "Rudrabhishek Puja", 'null'),
-    _buildPoojaCard(context, "Satyanarayan Puja", '/pandit_booking_satyanarayana_pooja'),
-    _buildPoojaCard(context, "Rahu Puja", 'null'),
-    _buildPoojaCard(context, "Ganesh Pooja", '/pandit_booking_ganesh_pooja'),
-    _buildPoojaCard(context, "Durga Pooja", 'null'),
-    _buildPoojaCard(context, "Durga Pooja", 'null'),
-  ];
-
-  return PanditBookingLayout(
+  return Center(
     child: SingleChildScrollView(
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 40, vertical: 40),
       child: Column(
         children: [
-          buildherosection(),
-          SizedBox(height: isMobile ? 40 : 80),
-
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : 32),
-            child: Column(
-              children: [
-                _buildSearchBar(context),
-                SizedBox(height: isMobile ? 30 : 50),
-
-                Text(
-                  "Explore a Curated Collection of Poojas for Every Special\nOccasion and Spiritual Need",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: isMobile ? 20 : (isTablet ? 26 : 32),
-                    fontWeight: FontWeight.bold,
-                    height: 1.3,
-                  ),
+          const SizedBox(height: 20),         
+  
+          // 🕉️ Title + Button
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                "Satyanarayana pooja Package",
+                style: TextStyle(
+                  fontSize: isMobile ? 18 : 24,
+                  fontWeight: FontWeight.bold,
                 ),
-
-                SizedBox(height: isMobile ? 30 : 50),
-
-                // 📱 Mobile: 1 per row
-                if (isMobile) ...poojaCards
-                    .map((card) => Padding(
-                          padding: const EdgeInsets.only(bottom: 20),
-                          child: card,
-                        ))
-                    .toList(),
-
-                // 💻 Tablet: 2 per row
-                if (isTablet)
-                  Wrap(
-                    spacing: 20,
-                    runSpacing: 20,
-                    children: poojaCards
-                        .map((card) => SizedBox(
-                              width: MediaQuery.of(context).size.width / 2 - 40,
-                              child: card,
-                            ))
-                        .toList(),
-                  ),
-
-                // 🖥️ Desktop: 3 per row in 2 rows
-                if (isDesktop) ...[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: poojaCards.sublist(0, 3).map((card) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: card,
-                      );
-                    }).toList(),
-                  ),
-                  SizedBox(height: 30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: poojaCards.sublist(3).map((card) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: card,
-                      );
-                    }).toList(),
-                  ),
-                ],
-              ],
-            ),
+              ),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFDC9323),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                ),
+                child: const Text(
+                  "View Pooja Details",
+                  style: TextStyle(color: Colors.black),
+                ),
+              )
+            ],
           ),
-
-          SizedBox(height: isMobile ? 50 : 100),
-
-          PandithContactSection(),
-          SizedBox(height: isMobile ? 50 : 100),
-
-          // 👉 Additional 3 Cards after Contact Section
-          if (!isMobile)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _buildPoojaCard(context, "Rudrabhishek Puja", 'null'),
-                _spacerW(),
-                _buildPoojaCard(context, "Satyanarayan Puja", '/pandit_booking_satyanarayana_pooja'),
-                _spacerW(),
-                _buildPoojaCard(context, "Rahu Puja", 'null'),
-              ],
-            )
-          else
-            Column(
-              children: [
-                _buildPoojaCard(context, "Rudrabhishek Puja", 'null'),
-                _spacerH(),
-                _buildPoojaCard(context, "Satyanarayan Puja", '/pandit_booking_satyanarayana_pooja'),
-                _spacerH(),
-                _buildPoojaCard(context, "Rahu Puja", 'null'),
-              ],
-            ),
-
-          SizedBox(height: isMobile ? 50 : 100),
-          PanditBookingExpertCard(),
-          SizedBox(height: isMobile ? 50 : 100),
+  
+          const SizedBox(height: 30),
+  
+          // 📦 Package Cards
+        Container(
+                width: isMobile
+                    ? double.infinity
+                    : isTablet
+                        ? 600
+                        : 800,
+                padding: const EdgeInsets.all(30),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFFDD66),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  children: [
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 20,
+                      runSpacing: 20,
+                      children: [
+                        _buildServiceCard1Responsive(context,
+                          title: "Pradhamam Satyanarayana pooja Package",
+                          price: "₹1199",
+                          features: [
+                            "Palm reading for two people",
+                            "Relationship compatibility analysis",
+                            "Love and marriage prediction",
+                            "Suggestive remedies",
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 20,
+                      runSpacing: 20,
+                      children: [
+                        _buildServiceCardResponsive(context,
+                          title: "Poojyam Satyanarayana pooja Package",
+                          price: "₹199",
+                          features: [
+                            "Single palm analysis (left or right)",
+                            "Lifeline, heart line, brain line reading",
+                            "Basic personality overview",
+                          ],
+                        ),
+                        _buildServiceCardResponsive(context,
+                          title: "Sampujyam Satyanarayana pooja Package",
+                          price: "₹399",
+                          features: [
+                            "Analysis of both hands",
+                            "Life, career, and relationship insights",
+                            "Future predictions (short-term)",
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 20,
+                      runSpacing: 20,
+                      children: [
+                        _buildServiceCardResponsive(context,
+                          title: "Poornam Satyanarayana pooja Package",
+                          price: "₹699",
+                          features: [
+                            "Detailed reading of all 7 major lines",
+                            "Personality, health, career, love, and finance",
+                            "Hand shape & element type",
+                            "PDF report included",
+                          ],
+                        ),
+                        _buildServiceCardResponsive(context,
+                          title: "Paripoornam Satyanarayana pooja ",
+                          price: "₹999",
+                          features: [
+                            "One-on-one live session with expert",
+                            "Complete palm analysis + Q&A",
+                            "Remedies & tips for challenges",
+                            "Personalized 15–20 min video call",
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+          const SizedBox(height: 60),
         ],
       ),
     ),
   );
 }
 
-
-SizedBox _spacerH() => const SizedBox(height: 20);
-SizedBox _spacerW() => const SizedBox(width: 20);
-
-Widget _buildPoojaCard(BuildContext context, String title, String path) {
+Widget _buildServiceCardResponsive(
+  BuildContext context, {
+  required String title,
+  required String price,
+  required List<String> features,
+}) {
   final isMobile = ResponsiveHelper.isMobile(context);
-  final width = (isMobile ? 180 : 250).toDouble();
-  final height = (isMobile ? 240 : 290).toDouble();
-  final imageHeight = (isMobile ? 130 : 180).toDouble();
-  final fontSize = (isMobile ? 12 : 16).toDouble();
 
   return Container(
-    width: width,
-    height: height,
-    child: Column(
-      children: [
-        Container(
-          width: width - 20,
-          height: imageHeight,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
-            image: const DecorationImage(
-              image: AssetImage('assets/images/pandith_booking_home_2.png'),
-              fit: BoxFit.cover,
-            ),
-          ),
+    height: isMobile ? 360 : 400,
+    width: isMobile ? double.infinity : 280,
+    padding: const EdgeInsets.all(20),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.1),
+          blurRadius: 8,
+          offset: const Offset(0, 4),
         ),
-        Container(
-          width: width - 20,
-          height: height - imageHeight,
-          decoration: BoxDecoration(
-            color: const Color(0xFFE4C74D),
-            borderRadius: BorderRadius.vertical(bottom: Radius.circular(8)),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+      ],
+    ),
+    child: _buildCardContent(title, price, features, context),
+  );
+}
+
+Widget _buildServiceCard1Responsive(
+  BuildContext context, {
+  required String title,
+  required String price,
+  required List<String> features,
+}) {
+  final isMobile = ResponsiveHelper.isMobile(context);
+
+  return Container(
+    height: isMobile ? 350 : 350,
+    width: isMobile ? double.infinity : 450,
+    padding: const EdgeInsets.all(20),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withOpacity(0.1),
+          blurRadius: 8,
+          offset: const Offset(0, 4),
+        ),
+      ],
+    ),
+    child: _buildCardContent(title, price, features, context),
+  );
+}
+Widget _buildCardContent(String title, String price, List<String> features, BuildContext context) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    children: [
+      Text(
+        title,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: Colors.black87,
+        ),
+        textAlign: TextAlign.center,
+      ),
+      const SizedBox(height: 8),
+      Container(width: double.infinity, height: 1, color: Colors.black),
+      const SizedBox(height: 16),
+      Text(
+        price,
+        style: const TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Color(0xFFE6B800),
+        ),
+      ),
+      const SizedBox(height: 20),
+      ...features.asMap().entries.map((entry) {
+        int index = entry.key + 1;
+        String feature = entry.value;
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                title,
-                style: TextStyle(
-                  fontSize: fontSize,
-                  fontWeight: FontWeight.w600,
+                "$index. ",
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w500,
                 ),
-                textAlign: TextAlign.center,
               ),
-              SizedBox(height: 10),
-              GestureDetector(
-                onTap: () => context.go(path),
-                child: Container(
-                  width: isMobile ? 100 : 150,
-                  height: 35,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Book Now",
-                      style: TextStyle(
-                        fontSize: isMobile ? 12 : 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+              Expanded(
+                child: Text(
+                  feature,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.black87,
+                    height: 1.4,
                   ),
                 ),
               ),
             ],
           ),
+        );
+      }).toList(),
+      const SizedBox(height: 24),
+      SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+          onPressed: () {
+            context.go('/pandit_booking_form');
+            print("Booking $title service");
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFFF5C761),
+            foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            elevation: 2,
+          ),
+          child: const Text(
+            "Book now",
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
         ),
-      ],
-    ),
+      ),
+    ],
   );
 }
 
-
-Widget _buildCardGrid(BuildContext context) {
-  final isMobile = ResponsiveHelper.isMobile(context);
-
-  final poojaList = [
-    {"title": "Rudrabhishek Puja", "path": 'null'},
-    {"title": "Satyanarayan Puja", "path": '/pandit_booking_satyanarayana_pooja'},
-    {"title": "Rahu Puja", "path": 'null'},
-    {"title": "Ganesh Pooja", "path": '/pandit_booking_ganesh_pooja'},
-    {"title": "Durga Pooja", "path": 'null'},
-    {"title": "Durga Pooja", "path": 'null'},
-  ];
-
-  if (isMobile) {
-    return Column(
-      children: poojaList.map((item) {
-        return _buildPoojaCard(context, item['title']!, item['path']!);
-      }).toList(),
-    );
-  } else {
-    return Wrap(
-      spacing: 15,
-      runSpacing: 15,
-      alignment: WrapAlignment.center,
-      children: poojaList.map((item) {
-        return _buildPoojaCard(context, item['title']!, item['path']!);
-      }).toList(),
-    );
-  }
-}
-
-Widget _buildSearchBar(BuildContext context) {
-  final isMobile = ResponsiveHelper.isMobile(context);
-  return Container(
-    height: 50,
-    width: isMobile ? double.infinity : 350,
-    decoration: BoxDecoration(
-      color: Color(0xFFB8B8B8),
-      borderRadius: BorderRadius.circular(25),
-    ),
-    child: Row(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 20),
-          child: Text(
-            "Search pooja's",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: isMobile ? 14 : 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-        Spacer(),
-        Padding(
-          padding: EdgeInsets.only(right: 15),
-          child: Icon(Icons.search, color: Colors.black),
-        ),
-      ],
-    ),
-  );
-}
-
-
-  Widget buildherosection() {
-    final size = MediaQuery.of(context).size;
-    final isMediumScreen = size.width > 800;
-    final isSmallScreen = size.width < 600;
-    final isVerySmallScreen = size.width < 400;
-    
-
-    double getMenuIconSize() {
-      if (isVerySmallScreen) return 24;
-      if (isSmallScreen) return 26;
-      if (isMediumScreen) return 28;
-      return 30;
-    }
-
-    double getMenuFontSize() {
-      if (isVerySmallScreen) return 18;
-      if (isSmallScreen) return 20;
-      if (isMediumScreen) return 22;
-      return 24;
-    }
-
-    double getMenuLetterSpacing() {
-      if (isVerySmallScreen) return 1;
-      if (isSmallScreen) return 1.5;
-      return 2;
-    }
-
-        double getMenuWidth() {
-      if (isVerySmallScreen) return 200;
-      if (isSmallScreen) return 250;
-      return 300;
-    }
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Image.asset(
-          'assets/images/vastupooja1.png',
-          width: double.infinity,
-          height: 600,
-          fit: BoxFit.cover,
-        ),
-        // Positioned(
-        //   top: 40,
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.center,
-        //     children: const [
-        //       Icon(Icons.menu, color: Colors.white),
-        //       SizedBox(width: 6),
-        //       Text(
-        //         "Menu",
-        //         style: TextStyle(
-        //           color: Colors.white,
-        //           fontSize: 25,
-        //           fontWeight: FontWeight.bold,
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
-         // Menu button positioned at top
-          Positioned(
-            top: 40,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: GestureDetector(
-                onTap: () => _openMenu(context),
-                child: SizedBox(
-                  width: getMenuWidth(),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.menu,
-                        color: Colors.white,
-                        size: getMenuIconSize(),
-                      ),
-                      SizedBox(width: isVerySmallScreen ? 6 : 8),
-                      Text(
-                        'MENU',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: getMenuFontSize(),
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: getMenuLetterSpacing(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+  Widget _buildSearchBar(BuildContext context) {
+    final isMobile = ResponsiveHelper.isMobile(context);
+    return Container(
+      height: 50,
+      width: isMobile ? double.infinity : 350,
+      decoration: BoxDecoration(
+        color: const Color(0xFFB8B8B8),
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Row(
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(left: 20),
+            child: Text(
+              "Search pooja's",
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
-
-        Positioned(
-          top: 120,
-          child: Column(
-            children:[
-              Text(
-                "FIND THE PERFECT POOJA SERVICE TAILORED \nTO YOUR SPIRITUAL NEEDS",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: ResponsiveFontsize.fontSize(
-                    context, mobile: 20 , tablet: 30, desktop: 45),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
+          const Spacer(),
+          const Padding(
+            padding: EdgeInsets.only(right: 15),
+            child: Icon(Icons.search, color: Colors.black),
           ),
-        ),
-        Positioned(
-          bottom: 20,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(0),
-            child: Image.asset(
-              'assets/images/pandit_booking_home.png',
-              height: 180,
-              width: 280,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

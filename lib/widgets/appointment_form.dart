@@ -187,6 +187,11 @@ class _AppointmentBookingWidgetState extends State<AppointmentBookingWidget> {
     final isTablet = screenWidth > 600 && screenWidth <= 1024;
     final isMobile = screenWidth <= 600;
 
+     // Outer horizontal padding
+  final horizontalPadding = isDesktop ? 100.0 : (isTablet ? 50.0 : 16.0);
+  // To keep the form from becoming too wide on very large screens:
+  final maxFormWidth = 900.0;
+
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: isDesktop ? 100 : (isTablet ? 50 : 16),
@@ -230,96 +235,70 @@ class _AppointmentBookingWidgetState extends State<AppointmentBookingWidget> {
                 ),
                 const SizedBox(height: 32),
 
-                // Form fields
-                isMobile
-                    ? Column(
-                      children: [
-                        _buildTextField(
-                          'FIRST NAME*',
-                          'Enter Your First Name',
-                          'firstName',
-                        ),
-                        const SizedBox(height: 24),
-                        _buildTextField(
-                          'LAST NAME*',
-                          'Enter Your Last Name',
-                          'lastName',
-                        ),
-                      ],
-                    )
-                    : Row(
-                      children: [
-                        Expanded(
-                          child: _buildTextField(
-                            'FIRST NAME*',
-                            'Enter Your First Name',
-                            'firstName',
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: _buildTextField(
-                            'LAST NAME*',
-                            'Enter Your Last Name',
-                            'lastName',
-                          ),
-                        ),
-                      ],
+                // First name / Last name
+              Wrap(
+                runSpacing: 16,
+                spacing: 16,
+                children: [
+                  SizedBox(
+                    width: isMobile ? screenWidth - (horizontalPadding * 2) : (isTablet ? (maxFormWidth - 16) / 2 : (maxFormWidth - 16) / 2),
+                    child: _buildTextField(
+                      'FIRST NAME*',
+                      'Enter Your First Name',
+                      'firstName',
                     ),
+                  ),
+                  SizedBox(
+                    width: isMobile ? screenWidth - (horizontalPadding * 2) : (isTablet ? (maxFormWidth - 16) / 2 : (maxFormWidth - 16) / 2),
+                    child: _buildTextField(
+                      'LAST NAME*',
+                      'Enter Your Last Name',
+                      'lastName',
+                    ),
+                  ),
+                ],
+              ),
                 const SizedBox(height: 24),
 
-                isMobile
-                    ? Column(
-                      children: [
-                        _buildTextField(
-                          'YOUR PHONE*',
-                          '+44 3737 838xxx',
-                          'phone',
-                        ),
-                        const SizedBox(height: 24),
-                        _buildTextField(
-                          'YOUR EMAIL*',
-                          'youremail@domain.com',
-                          'email',
-                        ),
-                      ],
-                    )
-                    : Row(
-                      children: [
-                        Expanded(
-                          child: _buildTextField(
-                            'YOUR PHONE*',
-                            '+44 3737 838xxx',
-                            'phone',
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: _buildTextField(
-                            'YOUR EMAIL*',
-                            'youremail@domain.com',
-                            'email',
-                          ),
-                        ),
-                      ],
+               // Phone / Email
+              Wrap(
+                runSpacing: 16,
+                spacing: 16,
+                children: [
+                  SizedBox(
+                    width: isMobile ? screenWidth - (horizontalPadding * 2) : (maxFormWidth - 16) / 2,
+                    child: _buildTextField(
+                      'YOUR PHONE*',
+                      '+44 3737 838xxx',
+                      'phone',
                     ),
+                  ),
+                  SizedBox(
+                    width: isMobile ? screenWidth - (horizontalPadding * 2) : (maxFormWidth - 16) / 2,
+                    child: _buildTextField(
+                      'YOUR EMAIL*',
+                      'youremail@domain.com',
+                      'email',
+                    ),
+                  ),
+                ],
+              ),
                 const SizedBox(height: 24),
 
-                isMobile
-                    ? Column(
-                      children: [
-                        _buildDropdown(),
-                        const SizedBox(height: 24),
-                        _buildDatePicker(),
-                      ],
-                    )
-                    : Row(
-                      children: [
-                        Expanded(child: _buildDropdown()),
-                        const SizedBox(width: 16),
-                        Expanded(child: _buildDatePicker()),
-                      ],
-                    ),
+                 Wrap(
+                runSpacing: 16,
+                spacing: 16,
+                children: [
+                  SizedBox(
+                    width: isMobile ? screenWidth - (horizontalPadding * 2) : (maxFormWidth - 16) / 2,
+                    child: _buildDropdown(),
+                  ),
+                  SizedBox(
+                    width: isMobile ? screenWidth - (horizontalPadding * 2) : (maxFormWidth - 16) / 2,
+                    child: _buildDatePicker(),
+                  ),
+                ],
+              ),
                 const SizedBox(height: 32),
 
                 // Book Now button

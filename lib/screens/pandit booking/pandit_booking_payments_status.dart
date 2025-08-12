@@ -35,7 +35,7 @@ class _PanditBookingPaymentsStatusState
       child: SingleChildScrollView(
         child: Column(
           children: [
-            buildherosection(),
+           // buildherosection(),
 
             buildVastuBookingEnquiryFormPage(context),
             SizedBox(height: 80),

@@ -13,9 +13,11 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
   late Animation<double> _animation;
 
   final List<String> menuItems = [
+    'Nithyapooja Subscription',
     'Astrology',
     'Matrimony',
-    'Online Pooja',
+    'E - Pooja',
+    'Upcomming Pooja',
     'Real Estate',
     'Function Hall Booking',
     'E - STORE',
@@ -28,7 +30,6 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
     'Online Muhurthas',
     'Palm Reading',
     'Referal & Even',
-    'Nithyapooja Subscription',
     'Online Vasthu Property',
     'Poojavidhanam Course Calling',
     'Yoga Classes Conducting',
@@ -211,12 +212,12 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
         context.go('/photography_home');
         break;
 
-      case 'Online Pooja':
-        context.go('/booking_e_pooja');
+      case 'E - Pooja':
+        context.go('/upcoming_pooja');
         break;
 
       case 'Nithyapooja Subscription':
-        context.go('/poojas_page');
+        context.go('/nityapooja_packages');
         break;
       case 'Palm Reading':
         context.go('/palm_reading_home');
@@ -242,6 +243,9 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
       case 'Online Muhurthas':
         context.go('/online_muhurthas_home');
         break;
+      case 'Upcomming Pooja':
+        context.go('/upcoming_pooja_welcome_screen');
+        break;  
 
       // Add more cases as needed
       default:
@@ -286,9 +290,11 @@ class _DropdownGridOverlayState extends State<_DropdownGridOverlay>
   late Animation<double> _animation;
 
   final List<String> menuItems = [
+    'Nithyapooja Subscription',
     'Astrology',
     'Matrimony',
-    'Online Pooja',
+    'E - Pooja',
+    'Upcomming Pooja',
     'Real Estate',
     'Function Hall Booking',
     'E - STORE',
@@ -302,7 +308,6 @@ class _DropdownGridOverlayState extends State<_DropdownGridOverlay>
     'Palm Reading',
     'Referal & Earn',
     'Pandit Registration'
-        'Nithyapooja Subscription',
     'Online Vasthu Property',
     'Poojavidhanam Course Calling',
     'Yoga Classes Conducting',

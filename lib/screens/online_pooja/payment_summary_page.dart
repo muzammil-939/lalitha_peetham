@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/online_pooja/e_pooja_layout.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 import 'package:lalitha_peetham/widgets/menu.dart';
 import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
@@ -63,11 +64,11 @@ class _PaymentSummaryPageState extends State<PaymentSummaryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return VastupoojaLayout(
+    return EPoojaLayout(
       child: SingleChildScrollView(
         child: Column(
           children: [
-            buildherosection(),
+           // buildherosection(),
              buildPaymentSummaryPage(context),
              SizedBox(height: 80,),
           ],
@@ -335,7 +336,7 @@ Widget buildPaymentSummaryPage(BuildContext context) {
                     ),
                   ),
                   onPressed: () {
-                    context.go('/request_forpandit_page');
+                    context.go('/pooja_service_confirm_page');
                   },
                   child: const Text("Pay", style: TextStyle(fontSize: 16)),
                 ),

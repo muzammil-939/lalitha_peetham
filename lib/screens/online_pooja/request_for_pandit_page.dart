@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/online_pooja/e_pooja_header.dart';
+import 'package:lalitha_peetham/screens/online_pooja/e_pooja_layout.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 import 'package:lalitha_peetham/widgets/menu.dart';
 import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
@@ -31,11 +33,11 @@ class _RequestForPanditPageState extends State<RequestForPanditPage> {
 
   @override
   Widget build(BuildContext context) {
-    return VastupoojaLayout(
+    return EPoojaLayout(
       child: SingleChildScrollView(
         child: Column(
           children: [
-             buildherosection(),
+            // buildherosection(),
             
             buildRequestForPanditPage(),
             SizedBox(height: 80),
@@ -221,7 +223,7 @@ Widget buildRequestForPanditPage() {
                     const SizedBox(height: 30),
                     ElevatedButton(
                       onPressed: () {
-                       context.go('/reschedule_page');
+                       context.go('/payment_summary');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFCDCDCD),

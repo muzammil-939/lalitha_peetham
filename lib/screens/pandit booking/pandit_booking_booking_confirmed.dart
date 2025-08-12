@@ -37,7 +37,7 @@ class _PanditBookingBookingConfirmedState
       child: SingleChildScrollView(
         child: Column(
           children: [
-            buildherosection(),
+            //buildherosection(),
             buildVastuBookingEnquiryFormPage(context),
             SizedBox(height: 80),
           ],
@@ -322,7 +322,7 @@ Widget buildVastuBookingEnquiryFormPage(BuildContext context) {
                             height: buttonHeight,
                             child: ElevatedButton(
                               onPressed: () {
-                                context.go('/pandit_booking_waiting');
+                                context.go('');
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,

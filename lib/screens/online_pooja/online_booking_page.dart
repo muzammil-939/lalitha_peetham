@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/online_pooja/e_pooja_layout.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 import 'package:lalitha_peetham/widgets/menu.dart';
 import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
@@ -37,47 +38,34 @@ class _OnlineBookingPageState extends State<OnlineBookingPage> {
   String? selectedStreaming;
   String? selectedPlatform;
 
-   void _openMenu(BuildContext context) {
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, _) => DropdownGridMenu(),
-        transitionDuration: const Duration(milliseconds: 300),
-        transitionsBuilder:
-            (context, animation, _, child) =>
-                FadeTransition(opacity: animation, child: child),
-        opaque: false,
-      ),
-    );
-  }
-  
+
   @override
   Widget build(BuildContext context) {
-    return VastupoojaLayout(
+    return EPoojaLayout(
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildherosection(),
+          SizedBox(height: 50,),
             buildContentSection(context),
             const SizedBox(height: 30),
             
             buildTwoColumnDropdownRow(context,
               "Pooja Name", selectedPoojaName, ["Satyanarayan", "Lakshmi Pooja"],
               (val) => setState(() => selectedPoojaName = val),
-              "Occasion", selectedOccasion, ["House Warming", "Birthday"],
+              "Occasion", selectedOccasion, ["House Warming", "Birthday","Marriage"],
               (val) => setState(() => selectedOccasion = val),
             ),
             buildTwoColumnDropdownRow(context,
-              "Deity", selectedDeity, ["Lord Vishnu", "Ganesha"],
+              "Deity", selectedDeity, ["Ganesha", "Lakshmi","Shiva", ],
               (val) => setState(() => selectedDeity = val),
-              "Purpose", selectedPurpose, ["Well-being", "Prosperity"],
+              "Purpose", selectedPurpose, ["Health", "Career","Peace"],
               (val) => setState(() => selectedPurpose = val),
             ),
             buildTwoColumnDropdownRow(context,
-              "Language", selectedLanguage, ["Telugu", "Hindi"],
+              "Language", selectedLanguage, ["Telugu", "Hindi","English"],
               (val) => setState(() => selectedLanguage = val),
-              "Ritual Type", selectedRitualType, ["Simple", "Elaborate"],
+              "Ritual Type", selectedRitualType, ["Simple", "Traditional", "Full Vedic",],
               (val) => setState(() => selectedRitualType = val),
             ),
             const SizedBox(height: 20),
@@ -89,7 +77,7 @@ class _OnlineBookingPageState extends State<OnlineBookingPage> {
             const SizedBox(height: 20),
             buildSectionTitle(context,"Add Offerings (Optional)"),
             buildTwoColumnDropdownRow(context,
-              "Items", selectedOfferingItem, ["Fruits", "Flowers"],
+              "Items", selectedOfferingItem, ["Fruits", "Sweets","Samagri","Donation"],
               (val) => setState(() => selectedOfferingItem = val),
               "Live Streaming Options", selectedStreaming, ["Yes", "No"],
               (val) => setState(() => selectedStreaming = val),
@@ -137,7 +125,7 @@ class _OnlineBookingPageState extends State<OnlineBookingPage> {
                 alignment: Alignment.bottomRight,
                 child: ElevatedButton(
                   onPressed: () {
-                    context.go('/pooja_summary');
+                    context.go('/payment_summary');
                   },
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.black,
@@ -147,7 +135,7 @@ class _OnlineBookingPageState extends State<OnlineBookingPage> {
                     ),
                     padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 16),
                   ),
-                  child: const Text("Book Now", style: TextStyle(fontSize: 18)),
+                  child: const Text("Continnue", style: TextStyle(fontSize: 18)),
                 ),
               ),
             ),
@@ -158,123 +146,8 @@ class _OnlineBookingPageState extends State<OnlineBookingPage> {
     );
   }
 
-  // Shared Widgets
-  Widget buildherosection() {
-      final size = MediaQuery.of(context).size;
-    final isMediumScreen = size.width > 800;
-    final isSmallScreen = size.width < 600;
-    final isVerySmallScreen = size.width < 400;
-
-      final isMobile = ResponsiveHelper.isMobile(context);
-    final isTablet = ResponsiveHelper.isTablet(context);
-
-    double getMenuIconSize() {
-      if (isVerySmallScreen) return 24;
-      if (isSmallScreen) return 26;
-      if (isMediumScreen) return 28;
-      return 30;
-    }
-
-    double getMenuFontSize() {
-      if (isVerySmallScreen) return 18;
-      if (isSmallScreen) return 20;
-      if (isMediumScreen) return 22;
-      return 24;
-    }
-
-    double getMenuLetterSpacing() {
-      if (isVerySmallScreen) return 1;
-      if (isSmallScreen) return 1.5;
-      return 2;
-    }
-
-        double getMenuWidth() {
-      if (isVerySmallScreen) return 200;
-      if (isSmallScreen) return 250;
-      return 300;
-    }
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Image.asset(
-          'assets/images/vastupooja1.png',
-          width: double.infinity,
-          height: isMobile ? 300:isTablet ? 400 : 600,
-          fit: BoxFit.cover,
-        ),
-       // Menu button positioned at top
-          Positioned(
-            top: 40,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: GestureDetector(
-                onTap: () => _openMenu(context),
-                child: SizedBox(
-                  width: getMenuWidth(),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.menu,
-                        color: Colors.white,
-                        size: getMenuIconSize(),
-                      ),
-                      SizedBox(width: isVerySmallScreen ? 6 : 8),
-                      Text(
-                        'MENU',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: getMenuFontSize(),
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: getMenuLetterSpacing(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        Positioned(
-          top:isMobile?80: 120,
-          child: Column(
-            children: [
-              
-              Text(
-                "Your Scheduled and Completed\nPoojas",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: ResponsiveFontsize.fontSize(
-                    context,
-                    desktop: 45,
-                    tablet: 30,
-                    mobile: 20
-                  ),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Positioned(
-          bottom: 20,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(0),
-            child: Image.asset(
-              'assets/images/vastupooja16.png',
-             height: isMobile ? 100 : isTablet ? 120 : 180,
-               width: isMobile ? 150 : isTablet ? 180 : 280,
-              fit: BoxFit.cover,
-            ),
-          ),
-        )
-      ],
-    ); 
-       }
-
-Widget buildContentSection(BuildContext context) {
+  
+ Widget buildContentSection(BuildContext context) {
   final isMobile = ResponsiveHelper.isMobile(context);
   final horizontalPadding = isMobile ? 16.0 : 100.0;
   final titleFontSize = isMobile ? 24.0 : 45.0;
@@ -285,50 +158,13 @@ Widget buildContentSection(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "EXPERIENCE DIVINE RITUALS YOUR\nWAY — PERSONALIZED E-POOJAS",
+          "RAHUPOOJA FILL THE DEATILS",
           style: TextStyle(fontSize: titleFontSize, fontWeight: FontWeight.bold),
         ),
-        Text(
-          "WITH FLEXIBLE OPTIONS AND EASY\nONLINE BOOKING",
-          style: TextStyle(fontSize: titleFontSize, fontWeight: FontWeight.bold),
-        ),
+       
         SizedBox(height: isMobile ? 20 : 50),
-        buildTabs(context),
+        
       ],
-    ),
-  );
-}
-
-Widget buildTabs(BuildContext context) {
-  final isMobile = ResponsiveHelper.isMobile(context);
-
-  return Wrap(
-    spacing: isMobile ? 10 : 15,
-    runSpacing: 12,
-    children: [
-      buildButton("Book E-Pooja", isActive: true),
-      buildButton("Browse Poojas"),
-      buildButton("Upcoming Poojas"),
-      buildButton("My Bookings"),
-    ],
-  );
-}
-
-Widget buildButton(String label, {bool isActive = false}) {
-  return Container(
-    width: 220,
-    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-    decoration: BoxDecoration(
-      color: isActive ? Colors.white : Colors.grey.shade300,
-      borderRadius: BorderRadius.circular(6),
-      border: Border.all(color: isActive ? Colors.grey.shade300 : Colors.transparent),
-    ),
-    child: Text(
-      label,
-      style: TextStyle(
-        fontWeight: FontWeight.w500,
-        color: isActive ? Colors.black : Colors.black87,
-      ),
     ),
   );
 }
@@ -381,6 +217,7 @@ Widget buildDropdownField(
           borderRadius: BorderRadius.circular(4),
         ),
         child: DropdownButton<String>(
+          dropdownColor: Color(0XFFE4C74D),
           value: selectedValue,
           isExpanded: true,
           underline: const SizedBox(),

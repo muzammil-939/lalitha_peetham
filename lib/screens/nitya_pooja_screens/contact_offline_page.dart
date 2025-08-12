@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lalitha_peetham/screens/nitya_pooja_screens/nityapooja_layout.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 import 'package:lalitha_peetham/widgets/menu.dart';
 import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
@@ -27,11 +28,11 @@ class _ContactOfflinePageState extends State<ContactOfflinePage> {
   }
   @override
   Widget build(BuildContext context) {
-    return VastupoojaLayout(
+    return NityapoojaLayout(
       child: SingleChildScrollView(
         child: Column(
           children: [
-            buildherosection(),
+           //buildherosection(),
             buildConfirmSection(context) ,
 
           ],

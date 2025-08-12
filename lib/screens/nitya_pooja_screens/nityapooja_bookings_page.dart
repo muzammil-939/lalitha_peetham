@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/nitya_pooja_screens/nityapooja_layout.dart';
+import 'package:lalitha_peetham/screens/nitya_pooja_screens/payment_tab.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 import 'package:lalitha_peetham/widgets/menu.dart';
 import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
@@ -45,11 +47,11 @@ class _NityapoojaBookingsPageState extends State<NityapoojaBookingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return VastupoojaLayout(
+    return NityapoojaLayout(
       child: SingleChildScrollView(
         child: Column(
           children: [
-            buildherosection(),
+            //buildherosection(),
             const ResponsiveTitleSection(),
           ResponsiveTabNavigation(
             selectedTabIndex: selectedTabIndex,
@@ -62,7 +64,7 @@ class _NityapoojaBookingsPageState extends State<NityapoojaBookingsPage> {
             selectedTabIndex: selectedTabIndex,
             buildMyBookingTabs: () => buildMybookingtabs(context),
 
-            buildPaymentTabs:()=> buildpaymenttabs(context),
+            buildPaymentTabs:()=> PaymentTab(),
             buildSupportTabs:()=> buildSupportTabs(context),
           ),
           ],
@@ -251,7 +253,7 @@ Widget buildMybookingtabs(BuildContext context) {
         const SizedBox(height: 10),
         _buildTabToggle(
           context: context,
-          tabs: ["Active", "Expired"],
+          tabs: ["Active", "Inactive"],
           selectedIndex: myBookingsTabIndex,
           onTap: (index) => setState(() => myBookingsTabIndex = index),
         ),
@@ -283,6 +285,37 @@ Widget buildBookingCard(BuildContext context, {required bool isExpired,required 
               ),
         const SizedBox(height: 20),
         if (!isExpired) ...[
+          Align(
+  alignment: Alignment.centerRight,
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.end,
+    children: [
+      const Text(
+        "If you have any personal reason\nstop nithya pooja",
+        style: TextStyle(fontSize: 13),
+        textAlign: TextAlign.right,
+      ),
+      const Text(
+        "Ex : Maila suthakam Click here",
+        style: TextStyle(fontSize: 13),
+        textAlign: TextAlign.right,
+      ),
+      const SizedBox(height: 8),
+      ElevatedButton(
+        onPressed: () => showStopPoojaDatePickerDialog(context),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFFECCE5C),
+        ),
+        child: const Text(
+          "Stop nithya pooja",
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
+    ],
+  ),
+),
+
+      SizedBox(height: 10,),
           const Row(
             children: [
               Text("Total Amount: ₹ 8,999"),
@@ -371,18 +404,9 @@ List<Widget> _buildBookingInfo(BuildContext context, bool isExpired, bool isMobi
           ),
           const SizedBox(height: 16),
           infoColumn,
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-            decoration: BoxDecoration(
-              color: const Color(0xFFECCE5C),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: const Text(
-              "Full Amount: ₹ 8,999",
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.black),
-            ),
-          ),
+         
+ 
+
         ]
       : [
           ClipRRect(
@@ -410,227 +434,50 @@ List<Widget> _buildBookingInfo(BuildContext context, bool isExpired, bool isMobi
         ];
 }
 
-Widget buildpaymenttabs(BuildContext context) {
-  final screenWidth = MediaQuery.of(context).size.width;
-  final isMobile = screenWidth < 600;
-
-  return responsiveContainer(
+void showStopPoojaDatePickerDialog(BuildContext context) {
+  showDialog(
     context: context,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildTabToggle(
-          context: context,
-          tabs: ["Payments", "Payment Status"],
-          selectedIndex: isDetailedPaymentSelected ? 0 : 1,
-          onTap: (index) =>
-              setState(() => isDetailedPaymentSelected = index == 0),
-        ),
-        const SizedBox(height: 20),
-        isDetailedPaymentSelected
-            ? buildPaymentCardDetails(context, isMobile: isMobile)
-            : buildPaymentSuccessStatus(context),
-      ],
-    ),
-  );
-}
-Widget buildPaymentCardDetails(BuildContext context, {required bool isMobile}) {
-  return Container(
-    width: double.infinity,
-    padding: const EdgeInsets.all(20),
-    decoration: const BoxDecoration(color: Colors.white),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        isMobile
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildPaymentImage(),
-                  const SizedBox(height: 12),
-                  buildPaymentTextInfo(),
-                  const SizedBox(height: 12),
-                  buildAmountBadge(),
-                ],
-              )
-            : Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  buildPaymentImage(),
-                  const SizedBox(width: 20),
-                  Expanded(child: buildPaymentTextInfo()),
-                  const SizedBox(width: 20),
-                  buildAmountBadge(),
-                ],
+    builder: (context) {
+      return Dialog(
+        backgroundColor: Colors.transparent,
+        child: Container(
+          width: 350,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: const Color(0xFFF5F3E7),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Select Stop Date',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-        const SizedBox(height: 20),
-
-        // ✅ Invoice Info
-        isMobile ? buildInvoiceColumn() : buildInvoiceRow(),
-
-        const SizedBox(height: 20),
-        const Align(alignment: Alignment.centerLeft, child: Text("Payment Status: Paid")),
-        const SizedBox(height: 10),
-
-        Align(
-          alignment: Alignment.centerRight,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-            decoration: BoxDecoration(
-              color: Color(0xFF71B023),
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: const Text("Confirmed", style: TextStyle(color: Colors.white)),
+              const SizedBox(height: 12),
+              // Replace this with your custom calendar UI
+              CalendarDatePicker(
+                initialDate: DateTime.now(),
+                firstDate: DateTime.now(),
+                lastDate: DateTime.now().add(const Duration(days: 30)),
+                onDateChanged: (selectedDate) {
+                  Navigator.pop(context);
+                  // TODO: Handle the selected stop date (API call or local state update)
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Pooja will be stopped from: ${selectedDate.toLocal()}".split(' ')[0]),
+                  ));
+                },
+              ),
+              const SizedBox(height: 10),
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text("Cancel"),
+              )
+            ],
           ),
         ),
-      ],
-    ),
-  );
-}
-Widget buildPaymentImage() {
-  return Image.asset(
-    'assets/images/durga.jpg',
-    height: 150,
-    width: 150,
-    fit: BoxFit.cover,
-  );
-}
-
-Widget buildPaymentTextInfo() {
-  return const Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text("Temple: Tirumala Balaji Temple"),
-      Text("Performed By: Pandit Ravi Kumar"),
-      Text("Duration: 30 Days"),
-      Text("Start Date: 15-May-2025"),
-      Text("End Date: 13-Jun-2025"),
-      Text("Time: Daily at 6:00 AM"),
-      Text("Purpose: Family Peace & Health"),
-    ],
-  );
-}
-
-Widget buildAmountBadge() {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-    decoration: BoxDecoration(
-      color: Color(0xFFE4B5B5),
-      borderRadius: BorderRadius.circular(4),
-    ),
-    child: const Text("Full Amount: ₹ 8,999", style: TextStyle(color: Colors.black)),
-  );
-}
-
-Widget buildInvoiceColumn() {
-  return const Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text("Total Amount: ₹9,999"),
-      SizedBox(height: 8),
-      Text("Download Invoice (PDF)", style: TextStyle(decoration: TextDecoration.underline)),
-      SizedBox(height: 8),
-      Text("Invoice ID: INV-2025-0610-001"),
-      SizedBox(height: 8),
-      Text("Contact Billing Support", style: TextStyle(decoration: TextDecoration.underline)),
-    ],
-  );
-}
-
-Widget buildInvoiceRow() {
-  return const Column(
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("Total Amount: ₹9,999"),
-          Text("Download Invoice (PDF)", style: TextStyle(decoration: TextDecoration.underline)),
-        ],
-      ),
-      SizedBox(height: 8),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("Invoice ID: INV-2025-0610-001"),
-          Text("Contact Billing Support", style: TextStyle(decoration: TextDecoration.underline)),
-        ],
-      ),
-    ],
-  );
-}
-
-Widget buildPaymentSuccessStatus(BuildContext context) {
-  final screenWidth = MediaQuery.of(context).size.width;
-  final isMobile = screenWidth < 600;
-
-  return Container(
-    padding: const EdgeInsets.all(20),
-    decoration: const BoxDecoration(color: Colors.white),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        isMobile
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.asset(
-                    'assets/images/durga.jpg',
-                    height: 150,
-                    width: 150,
-                    fit: BoxFit.cover,
-                  ),
-                  const SizedBox(height: 12),
-                  const Text("Pooja Type: Lakshmi Nithya Pooja"),
-                  const Text("Duration: 30 Days"),
-                  const Text("Start Date: 20 June 2025"),
-                  const Text("Temple/Deity: Sree Lalitha Peetham, Hyderabad"),
-                  const Text("End date: 10 July 2025"),
-                ],
-              )
-            : Row(
-                children: [
-                  Image.asset(
-                    'assets/images/durga.jpg',
-                    height: 150,
-                    width: 150,
-                    fit: BoxFit.cover,
-                  ),
-                  const SizedBox(width: 20),
-                  const Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Pooja Type: Lakshmi Nithya Pooja"),
-                        Text("Duration: 30 Days"),
-                        Text("Start Date: 20 June 2025"),
-                        Text("Temple/Deity: Sree Lalitha Peetham, Hyderabad"),
-                        Text("End date: 10 July 2025"),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-        const SizedBox(height: 20),
-        const Text("Payment Status: Paid"),
-        const Text("• Payment Mode: UPI (Google Pay)"),
-        const Text("• Transaction ID: TXN4827495182"),
-        const Text("• Amount Paid: 7999"),
-        const Text("• Payment Date: 18 June 2025, 04:35 PM"),
-        const Text("• Status: ✅ Success"),
-        const SizedBox(height: 20),
-        const Text("🙏 Thank you for your booking!"),
-        const Text("Your Nithya Pooja will be performed as per schedule."),
-        const Text("You will receive regular updates via SMS/WhatsApp."),
-        const Text("📞 For any queries, contact: +91-XXXXXXXXXX"),
-        const SizedBox(height: 20),
-        const Text(
-          "Facing Payment Issues? Contact Our Support Team",
-          style: TextStyle(fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(height: 10),
-        const Center(child: ContactButton()),
-      ],
-    ),
+      );
+    },
   );
 }
 
@@ -824,26 +671,6 @@ Widget buildFaqSupportList() {
 }
 
 
-}
-
-class ContactButton extends StatelessWidget {
-  const ContactButton({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // handle contact support
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 12),
-        decoration: BoxDecoration(
-          color: Color(0xFFF7D85F),
-          borderRadius: BorderRadius.circular(40),
-        ),
-        child: const Text("Contact", style: TextStyle(fontSize: 16)),
-      ),
-    );
-  }
 }
 
 

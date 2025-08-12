@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/online_pooja/e_pooja_layout.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 import 'package:lalitha_peetham/widgets/menu.dart';
 import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
@@ -30,11 +31,11 @@ class _ReschedulePageState extends State<ReschedulePage> {
 
   @override
   Widget build(BuildContext context) {
-    return  VastupoojaLayout(
+    return  EPoojaLayout(
       child: SingleChildScrollView(
         child: Column(
           children: [
-             buildherosection(),
+             //buildherosection(),
             
             buildVastuBookingEnquiryFormPage(context),
              SizedBox(height: 80),
@@ -245,7 +246,7 @@ Widget buildVastuBookingEnquiryFormPage(BuildContext context) {
                         height: 45,
                         child: ElevatedButton(
                           onPressed: () {
-                            context.go('/onlinepooja_SupportSection');
+                            context.go('/reschedule_confirm_page');
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,

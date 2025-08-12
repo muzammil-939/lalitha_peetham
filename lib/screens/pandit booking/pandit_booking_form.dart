@@ -35,7 +35,7 @@ class _PanditBookingFormState extends State<PanditBookingForm> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            buildherosection(),
+           // buildherosection(),
             buildVastuBookingEnquiryFormPage(context),
             SizedBox(height: 80),
           ],
@@ -162,28 +162,28 @@ class _PanditBookingFormState extends State<PanditBookingForm> {
   double containerWidth = isMobile ? MediaQuery.of(context).size.width * 0.9 : 800;
   double formFieldWidth = isMobile ? double.infinity : 350;
   double spacing = isMobile ? 12 : 24;
-  double titleFontSize = isMobile ? 20 : 30;
+  double titleFontSize = isMobile ? 20 : 40;
 
   return Stack(
     children: [
-      // 🌄 Full Background Image
-      Positioned.fill(
-        child: Image.asset(
-          'assets/images/vastupooja4.png',
-          fit: BoxFit.cover,
-        ),
-      ),
+      // // 🌄 Full Background Image
+      // Positioned.fill(
+      //   child: Image.asset(
+      //     'assets/images/vastupooja4.png',
+      //     fit: BoxFit.cover,
+      //   ),
+      // ),
 
-      // 🌑 Planet Image
-      Positioned(
-        top: isMobile ? 30 : 100,
-        right: isMobile ? 20 : 40,
-        child: Image.asset(
-          'assets/images/vastupooja11.png',
-          height: isMobile ? 50 : 80,
-          width: isMobile ? 50 : 80,
-        ),
-      ),
+      // // 🌑 Planet Image
+      // Positioned(
+      //   top: isMobile ? 30 : 100,
+      //   right: isMobile ? 20 : 40,
+      //   child: Image.asset(
+      //     'assets/images/vastupooja11.png',
+      //     height: isMobile ? 50 : 80,
+      //     width: isMobile ? 50 : 80,
+      //   ),
+      // ),
 
       // 🌟 Foreground Content
       Center(
@@ -192,7 +192,7 @@ class _PanditBookingFormState extends State<PanditBookingForm> {
             children: [
               SizedBox(height: isMobile ? 30 : 60),
               Text(
-                "Book Your Pandit in Just in Minutes – \nFill the Details Below",
+                "Book Your Pandit in Just in Minutes – Fill the Details\nBelow",
                 style: TextStyle(
                   fontSize: titleFontSize,
                   fontWeight: FontWeight.bold,
@@ -204,7 +204,7 @@ class _PanditBookingFormState extends State<PanditBookingForm> {
               // 🟨 Responsive Form Container
               Container(
                 width: containerWidth,
-                padding: EdgeInsets.all(isMobile ? 16 : 30),
+                padding: EdgeInsets.all(isMobile ? 16 : isTablet ? 20 : 30),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [Color(0xFFE6C85D), Color(0xFFD4B54A)],
@@ -214,127 +214,139 @@ class _PanditBookingFormState extends State<PanditBookingForm> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: spacing),
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    SizedBox(height: spacing),
 
-                    // 👤 Name & 📞 Contact
-                    isMobile
-                        ? Column(
-                            children: [
-                              buildInputField('Full Name'),
-                              SizedBox(height: spacing),
-                              buildInputField('Contact Number'),
-                            ],
-                          )
-                        : Row(
-                            children: [
-                              Expanded(child: buildInputField('Full Name')),
-                              SizedBox(width: 20),
-                              Expanded(child: buildInputField('Contact Number')),
-                            ],
-                          ),
+    // 📅 Date & ⏰ Time
+    isMobile
+        ? Column(
+            children: [
+              buildInputField('Date'),
+              SizedBox(height: spacing),
+              buildInputField('Time'),
+            ],
+          )
+        : Row(
+            children: [
+              Expanded(child: buildInputField('Date')),
+              SizedBox(width: 20),
+              Expanded(child: buildInputField('Time')),
+            ],
+          ),
 
-                    SizedBox(height: spacing),
+    SizedBox(height: spacing),
 
-                    // 📧 Email & 🕉️ Puja Type
-                    isMobile
-                        ? Column(
-                            children: [
-                              buildInputField('Email Address'),
-                              SizedBox(height: spacing),
-                              buildDropdownField('Puja Type'),
-                            ],
-                          )
-                        : Row(
-                            children: [
-                              Expanded(child: buildInputField('Email Address')),
-                              SizedBox(width: 20),
-                              Expanded(child: buildDropdownField('Puja Type')),
-                            ],
-                          ),
+    // 📍 Location & Language
+    isMobile
+        ? Column(
+            children: [
+              buildInputField('Location'),
+              SizedBox(height: spacing),
+              buildInputField('Language'),
+            ],
+          )
+        : Row(
+            children: [
+              Expanded(child: buildInputField('Location')),
+              SizedBox(width: 20),
+              Expanded(child: buildInputField('Language')),
+            ],
+          ),
 
-                    SizedBox(height: spacing),
+    SizedBox(height: spacing),
 
-                    // 📅 Date & ⏰ Time
-                    isMobile
-                        ? Column(
-                            children: [
-                              buildInputField('Date'),
-                              SizedBox(height: spacing),
-                              buildInputField('Time'),
-                            ],
-                          )
-                        : Row(
-                            children: [
-                              Expanded(child: buildInputField('Date')),
-                              SizedBox(width: 20),
-                              Expanded(child: buildInputField('Time')),
-                            ],
-                          ),
+    // 📦 Materials & Contact
+    isMobile
+        ? Column(
+            children: [
+              buildInputField('Do You Need Materials'),
+              SizedBox(height: spacing),
+              buildInputField('Contact Number'),
+            ],
+          )
+        : Row(
+            children: [
+              Expanded(child: buildInputField('Do You Need Materials')),
+              SizedBox(width: 20),
+              Expanded(child: buildInputField('Contact Number')),
+            ],
+          ),
 
-                    SizedBox(height: spacing),
+    SizedBox(height: spacing),
 
-                    // 📍 Location & Language
-                    isMobile
-                        ? Column(
-                            children: [
-                              buildInputField('Location'),
-                              SizedBox(height: spacing),
-                              buildInputField('Language'),
-                            ],
-                          )
-                        : Row(
-                            children: [
-                              Expanded(child: buildInputField('Location')),
-                              SizedBox(width: 20),
-                              Expanded(child: buildInputField('Language')),
-                            ],
-                          ),
+    // 👤 Name & 🕉️ Puja Type
+    isMobile
+        ? Column(
+            children: [
+              buildInputField('Full Name'),
+              SizedBox(height: spacing),
+              buildDropdownField('Puja Type'),
+            ],
+          )
+        : Row(
+            children: [
+              Expanded(child: buildInputField('Full Name')),
+              SizedBox(width: 20),
+              Expanded(child: buildDropdownField('Puja Type')),
+            ],
+          ),
 
-                    SizedBox(height: spacing),
+    SizedBox(height: spacing),
 
-                    // 📦 Materials
-                    buildInputField('Do You Need Materials', width: formFieldWidth),
-                    SizedBox(height: spacing),
+    // 📧 Email & 💰 Amount
+    isMobile
+        ? Column(
+            children: [
+              buildInputField('Email Address'),
+              SizedBox(height: spacing),
+              buildInputField('Amount'),
+            ],
+          )
+        : Row(
+            children: [
+              Expanded(child: buildInputField('Email Address')),
+              SizedBox(width: 20),
+              Expanded(child: buildInputField('Amount')),
+            ],
+          ),
 
-                    // 📝 Notes
-                    buildInputField('Additional Notes', height: 80, isMultiline: true),
-                    SizedBox(height: spacing),
+    SizedBox(height: spacing),
 
-                    // 💰 Amount
-                    buildInputField('Amount', width: formFieldWidth),
-                    SizedBox(height: spacing + 16),
+    // 📝 Additional Notes (Full Width)
+    buildInputField('Additional Notes', height: 80, isMultiline: true),
+    SizedBox(height: spacing + 16),
 
-                    // 🚀 Continue Button
-                    Center(
-                      child: SizedBox(
-                        width: 200,
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            context.go('/pandit_booking_payment');
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            foregroundColor: Colors.black87,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                          ),
-                          child: Text(
-                            'Continue',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: spacing),
-                  ],
-                ),
+    // 🚀 Continue Button
+    Center(
+      child: SizedBox(
+        width: 200,
+        height: 50,
+        child: ElevatedButton(
+          onPressed: () {
+            context.go('/pandit_booking_waiting');
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black87,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
+          ),
+          child: Text(
+            'Send Request',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ),
+    ),
+    SizedBox(height: spacing),
+  ],
+),
+
               ),
             ],
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/nitya_pooja_screens/nityapooja_layout.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 import 'package:lalitha_peetham/widgets/menu.dart';
 import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
@@ -29,11 +30,11 @@ class _NityapoojaConfirmPageState extends State<NityapoojaConfirmPage> {
   
   @override
   Widget build(BuildContext context) {
-    return VastupoojaLayout(
+    return NityapoojaLayout(
       child: SingleChildScrollView(
         child: Column(
           children: [
-            buildherosection(),
+           //buildherosection(),
             buildConfirmSection(context) ,
 
           ],
@@ -308,14 +309,14 @@ Widget buildConfirmSection(BuildContext context) {
                           const SizedBox(width: 20),
                           ElevatedButton(
                             onPressed: () {
-                              context.go('/poojas_page');
+                              context.go('/nityapooja_subscription_form');
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                               padding: EdgeInsets.symmetric(horizontal: 35, vertical: 12),
                             ),
-                            child: const Text("Home", style: TextStyle(color: Colors.black)),
+                            child: const Text("Enter Your Full Details", style: TextStyle(color: Colors.black)),
                           ),
                         ],
                       ),

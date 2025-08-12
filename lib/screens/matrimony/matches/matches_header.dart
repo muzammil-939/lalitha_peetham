@@ -201,7 +201,7 @@ class MatchesHeader extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                _buildNavItem(context, 'HOME', ''),
+                _buildNavItem(context, 'MY LALITHA PEETHAM', '/matri_dashboard'),
                 const SizedBox(width: 20),
                 _buildNavItem(context, 'MATCHES', '/matches'),
                 const SizedBox(width: 20),
@@ -241,7 +241,7 @@ class MatchesHeader extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Flexible(child: _buildNavItem(context, 'MY LALITHA PEETHAM', '')),
+              Flexible(child: _buildNavItem(context, 'MY LALITHA PEETHAM', '/matri_dashboard')),
               SizedBox(width: isTablet ? 15 : 40),
               Flexible(child: _buildNavItem(context, 'MATCHES', '/matches')),
               SizedBox(width: isTablet ? 15 : 40),
@@ -339,7 +339,7 @@ class MatchesHeader extends StatelessWidget {
           child: _buildSubNavItem(context, 'Today Matches', '/tdy_matches'),
         ),
         Expanded(child: _buildSubNavItem(context, 'My Matches', '/my_matches')),
-        Expanded(child: _buildSubNavItem(context, 'Near Me', '')),///Match_nearme
+        Expanded(child: _buildSubNavItem(context, 'Near Me', 'null')),///Match_nearme
       ],
     );
   }
@@ -351,7 +351,7 @@ class MatchesHeader extends StatelessWidget {
         _buildSubNavItem(context, 'New Matches', '/matches'),
         _buildSubNavItem(context, 'Today Matches', '/tdy_matches'),
         _buildSubNavItem(context, 'My Matches', '/my_matches'),
-        _buildSubNavItem(context, 'Near Me', '/Match_nearme'),
+        _buildSubNavItem(context, 'Near Me', 'null'),
       ],
     );
   }

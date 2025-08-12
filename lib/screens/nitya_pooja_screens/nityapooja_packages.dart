@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/screens/nitya_pooja_screens/nityapooja_layout.dart';
 import 'package:lalitha_peetham/screens/online_vastu_property/vastupooja_layout.dart';
 import 'package:lalitha_peetham/widgets/menu.dart';
 import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
@@ -13,38 +14,33 @@ class NityapoojaPackages extends StatefulWidget {
 
 class _NityapoojaPackagesState extends State<NityapoojaPackages> {
 
-    double getResponsiveFontSize(BuildContext context,
-    {required double mobile, required double tablet, required double desktop}) {
-  final width = MediaQuery.of(context).size.width;
-  if (width >= 1200) return desktop;
-  if (width >= 800) return tablet;
-  return mobile;
-}
 
 
- void _openMenu(BuildContext context) {
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, _) => DropdownGridMenu(),
-        transitionDuration: const Duration(milliseconds: 300),
-        transitionsBuilder:
-            (context, animation, _, child) =>
-                FadeTransition(opacity: animation, child: child),
-        opaque: false,
-      ),
-    );
-  }
+
+//  void _openMenu(BuildContext context) {
+//     Navigator.push(
+//       context,
+//       PageRouteBuilder(
+//         pageBuilder: (context, animation, _) => DropdownGridMenu(),
+//         transitionDuration: const Duration(milliseconds: 300),
+//         transitionsBuilder:
+//             (context, animation, _, child) =>
+//                 FadeTransition(opacity: animation, child: child),
+//         opaque: false,
+//       ),
+//     );
+//   }
 
   @override
   Widget build(BuildContext context) {
-    return VastupoojaLayout(
+    return NityapoojaLayout(
       child: SingleChildScrollView(
         child: Column(
           children: [
-            buildherosection(),
+           // buildherosection(),
             buildNityapoojaPackages(context),
             SizedBox(height: 80,)
+
 
           ],
         ),
@@ -52,118 +48,118 @@ class _NityapoojaPackagesState extends State<NityapoojaPackages> {
     );
   }
 
-    Widget buildherosection() {
-      final size = MediaQuery.of(context).size;
-    final isMediumScreen = size.width > 800;
-    final isSmallScreen = size.width < 600;
-    final isVerySmallScreen = size.width < 400;
+  //   Widget buildherosection() {
+  //     final size = MediaQuery.of(context).size;
+  //   final isMediumScreen = size.width > 800;
+  //   final isSmallScreen = size.width < 600;
+  //   final isVerySmallScreen = size.width < 400;
     
 
-    double getMenuIconSize() {
-      if (isVerySmallScreen) return 24;
-      if (isSmallScreen) return 26;
-      if (isMediumScreen) return 28;
-      return 30;
-    }
+  //   double getMenuIconSize() {
+  //     if (isVerySmallScreen) return 24;
+  //     if (isSmallScreen) return 26;
+  //     if (isMediumScreen) return 28;
+  //     return 30;
+  //   }
 
-    double getMenuFontSize() {
-      if (isVerySmallScreen) return 18;
-      if (isSmallScreen) return 20;
-      if (isMediumScreen) return 22;
-      return 24;
-    }
+  //   double getMenuFontSize() {
+  //     if (isVerySmallScreen) return 18;
+  //     if (isSmallScreen) return 20;
+  //     if (isMediumScreen) return 22;
+  //     return 24;
+  //   }
 
-    double getMenuLetterSpacing() {
-      if (isVerySmallScreen) return 1;
-      if (isSmallScreen) return 1.5;
-      return 2;
-    }
+  //   double getMenuLetterSpacing() {
+  //     if (isVerySmallScreen) return 1;
+  //     if (isSmallScreen) return 1.5;
+  //     return 2;
+  //   }
 
-        double getMenuWidth() {
-      if (isVerySmallScreen) return 200;
-      if (isSmallScreen) return 250;
-      return 300;
-    }
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        Image.asset(
-          'assets/images/vastupooja1.png',
-          width: double.infinity,
-          height: 600,
-          fit: BoxFit.cover,
-        ),
-        // Menu button positioned at top
-          Positioned(
-            top: 40,
-            left: 0,
-            right: 0,
-            child: Center(
-              child: GestureDetector(
-                onTap: () => _openMenu(context),
-                child: SizedBox(
-                  width: getMenuWidth(),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.menu,
-                        color: Colors.white,
-                        size: getMenuIconSize(),
-                      ),
-                      SizedBox(width: isVerySmallScreen ? 6 : 8),
-                      Text(
-                        'MENU',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: getMenuFontSize(),
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: getMenuLetterSpacing(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        Positioned(
-          top: 120,
-          child: Column(
-            children: [
+  //       double getMenuWidth() {
+  //     if (isVerySmallScreen) return 200;
+  //     if (isSmallScreen) return 250;
+  //     return 300;
+  //   }
+  //   return Stack(
+  //     alignment: Alignment.center,
+  //     children: [
+  //       Image.asset(
+  //         'assets/images/vastupooja1.png',
+  //         width: double.infinity,
+  //         height: 600,
+  //         fit: BoxFit.cover,
+  //       ),
+  //       // Menu button positioned at top
+  //         Positioned(
+  //           top: 40,
+  //           left: 0,
+  //           right: 0,
+  //           child: Center(
+  //             child: GestureDetector(
+  //               onTap: () => _openMenu(context),
+  //               child: SizedBox(
+  //                 width: getMenuWidth(),
+  //                 child: Row(
+  //                   mainAxisAlignment: MainAxisAlignment.center,
+  //                   children: [
+  //                     Icon(
+  //                       Icons.menu,
+  //                       color: Colors.white,
+  //                       size: getMenuIconSize(),
+  //                     ),
+  //                     SizedBox(width: isVerySmallScreen ? 6 : 8),
+  //                     Text(
+  //                       'MENU',
+  //                       style: TextStyle(
+  //                         color: Colors.white,
+  //                         fontSize: getMenuFontSize(),
+  //                         fontWeight: FontWeight.w600,
+  //                         letterSpacing: getMenuLetterSpacing(),
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       Positioned(
+  //         top: 120,
+  //         child: Column(
+  //           children: [
               
-              Text(
-                "Choose Your Nithya Pooja Package",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: getResponsiveFontSize(
-                      context,
-                      mobile: 20,
-                      tablet: 30,
-                      desktop: 45,
-                    ),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Positioned(
-          bottom: 20,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(0),
-            child: Image.asset(
-             'assets/images/vastupooja16.png',
-              height: 180,
-              width: 280,
-              fit: BoxFit.cover,
-            ),
-          ),
-        )
-      ],
-    );
-  }
+  //             Text(
+  //               "Choose Your Nithya Pooja Package",
+  //               textAlign: TextAlign.center,
+  //               style: TextStyle(
+  //                 color: Colors.white,
+  //                 fontSize: getResponsiveFontSize(
+  //                     context,
+  //                     mobile: 20,
+  //                     tablet: 30,
+  //                     desktop: 45,
+  //                   ),
+  //                 fontWeight: FontWeight.bold,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //       Positioned(
+  //         bottom: 20,
+  //         child: ClipRRect(
+  //           borderRadius: BorderRadius.circular(0),
+  //           child: Image.asset(
+  //            'assets/images/vastupooja16.png',
+  //             height: 180,
+  //             width: 280,
+  //             fit: BoxFit.cover,
+  //           ),
+  //         ),
+  //       )
+  //     ],
+  //   );
+  // }
 
 
 Widget buildNityapoojaPackages(BuildContext context) {
@@ -292,6 +288,21 @@ Widget buildNityapoojaPackages(BuildContext context) {
                           );
                         },
                       ),
+                      SizedBox(height: 50,),
+                       ElevatedButton(
+                                   style: ElevatedButton.styleFrom(
+                                     backgroundColor: Colors.white,
+                                     foregroundColor: Colors.black,
+                                     shape: RoundedRectangleBorder(
+                                       borderRadius: BorderRadius.circular(4),
+                                     ),
+                                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                                   ),
+                                   onPressed: () {
+                                     context.go('/nityapooja_offline_contact_page');
+                                   },
+                                   child: const Text("Contact for Offline Bookings"),
+                                 ),
                     ],
                   ),
                 ),
@@ -358,7 +369,7 @@ Widget buildNityapoojaPackages(BuildContext context) {
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
             ),
             onPressed: () {
-              context.go('/nityapooja_subscription_form');
+              context.go('/nityapooja_payment_page');
             },
             child: const Text("Book now"),
           ),
@@ -423,8 +434,9 @@ Widget buildNityapoojaPackages(BuildContext context) {
                 ),
               ),
               onPressed: () {
-                context.go('/nityapooja_booking_page');
+                context.go('/nityapooja_payment_page');
               },
+              
               child: const Text("Book now"),
             ),
           ),

@@ -38,7 +38,7 @@ class _PanditBookingChatSupportState extends State<PanditBookingChatSupport> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            buildherosection(),
+           // buildherosection(),
 
             buildVastuBookingEnquiryFormPage(context),
             SizedBox(height: 80),
