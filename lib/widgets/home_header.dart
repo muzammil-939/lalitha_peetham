@@ -1,19 +1,18 @@
-import 'dart:ui';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:go_router/go_router.dart';
+import 'package:lalitha_peetham/providers/firebase_phone_auth.dart';
+import 'package:lalitha_peetham/widgets/login.dart';
+import 'package:lalitha_peetham/widgets/reusable_responsive_type_widget.dart';
 
-import 'login.dart';
-import '../providers/firebase_phone_auth.dart';
-
-class HomeHeader extends ConsumerWidget {
+class HomeHeader extends ConsumerStatefulWidget {
   const HomeHeader({super.key});
 
-  bool _isMobile(BuildContext context) {
-    return MediaQuery.of(context).size.width < 768;
-  }
+  @override
+  ConsumerState<HomeHeader> createState() => _HomeHeaderState();
+}
 
+class _HomeHeaderState extends ConsumerState<HomeHeader> {
   void _showLoginDialog(BuildContext context) async {
     final result = await showDialog<bool>(
       context: context,
@@ -34,25 +33,24 @@ class HomeHeader extends ConsumerWidget {
   void _handleLogout(BuildContext context, WidgetRef ref) async {
     final shouldLogout = await showDialog<bool>(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            title: const Text('Confirm Logout'),
-            content: const Text('Are you sure you want to logout?'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: const Text('Cancel'),
-              ),
-              ElevatedButton(
-                onPressed: () => Navigator.of(context).pop(true),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
-                ),
-                child: const Text('Logout'),
-              ),
-            ],
+      builder: (context) => AlertDialog(
+        title: const Text('Confirm Logout'),
+        content: const Text('Are you sure you want to logout?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancel'),
           ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+            ),
+            child: const Text('Logout'),
+          ),
+        ],
+      ),
     );
 
     if (shouldLogout == true) {
@@ -79,479 +77,175 @@ class HomeHeader extends ConsumerWidget {
     }
   }
 
-  Widget _buildLoginSection(BuildContext context, bool isSmallScreen) {
-    if (isSmallScreen) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(
-            'Already Have An Account?',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: isSmallScreen ? 12 : 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 3),
-            child: _buildButton(
-              onPressed: () => _showLoginDialog(context),
-              backgroundColor: const Color(0xFFEFE7BA),
-              foregroundColor: Colors.black,
-              isSmallScreen: isSmallScreen,
-              child: Text(
-                "Log in",
-                style: TextStyle(
-                  fontSize: isSmallScreen ? 14 : 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ),
-        ],
-      );
-    }
-
-    return Row(
-      children: [
-        const Text(
-          'Already Have An Account?',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(width: 16),
-        _buildButton(
-          onPressed: () => _showLoginDialog(context),
-          backgroundColor: const Color(0xFFEFE7BA),
-          foregroundColor: Colors.black,
-          isSmallScreen: isSmallScreen,
-          child: const Text(
-            "Log in",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildLoggedInSection(
-    BuildContext context,
-    WidgetRef ref,
-    User user,
-    bool isSmallScreen,
-  ) {
-    if (isSmallScreen) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                'Welcome back!',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: isSmallScreen ? 12 : 14,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              Text(
-                user.phoneNumber ?? 'User',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: isSmallScreen ? 14 : 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          _buildButton(
-            onPressed: () => _handleLogout(context, ref),
-            backgroundColor: Colors.red.shade600,
-            foregroundColor: Colors.white,
-            isSmallScreen: isSmallScreen,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.logout, size: isSmallScreen ? 16 : 18),
-                SizedBox(width: isSmallScreen ? 4 : 8),
-                Text(
-                  "Logout",
-                  style: TextStyle(fontSize: isSmallScreen ? 12 : 14),
-                ),
-              ],
-            ),
-          ),
-        ],
-      );
-    }
-
-    return Row(
-      children: [
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            const Text(
-              'Welcome back!',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            Text(
-              user.phoneNumber ?? 'User',
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(width: 16),
-        _buildButton(
-          onPressed: () => _handleLogout(context, ref),
-          backgroundColor: Colors.red.shade600,
-          foregroundColor: Colors.white,
-          isSmallScreen: isSmallScreen,
-          child: const Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.logout, size: 18),
-              SizedBox(width: 8),
-              Text("Logout"),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _buildButton({
     required VoidCallback onPressed,
     required Color backgroundColor,
     required Color foregroundColor,
     required Widget child,
-    required bool isSmallScreen,
+    required bool isMobile,
   }) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            offset: const Offset(0, 2),
-            blurRadius: 4,
-          ),
-        ],
-      ),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor,
-          foregroundColor: foregroundColor,
-          padding: EdgeInsets.symmetric(
-            horizontal: isSmallScreen ? 12 : 20,
-            vertical: isSmallScreen ? 12 : 16,
-          ),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          elevation: 0,
+    return ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: backgroundColor,
+        foregroundColor: foregroundColor,
+        padding: EdgeInsets.symmetric(
+          horizontal: isMobile ? 12 : 20,
+          vertical: isMobile ? 8 : 12,
         ),
-        child: child,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
+      child: child,
     );
   }
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(authNotifierProvider);
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isSmallScreen = screenWidth < 600;
-    final isMediumScreen = screenWidth < 900;
+@override
+Widget build(BuildContext context) {
+  bool isMobile = ResponsiveHelper.isMobile(context);
+  bool isTablet = ResponsiveHelper.isTablet(context);
+  bool isDesktop = ResponsiveHelper.isDesktop(context);
 
-    return Container(
-      width: double.infinity,
-      height: isSmallScreen ? 120 : 100,
-      decoration: const BoxDecoration(color: Color(0xFFD4BB26)),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: isSmallScreen ? 12.0 : 24.0),
-        child:
-            isSmallScreen
-                ? Column(
-                  children: [
-                    // Top row with logo and help
-                    Expanded(
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: 60,
-                            height: 48,
-                            child: Image.asset(
-                              'assets/images/Logo.jpg',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          const Spacer(),
-                          TextButton(
-                            onPressed: () {},
-                            style: TextButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 4,
-                              ),
-                              minimumSize: Size.zero,
-                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                PopupMenuButton<String>(
-                                  onSelected: (String value) {
-                                    switch (value) {
-                                      case 'help':
-                                        context.go('null');
-                                        break;
-                                      case 'admin':
-                                        context.go('/admin_panchangam');
-                                        break;
-                                    }
-                                  },
-                                  itemBuilder:
-                                      (BuildContext context) => [
-                                        const PopupMenuItem<String>(
-                                          value: 'help',
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.notifications,
-                                                size: 20,
-                                                color: Colors.black87,
-                                              ),
-                                              SizedBox(width: 8),
-                                              Text('Help'),
-                                            ],
-                                          ),
-                                        ),
-                                        const PopupMenuItem<String>(
-                                          value: 'admin',
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.shopping_bag,
-                                                size: 20,
-                                                color: Colors.black87,
-                                              ),
-                                              SizedBox(width: 8),
-                                              Text('Admin'),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                  child: TextButton(
-                                    onPressed:
-                                        null, // Let PopupMenuButton handle the press
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          'More',
-                                          style: TextStyle(
-                                            color: Colors.black87,
-                                            fontWeight: FontWeight.w500,
-                                            decorationThickness: 1.5,
-                                            fontSize: 16,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        const SizedBox(width: 4),
-                                        Icon(
-                                          Icons.keyboard_arrow_down,
-                                          color: Colors.black87,
-                                          size: 18,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Bottom row with auth section
-                    SizedBox(
-                      height: 60,
-                      child: Row(
-                        children: [
-                          const Spacer(),
-                          authState.when(
-                            data:
-                                (user) =>
-                                    user != null
-                                        ? _buildLoggedInSection(
-                                          context,
-                                          ref,
-                                          user,
-                                          isSmallScreen,
-                                        )
-                                        : _buildLoginSection(
-                                          context,
-                                          isSmallScreen,
-                                        ),
-                            loading:
-                                () => const SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                    strokeWidth: 2,
-                                  ),
-                                ),
-                            error:
-                                (_, __) =>
-                                    _buildLoginSection(context, isSmallScreen),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                )
-                : Row(
-                  children: [
-                    SizedBox(
-                      width: isMediumScreen ? 80 : 100,
-                      height: isMediumScreen ? 64 : 80,
-                      child: Image.asset(
-                        'assets/images/Logo.jpg',
-                        fit: BoxFit.cover,
-                        height: isMediumScreen ? 64 : 80,
-                        width: isMediumScreen ? 64 : 80,
-                      ),
-                    ),
-                    const Spacer(),
-                    authState.when(
-                      data:
-                          (user) =>
-                              user != null
-                                  ? _buildLoggedInSection(
-                                    context,
-                                    ref,
-                                    user,
-                                    isSmallScreen,
-                                  )
-                                  : _buildLoginSection(context, isSmallScreen),
-                      loading:
-                          () => const SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CircularProgressIndicator(
-                              color: Colors.white,
-                              strokeWidth: 2,
-                            ),
-                          ),
-                      error:
-                          (_, __) => _buildLoginSection(context, isSmallScreen),
-                    ),
-                    SizedBox(width: isMediumScreen ? 8 : 16),
-                    TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: isMediumScreen ? 4 : 8,
-                        ),
-                        minimumSize: Size.zero,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          PopupMenuButton<String>(
-                            onSelected: (String value) {
-                              switch (value) {
-                                case 'help':
-                                  context.go('null');
-                                  break;
-                                case 'admin':
-                                  context.go('/admin_panchangam');
-                                  break;
-                              }
-                            },
-                            itemBuilder:
-                                (BuildContext context) => [
-                                  const PopupMenuItem<String>(
-                                    value: 'help',
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.notifications,
-                                          size: 20,
-                                          color: Colors.black87,
-                                        ),
-                                        SizedBox(width: 8),
-                                        Text('Help'),
-                                      ],
-                                    ),
-                                  ),
-                                  const PopupMenuItem<String>(
-                                    value: 'admin',
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.shopping_bag,
-                                          size: 20,
-                                          color: Colors.black87,
-                                        ),
-                                        SizedBox(width: 8),
-                                        Text('Admin'),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                            child: TextButton(
-                              onPressed:
-                                  null, // Let PopupMenuButton handle the press
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'More',
-                                    style: TextStyle(
-                                      color: Colors.black87,
-                                      fontWeight: FontWeight.w500,
-                                      decorationThickness: 1.5,
-                                      fontSize: 16,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Icon(
-                                    Icons.keyboard_arrow_down,
-                                    color: Colors.black87,
-                                    size: 18,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-      ),
+  double headingFontSize = isMobile ? 18 : (isTablet ? 18 : 26);
+  double subHeadingFontSize = isMobile ? 8 : (isTablet ? 9 : 14);
+  double iconSize = isMobile ? 18 : (isTablet ? 20 : 22);
+  double avatarRadius = isMobile ? 14 : (isTablet ? 16 : 18);
+
+  final authState = ref.watch(authNotifierProvider);
+
+  return Container(
+    color: const Color(0xFFD4BB26),
+    padding: EdgeInsets.symmetric(
+      horizontal: isMobile ? 8 : (isTablet ? 12 : 20),
+      vertical: isMobile ? 6 : (isTablet ? 8 : 12),
+    ),
+    child: isMobile
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildHeaderTitle(headingFontSize, subHeadingFontSize, iconSize),
+              const SizedBox(height: 8),
+              _buildRightSection(authState, isMobile, iconSize, avatarRadius),
+            ],
+          )
+        : isTablet
+            ? Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                runSpacing: 8,
+                children: [
+                  _buildHeaderTitle(
+                      headingFontSize, subHeadingFontSize, iconSize),
+                  _buildRightSection(
+                      authState, isMobile, iconSize, avatarRadius),
+                ],
+              )
+            : Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  _buildHeaderTitle(
+                      headingFontSize, subHeadingFontSize, iconSize),
+                  const Spacer(),
+                  _buildRightSection(
+                      authState, isMobile, iconSize, avatarRadius),
+                ],
+              ),
+  );
+}
+
+  Widget _buildHeaderTitle(double headingFontSize, double subHeadingFontSize, double iconSize) {
+    return Row(
+      children: [
+        Icon(Icons.home, color: Colors.black, size: iconSize),
+        const SizedBox(width: 8),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "WELCOME TO SREE LALITHA PEETHAM",
+              style: TextStyle(
+                fontSize: headingFontSize,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                letterSpacing: 1
+              ),
+            ),
+            Text(
+              "SPIRITUAL TRADITIONAL RICHVAL NEEDS MADE SIMPLE",
+              style: TextStyle(fontSize: subHeadingFontSize, color: Colors.black,
+              letterSpacing: 4.5),
+            ),
+          ],
+        ),
+      ],
     );
   }
+
+Widget _buildRightSection(
+    AsyncValue<User?> authState, bool isMobile, double iconSize, double avatarRadius) {
+  return Wrap(
+    alignment: WrapAlignment.end,
+    crossAxisAlignment: WrapCrossAlignment.center,
+    spacing: isMobile ? 6 : 8,
+    runSpacing: 4,
+    children: [
+      _buildWallet(iconSize, isMobile),
+      authState.when(
+        data: (user) => user != null
+            ? _buildButton(
+                onPressed: () => _handleLogout(context, ref),
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+                isMobile: isMobile,
+                child: const Text("Logout"),
+              )
+            : _buildButton(
+                onPressed: () => _showLoginDialog(context),
+                backgroundColor: const Color(0xFFF1E4B0),
+                foregroundColor: Colors.black,
+                isMobile: isMobile,
+                child: const Text("Log in"),
+              ),
+        loading: () => const SizedBox(
+            height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2)),
+        error: (_, __) => const Text("Error"),
+      ),
+      CircleAvatar(radius: avatarRadius, backgroundImage: const AssetImage("assets/images/person.jpg")),
+      Icon(Icons.notifications_none, size: iconSize),
+      PopupMenuButton<String>(
+        onSelected: (value) {},
+        itemBuilder: (_) => [
+          const PopupMenuItem(value: 'help', child: Text("Help")),
+         
+        ],
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text("Help"),
+            Icon(Icons.keyboard_arrow_down, size: iconSize),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+
+Widget _buildWallet(double iconSize, bool isMobile) {
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+    decoration: BoxDecoration(
+      color: const Color(0xFFEFE7BA),
+      border: Border.all(color: Colors.red),
+      borderRadius: BorderRadius.circular(4),
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(Icons.account_balance_wallet_outlined, size: iconSize),
+        const SizedBox(width: 4),
+        Text("₹ 4567.00", style: TextStyle(fontSize: isMobile ? 10 : 14)),
+      ],
+    ),
+  );
+}
+
 }

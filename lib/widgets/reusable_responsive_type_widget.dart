@@ -147,7 +147,20 @@ class ResponsiveHelper {
 
   static double screenHeight(BuildContext context) =>
       MediaQuery.of(context).size.height;
+     static double responsiveFontSize(BuildContext context,
+      {required double mobile, required double tablet, required double desktop}) {
+    if (isMobile(context)) return mobile;
+    if (isTablet(context)) return tablet;
+    return desktop;
+  }
 
+  static double responsiveSpacing(BuildContext context,
+      {required double mobile, required double tablet, required double desktop}) {
+    if (isMobile(context)) return mobile;
+    if (isTablet(context)) return tablet;
+    return desktop;
+      }
+      
    static double getResponsiveSize(
       BuildContext context, double mobile, double tablet, double desktop) {
     if (isMobile(context)) return mobile;

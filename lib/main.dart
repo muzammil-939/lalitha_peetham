@@ -8,6 +8,7 @@ import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_melam_order_
 import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_melam_paynow_page.dart';
 import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_melam_welcome_screens.dart';
 import 'package:lalitha_peetham/screens/SANNAI_MELAM_SCREENS/sannai_service_highlights.dart';
+import 'package:lalitha_peetham/screens/admin/admin_login_with_mail.dart';
 import 'package:lalitha_peetham/screens/admin/panchangam.dart';
 import 'package:lalitha_peetham/screens/astrology_screens/astrologers_info_section.dart';
 import 'package:lalitha_peetham/screens/astrology_screens/astrologers_payment_method.dart';
@@ -97,6 +98,15 @@ import 'package:lalitha_peetham/screens/hall_booking/hall_booking_home.dart';
 import 'package:lalitha_peetham/screens/hall_booking/hall_booking_inquire.dart';
 import 'package:lalitha_peetham/screens/hall_booking/hall_booking_my_bookings.dart';
 import 'package:lalitha_peetham/screens/hall_booking/hall_booking_venues.dart';
+import 'package:lalitha_peetham/screens/home_screens/create_accout_page.dart';
+import 'package:lalitha_peetham/screens/home_screens/forgot_pass_with_mobile.dart';
+import 'package:lalitha_peetham/screens/home_screens/forgot_password_for_mail.dart';
+import 'package:lalitha_peetham/screens/home_screens/login_options_page.dart';
+import 'package:lalitha_peetham/screens/home_screens/login_with_mail.dart';
+import 'package:lalitha_peetham/screens/home_screens/login_with_mobile.dart';
+import 'package:lalitha_peetham/screens/home_screens/otp_verification_with_mobile.dart';
+import 'package:lalitha_peetham/screens/home_screens/otp_verify_with_email.dart';
+import 'package:lalitha_peetham/screens/home_screens/welcome_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/accepted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/deleted_screen.dart';
 import 'package:lalitha_peetham/screens/matrimony/inbox_screens/message_screen.dart';
@@ -281,10 +291,26 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GoRouter router = GoRouter(
-      initialLocation: '/',
+      initialLocation: '/welcome_to_lalithapeetham',
       routes: [
-        GoRoute(path: '/', builder: (context, state) => MainScreen()),
+        GoRoute(path: '/welcome_to_lalithapeetham', builder: (context, state) => WelcomeScreen()),
+        GoRoute(path: '/create_account',
+        builder: (context, state) => CreateAccoutPage(),),
         //GoRoute(path: '*', builder: (context, state) => const NotFoundScreen()),
+          GoRoute(path: '/login_options',builder: (context, state) => LoginOptionsPage(),),
+          GoRoute(path: '/login_with_mail',builder: (context, state) => LoginWithMail(),),
+          GoRoute(path: '/login_with_mobile',builder: (context, state) => LoginWithMobile(),),
+          GoRoute(path: '/',builder: (context, state) => MainScreen(),),
+          GoRoute(path: '/forgot_pass_with_mobile',builder: (context, state) =>ForgotPassWithMobile(),),
+          GoRoute(path: '/forgot_pass_with_email',builder: (context, state) => ForgotPasswordWithEmail(),),
+          GoRoute(path: '/otp_verify_mobile',builder: (context, state) => OtpVerificationWithMobile(),),
+          GoRoute(path: '/otp_verify_mail',builder: (context, state) => OtpVerifyWithEmail(),),
+           //ADMIN PANCHANGAM
+           GoRoute(path: '/admin_login_with_mail',builder: (context, state) => AdminLoginWithMail(),),
+        GoRoute(
+          path: '/admin_panchangam',
+          builder: (context, state) => const AdminPanchangam(),
+        ),
 
         //HALL BOOKING
         GoRoute(
@@ -576,11 +602,7 @@ class MyApp extends StatelessWidget {
           builder: (context, state) => const PhotographyChatSupport(),
         ),
 
-        //ADMIN PANCHANGAM
-        GoRoute(
-          path: '/admin_panchangam',
-          builder: (context, state) => const AdminPanchangam(),
-        ),
+       
 
         GoRoute(
           path: '/matri_dashboard',

@@ -45,6 +45,7 @@ dependencies:
   intl: ^0.20.2
   fl_chart: ^1.0.0
   syncfusion_flutter_datepicker: ^30.2.4
+  font_awesome_flutter: ^10.9.1
 
 
 dev_dependencies:

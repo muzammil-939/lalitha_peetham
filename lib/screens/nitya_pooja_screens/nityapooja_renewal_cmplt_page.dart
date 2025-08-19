@@ -34,7 +34,7 @@ class _NityapoojaRenewalCmpltPageState extends State<NityapoojaRenewalCmpltPage>
       child: SingleChildScrollView(
         child: Column(
           children: [
-            buildherosection(),
+            //buildherosection(),
             buildConfirmSection(context) ,
 
           ],

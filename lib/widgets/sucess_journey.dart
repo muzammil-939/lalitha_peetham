@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Refined SuccessJourneyWidget
 class SuccessJourneyWidget extends StatelessWidget {
   const SuccessJourneyWidget({Key? key}) : super(key: key);
 
@@ -20,148 +19,167 @@ class SuccessJourneyWidget extends StatelessWidget {
       horizontalPadding = 20;
     }
 
-    // Responsive title font size
-    double titleFontSize;
-    if (screenWidth > 1200) {
-      titleFontSize = 40;
-    } else if (screenWidth > 800) {
-      titleFontSize = 32;
-    } else if (screenWidth > 600) {
-      titleFontSize = 28;
-    } else {
-      titleFontSize = 24;
-    }
+    // Card width
+    double cardWidth = screenWidth > 900
+        ? (screenWidth - (horizontalPadding * 2) - 40) / 3
+        : screenWidth > 600
+            ? (screenWidth - (horizontalPadding * 2) - 20) / 2
+            : screenWidth - (horizontalPadding * 2);
 
-    // Responsive subtitle font size
-    double subtitleFontSize;
-    if (screenWidth > 1200) {
-      subtitleFontSize = 60;
-    } else if (screenWidth > 800) {
-      subtitleFontSize = 48;
-    } else if (screenWidth > 600) {
-      subtitleFontSize = 36;
-    } else {
-      subtitleFontSize = 28;
-    }
-
-    // Responsive subtitle padding
-    double subtitlePadding;
-    if (screenWidth > 1200) {
-      subtitlePadding = 300;
-    } else if (screenWidth > 800) {
-      subtitlePadding = 100;
-    } else if (screenWidth > 600) {
-      subtitlePadding = 50;
-    } else {
-      subtitlePadding = 20;
-    }
-
-    // Responsive cross axis count
-    int crossAxisCount;
-    if (screenWidth > 900) {
-      crossAxisCount = 3;
-    } else if (screenWidth > 600) {
-      crossAxisCount = 2;
-    } else {
-      crossAxisCount = 1;
-    }
-
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: horizontalPadding,
-        vertical: 100,
-      ),
-      color: const Color(0xFFF5F5F5),
-      child: Column(
-        children: [
-          // Title Section
-          Column(
-            children: [
-              Text(
-                'JOURNEY OF FAITH AND FULFILLMENT',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: titleFontSize,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.grey[600],
-                  letterSpacing: 1.2,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: subtitlePadding),
-                child: Text(
-                  'share your success journey with # sree lalitha peetham',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: subtitleFontSize,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF2D2D2D),
-                    letterSpacing: 0.5,
-                  ),
-                ),
-              ),
-            ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        // Top heading
+        Text(
+          "Success Stories".toUpperCase(),
+          style: const TextStyle(
+            fontSize: 15,
+            letterSpacing: 3,
+            fontWeight: FontWeight.w500,
+            color: Colors.black87,
           ),
-          const SizedBox(height: 80),
-
-          // Services Grid
-          GridView.count(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: crossAxisCount,
-            crossAxisSpacing: 4,
-            mainAxisSpacing: 6,
-            childAspectRatio: 0.68,
-            children: [
-              _buildServiceCard('assets/images/marriage_card.png', () {}),
-              _buildServiceCard('assets/images/astrology_card.png', () {}),
-              _buildServiceCard(
-                'assets/images/flower_decoration_card.png',
-                () {},
-              ),
-            ],
+        ),
+        const SizedBox(height: 10),
+    
+        // Subheading
+        Text(
+          "SHARE YOUR SUCCESS JOURNEY WITH # SREE LALITHA PEETHAM",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: screenWidth > 800 ? 25 : 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            height: 1.3,
           ),
-          const SizedBox(height: 30),
-        ],
-      ),
+        ),
+        const SizedBox(height: 10),
+    
+        // Small caption
+        const Text(
+          "verified journeys",
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.grey,
+          ),
+        ),
+        const SizedBox(height: 40),
+    
+        // Cards Row
+        Wrap(
+          spacing: 20,
+          runSpacing: 20,
+          alignment: WrapAlignment.center,
+          children: [
+            _buildCard(
+              imgPath: "assets/images/marriage_card.png",
+              title: "Marriage",
+              width: cardWidth,
+            ),
+            _buildCard(
+              imgPath: "assets/images/astrology_card.png",
+              title: "Astrology",
+              width: cardWidth,
+            ),
+            _buildCard(
+              imgPath: "assets/images/flower_decoration_card.png",
+              title: "Flower Decoration",
+              width: cardWidth,
+              showArrow: true,
+            ),
+          ],
+        ),
+    
+        const SizedBox(height: 40),
+    
+        // Page indicator dots
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _dot(Colors.amber),
+            _dot(Colors.grey[400]!),
+            _dot(Colors.grey[800]!),
+          ],
+        ),
+      ],
     );
   }
 
-  Widget _buildServiceCard(String imgpath, VoidCallback onPressed) {
+  Widget _buildCard({
+    required String imgPath,
+    required String title,
+    required double width,
+    bool showArrow = false,
+  }) {
     return Column(
       children: [
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
-            child: Image.asset(imgpath, fit: BoxFit.cover),
+        Container(
+          width: width,
+          height: 450,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            image: DecorationImage(
+              image: AssetImage(imgPath),
+              fit: BoxFit.cover,
+            ),
+          ),
+          alignment: Alignment.bottomLeft,
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  shadows: [
+                    Shadow(blurRadius: 4, color: Colors.black54),
+                  ],
+                ),
+              ),
+              if (showArrow)
+                const Icon(Icons.arrow_forward, color: Colors.white, size: 18),
+            ],
           ),
         ),
-        const SizedBox(height: 30),
+        const SizedBox(height: 20),
+
+        // Read button
         SizedBox(
-          width: 250,
-          height: 60,
+          width: 100,
+          height: 40,
           child: OutlinedButton(
-            onPressed: onPressed,
+            onPressed: () {},
             style: OutlinedButton.styleFrom(
               side: const BorderSide(color: Color(0xFFB8941F), width: 1.5),
-              backgroundColor: Colors.transparent,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(50),
               ),
             ),
             child: const Text(
-              'READ',
+              'Read',
               style: TextStyle(
                 fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF2C2C2C),
-                letterSpacing: 1,
+                fontWeight: FontWeight.w500,
+                color: Colors.black87,
               ),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  Widget _dot(Color color) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 4),
+      width: 12,
+      height: 12,
+      decoration: BoxDecoration(
+        color: color,
+        shape: BoxShape.circle,
+      ),
     );
   }
 }

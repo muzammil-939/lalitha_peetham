@@ -34,7 +34,7 @@ class _ReviwCheckOutPageState extends State<ReviwCheckOutPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildherosection(),
+           // buildherosection(),
             buildConfirmSection(context),
           ],
         ),

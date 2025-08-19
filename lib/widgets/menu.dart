@@ -52,117 +52,71 @@ class _DropdownGridMenuState extends State<DropdownGridMenu>
     _controller.dispose();
     super.dispose();
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.5),
-      body: GestureDetector(
-        onTap: () => Navigator.pop(context),
-        child: SizedBox(
-          width: double.infinity,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 350,
-                child: Stack(
-                  children: [
-                    // Close button area - tap anywhere to close
-                    Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      color: Colors.transparent,
-                    ),
-
-                    // Dropdown menu
-                    Positioned(
-                      top: 80,
-                      left: 20,
-                      right: 20,
-                      child: AnimatedBuilder(
-                        animation: _animation,
-                        builder: (context, child) {
-                          return Transform.scale(
-                            scale: _animation.value,
-                            alignment: Alignment.topCenter,
-                            child: Opacity(
-                              opacity: _animation.value,
-                              child: Material(
-                                elevation: 8,
-                                borderRadius: BorderRadius.circular(12),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(
-                                      0xFFF5E6A8,
-                                    ), // Cream/beige color
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      // Menu items in vertical list
-                                      Container(
-                                        constraints: BoxConstraints(
-                                          maxHeight:
-                                              MediaQuery.of(
-                                                context,
-                                              ).size.height *
-                                              0.6,
-                                        ),
-                                        child: SingleChildScrollView(
-                                          padding: EdgeInsets.all(16),
-                                          child: Column(
-                                            children:
-                                                menuItems.map((item) {
-                                                  return GestureDetector(
-                                                    onTap: () {
-                                                      print('Selected: $item');
-                                                      Navigator.pop(context);
-                                                      _handleMenuItemTap(item);
-                                                    },
-                                                    child: Container(
-                                                      width: double.infinity,
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                            vertical: 16,
-                                                            horizontal: 16,
-                                                          ),
-                                                      margin: EdgeInsets.only(
-                                                        bottom: 8,
-                                                      ),
-                                                      child: Text(
-                                                        item,
-                                                        style: TextStyle(
-                                                          fontSize: 18,
-                                                          color: Colors.black87,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                }).toList(),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Colors.black.withOpacity(0.5),
+    body: GestureDetector(
+      behavior: HitTestBehavior.opaque, // Detect taps anywhere
+      onTap: () => Navigator.pop(context), // Close when background tapped
+      child: Center(
+        child: GestureDetector(
+          onTap: () {}, // Absorb taps inside menu so it doesn't close
+          child: AnimatedBuilder(
+            animation: _animation,
+            builder: (context, child) {
+              return Transform.scale(
+                scale: _animation.value,
+                alignment: Alignment.topCenter,
+                child: Opacity(
+                  opacity: _animation.value,
+                  child: Material(
+                    elevation: 8,
+                    borderRadius: BorderRadius.circular(12),
+                    child: Container(
+                      width: 350,
+                      height: 400,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF5E6A8),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: SingleChildScrollView(
+                        padding: EdgeInsets.all(16),
+                        child: Column(
+                          children: menuItems.map((item) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                                _handleMenuItemTap(item);
+                              },
+                              child: Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.symmetric(vertical: 16),
+                                margin: EdgeInsets.only(bottom: 8),
+                                child: Text(
+                                  item,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black87,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          }).toList(),
+                        ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ],
+              );
+            },
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   void _handleMenuItemTap(String item) {
     // Handle navigation based on menu item

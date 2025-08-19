@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:lalitha_peetham/widgets/blog_section.dart';
+import 'package:lalitha_peetham/widgets/donation_page.dart';
+import 'package:lalitha_peetham/widgets/how_it_works.dart';
+import 'package:lalitha_peetham/widgets/main_menu.dart';
+import 'package:lalitha_peetham/widgets/panchang_screen.dart';
+import 'package:lalitha_peetham/widgets/zodiac_section.dart';
 
 import '../widgets/about_home.dart';
 import '../widgets/appointment_form.dart';
@@ -28,7 +34,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     final authState = ref.watch(authNotifierProvider);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFF5F6F8),
       body: authState.when(
         data: (user) {
           // User data loaded successfully, show the main content
@@ -38,14 +44,27 @@ class _MainScreenState extends ConsumerState<MainScreen> {
               children: [
                 // Header at the top - will show Login/Logout based on auth state
                 HomeHeader(),
+                MainMenu(),
                 HomeHero(),
+                SizedBox(height: 80,),
                 AboutHome(),
-                HomeDailyHoroscope(),
+                SizedBox(height: 80,),
+                HowItWorksSection(),
+                ZodiacSection(),
+                //HomeDailyHoroscope(),
                 HomeOurServices(),
-                HomeFeaturedServ(),
-                HomeServices(),
+                //HomeFeaturedServ(),
+                //HomeServices(),
                 SuccessJourneyWidget(),
+                SizedBox(height: 20,),
+                PanchangScreen(),
+                SizedBox(height: 20,),
+                BlogSection(),
+                SizedBox(height: 20,),
+                DonationPage(),
+                SizedBox(height: 20,),
                 AppointmentBookingWidget(),
+                SizedBox(height: 80,),
                 FooterWidget(),
               ],
             ),
@@ -71,10 +90,12 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                 // Show rest of the page
                 HomeHero(),
                 AboutHome(),
-                HomeDailyHoroscope(),
+                HowItWorksSection(),
+                ZodiacSection(),
+               // HomeDailyHoroscope(),
                 HomeOurServices(),
-                HomeFeaturedServ(),
-                HomeServices(),
+              //  HomeFeaturedServ(),
+                //HomeServices(),
                 SuccessJourneyWidget(),
                 AppointmentBookingWidget(),
                 FooterWidget(),
@@ -91,10 +112,12 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                 HomeHeader(),
                 HomeHero(),
                 AboutHome(),
-                HomeDailyHoroscope(),
+                HowItWorksSection(),
+                ZodiacSection(),
+              //  HomeDailyHoroscope(),
                 HomeOurServices(),
-                HomeFeaturedServ(),
-                HomeServices(),
+               // HomeFeaturedServ(),
+               // HomeServices(),
                 SuccessJourneyWidget(),
                 AppointmentBookingWidget(),
                 FooterWidget(),
